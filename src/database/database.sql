@@ -50,15 +50,16 @@ CREATE TABLE Place (
 
 -- Table: Image
 DROP TABLE IF EXISTS Image;
--- TODO: fazer XOR entre placeID e userID
+
 CREATE TABLE Image (
     imageID        INTEGER PRIMARY KEY,
     image          TEXT    CONSTRAINT nn_image_image NOT NULL,
-    userID         INTEGER CONSTRAINT fk_image_userid REFERENCES User(userID) ON DELETE SET NULL
+    userID         INTEGER CONSTRAINT fk_image_userid REFERENCES User(userID) ON DELETE CASCADE
                                                                               ON UPDATE CASCADE
                            CONSTRAINT unique_image_userid UNIQUE,
-    placeID        INTEGER CONSTRAINT fk_image_placeid REFERENCES Place(placeID) ON DELETE SET NULL
-                                                                                 ON UPDATE CASCADE
+    placeID        INTEGER CONSTRAINT fk_image_placeid REFERENCES Place(placeID) ON DELETE CASCADE
+                                                                                 ON UPDATE CASCADE,
+    CONSTRAINT check_image_idsxor CHECK ((userID IS NULL AND placeID IS NOT NULL) OR (userID IS NOT NULL AND placeID IS NULL))                                                                   
 );
 
 
@@ -94,7 +95,7 @@ CREATE TABLE Reservation (
 
 -- Table: Review
 DROP TABLE IF EXISTS Review;
--- TODO: ver se faz sentido fazer trigger para esta date ser maior que final da reserva
+
 CREATE TABLE Review (
     reviewID        INTEGER PRIMARY KEY,
     comment         TEXT,
@@ -108,7 +109,7 @@ CREATE TABLE Review (
 
 -- Table: Reply
 DROP TABLE IF EXISTS Reply;
--- TODO: trigger da data da reviewID menor ou igual à do reply
+
 CREATE TABLE Reply (
     replyID        INTEGER PRIMARY KEY,
     comment        TEXT CONSTRAINT nn_reply_comment NOT NULL,
@@ -130,20 +131,20 @@ CREATE TRIGGER IF NOT EXISTS AverageRatingInsert
 AFTER INSERT ON Review
 BEGIN
     UPDATE Place
-    SET rating = (SELECT sum(stars)
+    SET rating = (SELECT sum(stars)*1.0
                   FROM Review NATURAL JOIN Reservation
                   WHERE placeID = (SELECT placeID
-                                   FROM Review NATURAL JOIN Reservation
-                                   WHERE reviewID = new.reviewID))
+                                   FROM Reservation
+                                   WHERE reservationID = new.reservationID))
                  /
                  (SELECT count(*)
                   FROM Review NATURAL JOIN Reservation
                   WHERE placeID = (SELECT placeID
-                                   FROM Review NATURAL JOIN Reservation
-                                   WHERE reviewID = new.reviewID))
+                                   FROM Reservation
+                                   WHERE reservationID = new.reservationID))
     WHERE placeID = (SELECT placeID
-                     FROM Review NATURAL JOIN Reservation
-                     WHERE reviewID = new.reviewID);
+                     FROM Reservation
+                     WHERE reservationID = new.reservationID);
 END;
 
 
@@ -151,63 +152,63 @@ CREATE TRIGGER IF NOT EXISTS AverageRatingUpdate
 AFTER UPDATE OF stars ON Review
 BEGIN
     UPDATE Place
-    SET rating = (SELECT sum(stars)
+    SET rating = (SELECT sum(stars)*1.0
                   FROM Review NATURAL JOIN Reservation
                   WHERE placeID = (SELECT placeID
-                                   FROM Review NATURAL JOIN Reservation
-                                   WHERE reviewID = new.reviewID))
+                                   FROM Reservation
+                                   WHERE reservationID = new.reservationID))
                  /
                  (SELECT count(*)
                   FROM Review NATURAL JOIN Reservation
                   WHERE placeID = (SELECT placeID
-                                   FROM Review NATURAL JOIN Reservation
-                                   WHERE reviewID = new.reviewID))
+                                   FROM Reservation
+                                   WHERE reservationID = new.reservationID))
     WHERE placeID = (SELECT placeID
-                     FROM Review NATURAL JOIN Reservation
-                     WHERE reviewID = new.reviewID);
+                     FROM Reservation
+                     WHERE reservationID = new.reservationID);
 END;
 
 
 CREATE TRIGGER IF NOT EXISTS AverageRatingDeleteNormal
 AFTER DELETE ON Review
-WHEN ((SELECT count(*)
+WHEN ((SELECT count(*)*1.0
        FROM Review NATURAL JOIN Reservation
        WHERE placeID = (SELECT placeID
-                        FROM Review NATURAL JOIN Reservation
-                        WHERE reviewID = new.reviewID)) > 0)
+                        FROM Reservation
+                        WHERE reservationID = old.reservationID)) > 0)
 BEGIN
     UPDATE Place
-    SET rating = (SELECT sum(stars)
+    SET rating = (SELECT sum(stars)*1.0
                   FROM Review NATURAL JOIN Reservation
                   WHERE placeID = (SELECT placeID
-                                   FROM Review NATURAL JOIN Reservation
-                                   WHERE reviewID = new.reviewID))
+                                   FROM Reservation
+                                   WHERE reservationID = old.reservationID))
                  /
                  (SELECT count(*)
                   FROM Review NATURAL JOIN Reservation
                   WHERE placeID = (SELECT placeID
-                                   FROM Review NATURAL JOIN Reservation
-                                   WHERE reviewID = new.reviewID))
+                                   FROM Reservation
+                                   WHERE reservationID = old.reservationID))
     WHERE placeID = (SELECT placeID
-                     FROM Review NATURAL JOIN Reservation
-                     WHERE reviewID = new.reviewID);
+                     FROM Reservation
+                     WHERE reservationID = old.reservationID);
 END;
 
 
 -- Additional delete trigger, in order to prevent division by 0
 CREATE TRIGGER IF NOT EXISTS AverageRatingDeleteNoReviews
 AFTER DELETE ON Review
-WHEN ((SELECT count(*)
+WHEN ((SELECT count(*)*1.0
        FROM Review NATURAL JOIN Reservation
        WHERE placeID = (SELECT placeID
-                        FROM Review NATURAL JOIN Reservation
-                        WHERE reviewID = new.reviewID)) = 0)
+                        FROM Reservation
+                        WHERE reservationID = old.reservationID)) = 0)
 BEGIN
     UPDATE Place
     SET rating = 0
     WHERE placeID = (SELECT placeID
-                     FROM Review NATURAL JOIN Reservation
-                     WHERE reviewID = new.reviewID);
+                     FROM Reservation
+                     WHERE reservationID = old.reservationID);
 END;
 
 
@@ -354,6 +355,9 @@ INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES (
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-01-05", "2019-01-08", 158.67, 3, 6);
 
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-04", "2019-11-10", 252, 4, 4);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2018-10-04", "2018-11-10", 1234, 4, 3);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2018-10-03", "2018-11-11", 81231, 4, 1);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2018-10-01", "2018-11-12", 123.11, 4, 2);
 
 -- Review
 INSERT INTO Review (date, stars, reservationID) VALUES ("2019-11-25", 4, 1);
