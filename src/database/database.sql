@@ -131,13 +131,7 @@ CREATE TRIGGER IF NOT EXISTS AverageRatingInsert
 AFTER INSERT ON Review
 BEGIN
     UPDATE Place
-    SET rating = (SELECT sum(stars)*1.0
-                  FROM Review NATURAL JOIN Reservation
-                  WHERE placeID = (SELECT placeID
-                                   FROM Reservation
-                                   WHERE reservationID = new.reservationID))
-                 /
-                 (SELECT count(*)
+    SET rating = (SELECT avg(stars)
                   FROM Review NATURAL JOIN Reservation
                   WHERE placeID = (SELECT placeID
                                    FROM Reservation
@@ -152,13 +146,7 @@ CREATE TRIGGER IF NOT EXISTS AverageRatingUpdate
 AFTER UPDATE OF stars ON Review
 BEGIN
     UPDATE Place
-    SET rating = (SELECT sum(stars)*1.0
-                  FROM Review NATURAL JOIN Reservation
-                  WHERE placeID = (SELECT placeID
-                                   FROM Reservation
-                                   WHERE reservationID = new.reservationID))
-                 /
-                 (SELECT count(*)
+    SET rating = (SELECT avg(stars)
                   FROM Review NATURAL JOIN Reservation
                   WHERE placeID = (SELECT placeID
                                    FROM Reservation
@@ -171,20 +159,14 @@ END;
 
 CREATE TRIGGER IF NOT EXISTS AverageRatingDeleteNormal
 AFTER DELETE ON Review
-WHEN ((SELECT count(*)*1.0
+WHEN ((SELECT count(*)
        FROM Review NATURAL JOIN Reservation
        WHERE placeID = (SELECT placeID
                         FROM Reservation
                         WHERE reservationID = old.reservationID)) > 0)
 BEGIN
     UPDATE Place
-    SET rating = (SELECT sum(stars)*1.0
-                  FROM Review NATURAL JOIN Reservation
-                  WHERE placeID = (SELECT placeID
-                                   FROM Reservation
-                                   WHERE reservationID = old.reservationID))
-                 /
-                 (SELECT count(*)
+    SET rating = (SELECT avg(stars)
                   FROM Review NATURAL JOIN Reservation
                   WHERE placeID = (SELECT placeID
                                    FROM Reservation
@@ -198,7 +180,7 @@ END;
 -- Additional delete trigger, in order to prevent division by 0
 CREATE TRIGGER IF NOT EXISTS AverageRatingDeleteNoReviews
 AFTER DELETE ON Review
-WHEN ((SELECT count(*)*1.0
+WHEN ((SELECT count(*)
        FROM Review NATURAL JOIN Reservation
        WHERE placeID = (SELECT placeID
                         FROM Reservation
@@ -211,20 +193,161 @@ BEGIN
                      WHERE reservationID = old.reservationID);
 END;
 
---Trigger to check collisions on data inserts
+---------------------
+
+-- Triggers that verify if the Reply date is more recent than the Review date (not likely)
+CREATE TRIGGER IF NOT EXISTS VerifyDateReviewReplyInsert
+BEFORE INSERT ON Reply
+WHEN (new.date < (SELECT date
+                  FROM Review
+                  WHERE reviewID = new.reviewID))
+BEGIN
+    SELECT RAISE(ROLLBACK, 'Error in reply insertion - invalid date');
+END;
+
+CREATE TRIGGER IF NOT EXISTS VerifyDateReviewReplyUpdate
+BEFORE UPDATE OF date ON Reply
+WHEN (new.date < (SELECT date
+                  FROM Review
+                  WHERE reviewID = new.reviewID))
+BEGIN
+    SELECT RAISE(ROLLBACK, 'Error in reply update - invalid date');
+END;
+
+CREATE TRIGGER IF NOT EXISTS VerifyDateReviewUpdateReply
+BEFORE UPDATE OF date ON Review
+WHEN (new.date < (SELECT date
+                  FROM Review
+                  WHERE reviewID = new.reviewID))
+BEGIN
+    SELECT RAISE(ROLLBACK, 'Error in review update - invalid date');
+END;
+
+---------------------
+
+-- Triggers to check if a reservation is coincident with an availability
+CREATE TRIGGER IF NOT EXISTS CheckReservationAvailabilityInsert
+BEFORE INSERT ON Reservation
+WHEN (NOT EXISTS (SELECT *
+                  From Availability WHERE ((placeID = new.placeID)
+                  AND ((new.startDate >= startDate) AND (new.startDate < endDate)
+                    AND (new.endDate > startDate) AND (new.endDate <= endDate)))))
+BEGIN
+    SELECT RAISE(rollback,'Error in reservation insert - no availability for dates');
+END;
+
+CREATE TRIGGER IF NOT EXISTS CheckReservationAvailabilityUpdateStart
+BEFORE UPDATE OF startDate ON Reservation
+WHEN (NOT EXISTS (SELECT *
+                  From Availability WHERE ((placeID = new.placeID)
+                  AND ((new.startDate >= startDate) AND (new.startDate < endDate)
+                    AND (new.endDate > startDate) AND (new.endDate <= endDate)))))
+BEGIN
+    SELECT RAISE(rollback,'Error in reservation update - no availability for dates');
+END;
+
+CREATE TRIGGER IF NOT EXISTS CheckReservationAvailabilityUpdateEnd
+BEFORE UPDATE OF endDate ON Reservation
+WHEN (NOT EXISTS (SELECT *
+                  From Availability WHERE ((placeID = new.placeID)
+                  AND ((new.startDate >= startDate) AND (new.startDate < endDate)
+                    AND (new.endDate > startDate) AND (new.endDate <= endDate)))))
+BEGIN
+    SELECT RAISE(rollback,'Error in reservation update - no availability for dates');
+END;
 
 
+CREATE TRIGGER IF NOT EXISTS CheckAvailabilityUpdateStart
+BEFORE UPDATE OF startDate ON Availability
+WHEN (EXISTS (SELECT *
+              From Reservation WHERE ((placeID = new.placeID)
+              AND NOT ((new.startDate <= startDate) AND (new.startDate < endDate)
+              AND (new.endDate > startDate) AND (new.endDate >= endDate)))))
+BEGIN
+    SELECT RAISE(rollback,'Error in availability update - invalid dates for reservations');
+END;
+
+
+CREATE TRIGGER IF NOT EXISTS CheckAvailabilityUpdateStart
+BEFORE UPDATE OF endDate ON Availability
+WHEN (EXISTS (SELECT *
+              From Reservation WHERE ((placeID = new.placeID)
+              AND NOT ((new.startDate <= startDate) AND (new.startDate < endDate)
+              AND (new.endDate > startDate) AND (new.endDate >= endDate)))))
+BEGIN
+    SELECT RAISE(rollback,'Error in availability update - invalid dates for reservations');
+END;
+
+
+---------------------
+
+-- Triggers to check data collisions on Reservation inserts and updates
 CREATE TRIGGER IF NOT EXISTS CheckReservationDataCollisionInsert
 BEFORE INSERT ON Reservation
 WHEN (EXISTS (SELECT *
                 From Reservation
-                WHERE(new.startDate<endDate
-                AND new.endDate >startDate)
-            )
+                WHERE ((placeID = new.placeID) AND
+                (new.startDate < endDate
+                AND new.endDate > startDate))))
 BEGIN
-    SELECT RAISE(rollback,'Data Insertion Collision');
-    
+    SELECT RAISE(rollback,'Error in reservation insert - invalid date');
 END;
+
+CREATE TRIGGER IF NOT EXISTS CheckReservationDataCollisionUpdateStart
+BEFORE UPDATE OF startDate ON Reservation
+WHEN (EXISTS (SELECT *
+                From Reservation
+                WHERE ((placeID = new.placeID) AND
+                (new.startDate < endDate
+                AND new.endDate > startDate))))
+BEGIN
+    SELECT RAISE(rollback,'Error in reservation update - invalid date');
+END;
+
+CREATE TRIGGER IF NOT EXISTS CheckReservationDataCollisionUpdateEnd
+BEFORE UPDATE OF endDate ON Reservation
+WHEN (EXISTS (SELECT *
+                From Reservation
+                WHERE ((placeID = new.placeID) AND
+                (new.startDate < endDate
+                AND new.endDate > startDate))))
+BEGIN
+    SELECT RAISE(rollback,'Error in reservation update - invalid date');
+END;
+
+---------------------
+
+-- Triggers that verify Availability collisions
+CREATE TRIGGER IF NOT EXISTS CheckAvailabilityDataCollisionInsert
+BEFORE INSERT ON Availability
+WHEN (EXISTS (SELECT *
+                From Availability
+                WHERE(new.startDate <= endDate
+                AND new.endDate => startDate)))
+BEGIN
+    SELECT RAISE(rollback,'Error in availability insert - invalid date');
+END;
+
+CREATE TRIGGER IF NOT EXISTS CheckAvailabilityDataCollisionUpdateStart
+BEFORE UPDATE OF startDate ON Availability
+WHEN (EXISTS (SELECT *
+                From Availability
+                WHERE(new.startDate <= endDate
+                AND new.endDate => startDate)))
+BEGIN
+    SELECT RAISE(rollback,'Error in availability update - invalid date');
+END;
+
+CREATE TRIGGER IF NOT EXISTS CheckAvailabilityDataCollisionUpdateEnd
+BEFORE UPDATE OF endDate ON Availability
+WHEN (EXISTS (SELECT *
+                From Availability
+                WHERE(new.startDate <= endDate
+                AND new.endDate => startDate)))
+BEGIN
+    SELECT RAISE(rollback,'Error in availability update - invalid date');
+END;
+
 -----------------------------------------------------------
 -- POVOATE --
 -- Location
