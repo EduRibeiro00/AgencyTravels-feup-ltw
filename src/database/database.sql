@@ -211,7 +211,20 @@ BEGIN
                      WHERE reservationID = old.reservationID);
 END;
 
+--Trigger to check collisions on data inserts
 
+
+CREATE TRIGGER IF NOT EXISTS CheckReservationDataCollisionInsert
+BEFORE INSERT ON Reservation
+WHEN (EXISTS (SELECT *
+                From Reservation
+                WHERE(new.startDate<endDate
+                AND new.endDate >startDate)
+            )
+BEGIN
+    SELECT RAISE(rollback,'Data Insertion Collision');
+    
+END;
 -----------------------------------------------------------
 -- POVOATE --
 -- Location
