@@ -70,26 +70,26 @@
             <ol>
                 <li>
                   <a href="city_places.php">
-                    <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2FFCPorto%2Fphotos%2F-brasil-panam%25C3%25A1-est%25C3%25A1dio-do-drag%25C3%25A3o-23-de-mar%25C3%25A7o-s%25C3%25A1bado-17h-gmt-venda-online-httpbit%2F10157166664394485%2F&psig=AOvVaw1pxbOnSQsnAb9rkuA4NcjB&ust=1573166429504000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKDYyePT1uUCFQAAAAAdAAAAABAN">
+                    <img src="https://scontent.fopo1-1.fna.fbcdn.net/v/t1.0-9/53194190_10157166664404485_2869923037250060288_o.jpg?_nc_cat=107&_nc_oc=AQmd4OhTbJXllyC6ZqEZ8Hu3A4HYM60JhUWTaNCsVDEAzYsjdeR6IEBhSI-JCL8F-F0&_nc_ht=scontent.fopo1-1.fna&oh=72a53586015e23749a6d8e6d07cd3c40&oe=5E5BBA67">
                     <p>Porto</p>
                   </a>
                 </li>
                 <li>
                   <a href="city_places.php">
-                    <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2FFCPorto%2Fphotos%2F-brasil-panam%25C3%25A1-est%25C3%25A1dio-do-drag%25C3%25A3o-23-de-mar%25C3%25A7o-s%25C3%25A1bado-17h-gmt-venda-online-httpbit%2F10157166664394485%2F&psig=AOvVaw1pxbOnSQsnAb9rkuA4NcjB&ust=1573166429504000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKDYyePT1uUCFQAAAAAdAAAAABAN">
-                    <p>Lisboa</p>
+                    <img src="https://scontent.fopo1-1.fna.fbcdn.net/v/t31.0-8/22256773_10159433832965716_4440218232204276718_o.jpg?_nc_cat=110&_nc_oc=AQmWf288jQeZD4fisnfwZLMSZOwRbPV64OTU5MLoRdiuupfqK7LOanp9GDbzDluDGIU&_nc_ht=scontent.fopo1-1.fna&oh=ada0cf440fa0887ee7f48d19247f390b&oe=5E3FA6E3">
+					<p>Lisboa</p>
                   </a>
                 </li>
                 <li>
                   <a href="city_places.php">
-                    <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2FFCPorto%2Fphotos%2F-brasil-panam%25C3%25A1-est%25C3%25A1dio-do-drag%25C3%25A3o-23-de-mar%25C3%25A7o-s%25C3%25A1bado-17h-gmt-venda-online-httpbit%2F10157166664394485%2F&psig=AOvVaw1pxbOnSQsnAb9rkuA4NcjB&ust=1573166429504000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKDYyePT1uUCFQAAAAAdAAAAABAN">
-                    <p>Sesimbra</p>
+                    <img src="https://i0.wp.com/www.vortexmag.net/wp-content/uploads/2018/12/sesimbra5-e1543761363529.jpg?resize=640%2C427&ssl=1">
+					<p>Sesimbra</p>
                   </a>
                 </li>
                 <li>
                   <a href="city_places.php">
-                    <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2FFCPorto%2Fphotos%2F-brasil-panam%25C3%25A1-est%25C3%25A1dio-do-drag%25C3%25A3o-23-de-mar%25C3%25A7o-s%25C3%25A1bado-17h-gmt-venda-online-httpbit%2F10157166664394485%2F&psig=AOvVaw1pxbOnSQsnAb9rkuA4NcjB&ust=1573166429504000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKDYyePT1uUCFQAAAAAdAAAAABAN">
-                    <p>Estarreja</p>
+                    <img src="http://www.terranova.pt/sites/default/files/styles/node-detail/public/field/image/cira_regiao_1.jpg?itok=QHeaM12r">
+					<p>Estarreja</p>
                   </a>
                 </li>
             </ol>
@@ -103,29 +103,29 @@
             <ol>
                 <li>
                   <a href="city_places.php">
-                    <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2FFCPorto%2Fphotos%2F-brasil-panam%25C3%25A1-est%25C3%25A1dio-do-drag%25C3%25A3o-23-de-mar%25C3%25A7o-s%25C3%25A1bado-17h-gmt-venda-online-httpbit%2F10157166664394485%2F&psig=AOvVaw1pxbOnSQsnAb9rkuA4NcjB&ust=1573166429504000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKDYyePT1uUCFQAAAAAdAAAAABAN">
+					<img src="https://scontent.fopo1-1.fna.fbcdn.net/v/t1.0-9/53194190_10157166664404485_2869923037250060288_o.jpg?_nc_cat=107&_nc_oc=AQmd4OhTbJXllyC6ZqEZ8Hu3A4HYM60JhUWTaNCsVDEAzYsjdeR6IEBhSI-JCL8F-F0&_nc_ht=scontent.fopo1-1.fna&oh=72a53586015e23749a6d8e6d07cd3c40&oe=5E5BBA67">
                     <p>Porto</p>
                     <p>245 Reservations</p>
                   </a>
                 </li>
                 <li>
                   <a href="city_places.php">
-                    <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2FFCPorto%2Fphotos%2F-brasil-panam%25C3%25A1-est%25C3%25A1dio-do-drag%25C3%25A3o-23-de-mar%25C3%25A7o-s%25C3%25A1bado-17h-gmt-venda-online-httpbit%2F10157166664394485%2F&psig=AOvVaw1pxbOnSQsnAb9rkuA4NcjB&ust=1573166429504000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKDYyePT1uUCFQAAAAAdAAAAABAN">
-                    <p>Lisboa</p>
+				  	<img src="https://scontent.fopo1-1.fna.fbcdn.net/v/t31.0-8/22256773_10159433832965716_4440218232204276718_o.jpg?_nc_cat=110&_nc_oc=AQmWf288jQeZD4fisnfwZLMSZOwRbPV64OTU5MLoRdiuupfqK7LOanp9GDbzDluDGIU&_nc_ht=scontent.fopo1-1.fna&oh=ada0cf440fa0887ee7f48d19247f390b&oe=5E3FA6E3">
+					<p>Lisboa</p>
                     <p>209 Reservations</p>
                   </a>
                 </li>
                 <li>
                   <a href="city_places.php">
-                    <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2FFCPorto%2Fphotos%2F-brasil-panam%25C3%25A1-est%25C3%25A1dio-do-drag%25C3%25A3o-23-de-mar%25C3%25A7o-s%25C3%25A1bado-17h-gmt-venda-online-httpbit%2F10157166664394485%2F&psig=AOvVaw1pxbOnSQsnAb9rkuA4NcjB&ust=1573166429504000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKDYyePT1uUCFQAAAAAdAAAAABAN">
-                    <p>Sesimbra</p>
+				  	<img src="https://i0.wp.com/www.vortexmag.net/wp-content/uploads/2018/12/sesimbra5-e1543761363529.jpg?resize=640%2C427&ssl=1">
+					<p>Sesimbra</p>
                     <p>133 Reservations</p>
                   </a>
                 </li>
                 <li>
                   <a href="city_places.php">
-                    <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2FFCPorto%2Fphotos%2F-brasil-panam%25C3%25A1-est%25C3%25A1dio-do-drag%25C3%25A3o-23-de-mar%25C3%25A7o-s%25C3%25A1bado-17h-gmt-venda-online-httpbit%2F10157166664394485%2F&psig=AOvVaw1pxbOnSQsnAb9rkuA4NcjB&ust=1573166429504000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKDYyePT1uUCFQAAAAAdAAAAABAN">
-                    <p>Estarreja</p>
+				  	<img src="http://www.terranova.pt/sites/default/files/styles/node-detail/public/field/image/cira_regiao_1.jpg?itok=QHeaM12r">
+					<p>Estarreja</p>
                     <p>82 Reservations</p>
                   </a>
                 </li>
@@ -142,15 +142,15 @@
               <a href="place_info.php">
                 <h4>Casa Robles</h4>
                 <p>35€/noite</p>
-                <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2FFCPorto%2Fphotos%2F-brasil-panam%25C3%25A1-est%25C3%25A1dio-do-drag%25C3%25A3o-23-de-mar%25C3%25A7o-s%25C3%25A1bado-17h-gmt-venda-online-httpbit%2F10157166664394485%2F&psig=AOvVaw1pxbOnSQsnAb9rkuA4NcjB&ust=1573166429504000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKDYyePT1uUCFQAAAAAdAAAAABAN">
-              </a>
+				<img src="https://scontent.fopo1-1.fna.fbcdn.net/v/t1.0-9/18010648_409832186056066_4504861782770486398_n.jpg?_nc_cat=104&_nc_oc=AQn2gvIH6cU1JOTsLn6-qTZfy09NUvfxa6AcLSIXxzOJfXXofsLzIXVfu2tg6pHTj7A&_nc_ht=scontent.fopo1-1.fna&oh=ae7682cfa003482698d804078676a3f4&oe=5E478A31">
+			  </a>
             </article>
             
             <article>
               <a href="place_info.php">
                 <h4>Parlamento Guest House</h4>
                 <p>55€/noite</p>
-                <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2FFCPorto%2Fphotos%2F-brasil-panam%25C3%25A1-est%25C3%25A1dio-do-drag%25C3%25A3o-23-de-mar%25C3%25A7o-s%25C3%25A1bado-17h-gmt-venda-online-httpbit%2F10157166664394485%2F&psig=AOvVaw1pxbOnSQsnAb9rkuA4NcjB&ust=1573166429504000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKDYyePT1uUCFQAAAAAdAAAAABAN">
+				<img src="https://www.parlamento.pt/Parlamento/PublishingImages/Paginas/Imagens-apontamentos/AF00036_2009.jpg">
               </a>
             </article>
 
@@ -158,7 +158,7 @@
               <a href="place_info.php">
                 <h4>Space Bogota: Porta 18</h4>
                 <p>70€/noite</p>
-                <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2FFCPorto%2Fphotos%2F-brasil-panam%25C3%25A1-est%25C3%25A1dio-do-drag%25C3%25A3o-23-de-mar%25C3%25A7o-s%25C3%25A1bado-17h-gmt-venda-online-httpbit%2F10157166664394485%2F&psig=AOvVaw1pxbOnSQsnAb9rkuA4NcjB&ust=1573166429504000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKDYyePT1uUCFQAAAAAdAAAAABAN">
+				<img src="https://ogimg.infoglobo.com.br/in/2820089-2c1-400/FT1086A/652/xA-Praca-de-Bolivar-que-reune-construcoes-historicas-em-BogotaFoto-Andre-Teixeira.jpg.pagespeed.ic.JaKdg6HPqh.jpg">
               </a>
             </article>
 
