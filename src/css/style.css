@@ -15,7 +15,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: var(--default_text_font);
 }
 
-header img, #topdests img, #trending img, footer img {
+nav img, #topdests img, #trending img, footer img {
     border-radius: 40px;
 }
 
@@ -27,7 +27,7 @@ a:hover {
  * ------------ Header ------------
  */
 
-body > header {
+body > nav {
     background-color: var(--main_color);
     color: var(--header_text_color);
     margin: 0;
@@ -70,7 +70,7 @@ input[type="text"] {
     border-radius: 20px;
 }
 
-header img {
+nav img {
     width: 40px;
     height: 40px;
 }
