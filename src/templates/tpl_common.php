@@ -1,27 +1,13 @@
-<?php function draw_header() { ?>
+<?php function draw_head() { ?>
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
     <title>Agency Travels</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   </head>
   <body>
-    <header>
-      <nav id="links">
-        <a href="main_page.php"><img src="https://cdn.worldvectorlogo.com/logos/airbnb-2.svg"></a>
-        <a href="search_page.php">Search</a>
-        <a href="my_houses.php">My Houses</a>
-        <a href="my_reserves.php">My Reservations</a>
-        <div id="account">
-            <a href="profile.php">
-                <img id="profilepic"src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
-                Moussa
-            </a>
-        </div>
-        <a href="action_logout.php">Logout</a>
-      </nav> 
-    </header>
 <?php } ?>
 
 <?php function draw_footer() { ?>
@@ -40,4 +26,24 @@
     </footer>
   </body>
 </html>
+<?php } ?>
+
+<?php function draw_navbar() { ?>
+    <nav id="links">
+		<a href="main_page.php"><img src="https://cdn.worldvectorlogo.com/logos/airbnb-2.svg"></a>
+		<a href="search_page.php">Search</a>
+		<a href="my_houses.php">My Houses</a>
+		<a href="my_reserves.php">My Reservations</a>
+		<div id="account">
+			<a href="profile.php">
+				<img id="profilepic"src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
+				Moussa
+			</a>
+			</div>
+		<a href="action_logout.php">Logout</a>
+	</nav> 
+<?php } ?>
+
+<?php function draw_search_button() { ?>
+    <button class="btn"><i class="fas fa-search"></i> Search Place to Stay</button>
 <?php } ?>
