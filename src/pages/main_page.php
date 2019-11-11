@@ -4,7 +4,7 @@
 
   draw_head();
   draw_navbar();
-  draw_slideshow();
+  //draw_slideshow();
   draw_mainpage_body();
   draw_footer();
 ?>
