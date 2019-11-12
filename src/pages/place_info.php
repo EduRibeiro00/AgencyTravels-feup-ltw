@@ -2,6 +2,7 @@
 <?php
     
     include_once('../templates/tpl_common.php');
+    include_once('../templates/tpl_comment.php');
 	draw_head();
 	draw_navbar();
 ?>
@@ -103,8 +104,12 @@
             <p>Revisions</p>
              <!-- For stars
             <p></p>
-            <?php  ?>
             --> 
+            <?php draw_comment() ?>
+            <?php draw_comment() ?>
+            <?php draw_comment() ?>
+            <?php draw_comment() ?>
+
         </header>
     
         <!--
