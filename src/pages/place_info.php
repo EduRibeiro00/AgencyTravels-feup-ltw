@@ -3,6 +3,7 @@
     
     include_once('../templates/tpl_common.php');
     include_once('../templates/tpl_comment.php');
+    include_once('../templates/tpl_similar_offer.php');
 	draw_head();
 	draw_navbar();
 ?>
@@ -136,8 +137,8 @@
 <article id="Similar_Offers">
 
         <ul>
-            <li class="Similar_Offers_Item"><!--Here we will generate an object of type releated to our current house--></li>
-            <li class="Similar_Offers_Item"><!--Here we will generate an object of type releated to our current house--></li>
+            <li class="Similar_Offers_Item"><?php draw_similar_offer() ?></li>
+            <li class="Similar_Offers_Item"><?php draw_similar_offer() ?></li>
             
         </ul>
 
