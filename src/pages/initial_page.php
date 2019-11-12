@@ -3,9 +3,6 @@
   include_once('../templates/tpl_initial_page.php');
 
   draw_head();
-  draw_navbar();
-  draw_greetings();
-  draw_search_button();
-
+  draw_initial_page();
   draw_footer();
 ?>

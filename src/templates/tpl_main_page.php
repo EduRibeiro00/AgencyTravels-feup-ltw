@@ -52,7 +52,7 @@
 
 
 <?php function draw_mainpage_body() { ?>
-    <section id="mainpagebody">
+    <main>
     
       <?php
         draw_top_destinations();
@@ -60,7 +60,7 @@
         draw_city_places();
       ?>
 
-    </section>
+	</main>
 <?php } ?>
 
 
@@ -163,5 +163,4 @@
         <a href="city_places.php">More</a>   <!-- passar no href o indice da cidade -->
         
         </section>
-    </section>
 <?php } ?>
