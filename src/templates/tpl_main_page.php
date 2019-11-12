@@ -71,25 +71,25 @@
                 <li>
                   <a href="city_places.php">
                     <img src="https://scontent.fopo1-1.fna.fbcdn.net/v/t1.0-9/53194190_10157166664404485_2869923037250060288_o.jpg?_nc_cat=107&_nc_oc=AQmd4OhTbJXllyC6ZqEZ8Hu3A4HYM60JhUWTaNCsVDEAzYsjdeR6IEBhSI-JCL8F-F0&_nc_ht=scontent.fopo1-1.fna&oh=72a53586015e23749a6d8e6d07cd3c40&oe=5E5BBA67">
-                    1. Porto
+                    <span>Porto</span>
                   </a>
                 </li>
                 <li>
                   <a href="city_places.php">
                     <img src="https://scontent.fopo1-1.fna.fbcdn.net/v/t31.0-8/22256773_10159433832965716_4440218232204276718_o.jpg?_nc_cat=110&_nc_oc=AQmWf288jQeZD4fisnfwZLMSZOwRbPV64OTU5MLoRdiuupfqK7LOanp9GDbzDluDGIU&_nc_ht=scontent.fopo1-1.fna&oh=ada0cf440fa0887ee7f48d19247f390b&oe=5E3FA6E3">
-					            2. Lisboa
+					<span>Lisboa</span>
                   </a>
                 </li>
                 <li>
                   <a href="city_places.php">
                     <img src="https://i0.wp.com/www.vortexmag.net/wp-content/uploads/2018/12/sesimbra5-e1543761363529.jpg?resize=640%2C427&ssl=1">
-					            3. Sesimbra
+					<span>Sesimbra</span>
                   </a>
                 </li>
                 <li>
                   <a href="city_places.php">
                     <img src="http://www.terranova.pt/sites/default/files/styles/node-detail/public/field/image/cira_regiao_1.jpg?itok=QHeaM12r">
-					            4. Estarreja
+					<span>Estarreja</span>
                   </a>
                 </li>
             </ol>
@@ -104,25 +104,25 @@
                 <li>
                   <a href="city_places.php">
 					<img src="https://scontent.fopo1-1.fna.fbcdn.net/v/t1.0-9/53194190_10157166664404485_2869923037250060288_o.jpg?_nc_cat=107&_nc_oc=AQmd4OhTbJXllyC6ZqEZ8Hu3A4HYM60JhUWTaNCsVDEAzYsjdeR6IEBhSI-JCL8F-F0&_nc_ht=scontent.fopo1-1.fna&oh=72a53586015e23749a6d8e6d07cd3c40&oe=5E5BBA67">
-                    1. Porto - 245 Reservations
+                    <span>Porto</span> 245 Reservations
                   </a>
                 </li>
                 <li>
                   <a href="city_places.php">
 				  	<img src="https://scontent.fopo1-1.fna.fbcdn.net/v/t31.0-8/22256773_10159433832965716_4440218232204276718_o.jpg?_nc_cat=110&_nc_oc=AQmWf288jQeZD4fisnfwZLMSZOwRbPV64OTU5MLoRdiuupfqK7LOanp9GDbzDluDGIU&_nc_ht=scontent.fopo1-1.fna&oh=ada0cf440fa0887ee7f48d19247f390b&oe=5E3FA6E3">
-				      	  2. Lisboa - 209 Reservations
+				    <span>Lisboa</span> 209 Reservations
                   </a>
                 </li>
                 <li>
                   <a href="city_places.php">
 				  	<img src="https://i0.wp.com/www.vortexmag.net/wp-content/uploads/2018/12/sesimbra5-e1543761363529.jpg?resize=640%2C427&ssl=1">
-					        3. Sesimbra - 133 Reservations
+					<span>Sesimbra</span> 133 Reservations
                   </a>
                 </li>
                 <li>
                   <a href="city_places.php">
 				  	<img src="http://www.terranova.pt/sites/default/files/styles/node-detail/public/field/image/cira_regiao_1.jpg?itok=QHeaM12r">
-				  	      4. Estarreja - 82 Reservations
+				  	<span>Estarreja</span> 82 Reservations
                   </a>
                 </li>
             </ol>

@@ -391,29 +391,43 @@ main a {
     text-align: center;
 }
 
-#topdests ol {
+#topdests ol, #trending ol {
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: auto auto;
     padding-top: 3em;
     list-style-type: none;
-    padding-inline-start: 0;
+	padding-inline-start: 0;
+	counter-reset: li-count;
 }
 
-#trending ol {
+/* #trending ol {
     padding-top: 1.5em;
     list-style-type: none;
     padding-inline-start: 0;
-}
+} */
 
 ol li {
-    padding: .5em;
-    display: flex;
-    align-items: center;
+	padding: 1em;
+	/* TODO: flex tira os numeros antes que seriam da list-style-type. não sei até que ponto faz sentido tirá-los para voltar a pô-los hardcoded */
+	/* Por agora pus a solução do li-count. n é a minha preferida mas serve para já */
+	/* display: flex; */
+	counter-increment: li-count;
 }
 
-ol li a{
-    text-align: center;
+ol li a {
+	display: flex;
+	text-align: left;
+	align-items: center;
+}
+
+ol li span {
+	padding: 0 1em;
+	flex-grow: 1;
+}
+
+ol li span:before {
+	content: counter( li-count) '. ';
 }
 
 #topdests {
@@ -426,7 +440,10 @@ ol li a{
 
 #topdests img, #trending img {
     width: 60px;
-    height: 60px;
+	height: 60px;
+	/* vertical-align: middle; */
+
+	position: relative;
 }
 
 #cityplaces {
