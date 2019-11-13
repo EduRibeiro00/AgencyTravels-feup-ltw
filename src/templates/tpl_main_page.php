@@ -51,13 +51,13 @@
 <?php } ?>
 
 
-<?php function draw_mainpage_body() { ?>
+<?php function draw_mainpage_body($randcity, $randplaces) { ?>
     <main>
     
       <?php
         draw_top_destinations();
         draw_trending();
-        draw_city_places();
+        draw_randlocation_places($randcity, $randplaces);
       ?>
 
 	</main>
@@ -130,37 +130,29 @@
 <?php } ?>
 
 
-<?php function draw_city_places() { ?>
-    <section id="cityplaces">
-          <h3>Lisboa: some places</h3>  <!-- passar no href o indice de cada local -->
+<?php function draw_randlocation_places($randcity, $randplaces) { ?>
+    <section id="randlocationplaces">
+          <h3><?=$randcity['city']?>: some places</h3>  <!-- passar no href o indice de cada local -->
             
         <div id="places_list">
-            <article>
-              <a href="place_info.php">
-                <h4>Casa Robles</h4>
-                <p>35€/noite</p>
-				<img src="https://scontent.fopo1-1.fna.fbcdn.net/v/t1.0-9/18010648_409832186056066_4504861782770486398_n.jpg?_nc_cat=104&_nc_oc=AQn2gvIH6cU1JOTsLn6-qTZfy09NUvfxa6AcLSIXxzOJfXXofsLzIXVfu2tg6pHTj7A&_nc_ht=scontent.fopo1-1.fna&oh=ae7682cfa003482698d804078676a3f4&oe=5E478A31">
-			  </a>
-            </article>
-            
-            <article>
-              <a href="place_info.php">
-                <h4>Parlamento Guest House</h4>
-                <p>55€/noite</p>
-				<img src="https://www.parlamento.pt/Parlamento/PublishingImages/Paginas/Imagens-apontamentos/AF00036_2009.jpg">
-              </a>
-            </article>
 
-            <article>
-              <a href="place_info.php">
-                <h4>Space Bogota: Porta 18</h4>
-                <p>70€/noite</p>
-				<img src="https://ogimg.infoglobo.com.br/in/2820089-2c1-400/FT1086A/652/xA-Praca-de-Bolivar-que-reune-construcoes-historicas-em-BogotaFoto-Andre-Teixeira.jpg.pagespeed.ic.JaKdg6HPqh.jpg">
-              </a>
-            </article>
-        </div>
+            <?php foreach($randplaces as $place) { ?>
+              <article>
+              <a href="place_info.php?place_id=<?=$place['placeID']?>">
+                <div class="place_info">
+                  <h4><?=$place['title']?></h4>
+                  <p>35€/noite</p>
+                </div>
+				        <img src="https://scontent.fopo1-1.fna.fbcdn.net/v/t1.0-9/18010648_409832186056066_4504861782770486398_n.jpg?_nc_cat=104&_nc_oc=AQn2gvIH6cU1JOTsLn6-qTZfy09NUvfxa6AcLSIXxzOJfXXofsLzIXVfu2tg6pHTj7A&_nc_ht=scontent.fopo1-1.fna&oh=ae7682cfa003482698d804078676a3f4&oe=5E478A31">
+			        </a>
+            </article>  
+            <?php } ?>
             
-        <a href="city_places.php">More</a>   <!-- passar no href o indice da cidade -->
+        </div>
         
+        <div id="more"> 
+          <a id="more_button" href="city_places.php?location_id=<?=$randcity['locationID']?>">More</a>   <!-- passar no href o nome da cidade/pais -->
+        </div>
+
         </section>
 <?php } ?>

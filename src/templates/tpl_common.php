@@ -35,7 +35,7 @@
 <?php function draw_navbar() { ?>
     <nav id="navbar">
 		<a id="mainpagelink" href="main_page.php">
-			<div class="circular-cropper">
+			<div class="circular-cropper" id="logo-cropper">
 				<img id="logo" src="http://www.berkanacompany.com/wp-content/uploads/2014/05/logo-placeholder-300x200.jpg">
 			</div>
 		</a>
@@ -45,7 +45,7 @@
         <a id="housespagelink" href="my_houses.php">My Houses</a>
 		<a id="reservspagelink" href="my_reserves.php">My Reservations</a>
 		<a id="profilepagelink" href="profile.php">
-			<div class="circular-cropper">	
+			<div class="circular-cropper" id="profile-cropper">	
 				<img id="profilepic" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">	
 			</div>Moussa
 		</a>
