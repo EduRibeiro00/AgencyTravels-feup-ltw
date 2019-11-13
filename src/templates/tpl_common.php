@@ -1,4 +1,4 @@
-<?php function draw_head() { ?>
+<?php function draw_head($class = null) { ?>
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   </head>
-  <body>
+  <body <?=$class == null? '' : "class=$class" ?> > 
 <?php } ?>
 
 <?php function draw_footer() { ?>
@@ -32,8 +32,8 @@
 </html>
 <?php } ?>
 
-<?php function draw_navbar() { ?>
-    <nav id="navbar">
+<?php function draw_navbar($class = null) { ?>
+    <nav id="navbar" <?=$class == null? '' : "class=$class" ?>>
 		<a id="mainpagelink" href="main_page.php">
 			<div class="circular-cropper">
 				<img id="logo" src="http://www.berkanacompany.com/wp-content/uploads/2014/05/logo-placeholder-300x200.jpg">
