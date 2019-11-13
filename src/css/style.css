@@ -533,3 +533,40 @@ body > footer {
 footer a {
     color: black;
 }
+
+/**
+*---------------------place_info.php-----
+*/
+
+.Place_Slide_Show_Container{
+
+    display: flex;
+    flex-direction: row;
+    /*For large screens*/
+    max-width: 1000px;
+    padding-top: 3 em;
+
+}
+.Place_Slide_Show_Container a{
+    position: fixed;
+    align-items: stretch;
+}
+
+.Place_Left_Slider_Img{
+    order: 1;
+    flex-grow: 3;
+    align-self: center;
+    
+}
+
+.Place_Right_Slider_Img{
+    order: 3;
+    align-self: center;
+}
+
+.Pop_UP_Fast_Reservation
+
+
+
+
+
