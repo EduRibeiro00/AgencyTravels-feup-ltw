@@ -523,6 +523,24 @@ BEGIN
     SELECT RAISE(rollback,'Error in availability update - invalid date');
 END;
 
+---------------------
+
+-- View for the top destinations of all time
+CREATE VIEW IF NOT EXISTS TopDestinations
+AS SELECT locationID, country, city, count(reservationID) as numReservations
+   FROM Location NATURAL JOIN Place NATURAL JOIN Reservation
+   GROUP BY locationID
+   ORDER BY numReservations DESC;
+
+
+-- View for the current trending destinations (top destinations of the last month)
+CREATE VIEW IF NOT EXISTS TrendingDestinations
+AS SELECT locationID, country, city, count(reservationID) as numReservations
+   FROM Location NATURAL JOIN Place NATURAL JOIN Reservation
+   WHERE startDate >= datetime('now', 'start of month')
+   GROUP BY locationID
+   ORDER BY numReservations DESC;
+
 
 COMMIT TRANSACTION;
 PRAGMA foreign_keys = on;
