@@ -1,13 +1,14 @@
 <?php function draw_head($class = null) { ?>
 <!DOCTYPE html>
 <html lang="en-US">
-  <head>
-    <title>Agency Travels</title>
-    <meta charset="UTF-8">
-	<link rel="stylesheet" href="../css/style.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-  </head>
-  <body <?=$class == null? '' : "class=$class" ?> > 
+	<head>
+		<title>Agency Travels</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Parisienne|Roboto&display=swap" rel="stylesheet"> 
+	</head>
+	<body <?=$class == null? '' : "class=$class" ?> > 
 <?php } ?>
 
 <?php function draw_footer() { ?>
