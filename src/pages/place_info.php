@@ -9,7 +9,7 @@
 ?>
 
 
-    <div class="carousel">
+<div class="carousel">
         <ul class="slides">
             <input type="radio" name="radio-buttons" id="img-1" checked />
             <li class="slide-container">
@@ -59,7 +59,8 @@
                 <label for="img-3" class="carousel-dot" id="img-dot-3"></label>
             </div>
         </ul>
-    </div>
+</div>
+
 
 <div id="Place_Info_Container">
     <!--
@@ -107,6 +108,7 @@
     </aside>
 
     <article id="House_Info">
+        
         <header>Casa de Cima</header>
         
         <ul id="Pictographic_Info">
@@ -178,16 +180,14 @@
 
     <article id="Similar_Offers">
 
-            <ul>
-                <li class="Similar_Offers_Item"><?php draw_similar_offer() ?></li>
-                <li class="Similar_Offers_Item"><?php draw_similar_offer() ?></li>
+        <ul>
+            <li class="Similar_Offers_Item"><?php draw_similar_offer() ?></li>
+            <li class="Similar_Offers_Item"><?php draw_similar_offer() ?></li>
                 
-            </ul>
-
+        </ul>
 
     </article>
 
-</div>
 </div>
 
 

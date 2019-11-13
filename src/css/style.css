@@ -540,33 +540,50 @@ footer a {
 #Place_Info_Container{
     display: grid;
     grid-template-columns: 1fr 0.5fr;
-    grid-template-rows:0.2fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows:0.3fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas: 
                         "slideshow slideshow"
                         "Info Aside"
                         "Map Aside"
                         "Reviews Reviews"
-                        "none2 nn2"
-                        "none3 nn3";                        
+                        "Avaiability Avaiability"
+                        "Similar Similar";                        
 }
 
 #House_Info{
     min-width: 0;
+    min-height:0;
     grid-area:Info;
 }
 
 #Pop_UP_Fast_Reservation{
     min-width: 0;
+    min-height:0;
     grid-area:Aside;
 }
 #Google_Maps_Widget{
     min-width: 0;
+    min-height:0;
     grid-area:Map;
 }
 
 #Reviews_Container{
+    min-width: 0;
+    min-height:0;
     grid-area:Reviews;
     
+}
+#Avaiabilities{
+    min-width: 0;
+    min-height:0;
+    grid-area:Avaiability;
+}
+
+#Similar_Offers{
+
+
+    grid-area:Similar;
+
 }
 
 
