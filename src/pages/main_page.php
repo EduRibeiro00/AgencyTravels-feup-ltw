@@ -22,7 +22,7 @@
 
   draw_head();
   draw_navbar();
-  // draw_slideshow($slideshowcity, $slideshowimgs);
+  draw_slideshow($slideshowcity, $slideshowimgs);
   draw_mainpage_body($topdests, $trendingdests, $randcity, $randplaces);
   draw_footer();
 ?> 

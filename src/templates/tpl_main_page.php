@@ -1,38 +1,40 @@
 <?php function draw_slideshow($slideshowcity, $slideshowimgs) { ?>
     <section id="slideshow">
-        <input checked type=radio name="slider" id="slide1" />
-        <input type=radio name="slider" id="slide2" />
-        <input type=radio name="slider" id="slide3" />
-        <input type=radio name="slider" id="slide4" />
-        <input type=radio name="slider" id="slide5" />
+        <h3><a href="city_places.php?location_id=<?=$slideshowcity['locationID']?>">Places in <?=$slideshowcity['city']?></a></h3>
 
-        <h3><a ref="city_places.php?location_id=<?=$slideshowcity['locationID']?>">Places in <?=$slideshowcity['city']?></a></h3>
+      <div class="carousel">
+        <ul class="slides">
 
-        <section class="slider-wrapper">
-            <section class="inner">
-              <?php foreach($slideshowimgs as $slideshowimg) { ?>
-                <article>
-                  <img src=<?=$slideshowimg['image']?>>
-                </article>
-              <?php } ?>
-            </section>
-        </section>
+        <?php
+          // max number of images in the slideshow is 6
+          for($i = 1; (($i <= count($slideshowimgs)) && ($i <= 6)); $i++) {
+            $next_image = ($i == count($slideshowimgs) || $i == 6) ? 1 : ($i + 1);
+            $prev_image = ($i == 1) ? count($slideshowimgs) : ($i - 1);
+          ?>
 
-        <div class="slider-prev-next-control">
-            <label for=slide1></label>
-            <label for=slide2></label>
-            <label for=slide3></label>
-            <label for=slide4></label>
-            <label for=slide5></label>
-        </div>
+            <input type="radio" name="radio-buttons" id="img-<?=$i?>" checked />
+            <li class="slide-container">
+                <div class="slide-image">
+                    <img src=<?=$slideshowimgs[$i - 1]['image']?>>
+                </div>
+                <div class="carousel-controls">
+                    <label for="img-<?=$prev_image?>" class="prev-slide">
+                        <span>&lsaquo;</span>
+                    </label>
+                    <label for="img-<?=$next_image?>" class="next-slide">
+                      <span>&rsaquo;</span>
+                    </label>
+                </div>
+            </li>
+        <?php } ?>
         
-        <div class="slider-dot-control">
-          <label for=slide1></label>
-          <label for=slide2></label>
-          <label for=slide3></label>
-          <label for=slide4></label>
-          <label for=slide5></label>
+        <div class="carousel-dots">
+          <?php for($i = 1; (($i <= count($slideshowimgs)) && ($i <= 6)); $i++) { ?>
+            <label for="img-<?=$i?>" class="carousel-dot" id="img-dot-<?=$i?>"></label>
+          <?php } ?>
         </div>
+        </ul>
+      </div>
     </section>
 <?php } ?>
 
