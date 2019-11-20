@@ -87,6 +87,7 @@
         
                 <input id="Date_Start" type="date">
                 <input id="Date_End" type="date">
+                <br>
                 <input id="Book_Submit_Button" type="submit">
         
             </form>
@@ -94,9 +95,9 @@
         </section>
 
         <section id="Owner_info">
-                <p>Owner Name:</p>
                 <img id="Owner_Img" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
-                
+                <span>Moussa Marega</span>
+                <br>
                 <form action="#" method="GET">
                     <button id="Button_Send_Email">
                         Send Email
@@ -114,25 +115,43 @@
         <ul id="Pictographic_Info">
             <li>
                 <img class="info_icon" src="https://image.flaticon.com/icons/png/512/2/2144.png">
-                <p>Number of Rooms</p>
+                Number of Rooms
                 <!--PHP TO RETREVIE THE NUMBER OF ROOM-->
             </li>
-            
             <li>
                 <img class="info_icon" src="https://cdn1.vectorstock.com/i/1000x1000/93/40/bed-icon-symbol-simple-design-vector-26279340.jpg">
-                <p>Capacity</p>
+                Capacity
+                    <!--PHP TO RETREVIE THE NUMBER OF ROOM-->
+            </li>
+            <li>
+                <img class="info_icon" src="https://cdn1.vectorstock.com/i/1000x1000/93/40/bed-icon-symbol-simple-design-vector-26279340.jpg">
+                Garage
+                    <!--PHP TO RETREVIE THE NUMBER OF ROOM-->
+            </li>
+            <li>
+                <img class="info_icon" src="https://cdn1.vectorstock.com/i/1000x1000/93/40/bed-icon-symbol-simple-design-vector-26279340.jpg">
+                Bathrooms
                     <!--PHP TO RETREVIE THE NUMBER OF ROOM-->
             </li>
             
+        </ul>
+        
+        <p id="House_Description">  VIVA O SPORTING CLUBE PORTUGAL</p>
 
-        </section>
+
     </article>
 
     <!--//TODO:Implement Google MAPS-->
 
-    <article id="Google_Maps_Widget">
+    <article id="Google_Maps_Widget_Container">
 
         <header>Location</header>
+
+        <section id="Google_Maps_Widget">
+            
+            <img id=Google_Maps_Img src="http://gnomo.fe.up.pt/~up201704618/Screenshot_2019-11-20%20Oporto4all%20-%20Trindade,%20Porto,%20Portugal.png">
+
+        </section>
 
         <footer>
             <p>Address:</p>
