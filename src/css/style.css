@@ -1,6 +1,19 @@
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html {
+	height: 100%;
+	box-sizing: border-box;
+}
+
 body {
 	margin: 0;
 	padding: 0;
+	position: relative;
+	min-height: 100%;
 
     --background_color: #f9f9f9;
     --darker_bg_color: #f5f0f0;
@@ -11,7 +24,13 @@ body {
     --light_text_color: #f3f3f6;
     --border_color: #868686;
 
-    --default_text_font: sans-serif;
+	--default_text_font: sans-serif;
+
+	/* TODO: passar para javascript para n ser hardcoded */
+	--footer_height: 4em;
+	--footer_padding: 1em;
+
+	padding-bottom: calc(var(--footer_height) + 3em);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -29,6 +48,14 @@ a:hover {
 /**
  * ------------ NAVBAR ------------
  */
+
+nav.transparent {
+	background-color: transparent;
+}
+
+nav.transparent input[type="text"] {
+	background-color: transparent;
+}
 
 body > nav {
     background-color: var(--main_color);
@@ -269,7 +296,7 @@ input:checked + .slide-container .nav label { display: block; }
 
 main {
 	display: grid;
-	width: 100;
+	width: 100%;
     grid-template-columns: auto auto;
     grid-template-rows: auto auto;
     grid-template-areas: "topdests trending"
@@ -407,15 +434,63 @@ ol li span:before {
 }
 
 /**
+ * ------------ Initial page ------------
+ */
+
+ body.initial{
+	background-image: url("https://images.pexels.com/photos/1095817/pexels-photo-1095817.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+	background-size: cover;
+	padding-bottom: 0;
+ }
+
+ div.flex-column {
+	color: var(--light_text_color);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+	text-align: center;
+	min-height: calc(100vh - var(--footer_height) - var(--footer_padding));
+	height: calc(100vh - var(--footer_height) - var(--footer_padding)) !important;	 
+}
+
+ div#greetings {
+	width: 100%;
+	background-color: rgba(1.0, 1.0, 1.0, 0.3);
+ }
+
+ div#greetings header h2 {
+	font-family: 'Parisienne', cursive;
+	font-size: 2.4em;
+}
+
+div#greetings header h2 em {
+	text-transform: uppercase;
+	color: #d43e3e;
+}
+
+div#greetings header h1 {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	letter-spacing: 0.1em;
+	font-size: 2.5em;
+	padding-bottom: 0.7em;
+}
+
+/**
  * ------------ Footer ------------
  */
 
 body > footer {
     background-color: var(--footer_color);
-    padding: 1em;
+    padding: var(--footer_padding);
     border-top: 20px solid var(--main_color);
     display: flex;
-    align-items: center;
+	align-items: center;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
 }
 
 #follow {
