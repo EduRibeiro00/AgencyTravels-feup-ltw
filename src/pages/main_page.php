@@ -23,6 +23,10 @@
   draw_head();
   draw_navbar();
   draw_slideshow($slideshowcity, $slideshowimgs);
+  
+  include_once('../templates/tpl_search_form.php');
+  draw_search_form();
+
   draw_mainpage_body($topdests, $trendingdests, $randcity, $randplaces);
   draw_footer();
 ?> 

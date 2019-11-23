@@ -437,6 +437,8 @@ ol li span:before {
  * ------------ Initial page ------------
  */
 
+ /* TODO: mudar para transparente para inves disso por body.initial > header */
+
  body.initial{
 	background-image: url("https://images.pexels.com/photos/1095817/pexels-photo-1095817.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
 	background-size: cover;
