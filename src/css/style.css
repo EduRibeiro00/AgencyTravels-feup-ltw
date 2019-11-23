@@ -1,3 +1,4 @@
+/* TODO: uniformizar botoes */
 *,
 *:before,
 *:after {
@@ -378,9 +379,6 @@ ol li span:before {
 	position: relative;
 }
 
-
-
-
 #randlocationplaces {
     grid-area: randlocationplaces;
     border: 1px solid black;
@@ -422,16 +420,12 @@ ol li span:before {
     margin: 1em auto;
 }
 
-#more_button {
+.more_button {
     background-color: var(--main_color);
     color: var(--light_text_color);
     padding: 0.3em 2em;
     border: 1px solid var(--border_color);
     border-radius: 30px;
-}
-
-#more_button:after {
-    content: " ⬇";
 }
 
 /**
@@ -485,16 +479,12 @@ div#greetings header h1 {
  * ------------ Search Filters ------------
  */
 #filters {
-	display: grid;
-	/* grid-template-columns: auto auto;
-    grid-template-rows: auto auto auto auto; */
+	display: none;
     grid-template-areas: "dates dates"
 						"guest price"
 						"facilities ratings"
 						"submit submit"; 
 	position: absolute;
-	margin-right: 2em;
-	margin-top: 0.7em;	
 	background: var(--darker_bg_color);
 	color: var(--main_color);
 	border: var(--footer_color) 4px solid;
@@ -508,6 +498,17 @@ div#greetings header h1 {
 	flex-direction: column;
 }
 
+#filters > fieldset label  {
+	text-align: right;
+	padding: 0.2em;
+}
+
+#filters > fieldset h4  {
+	margin: 1em;
+	text-align: left;
+}
+
+
 .fas.fa-star {
 	color: var(--yellow_color);
 }
@@ -516,6 +517,7 @@ div#greetings header h1 {
 #filters #dates_field{
 	display: block;
 	grid-area: dates;
+	text-align: center;
 }
 
 #guests_field{
@@ -526,8 +528,13 @@ div#greetings header h1 {
 	grid-area: price;
 }
 
-#rating_field{
+#rating_field {
 	grid-area: ratings;
+}
+
+#filters #rating_field label {
+	text-align: left;
+	padding: 0;
 }
 
 #facilities_field{
@@ -536,6 +543,9 @@ div#greetings header h1 {
 
 #filters input[type="submit"]{
 	grid-area: submit;
+	font-size: 1em;
+	max-width: 8em;
+	margin: 1em auto;
 }
 
 /**
