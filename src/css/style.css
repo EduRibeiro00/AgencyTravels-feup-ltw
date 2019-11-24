@@ -90,10 +90,6 @@ body > nav {
 	width: 100%;
 }
 
-/* .sticky + * {
-	margin-top: 2.5rem;
-} */
-
 #profilepagelink {
     display: flex;
     align-items: center;

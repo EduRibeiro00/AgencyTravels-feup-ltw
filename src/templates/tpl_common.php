@@ -65,11 +65,11 @@ function draw_head($class = null) { ?>
 <?php function draw_star_rating($rating) { ?>
 	<div class="star-rating">
 		<div class="back-stars row">
-			<i class="far fa-star"></i>
-			<i class="far fa-star"></i>
-			<i class="far fa-star"></i>
-			<i class="far fa-star"></i>
-			<i class="far fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
 		
 			<div class="front-stars row" style="width:<?=($rating * 20.0)?>%">
 				<i class="fas fa-star"></i>
