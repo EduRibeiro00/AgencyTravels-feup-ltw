@@ -147,7 +147,7 @@ img#github{
 
 #slideshow h3 {
     color: var(--light_text_color);
-    z-index: 1000;
+    z-index: 100;
     font-size: 1em;
     position: absolute;
     bottom: 70px;
@@ -215,7 +215,7 @@ ul.slides input {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 999;
+    z-index: 99;
     font-size: 100px;
     line-height: 600px;
     color: #fff;
@@ -255,7 +255,7 @@ ul.slides input {
     left: 0;
     right: 0;
     bottom: 20px;
-    z-index: 999;
+    z-index: 99;
     text-align: center;
 }
 
@@ -420,7 +420,7 @@ ol li span:before {
     margin: 1em auto;
 }
 
-.more_button {
+.button {
     background-color: var(--main_color);
     color: var(--light_text_color);
     padding: 0.3em 2em;
@@ -428,11 +428,13 @@ ol li span:before {
     border-radius: 30px;
 }
 
+.button:hover {
+    text-decoration: underline;
+}
+
 /**
  * ------------ Initial page ------------
  */
-
- /* TODO: mudar para transparente para inves disso por body.initial > header */
 
  body.initial{
 	background-image: url("https://images.pexels.com/photos/1095817/pexels-photo-1095817.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
@@ -488,7 +490,7 @@ div#greetings header h1 {
 	background: var(--darker_bg_color);
 	color: var(--main_color);
 	border: var(--footer_color) 4px solid;
-	z-index: 1;
+	z-index: 200;
 
 }
 
