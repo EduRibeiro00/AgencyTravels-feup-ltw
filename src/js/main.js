@@ -63,12 +63,12 @@ function updateMaxPrice() {
 let radios = document.getElementsByName('rating')
 let check;
 for(let x = 0; x < radios.length; x++){
-    radios[x].onclick = function(){
+    radios[x].addEventListener('click', function() {
         if(check != this){
              check = this;
         }else{
             this.checked = false;
             check = null;
-    }
-    };
+    	}
+	});
 }
