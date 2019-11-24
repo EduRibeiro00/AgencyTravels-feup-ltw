@@ -1,4 +1,8 @@
-<?php function draw_head($class = null) { ?>
+<?php 
+include_once('../templates/tpl_search_form.php');
+				
+
+function draw_head($class = null) { ?>
 <!DOCTYPE html>
 <html lang="en-US">
 	<head>
@@ -42,10 +46,8 @@
 			</div>
 		</a>
         <form id="search_form" action="../actions/action_search.php" method="get">
-			<i class="fas fa-search"></i><input type="text" name="search_value" placeholder="Search for places in...">
+			<i class="fas fa-search"></i><input type="text" name="location" placeholder="Search for places in...">
 			<?php 
-				// TODO: ver se assim esta bem ou se ponho aqui o codigo todo
-				include_once('../templates/tpl_search_form.php');
 				draw_search_form();
 			?>
         </form>

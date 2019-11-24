@@ -107,7 +107,7 @@
         </div>
         
         <div id="more"> 
-        	<a class="more_button" href="city_places.php?location_id=<?=$randcity['locationID']?>">More <i class="fas fa-long-arrow-alt-down"></i></a>
+        	<a class="button" href="city_places.php?location_id=<?=$randcity['locationID']?>">More <i class="fas fa-long-arrow-alt-down"></i></a>
         </div>
 
         </section>

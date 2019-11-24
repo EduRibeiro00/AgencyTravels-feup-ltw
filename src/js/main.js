@@ -1,3 +1,5 @@
+'use strict'
+
 //// Seach appearance
 let searchForm = document.getElementById("search_form")
 searchForm.addEventListener("focusin", openFilters)
