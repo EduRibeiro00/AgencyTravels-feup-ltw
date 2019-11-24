@@ -1,6 +1,10 @@
 <!-- TODO: futuramente passar todos os house cards para aqui -->
 <!-- TODO: passar para parametro em vez de estático -->
-<?php function draw_horizontal_card() { ?>
+<?php 
+include_once('../templates/tpl_common.php');
+
+// TODO: depois por outros parametros
+function draw_horizontal_card($rating) { ?>
 	<article class="row card">
 		<!-- TODO: mudar para carroussel -->
 		<a href="#"><img class="hcard-img" src="https://via.placeholder.com/460?text=Should+Be+Carroussel"></a>
@@ -11,7 +15,7 @@
 			<footer class="row">
 				<p>45€/noite</p>
 				<div class="card-rating">
-					<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+					<?php draw_star_rating($rating);?>
 					(229)
 				</div>
 			</footer>

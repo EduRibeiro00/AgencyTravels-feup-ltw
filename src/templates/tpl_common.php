@@ -1,4 +1,8 @@
-<?php function draw_head($class = null) { ?>
+<?php 
+include_once('../templates/tpl_search_form.php');
+				
+
+function draw_head($class = null) { ?>
 <!DOCTYPE html>
 <html lang="en-US">
 	<head>
@@ -7,6 +11,7 @@
 		<link rel="stylesheet" href="../css/style.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Parisienne|Roboto&display=swap" rel="stylesheet"> 
+		<script src="../js/main.js" defer></script>
 	</head>
 	<body <?=$class == null? '' : "class=$class" ?> > 
 <?php } ?>
@@ -40,8 +45,11 @@
 				<img id="logo" src="http://www.berkanacompany.com/wp-content/uploads/2014/05/logo-placeholder-300x200.jpg">
 			</div>
 		</a>
-        <form action="../actions/action_search.php" method="post">
-			<i class="fas fa-search"></i><input type="text" name="search_value" placeholder="Search for places in...">
+        <form id="search_form" action="../actions/action_search.php" method="get">
+			<i class="fas fa-search"></i><input type="text" name="location" placeholder="Search for places in...">
+			<?php 
+				draw_search_form();
+			?>
         </form>
         <a id="housespagelink" href="my_houses.php">My Houses</a>
 		<a id="reservspagelink" href="my_reserves.php">My Reservations</a>
@@ -52,4 +60,24 @@
 		</a>
 		<a id="logoutlink" href="action_logout.php">Logout</a>
       </nav>
+<?php } ?>
+
+<?php function draw_star_rating($rating) { ?>
+	<div class="star-rating">
+		<div class="back-stars row">
+			<i class="far fa-star"></i>
+			<i class="far fa-star"></i>
+			<i class="far fa-star"></i>
+			<i class="far fa-star"></i>
+			<i class="far fa-star"></i>
+		
+			<div class="front-stars row" style="width:<?=($rating * 20.0)?>%">
+				<i class="fas fa-star"></i>
+				<i class="fas fa-star"></i>
+				<i class="fas fa-star"></i>
+				<i class="fas fa-star"></i>
+				<i class="fas fa-star"></i>
+			</div>
+		</div>
+	</div>
 <?php } ?>

@@ -1,3 +1,4 @@
+/* TODO: uniformizar botoes */
 *,
 *:before,
 *:after {
@@ -19,7 +20,8 @@ body {
     --darker_bg_color: #f5f0f0;
     --main_color: #e47c78;
     --footer_color: #a59b9b;
-    --transp_main_color: rgba(228, 124, 120, 0.7); /* rgba format so it doesn't make the text transparent, only the background */
+	--transp_main_color: rgba(228, 124, 120, 0.7); /* rgba format so it doesn't make the text transparent, only the background */
+	--yellow_color: #f1ee2d;
 
     --light_text_color: #f3f3f6;
     --border_color: #868686;
@@ -76,10 +78,21 @@ body > nav {
 }
 
 #navbar {
+	z-index: 250;
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
+
+.sticky {
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+
+/* .sticky + * {
+	margin-top: 2.5rem;
+} */
 
 #profilepagelink {
     display: flex;
@@ -155,7 +168,7 @@ img#github{
 
 #slideshow h3 {
     color: var(--light_text_color);
-    z-index: 1000;
+    z-index: 100;
     font-size: 1em;
     position: absolute;
     bottom: 70px;
@@ -223,7 +236,7 @@ ul.slides input {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 999;
+    z-index: 99;
     font-size: 100px;
     line-height: 600px;
     color: #fff;
@@ -263,7 +276,7 @@ ul.slides input {
     left: 0;
     right: 0;
     bottom: 20px;
-    z-index: 999;
+    z-index: 99;
     text-align: center;
 }
 
@@ -387,9 +400,6 @@ ol li span:before {
 	position: relative;
 }
 
-
-
-
 #randlocationplaces {
     grid-area: randlocationplaces;
     border: 1px solid black;
@@ -431,7 +441,7 @@ ol li span:before {
     margin: 1em auto;
 }
 
-#more_button {
+.button {
     background-color: var(--main_color);
     color: var(--light_text_color);
     padding: 0.3em 2em;
@@ -439,8 +449,8 @@ ol li span:before {
     border-radius: 30px;
 }
 
-#more_button:after {
-    content: " ⬇";
+.button:hover {
+    text-decoration: underline;
 }
 
 /**
@@ -493,11 +503,9 @@ div#greetings header h1 {
  */
 
 .card {
-	margin: 1em 2em;
 	border-bottom: 1px var(--border_color) solid;
 	padding: 1em 0;
-	/* TODO: depois vai sair por causa da grid */
-	max-width: 50em;
+	color: var(--main_color);	
 }
 
 .card:hover {
@@ -518,7 +526,6 @@ div#greetings header h1 {
 }
 
 .card .info h4{
-	color: var(--main_color);	
 	margin: 0.3em 0;
 }
 
@@ -541,6 +548,95 @@ div#greetings header h1 {
 	margin: 1em;
 }
 
+/*
+ * ------------ Search Results ------------
+ */
+
+section#house_results {
+	margin: 2em;
+	/* TODO: depois com a outra coluna n será preciso */
+	max-width: 55em;
+}
+
+section#map {
+	width: auto;
+	position: fixed;
+	left: 55em;
+}
+
+
+/*
+ * ------------ Search Filters ------------
+ */
+#filters {
+	display: none;
+    grid-template-areas: "dates dates"
+						"guest price"
+						"facilities ratings"
+						"submit submit"; 
+	position: absolute;
+	background: var(--darker_bg_color);
+	color: var(--main_color);
+	border: var(--footer_color) 4px solid;
+	z-index: 200;
+
+}
+
+#filters > fieldset {
+	border: none;
+	display: flex;
+	flex-direction: column;
+}
+
+#filters > fieldset label  {
+	text-align: right;
+	padding: 0.2em;
+}
+
+#filters > fieldset h4  {
+	margin: 1em;
+	text-align: left;
+}
+
+
+.fas.fa-star {
+	color: var(--yellow_color);
+}
+
+/* TODO: por na mesma coluna check in check out que os de baixo */
+#filters #dates_field{
+	display: block;
+	grid-area: dates;
+	text-align: center;
+}
+
+#guests_field{
+	grid-area: guest;
+}
+
+#price_field{
+	grid-area: price;
+}
+
+#rating_field {
+	grid-area: ratings;
+}
+
+#filters #rating_field label {
+	text-align: left;
+	padding: 0;
+}
+
+#facilities_field{
+	grid-area: facilities;
+}
+
+#filters input[type="submit"]{
+	grid-area: submit;
+	font-size: 1em;
+	max-width: 8em;
+	margin: 1em auto;
+}
 
 /**
  * ------------ Footer ------------
@@ -574,4 +670,20 @@ body > footer {
 
 footer a {
     color: black;
+}
+
+/**
+ * ------------ Star Rating ------------
+ */
+
+.star-rating {
+    display: inline-flex;
+}
+
+.back-stars {
+    position: relative;
+}
+.front-stars {
+    overflow: hidden;
+    position: absolute;
 }
