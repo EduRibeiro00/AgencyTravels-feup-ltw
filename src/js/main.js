@@ -57,3 +57,18 @@ function updateMaxPrice() {
 	
 	maxPrice.min = parseInt(minimun) + 1
 }
+
+///// Radios
+
+let radios = document.getElementsByName('rating')
+let check;
+for(let x = 0; x < radios.length; x++){
+    radios[x].onclick = function(){
+        if(check != this){
+             check = this;
+        }else{
+            this.checked = false;
+            check = null;
+    }
+    };
+}
