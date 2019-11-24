@@ -45,6 +45,16 @@ a:hover {
     text-decoration: underline;
 }
 
+.row{
+	display: flex;
+	flex-direction: row;
+}
+
+.column{
+	display: flex;
+	flex-direction: column;
+}
+
 /**
  * ------------ NAVBAR ------------
  */
@@ -476,6 +486,61 @@ div#greetings header h1 {
 	font-size: 2.5em;
 	padding-bottom: 0.7em;
 }
+
+
+/**
+ * ------------ House Card ------------
+ */
+
+.card {
+	margin: 1em 2em;
+	border-bottom: 1px var(--border_color) solid;
+	padding: 1em 0;
+	/* TODO: depois vai sair por causa da grid */
+	max-width: 50em;
+}
+
+.card:hover {
+	background: var(--darker_bg_color);
+}
+
+.card .info {
+	margin: 0 1em;
+}
+
+/* TODO: depois apagar pq será carroussel */
+.hcard-img {
+	width: 16em;
+	height: 11.5em;
+	object-position: center;
+	/* TODO: ver esta prop */
+	object-fit: none;
+}
+
+.card .info h4{
+	color: var(--main_color);	
+	margin: 0.3em 0;
+}
+
+.card .info span{
+	margin-right: 1em;
+	padding: 0.3em 1em;
+	border: var(--border_color) 1px solid;
+	border-radius: 30px;
+	background: var(--main_color);
+	color: var(--light_text_color);
+}
+
+.card footer {
+	align-items: flex-end;
+	flex-grow: 1;
+	justify-content: space-between;
+}
+
+.card footer .card-rating {
+	margin: 1em;
+}
+
 
 /**
  * ------------ Footer ------------
