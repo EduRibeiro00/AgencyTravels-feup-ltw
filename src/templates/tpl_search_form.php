@@ -11,21 +11,21 @@
 		<fieldset id="guests_field">
 			<h4>Guests</h4>
 			<label for="adults">Adults
-				<input type="number" id="adults" name="nAdults" min=1 value=1>
+				<input type="number" id="adults" name="nAdults" min=1 value=1 step=1>
 			</label>
 			<label for="children">Children
-				<input type="number" id="children" name="nChildren" min=0 value=0>
+				<input type="number" id="children" name="nChildren" min=0 value=0 step=1>
 			</label>
 		</fieldset>
 		<fieldset id="price_field">
 			<h4>Price</h4>
 			<!-- TODO: min < max -->
 			<label for="MinPrice">Min Price
-				<input type="number" id="MinPrice" name="minPrice" value=0 min=0>
+				<input type="number" id="MinPrice" name="minPrice" value=0 min=0 max=999 step=1>
 			</label>
 			<label for="MaxPrice">Max Price
 			<!-- TODO: por 1000 as 1000++ -->
-				<input type="number" id="MaxPrice" name="maxPrice" value=1000 max=1000>
+				<input type="number" id="MaxPrice" name="maxPrice" value=1000 max=1000 step=1>
 			</label>
 		</fieldset>
 		<fieldset id="rating_field">
@@ -49,10 +49,10 @@
 		<fieldset id="facilities_field">
 			<h4>Facilities</h4>
 			<label for="rooms">Rooms
-				<input type="number" id="rooms" name="nRooms" min=0 value=0>
+				<input type="number" id="rooms" name="nRooms" min=0 value=0 step=1>
 			</label>
 			<label for="bathrooms">Bathooms
-				<input type="number" id="bathrooms" name="nBathrooms" min=0 value=0>
+				<input type="number" id="bathrooms" name="nBathrooms" min=0 value=0 step=1>
 			</label>
 		</fieldset>
 		<input class="more_button" type="submit" value="Search">
