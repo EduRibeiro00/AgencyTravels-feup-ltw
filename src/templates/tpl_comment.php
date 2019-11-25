@@ -1,5 +1,7 @@
 <?php
 
+include_once('../templates/tpl_common.php');
+
 
 function draw_comment(){ ?>
 
@@ -19,6 +21,7 @@ function draw_comment(){ ?>
             </div>
             
             <div class="Review_Header_Second_Line">
+                <?php  draw_star_rating(3.8) ?>
                 <p class="Review_Start_Rating"><!--//TODO:IMPLEMENT THE STARS--></p>
                 <!--//TODO: Implement imported from db-->   
                 <p class="Review_Author_Location">San Franscisco</p> 

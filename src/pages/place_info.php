@@ -70,15 +70,11 @@
         
         <section id=Pop_UP_Fast_Reservation_Review_Short>
             <p>Price per night</p>
-            <!-- For stars
-                <p></p>
-                <?php  ?>
-            --> 
-
-            <!-- For Average
-                <p></p>
-                <?php  ?>
-            --> 
+    
+                <?php  draw_star_rating(3.8) ?>
+    
+                <?php  draw_star_rating(3.8) ?>
+            
 
         </section>
         
@@ -166,9 +162,7 @@
 
             <header>
                 <p>Revisions</p>
-                <!-- For stars
-                <p></p>
-                --> 
+                <?php  draw_star_rating(3.8) ?> 
                 <?php draw_comment() ?>
                 <?php draw_comment() ?>
             
