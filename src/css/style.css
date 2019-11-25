@@ -752,3 +752,352 @@ footer a {
 }
 
 /* TODO: por inputs bonitos */
+*---------------------place_info.php-----
+*/
+#Place_Info_Container{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows:auto auto auto auto auto;
+    grid-template-areas: 
+                        "Info Aside"
+                        "Map Aside"
+                        "Reviews Aside"
+                        "Avaiability Avaiability"
+                        "Similar Similar";                        
+}
+
+#House_Info{
+    min-width: 0;
+    min-height:0;
+    grid-area:Info;
+    margin-left: 6rem;
+    margin-right: 2rem;
+    border-bottom: 2px;
+    border-bottom-color: var(--main_color);
+    border-bottom-style: solid;
+}
+#House_Info p{
+    text-align: justify;
+}
+
+#House_Info header{
+    
+    font-size: 2rem;
+    padding-bottom: 2px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--main_color);
+    
+}
+
+#Pictographic_Info{
+    list-style-type: none;
+    padding-bottom: 1em;
+    border-bottom-style: solid;
+    border-bottom-width: 3px;
+    border-bottom-color: var(--main_color);
+    padding-left: 0;
+    
+
+}
+#Pictographic_Info li{
+    display: inline;
+    background-color: gainsboro;
+    
+    margin-right: 1em;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 10px;
+    
+    text-align: center;
+}
+.info_icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em; 
+}
+
+#Pop_UP_Fast_Reservation{
+    min-width: 0;
+    min-height:0;
+    grid-area:Aside;
+    border-left: 3px;
+    padding-left: 3px;
+    border-top:1em;
+}
+
+#Owner_info span {
+    display: inline-block;
+    height: 3em;
+    padding-top: 1em;
+    padding-left: 0.5em;
+    
+}
+#Book_Submit_Button{
+    margin-top:5%;
+    margin-left: 15%;
+}
+#Pop_UP_Fast_Reservation img{
+    width: 3em;
+    height: 3em;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 5em;
+    float: left;
+}
+
+#Google_Maps_Widget_Container{
+    min-width: 0;
+    min-height:0;
+    grid-area:Map;
+    margin-left: 6rem;
+    margin-right: 2rem;
+    border-bottom-style: solid;
+    border-bottom-width: 3px;
+    border-bottom-color: var(--main_color);
+
+}
+#Google_Maps_Img{
+    height: 80%;
+    width: 80%;
+}
+
+#Reviews_Container{
+    min-width: 0;
+    min-height:0;
+    grid-area:Reviews;
+    margin-left: 6rem;
+    margin-right: 2rem;    
+}
+
+.Reviews{
+    border-bottom-style: solid; 
+    border-bottom-width: 3px;
+    border-bottom-color: var(--main_color);
+}
+
+#Reviews_Container .Comment_Author_Img{
+    height: 3em;
+    width: 3em;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 25px;
+    display: inline-block;
+}
+
+.Review_Header_Content div{
+    display: inline;
+}
+
+.Review_Header_Content p{
+    margin:0;
+    display: inline;
+}
+
+.Review_Text_Title{
+    font-weight: bold;
+}
+.Review_Header_First_Line{
+    position: relative;
+    bottom:2em;
+}
+
+.Review_Header_Second_Line{
+    position: relative;
+    right:4.6em;
+    bottom:0.5em;
+}
+
+
+
+#Avaiabilities{
+    min-width: 0;
+    min-height:0;
+    margin-top: 1em;
+    margin-left: 6rem;
+    grid-area:Avaiability;
+    border-bottom-style: solid; 
+    border-bottom-width: 3px;
+    border-bottom-color: var(--main_color);
+
+}
+
+#Avaiabilities_Calendars form{
+    display: inline;
+}
+
+#Avaiabilities_Calendars p{
+    display: inline;
+}
+
+#Avaiabilities_Number_Guests select{
+ margin-bottom: 1em;   
+}
+
+#Similar_Offers_Container{
+    min-width: 0;
+    min-height:0;
+    grid-area:Similar;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    margin-left: 6rem;
+    margin-right: 2rem;
+}
+#Similar_Offers_Container img{
+    width: 100%;
+    height: auto;
+}
+    
+#Similar_Offers_Left{
+
+    flex-basis: 20%;
+}
+#Similar_Offers_Center{
+    margin-top: 2em;
+
+    flex-basis: 40%;
+}
+#Similar_Offers_Right{
+
+    flex-basis: 20%;
+}
+
+
+
+.carousel {
+    grid-area: slideshow;
+    margin-left:20%;
+    margin-right: 20%;
+}
+
+ul.slides {
+    display: block;
+    position: relative;
+    height: 600px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    list-style: none;
+}
+
+.slides * {
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+ul.slides input {
+    display: none; 
+}
+
+
+.slide-container { 
+    display: block; 
+}
+
+.slide-image {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    opacity: 0;
+    transition: all .7s ease-in-out;
+}   
+
+.slide-image img {
+    width: auto;
+    min-width: 100%;
+    height: 100%;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    font-size: 100px;
+    line-height: 600px;
+    color: #fff;
+}
+
+.carousel-controls label {
+    display: none;
+    position: absolute;
+    padding: 0 20px;
+    opacity: 0;
+    transition: opacity .2s;
+    cursor: pointer;
+}
+
+.slide-image:hover + .carousel-controls label{
+    opacity: 0.5;
+}
+
+.carousel-controls label:hover {
+    opacity: 1;
+}
+
+.carousel-controls .prev-slide {
+    width: 49%;
+    text-align: left;
+    left: 0;
+}
+
+.carousel-controls .next-slide {
+    width: 49%;
+    text-align: right;
+    right: 0;
+}
+
+.carousel-dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+    z-index: 999;
+    text-align: center;
+}
+
+.carousel-dots .carousel-dot {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #fff;
+    opacity: 0.5;
+    margin: 10px;
+}
+
+input:checked + .slide-container .slide-image {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 1s ease-in-out;
+}
+
+input:checked + .slide-container .carousel-controls label {
+     display: block; 
+}
+
+input#img-1:checked ~ .carousel-dots label#img-dot-1,
+input#img-2:checked ~ .carousel-dots label#img-dot-2,
+input#img-3:checked ~ .carousel-dots label#img-dot-3,
+input#img-4:checked ~ .carousel-dots label#img-dot-4,
+input#img-5:checked ~ .carousel-dots label#img-dot-5,
+input#img-6:checked ~ .carousel-dots label#img-dot-6 {
+	opacity: 1;
+}
+
+
+input:checked + .slide-container .nav label { display: block; }
+
+
+
+
