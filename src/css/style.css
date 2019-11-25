@@ -545,8 +545,8 @@ footer a {
                         "Info Aside"
                         "Map Aside"
                         "Reviews Aside"
-                        "Avaiability Aside"
-                        "Similar Aside";                        
+                        "Avaiability Avaiability"
+                        "Similar Similar";                        
 }
 
 #House_Info{
@@ -692,27 +692,63 @@ footer a {
 }
 
 
+
 #Avaiabilities{
     min-width: 0;
     min-height:0;
+    margin-top: 1em;
+    margin-left: 6rem;
     grid-area:Avaiability;
+    border-bottom-style: solid; 
+    border-bottom-width: 3px;
+    border-bottom-color: var(--main_color);
+
 }
 
-#Similar_Offers{
+#Avaiabilities_Calendars form{
+    display: inline;
+}
+
+#Avaiabilities_Calendars p{
+    display: inline;
+}
+
+#Avaiabilities_Number_Guests select{
+ margin-bottom: 1em;   
+}
+
+#Similar_Offers_Container{
     min-width: 0;
     min-height:0;
     grid-area:Similar;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    margin-left: 6rem;
+    margin-right: 2rem;
 }
-#Similar_Offers img{
-    height: 10em;
-    width: 10em;
-
+#Similar_Offers_Container img{
+    width: 100%;
+    height: auto;
 }
-#Similar_Offers .Similar_Offers_Item{
-
-
     
+#Similar_Offers_Left{
+
+    flex-basis: 20%;
 }
+#Similar_Offers_Center{
+    margin-top: 2em;
+
+    flex-basis: 40%;
+}
+#Similar_Offers_Right{
+
+    flex-basis: 20%;
+}
+
+
 
 .carousel {
     grid-area: slideshow;

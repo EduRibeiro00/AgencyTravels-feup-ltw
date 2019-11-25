@@ -171,9 +171,7 @@
                 --> 
                 <?php draw_comment() ?>
                 <?php draw_comment() ?>
-                <?php draw_comment() ?>
-                <?php draw_comment() ?>
-
+            
             </header>
         
             <!--
@@ -185,25 +183,56 @@
 
     <article id="Avaiabilities">
 
+        <section id="Avaiabilities_Calendars">
+            
+            <p>Check In</p>
+            
             <form action="#s" method="GET">
-                    <input id="Date_Start" type="date">
-                    <input id="Date_End" type="date">    
+                <input id="Avaiabilities_Date_Start" type="date">
             </form>
 
-            <a id="Left_Slider_Avaiability" href="#"> Slider Avaiability Left</a>
-            <a id="Right_Slider_Avaiability" href="#"> Slider Avaiability Right</a>
 
+            <form>
+                <p>Check Out</p>
+                <input id="Avaiabilities_Date_End" type="date">    
+
+            </form>
+
+        </section>
+
+        <section id="Avaiabilities_Number_Guests">
+
+            <p>Select the Number of Guests</p>
+
+            <form action="#s" method="GET">
+                <select name="guests_number">
+                    <option value="1">1 Guest</option>
+                    <option value="2">2 Guests</option>
+                    <option value="3">3 Guests</option>
+                </select>
+                
+            </form>
+            
+        </section>
+        
 
     </article>
 
 
-    <article id="Similar_Offers">
+    <article id="Similar_Offers_Container">
 
-        <ul>
-            <li class="Similar_Offers_Item"><?php draw_similar_offer() ?></li>
-            <li class="Similar_Offers_Item"><?php draw_similar_offer() ?></li>
-                
-        </ul>
+        <section id="Similar_Offers_Left">
+            <?php draw_similar_offer() ?>
+        </section>
+
+        <section id="Similar_Offers_Center">
+            <?php draw_similar_offer() ?>
+        </section>
+
+        <section id="Similar_Offers_Right">
+            <?php draw_similar_offer() ?>
+        </section>        
+        
 
     </article>
 
