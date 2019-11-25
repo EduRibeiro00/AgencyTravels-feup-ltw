@@ -4,13 +4,12 @@
 var navbar = document.getElementById("navbar")
 var sticky =  navbar.offsetTop
 
-window.onscroll = function(){
+window.addEventListener('scroll', function(){
 	if(window.pageYOffset >= sticky)
 		navbar.classList.add("sticky")
 	else
 		navbar.classList.remove("sticky")
-
-}
+})
 
 //// Seach appearance
 let searchForm = document.getElementById("search_form")
@@ -82,5 +81,29 @@ for(let x = 0; x < radios.length; x++){
             this.checked = false;
             check = null;
     	}
+	});
+}
+
+
+//// Login
+// TODO: depois mudar para class e ver como fechar qd carregar fora. alem do close up procurar pai com esta classe
+let popup = document.getElementById('pop-up')
+
+let login = document.getElementById('loginlink')
+login.addEventListener('click', function(){
+	popup.style.display = "block";
+})
+
+
+window.addEventListener('click', function(event){
+	if (event.target == popup) 
+        popup.style.display = "none"
+})
+
+// TODO: n está belo
+let crosses = document.getElementsByClassName('close-popup')
+for(let x = 0; x < crosses.length; x++){
+    crosses[x].addEventListener('click', function() {
+		this.parentElement.parentElement.style.display = "none"
 	});
 }

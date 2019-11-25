@@ -4,8 +4,8 @@
 	draw_head();
 	draw_navbar();
    
-//	include_once('../templates/tpl_search_form.php');
-//	draw_search_form();
+	// include_once('../templates/tpl_login_form.php');
+	// draw_login_form();
 
 	draw_footer();
 

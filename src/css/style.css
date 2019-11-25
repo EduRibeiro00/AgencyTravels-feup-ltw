@@ -125,9 +125,12 @@ nav input[type="text"]::placeholder{
 	opacity: 100%;
 }
 
-.circular-cropper {
-    width: 60px;
+.img-size-60{
+	width: 60px;
     height: 60px;
+}
+
+.circular-cropper {
     position: relative;
     overflow: hidden;
     border-radius: 50%;
@@ -135,7 +138,7 @@ nav input[type="text"]::placeholder{
 }
 
 .circular-cropper img {
-	width: auto;
+	width: 0 auto;
 	height: 100%;
 }
 
@@ -442,11 +445,13 @@ ol li span:before {
     color: var(--light_text_color);
     padding: 0.3em 2em;
     border: 1px solid var(--border_color);
-    border-radius: 30px;
+	border-radius: 30px;
 }
 
 .button:hover {
-    text-decoration: underline;
+	text-decoration: underline;
+	opacity: 0.8;
+	cursor: pointer;
 }
 
 /**
@@ -683,3 +688,67 @@ footer a {
     overflow: hidden;
     position: absolute;
 }
+
+/**
+ * ------------ Login Form ------------
+ */
+
+ #login-form{
+	background-color: var(--darker_bg_color);
+	color: var(--main_color);
+	position: relative;
+	margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+	border: 1px solid var(--border_color);
+	padding: 1em;
+	width: 25%;
+	min-width: 25em;
+ }
+
+#login-form > div {
+	margin: 0 auto;
+}
+
+#login-form > label {
+	margin: 1em 0;
+	font-weight: 600;
+}
+
+#login-form > button {
+	margin: 1em auto;
+}
+
+.fa-times:hover{
+	color: var(--main_color);
+	cursor: pointer;
+}
+.fa-times{
+	position: absolute;
+	top: 1em;
+	right: 2em;
+	color: var(--border_color);
+}
+
+/* TODO: uniformizar isto */
+#login-form #logo {
+	margin-left: -126px;
+	margin-top: -57px;
+}
+
+.img-size-10{
+	width: 10em;
+	height: 10em;
+}
+
+#pop-up {
+	display: none;
+	position: fixed;
+	z-index: 300;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0,0,0,0.4);
+}
+
+/* TODO: por inputs bonitos */

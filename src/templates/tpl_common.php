@@ -1,8 +1,4 @@
-<?php 
-include_once('../templates/tpl_search_form.php');
-				
-
-function draw_head($class = null) { ?>
+<?php function draw_head($class = null) { ?>
 <!DOCTYPE html>
 <html lang="en-US">
 	<head>
@@ -18,13 +14,13 @@ function draw_head($class = null) { ?>
 
 <?php function draw_footer() { ?>
     <footer>
-		<div class="circular-cropper">
+		<div class="circular-cropper img-size-60">
 			<img id="logo" src="http://www.berkanacompany.com/wp-content/uploads/2014/05/logo-placeholder-300x200.jpg">
 		</div>
         <span id="cpline"> &copy; Agency Travels, LTW 2019. All rights reserved. </span>
         <div id="follow">
 			Follow us:
-			<div class="circular-cropper">
+			<div class="circular-cropper img-size-60">
 				<img id="github" src="https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2016/11/github-image-796x418.png">
 			</div>
             <ul>
@@ -38,10 +34,14 @@ function draw_head($class = null) { ?>
 </html>
 <?php } ?>
 
-<?php function draw_navbar($class = null) { ?>
+<?php 
+include_once('../templates/tpl_search_form.php');
+include_once('../templates/tpl_login_form.php');
+
+function draw_navbar($class = null) { ?>
     <nav id="navbar" <?=$class == null? '' : "class=$class" ?>>
 		<a id="mainpagelink" href="main_page.php">
-			<div class="circular-cropper" id="logo-cropper">
+			<div class="circular-cropper img-size-60" id="logo-cropper">
 				<img id="logo" src="http://www.berkanacompany.com/wp-content/uploads/2014/05/logo-placeholder-300x200.jpg">
 			</div>
 		</a>
@@ -54,12 +54,14 @@ function draw_head($class = null) { ?>
         <a id="housespagelink" href="my_houses.php">My Houses</a>
 		<a id="reservspagelink" href="my_reserves.php">My Reservations</a>
 		<a id="profilepagelink" href="profile.php">
-			<div class="circular-cropper" id="profile-cropper">	
+			<div class="circular-cropper img-size-60" id="profile-cropper">	
 				<img id="profilepic" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">	
 			</div>Moussa
 		</a>
-		<a id="logoutlink" href="action_logout.php">Logout</a>
-      </nav>
+		<!-- TODO: assim para testar popup -->
+		<a id="loginlink" href="#">Login</a>
+	  </nav>
+	  <?php draw_login_form(); ?>
 <?php } ?>
 
 <?php function draw_star_rating($rating) { ?>
