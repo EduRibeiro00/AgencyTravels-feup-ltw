@@ -824,6 +824,8 @@ footer a {
     border-left: 3px;
     padding-left: 3px;
     border-top:1em;
+    position: fixed;
+    left: 55%;
 }
 #Owner_info{
     margin-top: 1em;
