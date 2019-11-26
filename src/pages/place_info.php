@@ -70,11 +70,9 @@
         
         <section id=Pop_UP_Fast_Reservation_Review_Short>
             <p>Price per night</p>
-    
+            <p>65€</p>
+
                 <?php  draw_star_rating(3.8) ?>
-    
-                <?php  draw_star_rating(3.8) ?>
-            
 
         </section>
         
@@ -163,16 +161,14 @@
             <header>
                 <p>Revisions</p>
                 <?php  draw_star_rating(3.8) ?> 
-                <?php draw_comment() ?>
-                <?php draw_comment() ?>
-            
             </header>
+            
+            <?php draw_comment() ?>
+            <?php draw_comment() ?>
         
             <!--
                 Imprimir em PHP da DB
             -->
-            
-        
     </article>
 
     <article id="Avaiabilities">
