@@ -1,4 +1,5 @@
 <?php
+	include_once('../includes/session_include.php');
 	include_once('../templates/tpl_common.php');
 
 	draw_head();
