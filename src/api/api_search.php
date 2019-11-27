@@ -1,7 +1,6 @@
 <?php
 	include_once('../database/db_places.php');
-	include_once('../includes/utf8_helper.php');
-
+	
 	if(isset($_POST["val"])){	
 		$locations = getLocations($_POST["val"]);
 

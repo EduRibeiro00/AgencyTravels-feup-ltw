@@ -127,7 +127,7 @@ locInput.addEventListener("keyup", function() {
 		return
 	}
 
-	request.open("POST", "../actions/action_search.php", true)
+	request.open("POST", "../api/api_search.php", true)
 	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 	
 	request.addEventListener('load', function() {
