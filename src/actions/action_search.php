@@ -5,6 +5,6 @@
 		$locations = getLocations($_GET["val"]);
 
 		foreach($locations as $location)
-			echo "<p>" . $location["country"] . " - " . $location["city"] . "</p>";
+			echo json_encode( array('location' => "<p>" . $location["country"] . " - " . $location["city"] . "</p>"));
 	}
 ?>

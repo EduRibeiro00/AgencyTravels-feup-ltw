@@ -18,7 +18,7 @@ searchForm.addEventListener("focusin", function() {
 	window.addEventListener('click', closeWindow)
 })
 
-searchForm.addEventListener("click", function() {
+searchForm.addEventListener("click", function(event) {
 	event.stopPropagation()
 })
 
@@ -27,7 +27,6 @@ function closeWindow() {
 	resultDropdown.innerHTML = ""
 	window.removeEventListener("click", closeWindow)
 }
-
 
 let checkin = document.getElementById('checkin')
 let checkout = document.getElementById('checkout')
@@ -132,11 +131,14 @@ locInput.addEventListener("keyup", function() {
 	request.send()
 
 	request.addEventListener('load', function(){
-		resultDropdown.innerHTML = request.response
+		let answer = JSON.parse(this.responseText)
+		console.log(answer)
+
+		resultDropdown.innerHTML = answer.location
 	})
 })
 
-resultDropdown.addEventListener('mouseup', function(event) {
+resultDropdown.addEventListener('click', function(event) {
 	locInput.value = event.target.innerText
 	resultDropdown.innerHTML = ""
 })
