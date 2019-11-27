@@ -573,7 +573,7 @@ section#map {
 	background: var(--background_color);
 	color: var(--main_color);
 	position: absolute;        
-	z-index: 350;
+	z-index: 325;
 	top: 3.5em;
 	left: 15em;
 	font-weight: 500;
@@ -770,7 +770,7 @@ footer a {
 #pop-up {
 	display: none;
 	position: fixed;
-	z-index: 300;
+	z-index: 350;
 	left: 0;
 	top: 0;
 	width: 100%;
@@ -1055,7 +1055,7 @@ ul.slides input {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 999;
+    z-index: 99;
     font-size: 100px;
     line-height: 600px;
     color: #fff;
@@ -1095,7 +1095,7 @@ ul.slides input {
     left: 0;
     right: 0;
     bottom: 20px;
-    z-index: 999;
+    z-index: 99;
     text-align: center;
 }
 

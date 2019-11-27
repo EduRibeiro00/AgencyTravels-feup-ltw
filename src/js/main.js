@@ -13,18 +13,19 @@ window.addEventListener('scroll', function(){
 
 //// Seach appearance
 let searchForm = document.getElementById("search_form")
-searchForm.addEventListener("focusin", openFilters)
-searchForm.addEventListener("focusout", closeFilters)
-
-
-function openFilters(){
+searchForm.addEventListener("focusin", function() {
 	document.getElementById("filters").style.display = "grid"
-}
+	window.addEventListener('click', closeWindow)
+})
 
-function closeFilters(event){
-	if (searchForm.contains(event.relatedTarget))
-		return;
+searchForm.addEventListener("click", function() {
+	event.stopPropagation()
+})
+
+function closeWindow() {
 	document.getElementById("filters").style.display = "none"
+	resultDropdown.innerHTML = ""
+	window.removeEventListener("click", closeWindow)
 }
 
 
