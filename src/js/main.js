@@ -107,3 +107,18 @@ for(let x = 0; x < crosses.length; x++){
 		this.parentElement.parentElement.style.display = "none"
 	});
 }
+
+//Sticky sideBar_Fast reservation
+let someElement = document.getElementById('Pop_UP_Fast_Reservation')
+const value= document.body.clientHeight/5;
+
+window.addEventListener('scroll', function(){
+
+	if(window.pageYOffset >= value){
+		
+		someElement.style.top="4em"
+	}
+	else
+		someElement.style.top="0"
+		
+})
