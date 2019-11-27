@@ -2,7 +2,7 @@
 	include_once('../includes/session_include.php');
 	include_once('../templates/tpl_common.php');
 
-	draw_head();
+	draw_head(['../js/main.js']);
 	draw_navbar();
    
 	// include_once('../templates/tpl_login_form.php');

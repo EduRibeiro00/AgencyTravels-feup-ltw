@@ -11,7 +11,7 @@
              armazenado na sessao, senao da die() (mesma coisa se n tiver sessao iniciada)
     */
 
-    draw_head();
+    draw_head(['../js/main.js', '../js/profile_form.js']);
     draw_navbar();
     draw_profile_form('Edit profile', '../actions/action_edit_profile.php', $user_info);
     draw_footer();

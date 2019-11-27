@@ -29,16 +29,13 @@ body {
 	/* TODO: passar para javascript para n ser hardcoded */
 	--footer_height: 4em;
 	--footer_padding: 1em;
-
-	padding-bottom: calc(var(--footer_height) + 3em);
 }
 
 h1, h2, h3, h4, h5, h6, a, p, label {
     font-family: var(--default_text_font);
 }
 
-/* ----------- */
-/* TODO: para apagar */
+/* circular cropper: apenas para usar em imagens fixas como o logotipo e o github */
 .circular-cropper {
     position: relative;
     overflow: hidden;
@@ -52,8 +49,45 @@ h1, h2, h3, h4, h5, h6, a, p, label {
     width: auto;
     height: 100%;
 }
+
+.circular-cropper img#logo {
+    height: 175%;
+    margin-top: -1.3em;
+    margin-left: 0.2em;
+}
+
+.circular-cropper img#github {
+    height: 107%;
+    margin-top: -0.2em;
+}
+
+.circular-cropper img#logo-login {
+    height: 180%;
+    margin-top: -2.8em;
+    margin-left: 0.4em;
+}
+
+#navbar .circular-cropper, footer .circular-cropper {
+    width: 3.5em;
+    height: 3.5em;
+}
+
+#login-form .circular-cropper {
+    width: 7.2em;
+    height: 7.2em;
+}
+
+.circular-cropper#mail-icon {
+    width: 2.5em;
+    height: 2.5em;
+    position: absolute;
+    top: 1.5em;
+    left: 20em;
+}
+
 /* ----------- */
 
+/* circular-img: para usar em imagens que podem variar (profile pic, place images, etc) */
 .circular-img{
 	object-fit: cover;
 	border-radius: 50%;
@@ -64,10 +98,27 @@ a.circ-img-link {
     align-items: center;
 }
 
-#navbar .circular-img, footer .circular-img {
+#navbar .circular-img {
     width: 3.5em;
     height: 3.5em;
+    margin: 0 1em;
 }
+
+#topdests .circular-img, #trending .circular-img {
+    width: 3.7em;
+	height: 3.7em;
+	vertical-align: middle;
+	position: relative;
+}
+
+#profile-image img.circular-img {
+    width: 11.5em;
+    height: 11.5em;
+    position: absolute;
+    top: -7em;
+    left: 12em;
+}
+
 
 a:hover {
     text-decoration: underline;
@@ -123,6 +174,7 @@ body > nav {
 
 #navbar form {
     flex-grow: 1;
+    margin: 0 1em;
 }
 
 a {
@@ -156,21 +208,7 @@ nav input[type="text"]::placeholder{
 }
 
 
-/* TODO: mudar tudo para circular-img */
-#navbar .circular-cropper, footer .circular-cropper {
-    width: 3.5em;
-    height: 3.5em;
-}
-
-
 /* TODO: se calhar forçar a profile pic a ser quadrada */ 
-
-/* TODO: mudar qd imagem nova */
-
-img#github{
-	height: 107%;
-    margin-top: -0.2em;
-}
 
 /**
  * ------------ Initial page ------------
@@ -179,10 +217,16 @@ img#github{
 body.initial{
 	background-image: url("https://images.pexels.com/photos/1095817/pexels-photo-1095817.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
 	background-size: cover;
-	padding-bottom: 0;
 }
 
- div.flex-column {
+body.initial footer {
+    position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+div.flex-column {
 	color: var(--light_text_color);
 	display: flex;
 	flex-direction: column;
@@ -451,14 +495,6 @@ ol li span:before {
     grid-area: trending;
 }
 
-#topdests .circular-cropper, #trending .circular-cropper {
-    width: 3.7em;
-	height: 3.7em;
-	vertical-align: middle;
-	position: relative;
-}
-
-
 main#main-page .place-listing {
     grid-area: randlocationplaces;
 }
@@ -558,23 +594,6 @@ main#profile-page {
 .profile-info-fields {
     margin: 1em 3em;
 }
-
-.circular-cropper#profile-image {
-    width: 11.5em;
-    height: 11.5em;
-    position: absolute;
-    top: -7em;
-    left: 11em;
-}
-
-.circular-cropper#mail-icon {
-    width: 2.5em;
-    height: 2.5em;
-    position: absolute;
-    top: 1.5em;
-    left: 20em;
-}
-
 
 .profile-info {
     grid-area: profileinfo;
@@ -792,10 +811,6 @@ section#map {
     border-top: 20px solid var(--main_color);
     display: flex;
 	align-items: center;
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	left: 0;
 }
 
 #follow {
@@ -872,18 +887,6 @@ footer a {
 	color: var(--border_color);
 }
 
-/* TODO: uniformizar isto */
-#login-form #logo {
-    height: 105%;
-	margin-left: -126px;
-	margin-top: -57px;
-}
-
-.img-size-10{
-	width: 10em;
-	height: 10em;
-}
-
 #pop-up {
 	display: none;
 	position: fixed;
@@ -928,7 +931,7 @@ footer a {
 #House_Info header{
     
     font-size: 2rem;
-    padding-bottom: 2px;
+    padding-bottom: 0.1em;
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: var(--main_color);
@@ -945,6 +948,7 @@ footer a {
     
 
 }
+
 #Pictographic_Info li{
     display: inline;
     background-color: gainsboro;
@@ -952,10 +956,10 @@ footer a {
     margin-right: 1em;
     border-style: solid;
     border-color: transparent;
-    border-radius: 10px;
-    
+    border-radius: 20%;
     text-align: center;
 }
+
 .info_icon {
     display: inline-block;
     width: 1em;
@@ -967,7 +971,7 @@ footer a {
     min-height:0;
     grid-area:Aside;
     border-left: 3px;
-    padding-left: 3px;
+    padding-left: 0.2em;
     border-top:1em;
     position: fixed;
     left: 55%;
@@ -1031,7 +1035,7 @@ footer a {
     width: 3em;
     border-style: solid;
     border-color: transparent;
-    border-radius: 25px;
+    border-radius: 50%;
     display: inline-block;
 }
 

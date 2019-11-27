@@ -3,7 +3,7 @@
     include_once('../templates/tpl_common.php');
     include_once('../templates/tpl_comment.php');
     include_once('../templates/tpl_similar_offer.php');
-	draw_head();
+	draw_head(['../js/main.js']);
 	draw_navbar();
 ?>
 

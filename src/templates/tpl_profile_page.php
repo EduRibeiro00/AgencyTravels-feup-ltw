@@ -8,8 +8,8 @@
           </section>
 
           <section class="profile-info">
-                <div id="profile-image" class="circular-cropper">
-                    <img src=<?=$user_info['image']?>>
+                <div id="profile-image">
+                    <img class="circular-img" src=<?=$user_info['image']?>>
                 </div>
 
                 <!-- TODO: link para o mail -->

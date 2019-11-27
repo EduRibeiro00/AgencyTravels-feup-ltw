@@ -22,7 +22,7 @@
     $randplaces[$k]['avg_price'] = getAveragePrice($place['placeID'])['avg_price'];
   }
 
-  draw_head();
+  draw_head(['../js/main.js']);
   draw_navbar();
   draw_slideshow($slideshowcity, $slideshowimgs);
 

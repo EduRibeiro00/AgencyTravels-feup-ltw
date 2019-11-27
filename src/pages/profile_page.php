@@ -14,7 +14,7 @@
         $user_places[$k]['avg_price'] = getAveragePrice($place['placeID'])['avg_price'];
     }
 
-    draw_head();
+    draw_head(['../js/main.js']);
     draw_navbar();
     draw_profile_info($user_info, $user_places, $city_image);
     draw_footer();

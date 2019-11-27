@@ -5,7 +5,7 @@
     /* TODO: implementar seguranca e verificacao de sessoes. Se tiver sessao iniciada, dar die()
     */
 
-    draw_head();
+    draw_head(['../js/main.js', '../js/profile_form.js']);
     draw_navbar();
     draw_profile_form('Signup', '../actions/action_signup.php');
     draw_footer();

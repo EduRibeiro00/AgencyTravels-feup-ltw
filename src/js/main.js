@@ -94,7 +94,6 @@ login.addEventListener('click', function(){
 	popup.style.display = "block";
 })
 
-
 window.addEventListener('click', function(event){
 	if (event.target == popup) 
         popup.style.display = "none"
@@ -107,14 +106,3 @@ for(let x = 0; x < crosses.length; x++){
 		this.parentElement.parentElement.style.display = "none"
 	});
 }
-// TODO: separar JS em varios ficheiros e fazer include daqueles necessarios para cada pagina
-
-function updateMaxBirthDate() {
-    let birthDateInput = document.getElementById('birthDate');
-    let maxDate = new Date();
-    maxDate.setFullYear(maxDate.getFullYear() - 5); // max date is 5 years before actual date
-    let dateValue = maxDate.getFullYear()+'-'+('0'+(maxDate.getMonth()+1)).slice(-2)+'-'+('0'+(maxDate.getDate())).slice(-2);
-    birthDateInput.setAttribute('max', dateValue);
-}
-
-// updateMaxBirthDate();
