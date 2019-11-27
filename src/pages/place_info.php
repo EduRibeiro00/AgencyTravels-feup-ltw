@@ -4,10 +4,30 @@
     include_once('../templates/tpl_common.php');
     include_once('../templates/tpl_comment.php');
     include_once('../templates/tpl_similar_offer.php');
+    include_once('../database/db_myplace.php');
 	draw_head();
-	draw_navbar();
-?>
+    draw_navbar();
+    
+    $place_id=$_GET['place_id'];
 
+    $house_name=get_house_title($place_id)["title"];
+    $house_rating=get_house_rating($place_id)["rating"];
+    $house_description=get_house_description($place_id)["description"];
+    $house_numRooms=get_house_numRooms($place_id)["numRooms"];
+    $house_capacity=get_house_capacity($place_id)["capacity"];
+    $house_numBathrooms=get_house_numBathrooms($place_id)["numBathrooms"];
+    $house_address=get_house_address($place_id)["address"];
+    $house_address_city=get_house_address_city($place_id)["city"];
+    $house_address_country=get_house_address_country($place_id)["country"];
+    $house_gpsCoords=get_house_gpsCoords($place_id)["gpsCoords"];
+    $house_comments=get_house_comments($place_id);
+
+    //Adress string parsing
+
+    $house_address_full=$house_address.",".$house_address_city.",".$house_address_country;
+    
+    
+?>
 
 <div class="carousel">
         <ul class="slides">
@@ -72,7 +92,7 @@
             <p>Price per night</p>
             <p>65€</p>
 
-                <?php  draw_star_rating(3.8) ?>
+            <?php  draw_star_rating($house_rating) ?>
 
         </section>
         
@@ -104,33 +124,28 @@
 
     <article id="House_Info">
         
-        <header>Casa de Cima</header>
+        <header><?=$house_name?></header>
         
         <ul id="Pictographic_Info">
             <li>
                 <img class="info_icon" src="https://image.flaticon.com/icons/png/512/2/2144.png">
-                Number of Rooms
-                <!--PHP TO RETREVIE THE NUMBER OF ROOM-->
+                Number of Rooms <?=$house_numRooms?>
+                
             </li>
             <li>
                 <img class="info_icon" src="https://cdn1.vectorstock.com/i/1000x1000/93/40/bed-icon-symbol-simple-design-vector-26279340.jpg">
-                Capacity
-                    <!--PHP TO RETREVIE THE NUMBER OF ROOM-->
+                Capacity <?=$house_capacity?>
+                
             </li>
             <li>
                 <img class="info_icon" src="https://cdn1.vectorstock.com/i/1000x1000/93/40/bed-icon-symbol-simple-design-vector-26279340.jpg">
-                Garage
-                    <!--PHP TO RETREVIE THE NUMBER OF ROOM-->
-            </li>
-            <li>
-                <img class="info_icon" src="https://cdn1.vectorstock.com/i/1000x1000/93/40/bed-icon-symbol-simple-design-vector-26279340.jpg">
-                Bathrooms
-                    <!--PHP TO RETREVIE THE NUMBER OF ROOM-->
+                Bathrooms <?=$house_numBathrooms ?>
+                    
             </li>
             
         </ul>
         
-        <p id="House_Description">  VIVA O SPORTING CLUBE PORTUGAL</p>
+        <p id="House_Description">  <?=$house_description?></p>
 
 
     </article>
@@ -148,8 +163,8 @@
         </section>
 
         <footer>
-            <p>Address:</p>
-            <p>ZIP_CODE:</p>
+            <p>Address:<?=$house_address_full?></p>
+            <p>GPS_Coords:<?=$house_gpsCoords?></p>
         </footer>
 
     </article>
@@ -160,15 +175,17 @@
 
             <header>
                 <p>Revisions</p>
-                <?php  draw_star_rating(3.8) ?> 
+                <?php draw_star_rating($house_rating)?>
+                
             </header>
             
-            <?php draw_comment() ?>
-            <?php draw_comment() ?>
+            <?php  
+                foreach($house_comments as $comment)
+                    draw_comment($comment);    
+            ?>
+            
         
-            <!--
-                Imprimir em PHP da DB
-            -->
+        
     </article>
 
     <article id="Avaiabilities">

@@ -872,7 +872,7 @@ footer a {
     min-height:0;
     grid-area:Reviews;
     margin-left: 6rem;
-    margin-right: 2rem;    
+    margin-right: 1rem;    
 }
 
 .Reviews{
@@ -903,14 +903,15 @@ footer a {
     font-weight: bold;
 }
 .Review_Header_First_Line{
+    display: block;
     position: relative;
-    bottom:2em;
+    top:-2em;
 }
 
 .Review_Header_Second_Line{
     position: relative;
-    right:4.6em;
-    bottom:0.5em;
+    right: -3.3em;
+    top:-2rem;
 }
 
 

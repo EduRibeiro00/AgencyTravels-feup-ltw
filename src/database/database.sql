@@ -352,6 +352,10 @@ INSERT INTO Review (date, stars, reservationID) VALUES ("2018-01-10", 5, 8);
 
 INSERT INTO Review (date, stars, reservationID) VALUES ("2019-11-23", 3, 9);
 INSERT INTO Review (comment, date, stars, reservationID) VALUES ("O pior sitio em que já fiquei. Não recomendo", "2019-12-18", 1, 11);
+INSERT INTO Review (comment, date, stars, reservationID) VALUES ("O pior sitio em que já fiquei. Não recomendo", "2019-12-18", 1, 12);
+INSERT INTO Review (comment, date, stars, reservationID) VALUES ("O pior sitio em que já fiquei. Não recomendo", "2019-12-18", 1, 13);
+INSERT INTO Review (comment, date, stars, reservationID) VALUES ("O pior sitio em que já fiquei. Não recomendo", "2019-12-18", 1, 14);
+INSERT INTO Review (comment, date, stars, reservationID) VALUES ("O pior sitio em que já fiquei. Não recomendo", "2019-12-18", 1, 10);
 
 -- Reply
 INSERT INTO Reply (comment, date, reviewID, userID) VALUES ("Ainda bem que gostou", "2019-12-21", 2, 3);
