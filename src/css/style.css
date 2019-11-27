@@ -24,7 +24,13 @@ body {
     --light_text_color: #f3f3f6;
     --border_color: #868686;
 
-    --default_text_font: "Trebuchet MS", Helvetica, sans-serif;
+	--default_text_font: "Trebuchet MS", Helvetica, sans-serif;
+	
+	/* TODO: passar para javascript para n ser hardcoded */
+	--footer_height: 4em;
+	--footer_padding: 1em;
+
+	padding-bottom: calc(var(--footer_height) + 3em);
 }
 
 h1, h2, h3, h4, h5, h6, a, p, label {
@@ -49,10 +55,6 @@ h1, h2, h3, h4, h5, h6, a, p, label {
 	object-fit: cover;
 	border-radius: 50%;
 }
-
-/* #topdests img, #trending img, .profile-info img#mail-icon {
-    border-radius: 40px;
-} */
 
 
 /* TODO: apagar quando se der merge, isto ja esta na classe Button */
@@ -85,6 +87,14 @@ a:hover {
 /**
  * ------------ NAVBAR ------------
  */
+
+nav.transparent {
+	background-color: transparent;
+}
+
+nav.transparent input[type="text"] {
+	background-color: transparent;
+}
 
 body > nav {
     background-color: var(--main_color);
@@ -165,13 +175,13 @@ img#github{
 
 /**
  * ------------ Initial page ------------
- */
+*/
 
- body.initial{
+body.initial{
 	background-image: url("https://images.pexels.com/photos/1095817/pexels-photo-1095817.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
 	background-size: cover;
 	padding-bottom: 0;
- }
+}
 
  div.flex-column {
 	color: var(--light_text_color);
@@ -522,7 +532,7 @@ main#main-page .place-listing {
 main#profile-page {
     display: grid;
     grid-template-columns: 30% auto;
-    grid-template-rows: 20% auto auto 1fr;
+    grid-template-rows: 30em auto auto 1fr;
     grid-template-areas: "banner banner"
                          "profileinfo profileinfo"
                          "bio userplaces"
@@ -782,12 +792,16 @@ section#map {
  * ------------ Footer ------------
  */
 
-body > footer {
+ body > footer {
     background-color: var(--footer_color);
-    padding: 1em;
+    padding: var(--footer_padding);
     border-top: 20px solid var(--main_color);
     display: flex;
-    align-items: center;
+	align-items: center;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
 }
 
 #follow {

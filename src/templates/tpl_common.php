@@ -1,4 +1,4 @@
-<?php function draw_head() { ?>
+<?php function draw_head($class = null) { ?>
 <!DOCTYPE html>
 <html lang="en-US">
 	<head>
