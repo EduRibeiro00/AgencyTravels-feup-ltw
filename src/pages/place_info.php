@@ -84,13 +84,14 @@
 
 
 <div id="Place_Info_Container">
-    <!--
-        //TODO: How to code Rating Input Stars??? PHP
-    -->
+    
     <aside id="Pop_UP_Fast_Reservation">      
         
         <section id=Pop_UP_Fast_Reservation_Review_Short>
             <p>Price per night</p>
+            <!--
+                Extract from the database
+            -->
             <p>65€</p>
 
             <?php  draw_star_rating($house_rating) ?>
@@ -129,19 +130,20 @@
         
         <ul id="Pictographic_Info">
             <li>
-                <img class="info_icon" src="https://image.flaticon.com/icons/png/512/2/2144.png">
+                <i class="fas fa-bed"></i>
                 Number of Rooms <?=$house_numRooms?>
                 
             </li>
             <li>
-                <img class="info_icon" src="https://cdn1.vectorstock.com/i/1000x1000/93/40/bed-icon-symbol-simple-design-vector-26279340.jpg">
+                <i class="fas fa-user"></i>
                 Capacity <?=$house_capacity?>
                 
             </li>
             <li>
-                <img class="info_icon" src="https://cdn1.vectorstock.com/i/1000x1000/93/40/bed-icon-symbol-simple-design-vector-26279340.jpg">
+        
+                <i class="fas fa-toilet"></i>
                 Bathrooms <?=$house_numBathrooms ?>
-                    
+                        
             </li>
             
         </ul>
