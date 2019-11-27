@@ -2,6 +2,7 @@
   include_once('../includes/session_include.php');
   include_once('../templates/tpl_common.php');
   include_once('../templates/tpl_main_page.php');
+  include_once('../templates/tpl_slideshow.php');
   include_once('../database/db_places.php');
 
   // slideshow

@@ -105,5 +105,4 @@ function getRandomImagesFromCity($locationID, $number) {
     return $stmt->fetchAll();
 }
 
-
 ?>

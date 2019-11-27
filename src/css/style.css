@@ -12,9 +12,7 @@ html {
 
 body {
 	margin: 0;
-	padding: 0;
-	position: relative;
-	min-height: 100%;
+    padding: 0;
 
     --background_color: #f9f9f9;
     --darker_bg_color: #f5f0f0;
@@ -26,22 +24,49 @@ body {
     --light_text_color: #f3f3f6;
     --border_color: #868686;
 
-	--default_text_font: sans-serif;
-
-	/* TODO: passar para javascript para n ser hardcoded */
-	--footer_height: 4em;
-	--footer_padding: 1em;
-
-	padding-bottom: calc(var(--footer_height) + 3em);
+    --default_text_font: "Trebuchet MS", Helvetica, sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, a, p, label {
     font-family: var(--default_text_font);
 }
 
-#topdests img, #trending img {
-    border-radius: 40px;
+.circular-cropper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 0 1em;
+    display: flex;
+    justify-content: center;
 }
+
+.circular-cropper img {
+    width: auto;
+    height: 100%;
+}
+
+.circular-img{
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+/* #topdests img, #trending img, .profile-info img#mail-icon {
+    border-radius: 40px;
+} */
+
+
+/* TODO: apagar quando se der merge, isto ja esta na classe Button */
+.button {
+    background-color: var(--main_color);
+    color: var(--light_text_color);
+    padding: 0.3em 2em;
+    border: 1px solid var(--border_color);
+    border-radius: 30px;
+}
+.button:hover {
+    text-decoration: underline;
+}
+
 
 a:hover {
     text-decoration: underline;
@@ -60,14 +85,6 @@ a:hover {
 /**
  * ------------ NAVBAR ------------
  */
-
-nav.transparent {
-	background-color: transparent;
-}
-
-nav.transparent input[type="text"] {
-	background-color: transparent;
-}
 
 body > nav {
     background-color: var(--main_color);
@@ -95,11 +112,6 @@ body > nav {
     align-items: center;
 }
 
-/* TODO: obrigar figura a ser um quadrado e depois mudar este valor para const pois é só centrar, desta forma ter-se-ia de por um valor para cada profile pic */
-#profilepic {
-    margin-left: -35%; 
-}
-
 #navbar form {
     flex-grow: 1;
 }
@@ -125,35 +137,76 @@ nav input[type="text"]::placeholder{
 	opacity: 100%;
 }
 
-.img-size-60{
-	width: 60px;
+
+#navbar .circular-cropper, footer .circular-cropper {
+    width: 60px;
     height: 60px;
 }
 
-.circular-cropper {
-    position: relative;
-    overflow: hidden;
-    border-radius: 50%;
-    margin: 0 1em;
+#navbar .circular-img, footer .circular-img {
+    width: 60px;
+    height: 60px;
 }
 
-.circular-cropper img {
-	width: 0 auto;
-	height: 100%;
-}
+
+/* TODO: se calhar forçar a profile pic a ser quadrada */ 
 
 /* TODO: mudar qd imagem nova */
 img#logo{
-	height: 175%;
-	margin-left: -47px;
-	margin-top: -22px;
+    height: 175%;
+    margin-left: 145px;
+    margin-top: -22px;
 }
 
 img#github{
 	height: 107%;
-	margin-left: -31px;
-	margin-top: -3px;
+    margin-top: -3px;
 }
+
+/**
+ * ------------ Initial page ------------
+ */
+
+ body.initial{
+	background-image: url("https://images.pexels.com/photos/1095817/pexels-photo-1095817.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+	background-size: cover;
+	padding-bottom: 0;
+ }
+
+ div.flex-column {
+	color: var(--light_text_color);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+	text-align: center;
+	min-height: calc(100vh - var(--footer_height) - var(--footer_padding));
+	height: calc(100vh - var(--footer_height) - var(--footer_padding)) !important;	 
+}
+
+ div#greetings {
+	width: 100%;
+	background-color: rgba(1.0, 1.0, 1.0, 0.3);
+ }
+
+ div#greetings header h2 {
+	font-family: 'Parisienne', cursive;
+	font-size: 2.4em;
+}
+
+div#greetings header h2 em {
+	text-transform: uppercase;
+	color: #d43e3e;
+}
+
+div#greetings header h1 {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	letter-spacing: 0.1em;
+	font-size: 2.5em;
+	padding-bottom: 0.7em;
+}
+
 
 /**
  * ------------ Slideshow / carousel ------------
@@ -317,14 +370,17 @@ input:checked + .slide-container .nav label { display: block; }
  */
 
 main {
-	display: grid;
-	width: 100%;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto;
-    grid-template-areas: "topdests trending"
-                          "randlocationplaces randlocationplaces"; 
+    width: 100%;
     color: var(--main_color);
     margin-bottom: 2em;
+}
+
+main#main-page {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "topdests trending"
+                         "randlocationplaces randlocationplaces"; 
 }
 
 main h3 {
@@ -392,38 +448,43 @@ ol li span:before {
     grid-area: trending;
 }
 
-#topdests img, #trending img {
+#topdests .circular-cropper, #trending .circular-cropper {
     width: 70px;
 	height: 70px;
 	vertical-align: middle;
 	position: relative;
 }
 
-#randlocationplaces {
+
+main#main-page .place-listing {
     grid-area: randlocationplaces;
+}
+
+.place-listing {
     border: 1px solid black;
     margin: 0 2em;
 }
 
-#randlocationplaces img {
+.place-listing img {
 	height: 250px;
 	width: auto;
 }
 
-#places_list {
+.places_list {
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
 }
 
-#randlocationplaces article {
+.place-listing article {
     text-align: center;
     font-size: 0.9em;
     position: relative;
+    display: inline-block;
 }
 
 .place_info {
     background-color: rgba(0, 0, 0, 0.5);
-    display: inline-block;
     position: absolute;
     bottom: 10px;
     left: 50%;
@@ -435,7 +496,7 @@ ol li span:before {
     margin: auto 0.2em;
 }
 
-#more {
+.more {
     text-align: center;
     margin: 1em auto;
 }
@@ -455,47 +516,125 @@ ol li span:before {
 }
 
 /**
- * ------------ Initial page ------------
+ * ------------ Profile page ------------
  */
 
- body.initial{
-	background-image: url("https://images.pexels.com/photos/1095817/pexels-photo-1095817.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
-	background-size: cover;
-	padding-bottom: 0;
- }
-
- div.flex-column {
-	color: var(--light_text_color);
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-content: center;
-	text-align: center;
-	min-height: calc(100vh - var(--footer_height) - var(--footer_padding));
-	height: calc(100vh - var(--footer_height) - var(--footer_padding)) !important;	 
+main#profile-page {
+    display: grid;
+    grid-template-columns: 30% auto;
+    grid-template-rows: 20% auto auto 1fr;
+    grid-template-areas: "banner banner"
+                         "profileinfo profileinfo"
+                         "bio userplaces"
+                         "bio placecomments";
 }
 
- div#greetings {
-	width: 100%;
-	background-color: rgba(1.0, 1.0, 1.0, 0.3);
- }
-
- div#greetings header h2 {
-	font-family: 'Parisienne', cursive;
-	font-size: 2.4em;
+#banner-image {
+    grid-area: banner;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    background-color: var(--darker_bg_color);
 }
 
-div#greetings header h2 em {
-	text-transform: uppercase;
-	color: #d43e3e;
+#banner-image img {
+    display: block;
+    width: 80%;
+    object-fit: cover;
 }
 
-div#greetings header h1 {
-	font-family: 'Roboto', sans-serif;
-	font-weight: 400;
-	letter-spacing: 0.1em;
-	font-size: 2.5em;
-	padding-bottom: 0.7em;
+.edit-profile {
+    margin: 5em;
+}
+
+.profile-info-fields p {
+    font-size: 1.1em;
+}
+
+.profile-info-fields {
+    margin: 1em 3em;
+}
+
+.circular-cropper#profile-image {
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    top: -100px;
+    left: 170px;
+}
+
+.circular-cropper#mail-icon {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 30px;
+    left: 310px;
+}
+
+
+.profile-info {
+    grid-area: profileinfo;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.bio {
+    background-color: var(--darker_bg_color);
+    margin-left: 1em;
+    padding: 0 1em;
+    grid-area: bio;
+}
+
+main#profile-page .place-listing {
+    grid-area: userplaces;
+}
+
+.place-comments {
+    grid-area: placecomments;
+    margin: 1em;
+    margin-bottom: 0;
+    background-color: var(--darker_bg_color);
+}
+
+
+/**
+ * ------------ Profile form ------------
+ */
+
+#profile-form header {
+    margin: 2em;
+}
+
+#profile-form h3 {
+    font-size: 2.4em;
+    color: var(--main_color);
+}
+
+#profile-form form {
+    margin: 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+#profile-form label, #profile-form #form-gender {
+    font-size: 1.2em;
+    color: var(--main_color);
+    margin: 1em 0;
+    font-weight: bold;
+}
+
+#profile-form h4 {
+    display: inline-block;
+}
+
+#profile-form input[type="submit"] {
+    text-align: center;
+    margin: 1em auto;
+}
+
+#profile-form textarea {
+    resize: none;
 }
 
 
@@ -645,14 +784,10 @@ section#map {
 
 body > footer {
     background-color: var(--footer_color);
-    padding: var(--footer_padding);
+    padding: 1em;
     border-top: 20px solid var(--main_color);
     display: flex;
-	align-items: center;
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	left: 0;
+    align-items: center;
 }
 
 #follow {
@@ -1106,3 +1241,20 @@ input:checked + .slide-container .nav label { display: block; }
 
 
 
+
+
+/**
+ * ------------ Responsive ------------
+ */
+
+@media (max-width: 70em) {
+
+    main#main-page .places_list {
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+    main#main-page article {
+        margin: 1em auto;
+    }
+}

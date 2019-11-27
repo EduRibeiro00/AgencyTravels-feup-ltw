@@ -1,4 +1,4 @@
-<?php function draw_head($class = null) { ?>
+<?php function draw_head() { ?>
 <!DOCTYPE html>
 <html lang="en-US">
 	<head>
@@ -14,8 +14,10 @@
 
 <?php function draw_footer() { ?>
     <footer>
-		<div class="circular-cropper img-size-60">
-			<img id="logo" src="http://www.berkanacompany.com/wp-content/uploads/2014/05/logo-placeholder-300x200.jpg">
+		<div class="circular-cropper">
+			<a href="main_page.php">
+				<img id="logo" src="http://www.berkanacompany.com/wp-content/uploads/2014/05/logo-placeholder-300x200.jpg">
+			</a>
 		</div>
         <span id="cpline"> &copy; Agency Travels, LTW 2019. All rights reserved. </span>
         <div id="follow">
@@ -38,13 +40,14 @@
 include_once('../templates/tpl_search_form.php');
 include_once('../templates/tpl_login_form.php');
 
-function draw_navbar($class = null) { ?>
+function draw_navbar($class = null) {  // TODO: passar informacao do user para dar display aqui ?>
     <nav id="navbar" <?=$class == null? '' : "class=$class" ?>>
-		<a id="mainpagelink" href="main_page.php">
-			<div class="circular-cropper img-size-60" id="logo-cropper">
+		<div class="circular-cropper" id="logo-cropper">
+			<a href="main_page.php">
 				<img id="logo" src="http://www.berkanacompany.com/wp-content/uploads/2014/05/logo-placeholder-300x200.jpg">
-			</div>
-		</a>
+			</a>
+		</div>
+
         <form id="search_form" action="../actions/action_search.php" method="get">
 			<i class="fas fa-search"></i><input type="text" name="location" placeholder="Search for places in...">
 			<?php 
@@ -53,12 +56,12 @@ function draw_navbar($class = null) { ?>
         </form>
         <a id="housespagelink" href="my_houses.php">My Houses</a>
 		<a id="reservspagelink" href="my_reserves.php">My Reservations</a>
-		<a id="profilepagelink" href="profile.php">
-			<div class="circular-cropper img-size-60" id="profile-cropper">	
-				<img id="profilepic" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">	
-			</div>Moussa
+		<a href="profile_page.php?userID=<?=1?>">
+			<img class="circular-img" id="profilepic" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">	
 		</a>
+		<a href="profile_page.php?userID=<?=1?>">Moussa</a>
 		<!-- TODO: assim para testar popup -->
+		<!-- <a id="logoutlink" href="action_logout.php">Logout</a> -->
 		<a id="loginlink" href="#">Login</a>
 	  </nav>
 	  <?php draw_login_form(); ?>

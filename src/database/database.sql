@@ -25,7 +25,7 @@ CREATE TABLE User (
     birthDate      DATE		CONSTRAINT nn_user_birthDate NOT NULL,
     gender         TEXT		CONSTRAINT check_user_gender CHECK (gender = "M" OR gender = "F" or gender = "O"),
     locationID     INTEGER	CONSTRAINT fk_user_locationid REFERENCES Location (locationID)  ON DELETE SET NULL
-                                                                                           ON UPDATE CASCADE
+                                                                                            ON UPDATE CASCADE
 );
 
 -- Table: Place
@@ -104,7 +104,6 @@ CREATE TABLE Review (
     reservationID   INTEGER CONSTRAINT fk_review_reservationid REFERENCES Reservation(reservationID) ON DELETE CASCADE
                                                                                                      ON UPDATE CASCADE
                             CONSTRAINT unique_review_reservationid UNIQUE CONSTRAINT nn_review_reservationid NOT NULL
-
 );
 
 -- Table: Reply
