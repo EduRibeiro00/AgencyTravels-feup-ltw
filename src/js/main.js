@@ -122,23 +122,29 @@ let resultDropdown = document.getElementById('search-hints')
 
 locInput.addEventListener("keyup", function() {
 	let request = new XMLHttpRequest()
-	if(locInput.value == ""){
-		resultDropdown.innerHTML = ""
+	resultDropdown.innerHTML = ""
+	if(locInput.value == "") {
 		return
 	}
 
-	request.open("GET", "../actions/action_search.php?" + encodeForAjax({val: locInput.value}), true)
-	request.send()
-
-	request.addEventListener('load', function(){
+	request.open("POST", "../actions/action_search.php", true)
+	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+	
+	request.addEventListener('load', function() {
 		let answer = JSON.parse(this.responseText)
-		console.log(answer)
+		let hints = answer.hints;
 
-		resultDropdown.innerHTML = answer.location
+		for(let idx in hints) {
+			let newHint = document.createElement('p');
+			newHint.innerHTML = hints[idx].country + " - " + hints[idx].city;
+			resultDropdown.appendChild(newHint);
+		}
 	})
+	
+	request.send(encodeForAjax({val: locInput.value}))
 })
 
 resultDropdown.addEventListener('click', function(event) {
 	locInput.value = event.target.innerText
 	resultDropdown.innerHTML = ""
-})
+});
