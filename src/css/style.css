@@ -887,33 +887,31 @@ footer a {
     border-style: solid;
     border-color: transparent;
     border-radius: 25px;
-    display: inline-block;
+    float: left;
+    clear: right;
+
 }
 
-.Review_Header_Content section{
-    display: inline;
+.Review_Header_Content article{
+    position: relative;
+    top: 0.2rem;
+    left: 0.3rem;
 }
-
 .Review_Header_Content p{
     margin:0;
-    display: inline;
 }
 
 .Review_Text_Title{
     font-weight: bold;
 }
-.Review_Header_First_Line{
-    display: block;
-    position: relative;
-    top:-2em;
+
+.Review_Header_Second_Line p{
+    display: inline;
 }
 
 .Review_Header_Second_Line{
-    position: relative;
-    right: -3.3em;
-    top:-2rem;
+    position: relative;   
 }
-
 
 
 #Avaiabilities{

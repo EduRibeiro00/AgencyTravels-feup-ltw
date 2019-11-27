@@ -117,8 +117,8 @@
 
         $db = Database::instance()->db();
         
-        $stmt=$db->prepare('SELECT comment,Review.stars as stars, User.name as name
-                            FROM Place NATURAL JOIN Reservation NATURAL JOIN Review JOIN User on Reservation.touristID=User.userID
+        $stmt=$db->prepare('SELECT comment,Review.stars as stars, User.name as name, Review.date as date,Location.city as city,Location.country as country
+                            FROM Place NATURAL JOIN Reservation NATURAL JOIN Review JOIN User on Reservation.touristID=User.userID Join Location on User.locationID=Location.locationID
                             WHERE placeID=?');
 
         $stmt->execute(array($place_id));
@@ -155,6 +155,22 @@
                             ');
 
         $stmt->execute(array($place_id));
+
+        return $stmt->fetch();
+
+    }
+
+    function get_user_location($user_id){
+        
+        $db = Database::instance()->db();
+        
+        $stmt=$db->prepare('SELECT city, country
+                            FROM User NATURAL JOIN LOCATION
+                            WHERE userID=?
+                            
+                            ');
+
+        $stmt->execute(array($user_id));
 
         return $stmt->fetch();
 
