@@ -1,8 +1,10 @@
 <?php function draw_slideshow($slideshowcity, $slideshowimgs) { ?>
     <section id="slideshow">
-        <h3><a href="city_places.php?location_id=<?=$slideshowcity['locationID']?>">Places in <?=$slideshowcity['city']?></a></h3>
 
       <div class="carousel">
+
+        <h3><a href="city_places.php?location_id=<?=$slideshowcity['locationID']?>">Places in <?=$slideshowcity['city']?></a></h3>
+
         <ul class="slides">
 
         <?php

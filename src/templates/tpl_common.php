@@ -14,11 +14,9 @@
 
 <?php function draw_footer() { ?>
     <footer>
-		<div class="circular-cropper">
 			<a href="main_page.php">
-				<img id="logo" src="http://www.berkanacompany.com/wp-content/uploads/2014/05/logo-placeholder-300x200.jpg">
+				<img id="logo" class="circular-img" src="http://www.berkanacompany.com/wp-content/uploads/2014/05/logo-placeholder-300x200.jpg">
 			</a>
-		</div>
         <span id="cpline"> &copy; Agency Travels, LTW 2019. All rights reserved. </span>
         <div id="follow">
 			Follow us:
@@ -42,9 +40,8 @@ include_once('../templates/tpl_login_form.php');
 
 function draw_navbar($class = null) {  // TODO: passar informacao do user para dar display aqui ?>
     <nav id="navbar" <?=$class == null? '' : "class=$class" ?>>
-		<div class="circular-cropper" id="logo-cropper">
-			<a href="main_page.php">
-				<img id="logo" src="http://www.berkanacompany.com/wp-content/uploads/2014/05/logo-placeholder-300x200.jpg">
+			<a class="circ-img-link" href="main_page.php">
+				<img id="logo" class="circular-img" src="http://www.berkanacompany.com/wp-content/uploads/2014/05/logo-placeholder-300x200.jpg">
 			</a>
 		</div>
 
@@ -56,13 +53,13 @@ function draw_navbar($class = null) {  // TODO: passar informacao do user para d
         </form>
         <a id="housespagelink" href="my_houses.php">My Houses</a>
 		<a id="reservspagelink" href="my_reserves.php">My Reservations</a>
-		<a href="profile_page.php?userID=<?=1?>">
+		<a id="link-image" class="circ-img-link" href="profile_page.php?userID=<?=1?>">
 			<img class="circular-img" id="profilepic" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">	
 		</a>
-		<a href="profile_page.php?userID=<?=1?>">Moussa</a>
+		<a id="link-name" href="profile_page.php?userID=<?=1?>">Moussa</a>
 		<!-- TODO: assim para testar popup -->
-		<!-- <a id="logoutlink" href="action_logout.php">Logout</a> -->
 		<a id="loginlink" href="#">Login</a>
+		<!-- <a id="logoutlink" href="action_logout.php">Logout</a> -->
 	  </nav>
 	  <?php draw_login_form(); ?>
 <?php } ?>

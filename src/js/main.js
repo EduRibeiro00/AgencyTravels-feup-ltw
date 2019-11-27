@@ -2,9 +2,9 @@
 
 //// Sticky nav bar
 var navbar = document.getElementById("navbar")
-var sticky =  navbar.offsetTop
+var sticky = navbar.offsetTop
 
-window.addEventListener('scroll', function(){
+window.addEventListener('scroll', function() {
 	if(window.pageYOffset >= sticky)
 		navbar.classList.add("sticky")
 	else
