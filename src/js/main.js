@@ -107,3 +107,35 @@ for(let x = 0; x < crosses.length; x++){
 		this.parentElement.parentElement.style.display = "none"
 	});
 }
+
+
+function encodeForAjax(data) {
+	return Object.keys(data).map(function(k){
+	  return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+	}).join('&')
+  }
+
+//// Search and Suggestions
+// TODO: refactor disto [0]??
+let locInput = document.getElementsByName("location")[0]
+let resultDropdown = document.getElementById('search-hints')
+
+locInput.addEventListener("keyup", function() {
+	let request = new XMLHttpRequest()
+	if(locInput.value == ""){
+		resultDropdown.innerHTML = ""
+		return
+	}
+
+	request.open("GET", "../actions/action_search.php?" + encodeForAjax({val: locInput.value}), true)
+	request.send()
+
+	request.addEventListener('load', function(){
+		resultDropdown.innerHTML = request.response
+	})
+})
+
+resultDropdown.addEventListener('mouseup', function(event) {
+	locInput.value = event.target.innerText
+	resultDropdown.innerHTML = ""
+})

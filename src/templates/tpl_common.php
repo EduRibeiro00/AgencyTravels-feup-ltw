@@ -46,7 +46,9 @@ function draw_navbar($class = null) { ?>
 			</div>
 		</a>
         <form id="search_form" action="../actions/action_search.php" method="get">
-			<i class="fas fa-search"></i><input type="text" name="location" placeholder="Search for places in...">
+			<i class="fas fa-search"></i><input type="text" name="location" autocomplete="off" placeholder="Search for places in...">
+			<!-- TODO: ver section e depois se precisa de estar tudo numa div -->
+			<section id="search-hints"></section>
 			<?php 
 				draw_search_form();
 			?>
