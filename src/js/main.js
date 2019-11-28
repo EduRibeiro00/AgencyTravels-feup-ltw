@@ -13,18 +13,19 @@ window.addEventListener('scroll', function() {
 
 //// Seach appearance
 let searchForm = document.getElementById("search_form")
-searchForm.addEventListener("focusin", openFilters)
-searchForm.addEventListener("focusout", closeFilters)
-
-
-function openFilters(){
+searchForm.addEventListener("focusin", function() {
 	document.getElementById("filters").style.display = "grid"
-}
+	window.addEventListener('click', closeWindow)
+})
 
-function closeFilters(event){
-	if (searchForm.contains(event.relatedTarget))
-		return;
+searchForm.addEventListener("click", function() {
+	event.stopPropagation()
+})
+
+function closeWindow() {
 	document.getElementById("filters").style.display = "none"
+	resultDropdown.innerHTML = ""
+	window.removeEventListener("click", closeWindow)
 }
 
 
@@ -106,3 +107,45 @@ for(let x = 0; x < crosses.length; x++){
 		this.parentElement.parentElement.style.display = "none"
 	});
 }
+
+
+
+function encodeForAjax(data) {
+	return Object.keys(data).map(function(k){
+	  return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+	}).join('&')
+}
+
+//// Search and Suggestions
+// TODO: refactor disto [0]??
+let locInput = document.getElementsByName("location")[0]
+let resultDropdown = document.getElementById('search-hints')
+
+locInput.addEventListener("keyup", function() {
+	let request = new XMLHttpRequest()
+	resultDropdown.innerHTML = ""
+	if(locInput.value == "") {
+		return
+	}
+
+	request.open("POST", "../api/api_search.php", true)
+	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+	
+	request.addEventListener('load', function() {
+		let answer = JSON.parse(this.responseText)
+		let hints = answer.hints;
+
+		for(let idx in hints) {
+			let newHint = document.createElement('p');
+			newHint.innerHTML = hints[idx].country + " - " + hints[idx].city;
+			resultDropdown.appendChild(newHint);
+		}
+	})
+	
+	request.send(encodeForAjax({val: locInput.value}))
+})
+
+resultDropdown.addEventListener('mouseup', function(event) {
+	locInput.value = event.target.innerText
+	resultDropdown.innerHTML = ""
+})

@@ -801,6 +801,36 @@ section#map {
 	margin: 1em auto;
 }
 
+/*
+ * ------------ Search Location Hint ------------
+ */
+
+ #search-hints{
+	background: var(--background_color);
+	color: var(--main_color);
+	position: absolute;        
+	z-index: 325;
+	top: 3.5em;
+	left: 15em;
+	font-weight: 500;
+	font-size: 0.9em;
+}
+
+/* Formatting result items */
+#search-hints p{
+	margin: 0;
+	padding: 0.4em 0.5em;
+	border: 1px solid var(--border_color);
+	border-top: none;
+	cursor: pointer;
+}
+
+#search-hints p:hover{
+	background:var(--darker_bg_color);
+	font-weight: 600;
+}
+
+
 /**
  * ------------ Footer ------------
  */
@@ -890,7 +920,7 @@ footer a {
 #pop-up {
 	display: none;
 	position: fixed;
-	z-index: 300;
+	z-index: 350;
 	left: 0;
 	top: 0;
 	width: 100%;
