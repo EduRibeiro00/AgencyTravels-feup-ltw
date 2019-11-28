@@ -6,7 +6,9 @@
     include_once('../templates/tpl_similar_offer.php');
     include_once('../templates/tpl_availability.php');
     include_once('../database/db_myplace.php');
-	draw_head(['../js/main.js']);
+
+
+	draw_head(['../js/main.js', '../js/place_page.js']);
     draw_navbar();
     
     $place_id=$_GET['place_id'];
