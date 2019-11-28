@@ -12,9 +12,7 @@ html {
 
 body {
 	margin: 0;
-	padding: 0;
-	position: relative;
-	min-height: 100%;
+    padding: 0;
 
     --background_color: #f9f9f9;
     --darker_bg_color: #f5f0f0;
@@ -26,22 +24,101 @@ body {
     --light_text_color: #f3f3f6;
     --border_color: #868686;
 
-	--default_text_font: sans-serif;
-
+	--default_text_font: "Trebuchet MS", Helvetica, sans-serif;
+	
 	/* TODO: passar para javascript para n ser hardcoded */
 	--footer_height: 4em;
 	--footer_padding: 1em;
-
-	padding-bottom: calc(var(--footer_height) + 3em);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, a, p, label {
     font-family: var(--default_text_font);
 }
 
-#topdests img, #trending img {
-    border-radius: 40px;
+/* circular cropper: apenas para usar em imagens fixas como o logotipo e o github */
+.circular-cropper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 0 1em;
+    display: flex;
+    justify-content: center;
 }
+
+.circular-cropper img {
+    width: auto;
+    height: 100%;
+}
+
+.circular-cropper img#logo {
+    height: 175%;
+    margin-top: -1.3em;
+    margin-left: 0.2em;
+}
+
+.circular-cropper img#github {
+    height: 107%;
+    margin-top: -0.2em;
+}
+
+.circular-cropper img#logo-login {
+    height: 180%;
+    margin-top: -2.8em;
+    margin-left: 0.4em;
+}
+
+#navbar .circular-cropper, footer .circular-cropper {
+    width: 3.5em;
+    height: 3.5em;
+}
+
+#login-form .circular-cropper {
+    width: 7.2em;
+    height: 7.2em;
+}
+
+.circular-cropper#mail-icon {
+    width: 2.5em;
+    height: 2.5em;
+    position: absolute;
+    top: 1.5em;
+    left: 20em;
+}
+
+/* ----------- */
+
+/* circular-img: para usar em imagens que podem variar (profile pic, place images, etc) */
+.circular-img{
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+a.circ-img-link {
+    display: flex;
+    align-items: center;
+}
+
+#navbar .circular-img {
+    width: 3.5em;
+    height: 3.5em;
+    margin: 0 1em;
+}
+
+#topdests .circular-img, #trending .circular-img {
+    width: 3.7em;
+	height: 3.7em;
+	vertical-align: middle;
+	position: relative;
+}
+
+#profile-image img.circular-img {
+    width: 11.5em;
+    height: 11.5em;
+    position: absolute;
+    top: -7em;
+    left: 12em;
+}
+
 
 a:hover {
     text-decoration: underline;
@@ -95,13 +172,9 @@ body > nav {
     align-items: center;
 }
 
-/* TODO: obrigar figura a ser um quadrado e depois mudar este valor para const pois é só centrar, desta forma ter-se-ia de por um valor para cada profile pic */
-#profilepic {
-    margin-left: -35%; 
-}
-
 #navbar form {
     flex-grow: 1;
+    margin: 0 1em;
 }
 
 a {
@@ -109,8 +182,17 @@ a {
     text-decoration: none;
 }
 
-#navbar a, #navbar form {
+#navbar form, #navbar a {
     margin: 0 2em;
+}
+
+#navbar a#link-image {
+    margin-right: 1em;
+}
+
+#navbar a#link-name {
+    margin-left: 0;
+    margin-right: 1em;
 }
 
 nav input[type="text"] {
@@ -125,35 +207,59 @@ nav input[type="text"]::placeholder{
 	opacity: 100%;
 }
 
-.img-size-60{
-	width: 60px;
-    height: 60px;
+
+/* TODO: se calhar forçar a profile pic a ser quadrada */ 
+
+/**
+ * ------------ Initial page ------------
+*/
+
+body.initial{
+	background-image: url("https://images.pexels.com/photos/1095817/pexels-photo-1095817.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+	background-size: cover;
 }
 
-.circular-cropper {
-    position: relative;
-    overflow: hidden;
-    border-radius: 50%;
-    margin: 0 1em;
+body.initial footer {
+    position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
 }
 
-.circular-cropper img {
-	width: 0 auto;
-	height: 100%;
+div.flex-column {
+	color: var(--light_text_color);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+	text-align: center;
+	min-height: calc(100vh - var(--footer_height) - var(--footer_padding));
+	height: calc(100vh - var(--footer_height) - var(--footer_padding)) !important;	 
 }
 
-/* TODO: mudar qd imagem nova */
-img#logo{
-	height: 175%;
-	margin-left: -47px;
-	margin-top: -22px;
+ div#greetings {
+	width: 100%;
+	background-color: rgba(1.0, 1.0, 1.0, 0.3);
+ }
+
+ div#greetings header h2 {
+	font-family: 'Parisienne', cursive;
+	font-size: 2.4em;
 }
 
-img#github{
-	height: 107%;
-	margin-left: -31px;
-	margin-top: -3px;
+div#greetings header h2 em {
+	text-transform: uppercase;
+	color: #d43e3e;
 }
+
+div#greetings header h1 {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	letter-spacing: 0.1em;
+	font-size: 2.5em;
+	padding-bottom: 0.7em;
+}
+
 
 /**
  * ------------ Slideshow / carousel ------------
@@ -170,11 +276,11 @@ img#github{
     z-index: 100;
     font-size: 1em;
     position: absolute;
-    bottom: 70px;
-    left: 300px;
+    bottom: 15%;
+    left: 22%;
     background-color: var(--transp_main_color);
     padding: 1em 2em;
-    border-radius: 30px;
+    border-radius: 2em;
 }
 
 #slideshow a:after {
@@ -189,7 +295,7 @@ img#github{
 ul.slides {
     display: block;
     position: relative;
-    height: 600px;
+    height: 40em;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -236,15 +342,15 @@ ul.slides input {
     left: 0;
     right: 0;
     z-index: 99;
-    font-size: 100px;
-    line-height: 600px;
+    font-size: 8em;
+    line-height: 5em;
     color: #fff;
 }
 
 .carousel-controls label {
     display: none;
     position: absolute;
-    padding: 0 20px;
+    padding: 0 0.2em;
     opacity: 0;
     transition: opacity .2s;
     cursor: pointer;
@@ -274,19 +380,19 @@ ul.slides input {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 20px;
+    bottom: 1.5em;
     z-index: 99;
     text-align: center;
 }
 
 .carousel-dots .carousel-dot {
     display: inline-block;
-    width: 30px;
-    height: 30px;
+    width: 1.5em;
+    height: 1.5em;
     border-radius: 50%;
     background-color: #fff;
     opacity: 0.5;
-    margin: 10px;
+    margin: 0.7em;
 }
 
 input:checked + .slide-container .slide-image {
@@ -317,14 +423,17 @@ input:checked + .slide-container .nav label { display: block; }
  */
 
 main {
-	display: grid;
-	width: 100%;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto;
-    grid-template-areas: "topdests trending"
-                          "randlocationplaces randlocationplaces"; 
+    width: 100%;
     color: var(--main_color);
     margin-bottom: 2em;
+}
+
+main#main-page {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "topdests trending"
+                         "randlocationplaces randlocationplaces"; 
 }
 
 main h3 {
@@ -354,12 +463,6 @@ main a {
 	padding-inline-start: 0;
 	counter-reset: li-count;
 }
-
-/* #trending ol {
-    padding-top: 1.5em;
-    list-style-type: none;
-    padding-inline-start: 0;
-} */
 
 ol li {
 	padding: 1em;
@@ -392,40 +495,37 @@ ol li span:before {
     grid-area: trending;
 }
 
-#topdests img, #trending img {
-    width: 70px;
-	height: 70px;
-	vertical-align: middle;
-	position: relative;
+main#main-page .place-listing {
+    grid-area: randlocationplaces;
 }
 
-#randlocationplaces {
-    grid-area: randlocationplaces;
+.place-listing {
     border: 1px solid black;
     margin: 0 2em;
 }
 
-#randlocationplaces img {
-	height: 250px;
+.place-listing img {
+	height: 14em;
 	width: auto;
 }
 
-#places_list {
+.places_list {
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
 }
 
-#randlocationplaces article {
+.place-listing article {
     text-align: center;
     font-size: 0.9em;
     position: relative;
+    display: inline-block;
 }
 
 .place_info {
     background-color: rgba(0, 0, 0, 0.5);
-    display: inline-block;
     position: absolute;
-    bottom: 10px;
+    bottom: 0.5em;
     left: 50%;
 	transform: translate(-50%, 0%);
     color: var(--light_text_color);
@@ -435,7 +535,7 @@ ol li span:before {
     margin: auto 0.2em;
 }
 
-#more {
+.more {
     text-align: center;
     margin: 1em auto;
 }
@@ -445,57 +545,119 @@ ol li span:before {
     color: var(--light_text_color);
     padding: 0.3em 2em;
     border: 1px solid var(--border_color);
-	border-radius: 30px;
+    border-radius: 1em;
+    transition: all .3s ease-in-out;
 }
 
 .button:hover {
-	text-decoration: underline;
+    text-decoration: none;
 	opacity: 0.8;
 	cursor: pointer;
 }
 
 /**
- * ------------ Initial page ------------
+ * ------------ Profile page ------------
  */
 
- body.initial{
-	background-image: url("https://images.pexels.com/photos/1095817/pexels-photo-1095817.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
-	background-size: cover;
-	padding-bottom: 0;
- }
-
- div.flex-column {
-	color: var(--light_text_color);
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-content: center;
-	text-align: center;
-	min-height: calc(100vh - var(--footer_height) - var(--footer_padding));
-	height: calc(100vh - var(--footer_height) - var(--footer_padding)) !important;	 
+main#profile-page {
+    display: grid;
+    grid-template-columns: 30% auto;
+    grid-template-rows: 30em auto auto 1fr;
+    grid-template-areas: "banner banner"
+                         "profileinfo profileinfo"
+                         "bio userplaces"
+                         "bio placecomments";
 }
 
- div#greetings {
-	width: 100%;
-	background-color: rgba(1.0, 1.0, 1.0, 0.3);
- }
-
- div#greetings header h2 {
-	font-family: 'Parisienne', cursive;
-	font-size: 2.4em;
+#banner-image {
+    grid-area: banner;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    background-color: var(--darker_bg_color);
 }
 
-div#greetings header h2 em {
-	text-transform: uppercase;
-	color: #d43e3e;
+#banner-image img {
+    display: block;
+    width: 80%;
+    object-fit: cover;
 }
 
-div#greetings header h1 {
-	font-family: 'Roboto', sans-serif;
-	font-weight: 400;
-	letter-spacing: 0.1em;
-	font-size: 2.5em;
-	padding-bottom: 0.7em;
+.edit-profile {
+    margin: 5em;
+}
+
+.profile-info-fields p {
+    font-size: 1.1em;
+}
+
+.profile-info-fields {
+    margin: 1em 3em;
+}
+
+.profile-info {
+    grid-area: profileinfo;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.bio {
+    background-color: var(--darker_bg_color);
+    margin-left: 1em;
+    padding: 0 1em;
+    grid-area: bio;
+}
+
+main#profile-page .place-listing {
+    grid-area: userplaces;
+}
+
+.place-comments {
+    grid-area: placecomments;
+    margin: 1em;
+    margin-bottom: 0;
+    background-color: var(--darker_bg_color);
+}
+
+
+/**
+ * ------------ Profile form ------------
+ */
+
+#profile-form header {
+    margin: 2em;
+}
+
+#profile-form h3 {
+    font-size: 2.4em;
+    color: var(--main_color);
+}
+
+#profile-form form {
+    margin: 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+#profile-form label, #profile-form #form-gender {
+    font-size: 1.2em;
+    color: var(--main_color);
+    margin: 1em 0;
+    font-weight: bold;
+}
+
+#profile-form h4 {
+    display: inline-block;
+}
+
+#profile-form input[type="submit"] {
+    text-align: center;
+    margin: 1em auto;
+}
+
+#profile-form textarea {
+    resize: none;
 }
 
 
@@ -534,7 +696,7 @@ div#greetings header h1 {
 	margin-right: 1em;
 	padding: 0.3em 1em;
 	border: var(--border_color) 1px solid;
-	border-radius: 30px;
+	border-radius: 1em;
 	background: var(--main_color);
 	color: var(--light_text_color);
 }
@@ -639,20 +801,46 @@ section#map {
 	margin: 1em auto;
 }
 
+/*
+ * ------------ Search Location Hint ------------
+ */
+
+ #search-hints{
+	background: var(--background_color);
+	color: var(--main_color);
+	position: absolute;        
+	z-index: 325;
+	top: 3.5em;
+	left: 15em;
+	font-weight: 500;
+	font-size: 0.9em;
+}
+
+/* Formatting result items */
+#search-hints p{
+	margin: 0;
+	padding: 0.4em 0.5em;
+	border: 1px solid var(--border_color);
+	border-top: none;
+	cursor: pointer;
+}
+
+#search-hints p:hover{
+	background:var(--darker_bg_color);
+	font-weight: 600;
+}
+
+
 /**
  * ------------ Footer ------------
  */
 
-body > footer {
+ body > footer {
     background-color: var(--footer_color);
     padding: var(--footer_padding);
     border-top: 20px solid var(--main_color);
     display: flex;
 	align-items: center;
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	left: 0;
 }
 
 #follow {
@@ -661,6 +849,7 @@ body > footer {
 }
 
 #cpline {
+    margin-left: 1em;
     flex-grow: 1;
 }
 
@@ -728,21 +917,10 @@ footer a {
 	color: var(--border_color);
 }
 
-/* TODO: uniformizar isto */
-#login-form #logo {
-	margin-left: -126px;
-	margin-top: -57px;
-}
-
-.img-size-10{
-	width: 10em;
-	height: 10em;
-}
-
 #pop-up {
 	display: none;
 	position: fixed;
-	z-index: 300;
+	z-index: 350;
 	left: 0;
 	top: 0;
 	width: 100%;
@@ -783,7 +961,7 @@ footer a {
 #House_Info header{
     
     font-size: 2rem;
-    padding-bottom: 2px;
+    padding-bottom: 0.1em;
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: var(--main_color);
@@ -803,6 +981,7 @@ footer a {
     
 
 }
+
 #Pictographic_Info li{
     display: inline;
     background-color: gainsboro;
@@ -810,10 +989,10 @@ footer a {
     margin-right: 1em;
     border-style: solid;
     border-color: transparent;
-    border-radius: 10px;
-    
+    border-radius: 20%;
     text-align: center;
 }
+
 .info_icon {
     display: inline-block;
     width: 1em;
@@ -825,7 +1004,7 @@ footer a {
     min-height:0;
     grid-area:Aside;
     border-left: 3px;
-    padding-left: 3px;
+    padding-left: 0.2em;
     border-top:1em;
     position: sticky;
     top:0;
@@ -973,139 +1152,18 @@ footer a {
     flex-basis: 20%;
 }
 
+/**
+ * ------------ Responsive ------------
+ */
 
+@media (max-width: 70em) {
 
-.carousel {
-    grid-area: slideshow;
-    margin-left:20%;
-    margin-right: 20%;
+    main#main-page .places_list {
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+    main#main-page article {
+        margin: 1em auto;
+    }
 }
-
-ul.slides {
-    display: block;
-    position: relative;
-    height: 600px;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    list-style: none;
-}
-
-.slides * {
-    user-select: none;
-    -ms-user-select: none;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -webkit-touch-callout: none;
-}
-
-ul.slides input {
-    display: none; 
-}
-
-
-.slide-container { 
-    display: block; 
-}
-
-.slide-image {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    opacity: 0;
-    transition: all .7s ease-in-out;
-}   
-
-.slide-image img {
-    width: auto;
-    min-width: 100%;
-    height: 100%;
-}
-
-.carousel-controls {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    font-size: 100px;
-    line-height: 600px;
-    color: #fff;
-}
-
-.carousel-controls label {
-    display: none;
-    position: absolute;
-    padding: 0 20px;
-    opacity: 0;
-    transition: opacity .2s;
-    cursor: pointer;
-}
-
-.slide-image:hover + .carousel-controls label{
-    opacity: 0.5;
-}
-
-.carousel-controls label:hover {
-    opacity: 1;
-}
-
-.carousel-controls .prev-slide {
-    width: 49%;
-    text-align: left;
-    left: 0;
-}
-
-.carousel-controls .next-slide {
-    width: 49%;
-    text-align: right;
-    right: 0;
-}
-
-.carousel-dots {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 20px;
-    z-index: 999;
-    text-align: center;
-}
-
-.carousel-dots .carousel-dot {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #fff;
-    opacity: 0.5;
-    margin: 10px;
-}
-
-input:checked + .slide-container .slide-image {
-    opacity: 1;
-    transform: scale(1);
-    transition: opacity 1s ease-in-out;
-}
-
-input:checked + .slide-container .carousel-controls label {
-     display: block; 
-}
-
-input#img-1:checked ~ .carousel-dots label#img-dot-1,
-input#img-2:checked ~ .carousel-dots label#img-dot-2,
-input#img-3:checked ~ .carousel-dots label#img-dot-3,
-input#img-4:checked ~ .carousel-dots label#img-dot-4,
-input#img-5:checked ~ .carousel-dots label#img-dot-5,
-input#img-6:checked ~ .carousel-dots label#img-dot-6 {
-	opacity: 1;
-}
-
-
-input:checked + .slide-container .nav label { display: block; }
-
-
-
-

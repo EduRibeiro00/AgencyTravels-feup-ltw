@@ -1,6 +1,8 @@
 <?php
+  include_once('../includes/session_include.php');
   include_once('../templates/tpl_common.php');
   include_once('../templates/tpl_main_page.php');
+  include_once('../templates/tpl_slideshow.php');
   include_once('../database/db_places.php');
 
   // slideshow
@@ -20,7 +22,7 @@
     $randplaces[$k]['avg_price'] = getAveragePrice($place['placeID'])['avg_price'];
   }
 
-  draw_head();
+  draw_head(['../js/main.js']);
   draw_navbar();
   draw_slideshow($slideshowcity, $slideshowimgs);
 

@@ -28,6 +28,16 @@ function getRandomCountry() {
     return $stmt->fetch();
 }
 
+function getLocations($location) {
+	$val = "%" . $location ."%";
+	$db = Database::instance()->db();
+	$stmt = $db->prepare('SELECT * 
+						FROM Location
+						WHERE country LIKE ? OR city LIKE ?');
+	$stmt->execute(array($val, $val));
+	return $stmt->fetchAll();
+}
+
 
 function getRandomPlacesRandomCountry($number) {
     $country = getRandomCountry();
@@ -104,6 +114,5 @@ function getRandomImagesFromCity($locationID, $number) {
     $stmt->execute(array($locationID, $number));
     return $stmt->fetchAll();
 }
-
 
 ?>

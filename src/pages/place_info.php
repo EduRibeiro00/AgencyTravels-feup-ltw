@@ -1,13 +1,12 @@
-
 <?php
-    
+    include_once('../includes/session_include.php');
     include_once('../templates/tpl_common.php');
     include_once('../templates/tpl_comment.php');
     include_once('../templates/tpl_place.php');
     include_once('../templates/tpl_similar_offer.php');
     include_once('../templates/tpl_availability.php');
     include_once('../database/db_myplace.php');
-	draw_head();
+	draw_head(['../js/main.js']);
     draw_navbar();
     
     $place_id=$_GET['place_id'];
