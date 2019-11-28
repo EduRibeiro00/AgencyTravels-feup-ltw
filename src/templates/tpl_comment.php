@@ -53,4 +53,29 @@ function draw_comment($comment){ ?>
 
 </section>
 
+<?php 
+
+} 
+
+function draw_all_comments($house_rating,$house_comments){ ?>
+
+
+    <article id="Reviews_Container">
+
+    <header>
+        <p>Revisions</p>
+        <?php draw_star_rating($house_rating)?>
+        
+    </header>
+
+    <?php  
+        foreach($house_comments as $comment)
+            draw_comment($comment);    
+    ?>
+
+    </article>
+
 <?php } ?>
+
+
+
