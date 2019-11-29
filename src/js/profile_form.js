@@ -7,3 +7,5 @@ function updateMaxBirthDate() {
 }
 
 updateMaxBirthDate();
+
+// -----------------
