@@ -5,6 +5,6 @@
   
 	draw_head(['../js/main.js']);
 	draw_navbar();
-	list_houses_result();
+	list_houses_result(true);
 	draw_footer();
 ?>
