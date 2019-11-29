@@ -4,6 +4,7 @@
   include_once('../templates/tpl_main_page.php');
   include_once('../templates/tpl_slideshow.php');
   include_once('../database/db_places.php');
+  include_once('../database/db_user.php');
 
   // slideshow
   $slideshowcity = getRandomCity();
@@ -22,8 +23,18 @@
     $randplaces[$k]['avg_price'] = getAveragePrice($place['placeID'])['avg_price'];
   }
 
-  draw_head(['../js/main.js']);
-  draw_navbar();
+  if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
+    $user_info = getUserInformation($_SESSION['userID']);
+    $jsFiles = ['../js/main.js'];
+  }
+  else {
+    $user_info = null;
+    $jsFiles = ['../js/main.js', '../js/login.js'];
+  }
+
+
+  draw_head($jsFiles);
+  draw_navbar($user_info);
   draw_slideshow($slideshowcity, $slideshowimgs);
 
   draw_mainpage_body($topdests, $trendingdests, $randcity, $randplaces);

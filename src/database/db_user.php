@@ -97,5 +97,24 @@
                             );
         $stmt->execute(array($path, $userID));
     }
+
+    function checkUserCredentials($username, $password) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT userID
+                              FROM User
+                              WHERE username = ? AND password = ?'
+                            );
+        $stmt->execute(array($username, $password));
+        return $stmt->fetch();
+    }
+
+    function checkPasswordThroughID($userID) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT password
+                              FROM User
+                              WHERE userID = ?'
+                            );
+        $stmt->execute(array($userID));
+        return $stmt->fetch();
+    }
 ?>
-    
