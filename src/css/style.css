@@ -1242,6 +1242,39 @@ My Place
 
 
 
+/*Edit-House-Form*/
+
+#my_house_edit_container legend{
+    color: var(--main_color);
+    font-size: 1.5em
+}
+#my_house_edit_container fieldset{
+    margin-bottom: 2em;
+}
+#my_house_edit_container .edit-house-imgs img{
+    width: 20em;
+    height: 10em;
+}
+
+#my_house_edit_container .edit-house-imgs{
+    justify-content: space-around;
+}
+
+#my_house_edit_container .edit-house-imgs input{
+    align-self: flex-end;
+}
+
+#my_house_edit_container .edit-house-location,#my_house_edit_container .edit-house-caracteristics{
+    justify-content: space-evenly;
+}
+
+
+
+
+
+
+
+
 
 
 /**
