@@ -5,19 +5,24 @@ window.onload=function(){
 	
 	let someElement = document.getElementById('Pop_UP_Fast_Reservation')
 	const value= img_elem.offsetHeight+navbar.offsetHeight-window.screenY
-	console.log(img_elem.clientHeight)
-	console.log(navbar.clientHeight)
-	console.log(value)
-
+	let bottom_element=document.getElementById('Reviews_Container')
+	const value_bottom =bottom_element.offsetTop
+	
+	
+	
 	window.addEventListener('scroll', function(){
 	
-		if(window.pageYOffset >= (value-100)){
-			console.log(window.pageYOffset)
+		if(window.pageYOffset >= value-10&&window.pageYOffset<=value_bottom){
 			someElement.style.top="4em"
+			someElement.style.position="sticky"
+		}
+		else if(window.pageYOffset>value_bottom){
+			someElement.style.top="-4em"
+			
 		}
 		else{
-			console.log(window.pageYOffset)
-			someElement.style.top="0"
+			someElement.style.top="value_bottom"
+			someElement.style.position="static"
 		}
 			
 	})

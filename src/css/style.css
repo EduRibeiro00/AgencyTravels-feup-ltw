@@ -1006,9 +1006,11 @@ footer a {
     border-left: 3px;
     padding-left: 0.2em;
     border-top:1em;
+    position: -webkit-sticky;
     position: sticky;
     top:0;
     left: 55%;
+    height: 25vh;
 }
 #Owner_info{
     margin-top: 1em;
