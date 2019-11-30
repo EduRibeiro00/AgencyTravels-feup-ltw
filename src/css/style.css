@@ -1165,6 +1165,7 @@ My Place
                         "list_house list_house"
                         
     ;
+    margin-left: 1rem;
 }
 
 #my_houses_statistics_container{
@@ -1177,7 +1178,7 @@ My Place
 #my_houses_statistics_header p{
     color:var(--main_color);
     font-size: 2em;
-    margin: 0px;
+    margin-left: -0.2em;
     margin-bottom: 0.5em;
     margin-top: 0.5em;
 }
@@ -1221,7 +1222,6 @@ My Place
 
 #my_houses_list_container{
     grid-area: list_house;
-    margin-left: 1rem;
     margin-right: 4rem;
 }
 
