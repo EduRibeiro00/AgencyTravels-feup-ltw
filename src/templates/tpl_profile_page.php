@@ -17,10 +17,11 @@
                     <img src="https://icon-library.net/images/email-box-icon/email-box-icon-4.jpg">
                 </div>
                 
-                <!-- TODO: mudar o "a" para class=button quando se der merge -->
-                <div class="edit-profile"> 
-                    <a class="button" href="../pages/profile_edit.php?userID=<?=$user_info['userID']?>" >Edit Profile</a>
-                </div>
+                <?php if(isset($_SESSION['userID']) && $_SESSION['userID'] == $user_info['userID']) { ?>
+                    <div class="edit-profile"> 
+                        <a class="button" href="../pages/profile_edit.php" >Edit Profile</a>
+                    </div>
+                <?php } ?>
 
                 <section class="profile-info-fields">
                     <p id="username"><strong>Username: </strong><?=$user_info['username']?></p>

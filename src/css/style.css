@@ -20,12 +20,13 @@ body {
     --footer_color: #a59b9b;
 	--transp_main_color: rgba(228, 124, 120, 0.7); /* rgba format so it doesn't make the text transparent, only the background */
 	--yellow_color: #f1ee2d;
+    --error_msg_color: #be1e1e;
 
     --light_text_color: #f3f3f6;
     --border_color: #868686;
 
 	--default_text_font: "Trebuchet MS", Helvetica, sans-serif;
-	
+    
 	/* TODO: passar para javascript para n ser hardcoded */
 	--footer_height: 4em;
 	--footer_padding: 1em;
@@ -132,6 +133,12 @@ a:hover {
 .column{
 	display: flex;
 	flex-direction: column;
+}
+
+.error-message {
+    display: none;
+    font-size: 0.9em;
+    color: var(--error_msg_color);
 }
 
 /**
@@ -584,7 +591,8 @@ main#profile-page {
 }
 
 .edit-profile {
-    margin: 5em;
+    position: absolute;
+    left: 5em;
 }
 
 .profile-info-fields p {
@@ -592,7 +600,7 @@ main#profile-page {
 }
 
 .profile-info-fields {
-    margin: 1em 3em;
+    margin: 1em 0 1em 25em;
 }
 
 .profile-info {
@@ -658,6 +666,10 @@ main#profile-page .place-listing {
 
 #profile-form textarea {
     resize: none;
+}
+
+#new-password {
+    margin-right: 3em;
 }
 
 

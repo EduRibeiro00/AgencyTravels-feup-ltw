@@ -6,13 +6,23 @@
     include_once('../templates/tpl_similar_offer.php');
     include_once('../templates/tpl_availability.php');
     include_once('../database/db_myplace.php');
+    include_once('../database/db_user.php');
 
-
-	draw_head(['../js/main.js', '../js/place_page.js']);
-    draw_navbar();
     
-    $place_id=$_GET['place_id'];
-
+    if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
+        $user_info = getUserInformation($_SESSION['userID']);
+        $jsFiles = ['../js/main.js', '../js/place_page.js'];
+    }
+    else {
+        $user_info = null;
+        $jsFiles = ['../js/main.js', '../js/place_page.js', '../js/login.js'];
+    }
+    
+	draw_head($jsFiles);
+    draw_navbar($user_info);
+    
+    $place_id = $_GET['place_id'];
+    
     $house_name=get_house_title($place_id)["title"];
     $house_rating=get_house_rating($place_id)["rating"];
     $house_description=get_house_description($place_id)["description"];

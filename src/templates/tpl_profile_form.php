@@ -1,6 +1,6 @@
 <?php
 
-function draw_profile_form($title, $action, $user_info = null) {
+function draw_profile_form($title, $user_info = null) {
     if($user_info != null) {
         $id = $user_info['userID'];
         $username = $user_info['username'];
@@ -55,30 +55,40 @@ function draw_profile_form($title, $action, $user_info = null) {
             <h3><?=$title?></h3>
         </header>
 
-        <!-- TODO: fazer as actions -->
-        <form action=<?=$action?> method="post" enctype="multipart/form-data">
+        <form>
             <?php if($id != null) { ?>
                 <input type="hidden" name="userID" value=<?=$id?>>
             <?php } ?>
 
-            <!-- TODO: username nao pode ter espacos, etc -->
             <label for="username">Username: 
-                <input type="text" id="username" name="username" required value=<?=$username?>>
+                <input type="text" id="username" name="username" required value="<?=$username?>">
             </label>
             <label for="name">Name: 
                 <input type="text" id="name" name="name" required value="<?=$name?>">
             </label>
             <label for="password">Password: 
-                <input type="password" id="password" name="password" required value=<?=$password?>>
+                <input type="password" id="password" name="password" required >
             </label>
+
+            <?php if($title == 'Edit profile') { ?>
+                <div class="new-password-div row">
+                    <label for="new-password">New password: 
+                        <input type="password" id="new-password" name="new-password">
+                    </label>
+                    <label for="conf-new-password">Confirm new password: 
+                        <input type="password" id="conf-new-password" name="conf-new-password">
+                    </label>
+                </div>
+            <?php } ?>
+            
             <label for="email">Email: 
-                <input type="email" id="email" name="email" required value=<?=$email?>>
+                <input type="email" id="email" name="email" required value="<?=$email?>">
             </label>
             <label for="bio">Bio: 
                 <textarea id="bio" rows="10" cols="50" name="bio"><?=$bio?></textarea>
             </label>
             <label for="birthDate">Birth Date: 
-                <input type="date" id="birthDate" name="birthDate" min="1910-01-01" required value=<?=$birthDate?>> 
+                <input type="date" id="birthDate" name="birthDate" min="1910-01-01" required value="<?=$birthDate?>"> 
             </label>
 
             <div id="form-gender">
@@ -88,8 +98,11 @@ function draw_profile_form($title, $action, $user_info = null) {
                     <input type="radio" name="gender" value="O" <?=$isOther?> required> O
             </div>
             <label for="location">Location: 
-                <input type="text" id="location" name="location" required value=<?=$location?>>
+                <input type="text" id="location" name="location" required value="<?=$location?>">
             </label>
+
+            <p id="profile-form-error" class="error-message"></p>
+
 	        <input class="button" type="submit" value="Confirm">
         </form>
     </section>

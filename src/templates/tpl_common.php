@@ -1,6 +1,7 @@
-<?php function draw_head($jsArray, $class = null) { ?>
-<!DOCTYPE html>
-<html lang="en-US">
+<?php 
+function draw_head($jsArray, $class = null) { ?>
+  <!DOCTYPE html>
+  <html lang="en-US">
 	<head>
 		<title>Agency Travels</title>
 		<meta charset="UTF-8">
@@ -16,7 +17,6 @@
 
 <?php function draw_footer() { ?>
     <footer>
-
 			<div class="circular-cropper">
 				<a href="main_page.php">
 					<img id="logo" src="http://www.berkanacompany.com/wp-content/uploads/2014/05/logo-placeholder-300x200.jpg">
@@ -43,7 +43,7 @@
 include_once('../templates/tpl_search_form.php');
 include_once('../templates/tpl_login_form.php');
 
-function draw_navbar($class = null) {  // TODO: passar informacao do user para dar display aqui ?>
+function draw_navbar($user_info, $class = null) {  // TODO: passar informacao do user para dar display aqui ?>
     <nav id="navbar" <?=$class == null? '' : "class=$class" ?>>
 			<a class="circ-img-link" href="main_page.php">
 				<div class="circular-cropper">
@@ -60,17 +60,24 @@ function draw_navbar($class = null) {  // TODO: passar informacao do user para d
 				draw_search_form();
 			?>
         </form>
-        <a id="housespagelink" href="my_houses.php">My Houses</a>
-		<a id="reservspagelink" href="my_reserves.php">My Reservations</a>
-		<a id="link-image" class="circ-img-link" href="profile_page.php?userID=<?=1?>">
-			<img class="circular-img" id="profilepic" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">	
-		</a>
-		<a id="link-name" href="profile_page.php?userID=<?=1?>">Moussa</a>
-		<!-- TODO: assim para testar popup -->
-		<a id="loginlink" href="#">Login</a>
-		<!-- <a id="logoutlink" href="action_logout.php">Logout</a> -->
+		
+		<?php if(isset($user_info)) {
+			$name = explode(" ", $user_info['name'])[0]; ?>
+			
+			<a id="housespagelink" href="my_houses.php?userID=<?=$user_info['userID']?>">My Houses</a>
+			<a id="reservspagelink" href="my_reserves.php?userID=<?=$user_info['userID']?>">My Reservations</a>
+			<a id="link-image" class="circ-img-link" href="profile_page.php?userID=<?=$user_info['userID']?>">
+				<img class="circular-img" id="profilepic" src=<?=$user_info['image']?>>	
+			</a>
+			<a id="link-name" href="profile_page.php?userID=<?=$user_info['userID']?>"><?=$name?></a>
+			<a id="logoutlink" href="../actions/action_logout.php">Logout</a>
+
+		<?php } else { ?>
+			<a id="loginlink">Login</a>
+			<a id="signuplink" href="../pages/signup.php">Signup</a>
+		<?php } ?>
 	  </nav>
-	  <?php draw_login_form(); ?>
+	  <?php if(user_info != NULL) draw_login_form(); ?>
 <?php } ?>
 
 <?php function draw_star_rating($rating) { ?>
