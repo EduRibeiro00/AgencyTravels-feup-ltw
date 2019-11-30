@@ -14,7 +14,7 @@
         $jsFiles = ['../js/main.js'];
     }
     else {
-        $user_info = null;
+        $user_info = NULL;
         $jsFiles = ['../js/main.js', '../js/login.js'];
     }
     
