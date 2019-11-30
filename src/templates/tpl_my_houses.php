@@ -12,13 +12,13 @@ function draw_my_houses_statistics(){ ?>
     <article id="my_houses_statistics_container">
         
         <header id="my_houses_statistics_header">
-            <p>My Ratings</p>
-            <i class="fas fa-chart-line"></i>
+            <p>My Houses</p>
         </header>
 
         <section id="my_houses_statistics_info">
             <img class="circular-img" id="profilepic" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
             <p id="my_houses_statistics_owner">Ruben Almeida</p>
+            <i class="fas fa-chart-line"></i>
             <p>Money earned:500€</p>
             <p>Number of Reservations:3</p>
 

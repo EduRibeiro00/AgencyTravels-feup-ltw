@@ -1173,12 +1173,14 @@ My Place
     border-bottom-color:var(--main_color); 
 }
 
-#my_houses_statistics_header{
-    display: inline-block;
-}
 #my_houses_statistics_header p{
-    display: inherit;
+    color:var(--main_color);
+    font-size: 2em;
+    margin: 0px;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
 }
+
 
 #my_houses_statistics_info{
     display: flex;
@@ -1188,13 +1190,13 @@ My Place
     flex-direction: row;
 }
 #my_houses_statistics_owner{
-    padding-left: 0.5em;
-    padding-right: 5%;
+    margin-right: auto;
+    margin-left: 1em;
+    width: fit-content;
 }
 
 
 #my_houses_statistics_info p{
-    margin-left:1em;
     padding-right: 5em;    
 }
 #my_houses_statistics_info img{
@@ -1210,10 +1212,32 @@ My Place
     background-color: gray; 
 }
 
-.edit-stat span{    
-    
-
+.edit-stat span{  
+    width: 10em;
+    margin-left: auto;
+    text-align: center;
 }
+
+#my_houses_list_container{
+    grid-area: list_house;
+}
+
+#my_houses_list_container .info_right{
+    margin-left: auto;
+    margin-right: 2em;
+    justify-content: space-around;
+}
+
+.card .info_right span{
+	margin-right: 1em;
+	padding: 0.3em 1em;
+	border: var(--border_color) 1px solid;
+	border-radius: 1em;
+	background: var(--main_color);
+	color: var(--light_text_color);
+}
+
+
 
 
 

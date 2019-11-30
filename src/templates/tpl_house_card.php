@@ -24,15 +24,22 @@ function draw_horizontal_card($rating,$edit_features_active=false,$near_reservat
 		<?php
 
 		if($edit_features_active==true){ ?>
-			<div class="column info edit-stat">
+			<div class="column info_right edit-stat">
+				<span class="card-edit">
+					Edit
+					<a> </a>
+				</span>
+			
 				
-				<span class="card-edit">Edit
+				<span class="card-rating">
+					Statistics
 					<a> </a>
 				</span>
-				<span class="card-stats">Stats
+				
+				<span class="card-rating">
+					Reservations
 					<a> </a>
 				</span>
-					
 			</div>
 
 		<?php } ?>
