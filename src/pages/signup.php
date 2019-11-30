@@ -12,7 +12,7 @@
     include_once('../templates/tpl_profile_form.php');
 
     draw_head($jsFiles);
-    draw_navbar(null);
+    draw_navbar(NULL);
     draw_profile_form('Signup');
     draw_footer();
 ?>

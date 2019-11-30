@@ -77,7 +77,9 @@ function draw_navbar($user_info, $class = null) {  // TODO: passar informacao do
 			<a id="signuplink" href="../pages/signup.php">Signup</a>
 		<?php } ?>
 	  </nav>
-	  <?php if($user_info != NULL) draw_login_form(); ?>
+		<?php if($user_info == NULL) {
+						draw_login_form();
+		 } ?>
 <?php } ?>
 
 <?php function draw_star_rating($rating) { ?>
