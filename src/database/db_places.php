@@ -115,4 +115,19 @@ function getRandomImagesFromCity($locationID, $number) {
     return $stmt->fetchAll();
 }
 
+function getPlaceImageMaxID() {
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT imageID as id
+                          FROM Image
+                          WHERE placeID IS NOT NULL
+                          GROUP BY imageID
+                          HAVING max(imageID) = id'
+                        );
+    $stmt->execute();
+    return $stmt->fetch();
+}
+
+
+
+
 ?>

@@ -9,3 +9,5 @@ function updateMaxBirthDate() {
 updateMaxBirthDate();
 
 // -----------------
+
+// TODO: implementar upload de fotos

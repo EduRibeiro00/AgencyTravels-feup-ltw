@@ -74,29 +74,43 @@
     }
 
 
+    // TODO: n sei se vai ser usado
+    // function updateImageForUser($userID, $path) {
+    //     $db = Database::instance()->db();
+    //     try {
+    //         $stmt = $db->prepare('UPDATE Image
+    //                               SET image = ?
+    //                               WHERE userID = ?'
+    //                             );
+    //         $stmt->execute(array($path, $userID));
+    //     }
+    //     catch (PDOException $e) { // error ocurred, user doesn't have an image
+    //         return false;
+    //     }
+    //     return true;
+    // }
 
-    function updateImageForUser($userID, $path) {
+    function insertImageForUser($userID) {
         $db = Database::instance()->db();
-        try {
-            $stmt = $db->prepare('UPDATE Image
-                                  SET image = ?
-                                  WHERE userID = ?'
-                                );
-            $stmt->execute(array($path, $userID));
-        }
-        catch (PDOException $e) { // error ocurred, user doesn't have an image
-            return false;
-        }
-        return true;
-    }
-
-    function insertImageForUser($userID, $path) {
-        $db = Database::instance()->db();
-        $stmt = $db->prepare('INSERT INTO Image (image, userID)
-                              VALUES(?, ?)'
+        $stmt = $db->prepare('INSERT INTO Image (userID)
+                              VALUES(?)'
                             );
-        $stmt->execute(array($path, $userID));
+        $stmt->execute(array($userID));
     }
+
+    function getUserImageMaxID() {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT imageID as id
+                              FROM Image
+                              WHERE userID IS NOT NULL
+                              GROUP BY imageID
+                              HAVING max(imageID) = id'
+                            );
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+
 
     function checkUserCredentials($username, $password) {
         $db = Database::instance()->db();
