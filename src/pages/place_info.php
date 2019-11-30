@@ -34,6 +34,7 @@
     $house_address_country=get_house_address_country($place_id)["country"];
     $house_gpsCoords=get_house_gpsCoords($place_id)["gpsCoords"];
     $house_comments=get_house_comments($place_id);
+    $house_avg_price=get_avg_price($place_id)["avg"];
 
     //Adress string parsing
 
@@ -43,7 +44,7 @@
     draw_myplace_slideshow();
     first_line();
   
-    draw_my_place_sidebar($house_rating); 
+    draw_my_place_sidebar($house_avg_price,$house_rating); 
     draw_my_place_icon_desc($house_name,$house_numRooms,$house_capacity,$house_numBathrooms,$house_description);
     draw_my_place_location($house_address_full,$house_gpsCoords);
 
