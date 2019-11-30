@@ -1163,6 +1163,7 @@ My Place
     grid-template-areas: 
                         "stats add"
                         "list_house list_house"
+                        
     ;
 }
 
@@ -1220,6 +1221,8 @@ My Place
 
 #my_houses_list_container{
     grid-area: list_house;
+    margin-left: 1rem;
+    margin-right: 4rem;
 }
 
 #my_houses_list_container .info_right{
