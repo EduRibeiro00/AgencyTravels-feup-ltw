@@ -44,7 +44,7 @@ function draw_my_houses_item_list(){ ?>
 <?php
 
     for($i = 0; $i < 5; $i++)
-        draw_horizontal_card($i + 0.5);
+        draw_horizontal_card($i + 0.5,true);
 ?>
 
     </section>

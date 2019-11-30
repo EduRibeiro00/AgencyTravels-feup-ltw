@@ -1162,7 +1162,7 @@ My Place
     grid-template-rows:auto auto;
     grid-template-areas: 
                         "stats add"
-                        "list_house list_house "
+                        "list_house list_house"
     ;
 }
 
@@ -1192,23 +1192,28 @@ My Place
     padding-right: 5%;
 }
 
+
 #my_houses_statistics_info p{
-    margin:0px;
-    padding-right: 5em;
-    
+    margin-left:1em;
+    padding-right: 5em;    
 }
 #my_houses_statistics_info img{
 
     height: 3em;
     width: 3em;
 }
-#my_houses_list_container .row{
-
-
-
+#my_houses_add_new{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: gray; 
 }
 
+.edit-stat span{    
+    
 
+}
 
 
 

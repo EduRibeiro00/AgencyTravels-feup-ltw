@@ -4,7 +4,7 @@
 include_once('../templates/tpl_common.php');
 
 // TODO: depois por outros parametros
-function draw_horizontal_card($rating) { ?>
+function draw_horizontal_card($rating,$edit_features_active=false,$near_reservations_active=false) { ?>
 	<article class="row card">
 		<!-- TODO: mudar para carroussel -->
 		<a href="#"><img class="hcard-img" src="https://via.placeholder.com/460?text=Should+Be+Carroussel"></a>
@@ -20,5 +20,25 @@ function draw_horizontal_card($rating) { ?>
 				</div>
 			</footer>
 		</div>
+
+		<?php
+
+		if($edit_features_active==true){ ?>
+			<div class="column info edit-stat">
+				
+				<span class="card-edit">Edit
+					<a> </a>
+				</span>
+				<span class="card-stats">Stats
+					<a> </a>
+				</span>
+					
+			</div>
+
+		<?php } ?>
+
 	</article>
+		
+
+
 <?php } ?>
