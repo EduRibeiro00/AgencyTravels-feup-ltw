@@ -59,6 +59,6 @@ function draw_search_form() { ?>
 				<input type="number" id="bathrooms" name="nBathrooms" min=0 value=0 step=1>
 			</label>
 		</fieldset>
-		<input class="button" type="submit" value="Search">
+		<input class="button" type="submit" name="search" value="search">
 	</div>
 <?php } ?>

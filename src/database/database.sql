@@ -17,15 +17,17 @@ CREATE TABLE User (
     userID         INTEGER	PRIMARY KEY,
     name           TEXT		CONSTRAINT nn_user_name NOT NULL,
     username       TEXT		CONSTRAINT nn_user_username NOT NULL
-							CONSTRAINT unique_user_username UNIQUE,
-    password       TEXT		CONSTRAINT nn_user_password NOT NULL,
+							CONSTRAINT unique_user_username UNIQUE
+                            CONSTRAINT check_username_no_spaces CHECK(username NOT LIKE '% %'),
+    password       TEXT		CONSTRAINT nn_user_password NOT NULL 
+                            CONSTRAINT check_password_length CHECK(length(password) > 6),
     email          TEXT		CONSTRAINT nn_user_email NOT NULL
 							CONSTRAINT unique_user_email UNIQUE,
     description    TEXT,
     birthDate      DATE		CONSTRAINT nn_user_birthDate NOT NULL,
     gender         TEXT		CONSTRAINT check_user_gender CHECK (gender = "M" OR gender = "F" or gender = "O"),
     locationID     INTEGER	CONSTRAINT fk_user_locationid REFERENCES Location (locationID)  ON DELETE SET NULL
-                                                                                           ON UPDATE CASCADE
+                                                                                            ON UPDATE CASCADE
 );
 
 -- Table: Place
@@ -104,7 +106,6 @@ CREATE TABLE Review (
     reservationID   INTEGER CONSTRAINT fk_review_reservationid REFERENCES Reservation(reservationID) ON DELETE CASCADE
                                                                                                      ON UPDATE CASCADE
                             CONSTRAINT unique_review_reservationid UNIQUE CONSTRAINT nn_review_reservationid NOT NULL
-
 );
 
 -- Table: Reply
@@ -207,13 +208,13 @@ INSERT INTO Location (country, city) VALUES ('Cambodia', 'Phnom Penh');
 INSERT INTO Location (country, city) VALUES ('USA', 'NY');
 
 -- Users
-INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("Ruben Almeida", "ruben", "1234", "up201704618@fe.up.pt", "Um jovem chavale com calidades", "1999-08-25", "M", 3);
-INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("Eduardo Ribeiro", "eduribas", "1234", "up201705421@fe.up.pt", "Um bom moço que oferece casa a garinas e avisa que tequilha faz mal", "1999-04-04", "M", 3);
-INSERT INTO User (name, username, password, email, birthDate, gender, locationID ) VALUES ("Manuel Coutinho", "mcgano", "1234", "isso.agora@fe.up.pt", "1969-04-20", "O", 7);
-INSERT INTO User (name, username, password, email, birthDate, gender, locationID ) VALUES ("Cristiano Reinaldo", "cr72", "1234", "melhor.do.mundo@gmail.com", "1985-02-05", "O", 2);
-INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("José Figueiras", "ny911", "1234", "inocente@gmail.com", "Pessoal, eu não tive NADA a ver com o 11 de setembro. NADA!!", "2001-09-11", "M", 9);
-INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("Sócrates", "expm", "1234", "inocente2@gmail.com", "Ex Primeiro Ministro, com grandes amigos", "2001-09-11", "M", 2);
-INSERT INTO User (name, username, password, email, description, birthDate, gender ) VALUES ("Quota de Mulheres", "metoo", "1234", "women.missing@gmail.com", "Entrei porque o site tinha quotas de sexo. Beijos a todos", "1987-03-08", "F");
+INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("Ruben Almeida", "ruben", "1234567", "up201704618@fe.up.pt", "Um jovem chavale com calidades", "1999-08-25", "M", 3);
+INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("Eduardo Ribeiro", "eduribas", "1234567", "up201705421@fe.up.pt", "Um bom moço que oferece casa a garinas e avisa que tequilha faz mal", "1999-04-04", "M", 3);
+INSERT INTO User (name, username, password, email, birthDate, gender, locationID ) VALUES ("Manuel Coutinho", "mcgano", "1234567", "isso.agora@fe.up.pt", "1969-04-20", "O", 7);
+INSERT INTO User (name, username, password, email, birthDate, gender, locationID ) VALUES ("Cristiano Reinaldo", "cr72", "1234567", "melhor.do.mundo@gmail.com", "1985-02-05", "O", 2);
+INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("José Figueiras", "ny911", "1234567", "inocente@gmail.com", "Pessoal, eu não tive NADA a ver com o 11 de setembro. NADA!!", "2001-09-11", "M", 9);
+INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("Sócrates", "expm", "1234567", "inocente2@gmail.com", "Ex Primeiro Ministro, com grandes amigos", "2001-09-11", "M", 2);
+INSERT INTO User (name, username, password, email, description, birthDate, gender ) VALUES ("Quota de Mulheres", "metoo", "1234567", "women.missing@gmail.com", "Entrei porque o site tinha quotas de sexo. Beijos a todos", "1987-03-08", "F");
 
 INSERT INTO Place (title, address, description, capacity, numRooms, numBathrooms, gpsCoords, locationID, ownerID) VALUES(
 	"Apartamento em Santa Maria da Feira",
@@ -352,6 +353,10 @@ INSERT INTO Review (date, stars, reservationID) VALUES ("2018-01-10", 5, 8);
 
 INSERT INTO Review (date, stars, reservationID) VALUES ("2019-11-23", 3, 9);
 INSERT INTO Review (comment, date, stars, reservationID) VALUES ("O pior sitio em que já fiquei. Não recomendo", "2019-12-18", 1, 11);
+INSERT INTO Review (comment, date, stars, reservationID) VALUES ("O pior sitio em que já fiquei. Não recomendo", "2019-12-18", 1, 12);
+INSERT INTO Review (comment, date, stars, reservationID) VALUES ("O pior sitio em que já fiquei. Não recomendo", "2019-12-18", 1, 13);
+INSERT INTO Review (comment, date, stars, reservationID) VALUES ("O pior sitio em que já fiquei. Não recomendo", "2019-12-18", 1, 14);
+INSERT INTO Review (comment, date, stars, reservationID) VALUES ("O pior sitio em que já fiquei. Não recomendo", "2019-12-18", 1, 10);
 
 -- Reply
 INSERT INTO Reply (comment, date, reviewID, userID) VALUES ("Ainda bem que gostou", "2019-12-21", 2, 3);

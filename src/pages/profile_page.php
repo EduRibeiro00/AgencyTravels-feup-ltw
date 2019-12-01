@@ -1,0 +1,36 @@
+<?php
+    include_once('../includes/session_include.php');
+    include_once('../database/db_user.php');
+    
+    $userID = $_GET['userID'];
+    
+    $profile_user_info = getUserInformation($userID);
+    if($profile_user_info === false) {
+        die(header('Location: ../pages/initial_page.php'));
+    }
+    
+    if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
+        $user_info = getUserInformation($_SESSION['userID']);
+        $jsFiles = ['../js/main.js'];
+    }
+    else {
+        $user_info = NULL;
+        $jsFiles = ['../js/main.js', '../js/login.js'];
+    }
+    
+    include_once('../templates/tpl_common.php');
+    include_once('../templates/tpl_profile_page.php');
+    include_once('../database/db_places.php');
+
+    $city_image = getRandomImagesFromCity($profile_user_info['locationID'], 1);
+    $user_places = getUserPlaces($userID);
+
+    foreach($user_places as $k => $place) {
+        $user_places[$k]['avg_price'] = getAveragePrice($place['placeID'])['avg_price'];
+    }
+
+    draw_head($jsFiles);
+    draw_navbar($user_info);
+    draw_profile_info($profile_user_info, $user_places, $city_image);
+    draw_footer();
+?>

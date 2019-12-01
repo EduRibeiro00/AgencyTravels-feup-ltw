@@ -3,48 +3,79 @@
 include_once('../templates/tpl_common.php');
 
 
-function draw_comment(){ ?>
+function draw_comment($comment){ ?>
 
 
 <section class="Reviews">
     <!--GET PHP INFO-->
     <header class="Review_Header">
         
-        <p class="Review_Text_Title">Extremamente Desagradavel o Eduardo e os amigos nao se importaram minimamente por deixar o apartamento limpo</p>
-        <!--//TODO: Implement imported from db-->
+        <p class="Review_Text_Title"><?=$comment["comment"]?></p>
+        
+        
         <section class="Review_Header_Content">
-
+            
+            
             <img class="Comment_Author_Img" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
-            <section class="Review_Header_First_Line">
+            
+            <article class="Review_Header_First_Line">
                 <!--//TODO: Implement imported from db-->
-                <p class="Review_Name_Author">Peggy S. </p> 
-            </section>
+                <p class="Review_Name_Author"><?=$comment["name"]?></p> 
+            </article>
             
-            
-            <section class="Review_Header_Second_Line">
+            <article class="Review_Header_Second_Line">
                 
-                <?php  draw_star_rating(3.8) ?>
+                <?php  draw_star_rating($comment["stars"])?>
                 
-                <!--//TODO: Implement imported from db-->   
-                <p class="Review_Author_Location">San Franscisco</p> 
-                <p class="Review_Date">Published:2019</p> 
-            </section>
+                <p class="Review_Author_Location">Location:
+                <?php
+                    $string_final=$comment["city"].",".$comment["country"];
+                    echo $string_final;
+                ?>
+                </p> 
+            </article>
+
         </section>
     </header>
 
     <article class="Review_Text">
-        <!--//TODO: Implement imported from db-->
-        <p>THE TEXT WILL GO HERE</p>
+        
+        <p><?=$comment["comment"]?></p>
 
     </article>
     
     <footer class="Review_Footer">
-        <!--//TODO: Implement imported from db-->
-        <p>Published:2019</p>
+        
+        <p>Published:<?= $comment ["date"]?></p>
 
     </footer>
 
 
 </section>
 
+<?php 
+
+} 
+
+function draw_all_comments($house_rating,$house_comments){ ?>
+
+
+    <article id="Reviews_Container">
+
+    <header>
+        <p>Revisions</p>
+        <?php draw_star_rating($house_rating)?>
+        
+    </header>
+
+    <?php  
+        foreach($house_comments as $comment)
+            draw_comment($comment);    
+    ?>
+
+    </article>
+
 <?php } ?>
+
+
+

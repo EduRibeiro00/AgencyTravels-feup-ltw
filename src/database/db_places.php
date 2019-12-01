@@ -67,7 +67,7 @@ function getRandomPlacesFromCity($locationID, $number) {
 // TODO: add checkin and checkout & price & location. ver imagens tbm
 function getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms) {
     $db = Database::instance()->db();
-    $stmt = $db->prepare('SELECT *
+    $stmt = $db->prepare('SELECT title, rating, capacity, numRooms, numBathrooms, gpsCoords, image
                           FROM Place NATURAL JOIN Image
 						--   WHERE country LIKE ? AND city LIKE ?
 						  WHERE capacity >= ?
@@ -76,7 +76,7 @@ function getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms) {
 						  AND numBathrooms >= ?
 						  GROUP BY placeID
 						  ');
-    $stmt->execute(array($nPeople, $rating, $nRooms, $nBathrooms));
+	$stmt->execute(array($nPeople, $rating, $nRooms, $nBathrooms));
     return $stmt->fetchAll();
 }
 
@@ -130,6 +130,5 @@ function getRandomImagesFromCity($locationID, $number) {
     $stmt->execute(array($locationID, $number));
     return $stmt->fetchAll();
 }
-
 
 ?>
