@@ -45,11 +45,12 @@ function draw_navbar($class = null) { ?>
 				<img id="logo" src="http://www.berkanacompany.com/wp-content/uploads/2014/05/logo-placeholder-300x200.jpg">
 			</div>
 		</a>
-        <form id="search_form" action="../actions/action_search.php" method="get">
+        <form id="search_form" action="../api/api_search.php" method="get">
 			<i class="fas fa-search"></i><input type="text" name="location" autocomplete="off" placeholder="Search for places in...">
 			<!-- TODO: ver section-->
 			<section id="search-hints"></section>
 			<?php 
+			if($class == "hints")
 				draw_search_form();
 			?>
         </form>

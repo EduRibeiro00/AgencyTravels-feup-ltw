@@ -11,4 +11,11 @@
 
 		echo json_encode(array('hints' => $hints));
 	}
+
+	if ($_SERVER["REQUEST_METHOD"] == "GET") {
+		$places = getFilteredPlaces($_GET["nPeople"], $_GET["rating"], $_GET["nRooms"], $_GET["nBathrooms"]);
+		$hints = array();
+
+		echo json_encode($places);
+	}
 ?>

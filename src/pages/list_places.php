@@ -3,7 +3,7 @@
 	include_once('../templates/tpl_list_houses.php');
   
 	draw_head();
-	draw_navbar();
+	draw_navbar("hints");
 
 	list_houses_result();
 
