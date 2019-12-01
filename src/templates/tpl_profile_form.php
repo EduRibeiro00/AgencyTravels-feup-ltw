@@ -10,9 +10,12 @@ function draw_profile_form($title, $user_info = null) {
         $bio = $user_info['description'];
         $birthDate = $user_info['birthDate'];
         $gender = $user_info['gender'];
+
         // TODO: fazer com image e location como deve ser (atualizar image com JS)
-        // $image = $user_info['image'];
         $location = $user_info['city'];
+    
+        $imageID = $user_info['image'];
+        $image = "../../assets/images/users/medium/$imageID.png";
     }
     else {
         $id = null;
@@ -23,8 +26,8 @@ function draw_profile_form($title, $user_info = null) {
         $bio = '';
         $birthDate = '';
         $gender = '';
-        // $image = $user_info['image'];
         $location = '';
+        $image = "../assets/images/users/medium/noImage.png";
     } 
     
    if($gender == 'M') {
@@ -59,6 +62,17 @@ function draw_profile_form($title, $user_info = null) {
             <?php if($id != null) { ?>
                 <input type="hidden" name="userID" value=<?=$id?>>
             <?php } ?>
+
+            <section id="img-upload" class="row">
+                <div>
+                    <label for="prof-image">Profile image:
+                        <img id="img-to-upload" src="<?=$image?>" width="70" height="70">
+                    </label>
+                    <input class="button" type="file" id="imageFile" name="inputFile" value="<?=$image?>">
+                </div>
+                <a class="button" id="choose-button">Choose selected foto</a>
+                <a class="button" id="remove-button">Remove</a>
+            </section>
 
             <label for="username">Username: 
                 <input type="text" id="username" name="username" required value="<?=$username?>">
