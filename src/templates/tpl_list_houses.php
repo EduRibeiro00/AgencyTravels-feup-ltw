@@ -7,6 +7,15 @@ function getPlaces(){
 	$prov = explode(" - ", $location);
 	$foundLoc = ($prov[0] != null && $prov[1] != null);
 
+	$checkin = $_GET['checkin'];
+	$checkout = $_GET['checkout'];
+
+	$minPrice = $_GET['minPrice'] ? $_GET['minPrice'] : 0;		// check
+	$maxPrice = $_GET['maxPrice'] ? $_GET['maxPrice'] : 1000;	// check
+	
+	// TODO: mudar para ou e se tiver apenas 1 -> somar um dia / subtrair um dia à outra
+	$foundDates = ($checkin != null && $checkout != null);
+
 	if (isset($_GET['search'])) {
 		// TODO: parsed parameters
 
@@ -15,42 +24,35 @@ function getPlaces(){
 		$rating = $_GET['rating'] ? $_GET['rating'][0] : 0;			// check
 
 
-		$minPrice = $_GET['minPrice'] ? $_GET['minPrice'] : 0;
-		$maxPrice = $_GET['maxPrice'] ? $_GET['maxPrice'] : 1000;
 		$nRooms = $_GET['nRooms'] ? $_GET['nRooms'] : 0;			// check
 		$nBathrooms = $_GET['nBathrooms'] ? $_GET['nBathrooms'] : 0;// check
-
-		$checkin = $_GET['checkin'];
-		$checkout = $_GET['checkout'];
-
-
-		
-		// if(res.length != 2 || res[0] == null || res[1] == null) return ""
-		// return "?location=" + res[0] + "+-+" + res[1]
-	
-
-
 		$nPeople = $adults + $children;
-		if($foundLoc)
-			$places = getFilteredPlacesFoundLoc($nPeople, $rating, $nRooms, $nBathrooms, $prov[1], $prov[0]);
+		if($foundLoc && $foundDates)
+			$places = getFilteredPlacesLocDates($nPeople, $rating, $nRooms, $nBathrooms, $prov[1], $prov[0], $checkin, $checkout);
+		else if($foundLoc)
+		 	$places = getFilteredPlacesLoc($nPeople, $rating, $nRooms, $nBathrooms, $prov[1], $prov[0]);
+		else if($foundDates)
+			$places = getFilteredPlacesDates($nPeople, $rating, $nRooms, $nBathrooms, $location, $checkin, $checkout);
 		else
-			$places = getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms, $location);
-		if($checkin == null && $checkout == null){
-			foreach($places as &$place)
+		 	$places = getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms, $location);
+		// //if($checkin == null && $checkout == null){
+		foreach($places as $key => &$place){
+			if($place['price'] == null)
 				$place['price'] = getAveragePrice($place['placeID'])['avg_price'];
-		}
-		else{
-			echo "TODO: else if checkin != null";
+			if(!($place['price'] <= $maxPrice && $place['price'] >= $minPrice)) unset($places[$key]);
 		}
 		return $places;
 	}
-	if($foundLoc)
-		$places = getFilteredPlacesFoundLoc(1, 0, 1, 0, $prov[1], $prov[0]);
+	if($foundLoc){
+		$places = getFilteredPlacesLoc(1, 0, 1, 0, $prov[1], $prov[0]);
+	}
 	else
 		$places  = getFilteredPlaces(1, 0, 1, 0, $location);
 	
-	foreach($places as &$place)
+	foreach($places as $key => &$place){
 		$place['price'] = getAveragePrice($place['placeID'])['avg_price'];
+		if(!($place['price'] <= $maxPrice && $place['price'] >= $minPrice)) unset($places[$key]);
+	}
 	return $places;
 }
 				
