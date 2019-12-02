@@ -58,7 +58,10 @@ function parsedLocationHint(locHint){
 	if(locHint == null) return ""
 	let res = locHint.split(" - ")
 	if(res.length != 2 || res[0] == null || res[1] == null) return ""
-	return "?country=" + res[0] + "&city=" + res[1]
+	return "?location=" + res[0] + "+-+" + res[1]
+	// let res = locHint.split(" - ")
+	// if(res.length != 2 || res[0] == null || res[1] == null) return ""
+	// return "?country=" + res[0] + "&city=" + res[1]
 }
 
 let searchSymbol = document.querySelector(".fa-search")

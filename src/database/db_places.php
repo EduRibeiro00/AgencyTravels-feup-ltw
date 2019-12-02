@@ -65,18 +65,44 @@ function getRandomPlacesFromCity($locationID, $number) {
 }
 
 // TODO: add checkin and checkout & price & location. ver imagens tbm
-function getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms) {
-    $db = Database::instance()->db();
-    $stmt = $db->prepare('SELECT placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, nVotes
-                          FROM Place NATURAL JOIN Image NATURAL JOIN (select placeID, count(*) as nVotes from review NATURAL JOIN Reservation GROUP BY placeID) -- This subquery gives the number of Votes
+function getFilteredPlacesFoundLoc($nPeople, $rating, $nRooms, $nBathrooms, $city, $country) {
+	$db = Database::instance()->db();
+
+	$sqlCity = "%" . $city ."%";
+	$sqlCountry = "%" . $country ."%";
+    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, IFNULL(nVotes, 0) as nVotes
+                          FROM Place LEFT JOIN (select placeID, count(*) as nVotes from review NATURAL JOIN Reservation GROUP BY placeID) AS CV ON Place.placeID = CV.placeID -- This subquery gives the number of Votes
+						  NATURAL JOIN Location
+						  NATURAL JOIN Image
 						--   WHERE country LIKE ? AND city LIKE ?
 						  WHERE capacity >= ?
 						  AND rating >= ?
 						  AND numRooms >= ?
 						  AND numBathrooms >= ?
-						  GROUP BY placeID
+						  AND city LIKE ? AND country LIKE ?
+						  GROUP BY Place.placeID
 						  ');
-	$stmt->execute(array($nPeople, $rating, $nRooms, $nBathrooms));
+	$stmt->execute(array($nPeople, $rating, $nRooms, $nBathrooms, $sqlCity, $sqlCountry));
+	return $stmt->fetchAll();
+}
+
+// TODO: ver se assim ou mesmo com ifs lá dentro da outra
+function getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms, $location) {
+	$db = Database::instance()->db();
+	$sqlLocation = "%" . $location ."%";
+    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, IFNULL(nVotes, 0) as nVotes
+                          FROM Place LEFT JOIN (select placeID, count(*) as nVotes from review NATURAL JOIN Reservation GROUP BY placeID) AS CV ON Place.placeID = CV.placeID -- This subquery gives the number of Votes
+						  NATURAL JOIN Location
+						  NATURAL JOIN Image
+						--   WHERE country LIKE ? AND city LIKE ?
+						  WHERE capacity >= ?
+						  AND rating >= ?
+						  AND numRooms >= ?
+						  AND numBathrooms >= ?
+						  AND (city LIKE ? OR country LIKE ?)
+						  GROUP BY Place.placeID
+						  ');
+	$stmt->execute(array($nPeople, $rating, $nRooms, $nBathrooms, $sqlLocation, $sqlLocation));
     return $stmt->fetchAll();
 }
 
