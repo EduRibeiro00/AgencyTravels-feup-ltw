@@ -67,8 +67,8 @@ function getRandomPlacesFromCity($locationID, $number) {
 // TODO: add checkin and checkout & price & location. ver imagens tbm
 function getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms) {
     $db = Database::instance()->db();
-    $stmt = $db->prepare('SELECT title, rating, capacity, numRooms, numBathrooms, gpsCoords, image
-                          FROM Place NATURAL JOIN Image
+    $stmt = $db->prepare('SELECT placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, nVotes
+                          FROM Place NATURAL JOIN Image NATURAL JOIN (select placeID, count(*) as nVotes from review NATURAL JOIN Reservation GROUP BY placeID) -- This subquery gives the number of Votes
 						--   WHERE country LIKE ? AND city LIKE ?
 						  WHERE capacity >= ?
 						  AND rating >= ?

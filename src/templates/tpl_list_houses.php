@@ -22,9 +22,20 @@ function getPlaces(){
 
 
 		$nPeople = $adults + $children;
-		return getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms);
+		$places  = getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms);
+		if($checkin == null && $checkout == null){
+			foreach($places as &$place)
+				$place['price'] = getAveragePrice($place['placeID'])['avg_price'];
+		}
+		else{
+			echo "TODO: else if checkin != null";
+		}
+		return $places;
 	}
-	return getFilteredPlaces(1, 0, 1, 0);
+	$places = getFilteredPlaces(1, 0, 1, 0);
+	foreach($places as &$place)
+		$place['price'] = getAveragePrice($place['placeID'])['avg_price'];
+	return $places;
 }
 				
 // TODO ver parametros depois

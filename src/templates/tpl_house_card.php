@@ -13,10 +13,10 @@ function draw_horizontal_card($place) { ?>
 			<!-- TODO: meter flexbox row, com divs ou spans -->
 			<p><span class="card-guests"><?=$place['capacity']?> guests</span><span class="card-bedroom"><?=$place['numRooms']?> bedroom</span><span class="card-bathroom"><?=$place['numBathrooms']?> bathroom</span></p>
 			<footer class="row">
-				<p>45€/noite</p>
+				<p><?=$place['price']?>€/noite</p>
 				<div class="card-rating">
 					<?php draw_star_rating($place['rating']);?>
-					(229)
+					(<?=$place['nVotes']?>)
 				</div>
 			</footer>
 		</div>
