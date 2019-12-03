@@ -46,8 +46,9 @@ function getPlaces(){
 	if($foundLoc){
 		$places = getFilteredPlacesLoc(1, 0, 1, 0, $prov[1], $prov[0]);
 	}
-	else
+	else{
 		$places  = getFilteredPlaces(1, 0, 1, 0, $location);
+	}
 	
 	foreach($places as $key => &$place){
 		$place['price'] = getAveragePrice($place['placeID'])['avg_price'];
@@ -58,7 +59,7 @@ function getPlaces(){
 				
 // TODO ver parametros depois
 function list_houses_result($places) { ?>
-	<main class="row">
+	<main id="list_places" class="row">
 		<section id="house_results">
 			<?php 
 			if(empty($places))
