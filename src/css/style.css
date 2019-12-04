@@ -692,11 +692,13 @@ main#profile-page .place-listing {
 }
 
 .card:hover {
-	background: var(--darker_bg_color);
+    background: var(--darker_bg_color);
+    cursor: pointer;
 }
 
 .card .info {
-	margin: 0 1em;
+    margin: 0 1em;
+    flex-grow: 1;
 }
 
 /* TODO: depois apagar pq será carroussel */
@@ -719,6 +721,15 @@ main#profile-page .place-listing {
 	border-radius: 1em;
 	background: var(--main_color);
 	color: var(--light_text_color);
+}
+
+.card a {
+    flex-grow: 1;
+    font-size: 1em;
+}
+
+.card a:hover {
+    text-decoration: none;
 }
 
 .card footer {
