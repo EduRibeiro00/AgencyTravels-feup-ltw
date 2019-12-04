@@ -64,6 +64,7 @@ function getRandomPlacesFromCity($locationID, $number) {
     return $stmt->fetchAll();
 }
 
+
 function getRandomCity() {
     $db = Database::instance()->db();
     $stmt = $db->prepare('SELECT * 
@@ -115,19 +116,12 @@ function getRandomImagesFromCity($locationID, $number) {
     return $stmt->fetchAll();
 }
 
-function getPlaceImageMaxID() {
+function insertImageForPlace($place, $image) {
     $db = Database::instance()->db();
-    $stmt = $db->prepare('SELECT imageID as id
-                          FROM Image
-                          WHERE placeID IS NOT NULL
-                          GROUP BY imageID
-                          HAVING max(imageID) = id'
+    $stmt = $db->prepare('INSERT INTO Image (placeID, image)
+                          VALUES(?, ?)'
                         );
-    $stmt->execute();
-    return $stmt->fetch();
+    $stmt->execute(array($placeID, $image));
 }
-
-
-
 
 ?>

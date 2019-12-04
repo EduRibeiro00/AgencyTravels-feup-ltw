@@ -4,7 +4,7 @@
 		<form id="login-form" class="column">
 			
 			<div class="circular-cropper">
-				<img id="logo-login" src="http://www.berkanacompany.com/wp-content/uploads/2014/05/logo-placeholder-300x200.jpg">
+				<img id="logo-login" src="../assets/images/others/logo.jpg">
 			</div>
 
 			<i id="login-form-cross"class="close-popup fas fa-times"></i>

@@ -14,8 +14,8 @@ function draw_profile_form($title, $user_info = null) {
         // TODO: fazer com image e location como deve ser (atualizar image com JS)
         $location = $user_info['city'];
     
-        $imageID = $user_info['image'];
-        $image = "../../assets/images/users/medium/$imageID.png";
+        $imageName = $user_info['image'];
+        $imagePreview = "../assets/images/users/medium/$imageName";
     }
     else {
         $id = null;
@@ -27,7 +27,7 @@ function draw_profile_form($title, $user_info = null) {
         $birthDate = '';
         $gender = '';
         $location = '';
-        $image = "../assets/images/users/medium/noImage.png";
+        $imagePreview = '../assets/images/users/medium/noImage.png';
     } 
     
    if($gender == 'M') {
@@ -66,12 +66,12 @@ function draw_profile_form($title, $user_info = null) {
             <section id="img-upload" class="row">
                 <div>
                     <label for="prof-image">Profile image:
-                        <img id="img-to-upload" src="<?=$image?>" width="70" height="70">
+                        <img id="img-to-upload" class="circular-img" src="<?=$imagePreview?>">
                     </label>
-                    <input class="button" type="file" id="imageFile" name="inputFile" value="<?=$image?>">
                 </div>
-                <a class="button" id="choose-button">Choose selected foto</a>
-                <a class="button" id="remove-button">Remove</a>
+                <label class="button" for="imageFile">Select foto</label>
+                <input class="button" type="file" id="imageFile" accept="image/*" name="imageFile" data-hasFile="no">
+                <label class="button" id="remove-button">Remove</label>
             </section>
 
             <label for="username">Username: 

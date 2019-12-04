@@ -55,6 +55,7 @@ DROP TABLE IF EXISTS Image;
 
 CREATE TABLE Image (
     imageID        INTEGER PRIMARY KEY AUTOINCREMENT,
+    image          TEXT CONSTRAINT nn_image NOT NULL,
     userID         INTEGER CONSTRAINT fk_image_userid REFERENCES User(userID) ON DELETE CASCADE
                                                                               ON UPDATE CASCADE
                            CONSTRAINT unique_image_userid UNIQUE,
@@ -265,33 +266,33 @@ INSERT INTO Place (title, address, description, capacity, numRooms, numBathrooms
 );
 
 -- Image
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://avatars3.githubusercontent.com/u/48838522?s=400&v=4", 1, null);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://avatars2.githubusercontent.com/u/38781152?s=400&v=4", 2, null);
--- INSERT INTO Image(image, userID, placeID) VALUES ("http://www.risadas.pt/img/videos/06/cristiano_ronaldo_e_cristiano_reinaldo_o_melhor_jogador_do_m_img_1006.jpg", 4, null);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://thumbs.web.sapo.io/?W=800&H=0&delay_optim=1&epic=N2U3X7hhyJSuXSDaiqdMBVRCLvdUlnoFz3od/3gbpzNUcPuXtvaWTZ+FCsxxn2MzdMEcGbFoGwsqTYiR7Ar1mTJm9TTDGM5Ewa+RbP3TNzbObCM=", 5, null);
--- INSERT INTO Image(image, userID, placeID) VALUES ("http://2.bp.blogspot.com/-bKazzdWVNbQ/VRNCn0rFLOI/AAAAAAAAJBc/NEkaSqRrC6c/s1600/socrates.jpg", 6, null);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://i.kym-cdn.com/news_feeds/icons/mobile/000/015/652/4b1.jpg", 7, null);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://avatars3.githubusercontent.com/u/48838522?s=400&v=4", 1, null);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://avatars2.githubusercontent.com/u/38781152?s=400&v=4", 2, null);
+INSERT INTO Image(image, userID, placeID) VALUES ("http://www.risadas.pt/img/videos/06/cristiano_ronaldo_e_cristiano_reinaldo_o_melhor_jogador_do_m_img_1006.jpg", 4, null);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://thumbs.web.sapo.io/?W=800&H=0&delay_optim=1&epic=N2U3X7hhyJSuXSDaiqdMBVRCLvdUlnoFz3od/3gbpzNUcPuXtvaWTZ+FCsxxn2MzdMEcGbFoGwsqTYiR7Ar1mTJm9TTDGM5Ewa+RbP3TNzbObCM=", 5, null);
+INSERT INTO Image(image, userID, placeID) VALUES ("http://2.bp.blogspot.com/-bKazzdWVNbQ/VRNCn0rFLOI/AAAAAAAAJBc/NEkaSqRrC6c/s1600/socrates.jpg", 6, null);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://i.kym-cdn.com/news_feeds/icons/mobile/000/015/652/4b1.jpg", 7, null);
 
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://media8.era.pt/apartamento-t3-santa-maria-da-feira-mozelos_6_1_919572_13408665_8_1_SezzmuO6oVgDrR%2fyaIIxvvFvM%2fmtaiiZANnij5GyVWTEB8h4ZPpqcw%3d%3d", null, 1);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://media8.era.pt/apartamento-t3-santa-maria-da-feira-mozelos_6_1_919572_13408664_8_1_gz3rg2Te2VGKE3R570SvqorPFhSv262LBKQzpyZmTrXEB8h4ZPpqcw%3d%3d", null, 1);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://media8.era.pt/apartamento-t3-santa-maria-da-feira-mozelos_6_1_919572_13408657_8_1_cMdMO5ArfMZrFdudVF6h6myosfT4i2RE%2b0nDT4e76UPEB8h4ZPpqcw%3d%3d", null, 1);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://media8.era.pt/apartamento-t3-santa-maria-da-feira-mozelos_6_1_919572_13408668_8_1_3vG%2bk15Ga9qNkzqMcXSeQF0cfspNODgMf86X7vp8hFvEB8h4ZPpqcw%3d%3d", null, 1);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://media8.era.pt/apartamento-t3-santa-maria-da-feira-mozelos_6_1_919572_13408659_8_1_tG9WXNC74B6H2JcR5wgeFEhw18wNrs%2blC82dePhTIxPEB8h4ZPpqcw%3d%3d", null, 1);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://media7.era.pt/apartamento-t1-gondomar-rio-tinto-centro_6_1_1049728_13409479_7_1_Nn6tmBm1jE7I2r0wWW%2bEaQn687wo%2b8IoHVk5%2bSaiRZTEB8h4ZPpqcw%3d%3d", null, 2);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://media7.era.pt/apartamento-t1-gondomar-rio-tinto-centro_6_1_1049728_13409481_7_1_hN8M4Tbpk5y0X1a26WNTyRgXb4yjEyMTrq%2bGYals8fTEB8h4ZPpqcw%3d%3d", null, 2);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://media7.era.pt/apartamento-t1-gondomar-rio-tinto-centro_6_1_1049728_13409482_7_1_6KaceUrX7Mo8fil79OlQQ6X4FX9Gbb8NWTX1lAx08irEB8h4ZPpqcw%3d%3d", null, 2);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://apollo-ireland.akamaized.net/v1/files/eyJmbiI6ImZkYmdsYXMwNXNwdC1BUFQiLCJ3IjpbeyJmbiI6IjRqYWZwbDloM2ZndC1BUFQiLCJzIjoiMTQiLCJwIjoiMTAsLTEwIiwiYSI6IjAifV19.Q73gr1IaNLcLZ--VCSzAoiINvs9UMBaCdmQDwz20xS0/image;s=1280x1024;q=80", null, 3);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://apollo-ireland.akamaized.net/v1/files/eyJmbiI6Imgyamh1emV2MXV1bTEtQVBUIiwidyI6W3siZm4iOiI0amFmcGw5aDNmZ3QtQVBUIiwicyI6IjE0IiwicCI6IjEwLC0xMCIsImEiOiIwIn1dfQ.L6uUEMADPw1Vontucoxm-oEtXDFGbx1_9RAg6vJFR5o/image;s=1280x1024;q=80", null, 3);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://apollo-ireland.akamaized.net/v1/files/eyJmbiI6IndsNG85c2RqY2w5ZTItQVBUIiwidyI6W3siZm4iOiI0amFmcGw5aDNmZ3QtQVBUIiwicyI6IjE0IiwicCI6IjEwLC0xMCIsImEiOiIwIn1dfQ.ZJhzvcxhkKkEPTNfooogpuNQ4GiXiCwl75npe8li0OE/image;s=1280x1024;q=80", null, 3);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://apollo-ireland.akamaized.net/v1/files/eyJmbiI6ImdhM3UzYzR1dW80bzItQVBUIiwidyI6W3siZm4iOiI0amFmcGw5aDNmZ3QtQVBUIiwicyI6IjE0IiwicCI6IjEwLC0xMCIsImEiOiIwIn1dfQ.C2elMmgw3wi1X5AX8Mtmizmzg0OsaIFY32yfCukf-Rc/image;s=1280x1024;q=80", null, 3);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://apollo-ireland.akamaized.net/v1/files/eyJmbiI6IjdtNzh2aG9xcGJrcTItQVBUIiwidyI6W3siZm4iOiI0amFmcGw5aDNmZ3QtQVBUIiwicyI6IjE0IiwicCI6IjEwLC0xMCIsImEiOiIwIn1dfQ.-zquVlXp0j3SJ6b8TdKQbuqiO78yXi8kww3BY-WOUuA/image;s=1280x1024;q=80", null, 4);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://apollo-ireland.akamaized.net/v1/files/eyJmbiI6ImtzY3lkMTM2MDlucDMtQVBUIiwidyI6W3siZm4iOiI0amFmcGw5aDNmZ3QtQVBUIiwicyI6IjE0IiwicCI6IjEwLC0xMCIsImEiOiIwIn1dfQ.yFZbmETjc5PSsXDKLfVqVb-2t2tXpItFy5YdE0kKKgw/image;s=1280x1024;q=80", null, 4);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://a0.muscache.com/4ea/air/v2/pictures/0de9f78f-1542-46ec-bcde-4a3c2e33a1f1.jpg?t=r:w2500-h1500-sfit,e:fjpg-c90", null, 5);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://a0.muscache.com/4ea/air/v2/pictures/26361338-4a84-4a73-9fcb-7836f8314bf2.jpg?t=r:w2500-h1500-sfit,e:fjpg-c90", null, 5);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://a0.muscache.com/4ea/air/v2/pictures/e31c6b12-0de9-496e-b326-3939cde17288.jpg?t=r:w2500-h1500-sfit,e:fjpg-c90", null, 5);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://a0.muscache.com/4ea/air/v2/pictures/b0d7198e-4301-42d0-bab0-d9029fc01da0.jpg?t=r:w2500-h1500-sfit,e:fjpg-c90", null, 5);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://a0.muscache.com/4ea/air/v2/pictures/513cb5f2-add5-4d98-86e7-bcce1f844d3b.jpg?t=r:w2500-h1500-sfit,e:fjpg-c90", null, 5);
--- INSERT INTO Image(image, userID, placeID) VALUES ("https://a0.muscache.com/4ea/air/v2/pictures/7162cfe7-5dbe-4e4b-92e7-86fe78c51312.jpg?t=r:w2500-h1500-sfit,e:fjpg-c90", null, 5);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://media8.era.pt/apartamento-t3-santa-maria-da-feira-mozelos_6_1_919572_13408665_8_1_SezzmuO6oVgDrR%2fyaIIxvvFvM%2fmtaiiZANnij5GyVWTEB8h4ZPpqcw%3d%3d", null, 1);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://media8.era.pt/apartamento-t3-santa-maria-da-feira-mozelos_6_1_919572_13408664_8_1_gz3rg2Te2VGKE3R570SvqorPFhSv262LBKQzpyZmTrXEB8h4ZPpqcw%3d%3d", null, 1);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://media8.era.pt/apartamento-t3-santa-maria-da-feira-mozelos_6_1_919572_13408657_8_1_cMdMO5ArfMZrFdudVF6h6myosfT4i2RE%2b0nDT4e76UPEB8h4ZPpqcw%3d%3d", null, 1);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://media8.era.pt/apartamento-t3-santa-maria-da-feira-mozelos_6_1_919572_13408668_8_1_3vG%2bk15Ga9qNkzqMcXSeQF0cfspNODgMf86X7vp8hFvEB8h4ZPpqcw%3d%3d", null, 1);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://media8.era.pt/apartamento-t3-santa-maria-da-feira-mozelos_6_1_919572_13408659_8_1_tG9WXNC74B6H2JcR5wgeFEhw18wNrs%2blC82dePhTIxPEB8h4ZPpqcw%3d%3d", null, 1);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://media7.era.pt/apartamento-t1-gondomar-rio-tinto-centro_6_1_1049728_13409479_7_1_Nn6tmBm1jE7I2r0wWW%2bEaQn687wo%2b8IoHVk5%2bSaiRZTEB8h4ZPpqcw%3d%3d", null, 2);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://media7.era.pt/apartamento-t1-gondomar-rio-tinto-centro_6_1_1049728_13409481_7_1_hN8M4Tbpk5y0X1a26WNTyRgXb4yjEyMTrq%2bGYals8fTEB8h4ZPpqcw%3d%3d", null, 2);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://media7.era.pt/apartamento-t1-gondomar-rio-tinto-centro_6_1_1049728_13409482_7_1_6KaceUrX7Mo8fil79OlQQ6X4FX9Gbb8NWTX1lAx08irEB8h4ZPpqcw%3d%3d", null, 2);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://apollo-ireland.akamaized.net/v1/files/eyJmbiI6ImZkYmdsYXMwNXNwdC1BUFQiLCJ3IjpbeyJmbiI6IjRqYWZwbDloM2ZndC1BUFQiLCJzIjoiMTQiLCJwIjoiMTAsLTEwIiwiYSI6IjAifV19.Q73gr1IaNLcLZ--VCSzAoiINvs9UMBaCdmQDwz20xS0/image;s=1280x1024;q=80", null, 3);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://apollo-ireland.akamaized.net/v1/files/eyJmbiI6Imgyamh1emV2MXV1bTEtQVBUIiwidyI6W3siZm4iOiI0amFmcGw5aDNmZ3QtQVBUIiwicyI6IjE0IiwicCI6IjEwLC0xMCIsImEiOiIwIn1dfQ.L6uUEMADPw1Vontucoxm-oEtXDFGbx1_9RAg6vJFR5o/image;s=1280x1024;q=80", null, 3);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://apollo-ireland.akamaized.net/v1/files/eyJmbiI6IndsNG85c2RqY2w5ZTItQVBUIiwidyI6W3siZm4iOiI0amFmcGw5aDNmZ3QtQVBUIiwicyI6IjE0IiwicCI6IjEwLC0xMCIsImEiOiIwIn1dfQ.ZJhzvcxhkKkEPTNfooogpuNQ4GiXiCwl75npe8li0OE/image;s=1280x1024;q=80", null, 3);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://apollo-ireland.akamaized.net/v1/files/eyJmbiI6ImdhM3UzYzR1dW80bzItQVBUIiwidyI6W3siZm4iOiI0amFmcGw5aDNmZ3QtQVBUIiwicyI6IjE0IiwicCI6IjEwLC0xMCIsImEiOiIwIn1dfQ.C2elMmgw3wi1X5AX8Mtmizmzg0OsaIFY32yfCukf-Rc/image;s=1280x1024;q=80", null, 3);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://apollo-ireland.akamaized.net/v1/files/eyJmbiI6IjdtNzh2aG9xcGJrcTItQVBUIiwidyI6W3siZm4iOiI0amFmcGw5aDNmZ3QtQVBUIiwicyI6IjE0IiwicCI6IjEwLC0xMCIsImEiOiIwIn1dfQ.-zquVlXp0j3SJ6b8TdKQbuqiO78yXi8kww3BY-WOUuA/image;s=1280x1024;q=80", null, 4);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://apollo-ireland.akamaized.net/v1/files/eyJmbiI6ImtzY3lkMTM2MDlucDMtQVBUIiwidyI6W3siZm4iOiI0amFmcGw5aDNmZ3QtQVBUIiwicyI6IjE0IiwicCI6IjEwLC0xMCIsImEiOiIwIn1dfQ.yFZbmETjc5PSsXDKLfVqVb-2t2tXpItFy5YdE0kKKgw/image;s=1280x1024;q=80", null, 4);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://a0.muscache.com/4ea/air/v2/pictures/0de9f78f-1542-46ec-bcde-4a3c2e33a1f1.jpg?t=r:w2500-h1500-sfit,e:fjpg-c90", null, 5);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://a0.muscache.com/4ea/air/v2/pictures/26361338-4a84-4a73-9fcb-7836f8314bf2.jpg?t=r:w2500-h1500-sfit,e:fjpg-c90", null, 5);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://a0.muscache.com/4ea/air/v2/pictures/e31c6b12-0de9-496e-b326-3939cde17288.jpg?t=r:w2500-h1500-sfit,e:fjpg-c90", null, 5);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://a0.muscache.com/4ea/air/v2/pictures/b0d7198e-4301-42d0-bab0-d9029fc01da0.jpg?t=r:w2500-h1500-sfit,e:fjpg-c90", null, 5);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://a0.muscache.com/4ea/air/v2/pictures/513cb5f2-add5-4d98-86e7-bcce1f844d3b.jpg?t=r:w2500-h1500-sfit,e:fjpg-c90", null, 5);
+INSERT INTO Image(image, userID, placeID) VALUES ("https://a0.muscache.com/4ea/air/v2/pictures/7162cfe7-5dbe-4e4b-92e7-86fe78c51312.jpg?t=r:w2500-h1500-sfit,e:fjpg-c90", null, 5);
 
 -- Availability
 INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-11-10", "2019-11-20", 50.50, 1);

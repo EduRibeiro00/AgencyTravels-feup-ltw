@@ -655,6 +655,32 @@ main#profile-page .place-listing {
     font-weight: bold;
 }
 
+#img-upload {
+    align-items: center;
+}
+
+#img-upload div {
+    align-items: center;
+}
+
+#img-to-upload {
+    display: block;
+    border: 3px solid var(--main_color);
+    margin: 1em;
+    width: 12em;
+    height: 12em;
+}
+
+#img-upload > label.button {
+    color: var(--light_text_color);
+    font-weight: normal;
+    margin-right: 1em;
+}
+
+#img-upload input[type="file"] {
+    display: none;
+}
+
 #profile-form h4 {
     display: inline-block;
 }

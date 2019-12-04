@@ -4,11 +4,13 @@
     function getUserInformation($userID) {
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT *
-                             FROM User NATURAL JOIN Image NATURAL JOIN Location
+                             FROM User NATURAL JOIN Location
                              WHERE userID = ?'
                              );
         $stmt->execute(array($userID));
-        return $stmt->fetch();
+        $userInfo = $stmt->fetch();
+        $userInfo['image'] = getUserImage($userID);
+        return $userInfo;
     }
 
     function getUserPlaces($userID) {
@@ -73,43 +75,40 @@
          return $stmt->fetch()['userID'];
     }
 
-
-    // TODO: n sei se vai ser usado
-    // function updateImageForUser($userID, $path) {
-    //     $db = Database::instance()->db();
-    //     try {
-    //         $stmt = $db->prepare('UPDATE Image
-    //                               SET image = ?
-    //                               WHERE userID = ?'
-    //                             );
-    //         $stmt->execute(array($path, $userID));
-    //     }
-    //     catch (PDOException $e) { // error ocurred, user doesn't have an image
-    //         return false;
-    //     }
-    //     return true;
-    // }
-
-    function insertImageForUser($userID) {
+    function insertImageForUser($userID, $image) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('INSERT INTO Image (userID)
-                              VALUES(?)'
+        $stmt = $db->prepare('INSERT INTO Image (userID, image)
+                              VALUES(?, ?)'
+                            );
+        $stmt->execute(array($userID, $image));
+    }
+
+
+    function getUserImage($userID) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT image
+                              FROM Image
+                              WHERE userID = ?'
+                            );
+        $stmt->execute(array($userID));
+        $result = $stmt->fetch();
+        if($result === false) {
+            return "noImage.png";
+        }
+        else {
+            return $result['image'];
+        }
+    }
+
+
+    function removeUserImage($userID) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('DELETE
+                              FROM Image
+                              WHERE userID = ?'
                             );
         $stmt->execute(array($userID));
     }
-
-    function getUserImageMaxID() {
-        $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT imageID as id
-                              FROM Image
-                              WHERE userID IS NOT NULL
-                              GROUP BY imageID
-                              HAVING max(imageID) = id'
-                            );
-        $stmt->execute();
-        return $stmt->fetch();
-    }
-
 
 
     function checkUserCredentials($username, $password) {

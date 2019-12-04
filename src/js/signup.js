@@ -20,6 +20,11 @@ profileForm.addEventListener('submit', function(event) {
 				location.reload(true);
                 break;
 
+			case 'invalid image':
+				errorMessage.textContent = "The image uploaded is invalid; please choose another one.";
+				errorMessage.style.display = "block";
+				break;
+
 			case 'user already logged in':
 				errorMessage.textContent = 'ERROR: User already logged in';
                 errorMessage.style.display = "block";
@@ -45,11 +50,15 @@ profileForm.addEventListener('submit', function(event) {
 				errorMessage.style.display = "block";
 				break;
 
-            default:
+			default:
+				// console.log(message);
 				break;
 		}
 	});
 
+	let imageData = new FormData();
+
+	let image = document.querySelector('#profile-form input[name="imageFile"]').files;
 	let username = document.querySelector('#profile-form input[name="username"]').value;
 	let password = document.querySelector('#profile-form input[name="password"]').value;
 	let name = document.querySelector('#profile-form input[name="name"]').value;
@@ -59,7 +68,7 @@ profileForm.addEventListener('submit', function(event) {
 	let gender = document.querySelector('#profile-form input[name="gender"]:checked').value;
     let loc = document.querySelector('#profile-form input[name="location"]').value;
 
-    request.send(encodeForAjax({username: username, password: password, name: name, email: email, bio: bio, birthDate: birthDate, gender: gender, location: loc}));
+    request.send(encodeForAjax({image: image, username: username, password: password, name: name, email: email, bio: bio, birthDate: birthDate, gender: gender, location: loc}));
 });
 
 // -----------

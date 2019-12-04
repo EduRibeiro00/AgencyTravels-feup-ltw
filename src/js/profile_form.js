@@ -10,4 +10,23 @@ updateMaxBirthDate();
 
 // -----------------
 
-// TODO: implementar upload de fotos
+// photo upload
+const reader = new FileReader();
+
+let profileFormImage = document.getElementById('img-to-upload');
+let imageInput = document.querySelector('input#imageFile');
+imageInput.addEventListener('change', function(event) {
+    const f = event.target.files[0];
+    reader.readAsDataURL(f);
+});
+
+reader.addEventListener('load', function(event) {
+    profileFormImage.src = event.target.result;
+});
+
+// remove image button
+let removeButton = document.getElementById('remove-button');
+removeButton.addEventListener('click', function() {
+    profileFormImage.src = "../assets/images/users/medium/noImage.png";
+    imageInput.value = '';
+});

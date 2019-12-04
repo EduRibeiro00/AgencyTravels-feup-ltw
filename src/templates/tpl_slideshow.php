@@ -17,7 +17,7 @@
             <input type="radio" name="radio-buttons" id="img-<?=$i?>" checked />
             <li class="slide-container">
                 <div class="slide-image">
-                    <img src=<?=$slideshowimgs[$i - 1]['image']?>>
+                    <img src="../assets/images/places/big/<?=$slideshowimgs[$i - 1]['image']?>">
                 </div>
                 <div class="carousel-controls">
                     <label for="img-<?=$prev_image?>" class="prev-slide">

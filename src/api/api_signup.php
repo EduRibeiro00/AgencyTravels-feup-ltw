@@ -1,12 +1,14 @@
 <?php
 include_once('../includes/session_include.php');
+include_once('../includes/img_upload.php');
 include_once('../database/db_user.php');
 
-  // verify if user is already logged in
+// verify if user is already logged in
   if(isset($_SESSION['userID'])) {
       $message = 'user already logged in';
   }
   else {
+    $image = $_POST['image'];
     $username = $_POST['username'];
     $name = $_POST['name'];
     $password = $_POST['password'];
@@ -22,18 +24,24 @@ include_once('../database/db_user.php');
     */
     $locationID = 1;
 
-    $returnValue = insertUserInfo($username, $name, $password, $email, $bio, $birthDate, $gender, $locationID);
-
-    if($returnValue === true) {
-        // apenas para testar
-        $id = getUserID($username);
-        insertImageForUser($id, "http://www.risadas.pt/img/videos/06/cristiano_ronaldo_e_cristiano_reinaldo_o_melhor_jogador_do_m_img_1006.jpg");
-        $_SESSION['userID'] = $id;
-        $message = 'signup completed';  
+    if (!checkIfImageIsValid($image)) {
+      $message = 'invalid image';
     }
     else {
-        $array = explode(" ", $returnValue);
-        $message = $array[count($array) - 1];
+      $returnValue = insertUserInfo($username, $name, $password, $email, $bio, $birthDate, $gender, $locationID);
+
+      if($returnValue === true) {
+          $id = getUserID($username);
+          if($image != "") {
+            uploadUserImage($id, $image);
+          }
+          $_SESSION['userID'] = $id;
+          $message = 'signup completed';  
+      }
+      else {
+          $array = explode(" ", $returnValue);
+          $message = $array[count($array) - 1];
+      }
     }
   }
   
