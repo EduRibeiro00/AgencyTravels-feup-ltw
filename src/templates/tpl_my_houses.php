@@ -1,6 +1,7 @@
 
 <?php
 include_once('../templates/tpl_list_houses.php');
+include_once('../database/db_user.php');
 
 function draw_my_houses_base_head(){ ?>
     <div id="my_houses_container">
@@ -19,7 +20,6 @@ function draw_my_houses_statistics(){ ?>
             <img class="circular-img" id="profilepic" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
             <p id="my_houses_statistics_owner">Ruben Almeida</p>
             <i class="fas fa-chart-line"></i>
-            <p>Money earned:500€</p>
             <p>Number of Reservations:3</p>
 
         </section>
@@ -38,13 +38,18 @@ function draw_my_houses_statistics(){ ?>
 
 <?php
 
-function draw_my_houses_item_list(){ ?>
+function draw_my_houses_item_list(){ 
+    
+    $userID=$_SESSION['userID'];
 
+    $array_places=getUserPlaces($userID);
+
+?>
     <section id="my_houses_list_container">
 <?php
 
-    for($i = 0; $i < 5; $i++)
-        draw_horizontal_card($i + 0.5,true);
+    for($i = 0; $i < count($array_places); $i++)
+        draw_horizontal_card($i + 0.5,true,false,$array_places[$i]['placeID']);
 ?>
 
     </section>
