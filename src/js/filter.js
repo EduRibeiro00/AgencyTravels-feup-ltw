@@ -118,7 +118,7 @@ form.addEventListener("submit", function(event){
 			houseSection.appendChild(renderHouseCard(house))
 	})
 
-})*7
+})*/
 
 
 

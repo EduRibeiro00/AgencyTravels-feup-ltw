@@ -219,6 +219,9 @@ nav input[type="text"]::placeholder{
 	opacity: 100%;
 }
 
+.fa-search {
+	cursor: pointer;
+}
 
 /* TODO: se calhar forçar a profile pic a ser quadrada */ 
 

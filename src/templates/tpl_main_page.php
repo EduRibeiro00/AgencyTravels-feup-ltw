@@ -9,7 +9,7 @@ function draw_mainpage_body($topdests, $trendingdests, $randcity, $randplaces) {
         draw_trending($trendingdests);
 
         $title = $randcity['city'] . ': some places';
-        $link = 'city_places.php?location_id=' . $randcity['locationID'];
+        $link = 'list_places.php?location=' . $randcity['country'] . '+-+' . $randcity['city'];
         draw_place_listing($title, $randplaces, $link);
       ?>
 	</main>
@@ -22,7 +22,7 @@ function draw_mainpage_body($topdests, $trendingdests, $randcity, $randplaces) {
             <ol>
                 <?php foreach($topdests as $topdest) { ?>
                   <li>
-                    <a href="city_places.php?location_id=<?=$topdest['locationID']?>">
+                    <a href="list_places.php?location=<?=$topdest['country']?>+-+<?=$topdest['city']?>">
                         <img class="circular-img" src=<?=$topdest['image']?>>
                       <span><?=$topdest['city']?>, <?=$topdest['country']?></span>
                     </a>
@@ -39,7 +39,7 @@ function draw_mainpage_body($topdests, $trendingdests, $randcity, $randplaces) {
             <ol>
                 <?php foreach($trendingdests as $trendingdest) ?>
                   <li>
-                    <a href="city_places.php?location_id=<?=$trendingdest['locationID']?>">
+                    <a href=list_places.php?location=<?=$trendingdest['country']?>+-+<?=$trendingdest['city']?>>
                       <img class="circular-img" src=<?=$trendingdest['image']?>>
                     <span><?=$trendingdest['city']?></span> <?=$trendingdest['numReservations']?> Reservations
                     </a>
