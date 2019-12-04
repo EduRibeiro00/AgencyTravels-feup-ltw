@@ -115,4 +115,42 @@ function getRandomImagesFromCity($locationID, $number) {
     return $stmt->fetchAll();
 }
 
+function getPlaceLocationID($placeID){
+    
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT locationID 
+                          FROM Place
+                          WHERE placeID = ?');
+    $stmt->execute(array($placeID));
+    return $stmt->fetch();
+
+}
+
+function updateUserInfo($placeID,$title,$desc,$address,$city,$country,$numRooms,$numBathrooms,$capacity){
+
+    $db = Database::instance()->db();
+    
+    try {
+        $stmt1 = $db->prepare('UPDATE Place
+                              SET title = ?,
+                                  address = ?,
+                                  description = ?,
+                                  capacity = ?,
+                                  numRooms = ?,
+                                  numBathrooms = ?,  
+                               WHERE placeID = ?' 
+                            );
+
+     $stmt1->execute(array($title,$address,$desc,$capacity,$numRooms,$numBathrooms,$placeID));
+    }
+
+    catch (PDOException $e) {
+        return $e->getMessage();
+    }
+
+    //TODO:UPDATE LOCATION NOT IMPLEMENTED
+
+    return true;
+}
+
 ?>

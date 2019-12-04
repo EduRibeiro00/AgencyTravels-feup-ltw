@@ -1,14 +1,26 @@
 
 <?php
+if(!(isset($_SESSION['userID']))){
+    // TODO// AFTER LOGIN IMPLEMENTED CONTINUE
+    //header("Location: main_page.php");
+    //die("UserId not set on my houses");
+}else{
+    $_SESSION['userID']=3;
+}
+
 include_once('../templates/tpl_list_houses.php');
 include_once('../database/db_user.php');
+
 
 function draw_my_houses_base_head(){ ?>
     <div id="my_houses_container">
 <?php } ?>
 
 <?php
-function draw_my_houses_statistics(){ ?>
+function draw_my_houses_statistics(){ 
+    $_SESSION['userID']=2;
+    $userID=$_SESSION['userID'];  
+?>
 
     <article id="my_houses_statistics_container">
         
@@ -18,9 +30,9 @@ function draw_my_houses_statistics(){ ?>
 
         <section id="my_houses_statistics_info">
             <img class="circular-img" id="profilepic" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
-            <p id="my_houses_statistics_owner">Ruben Almeida</p>
+            <p id="my_houses_statistics_owner"><?= getUserInformation($userID)['name'];?></p>
             <i class="fas fa-chart-line"></i>
-            <p>Number of Reservations:3</p>
+            <p>Number of Reservations: <?=getUserNumberofReservations($userID)['cnt']; ?></p>
 
         </section>
 

@@ -97,5 +97,16 @@
                             );
         $stmt->execute(array($path, $userID));
     }
+    
+    function getUserNumberofReservations($userID){
+        $db = Database::instance()->db();
+
+        $stmt = $db->prepare('SELECT count(*) as cnt
+                              FROM Reservation Natural Join Place Natural Join User
+                              WHERE User.userID = ?
+                            ');
+         $stmt->execute(array($userID));
+         return $stmt->fetch();
+    }
 ?>
     

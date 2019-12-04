@@ -1,7 +1,7 @@
 <?php 
     include_once('../templates/tpl_common.php');
     include_once('../templates/tpl_my_houses.php');
-    draw_head(['../js/main.js']);
+    draw_head(['../js/main.js','../js/house_edit.js']);
     
 
 

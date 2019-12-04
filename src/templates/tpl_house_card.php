@@ -26,19 +26,20 @@ function draw_horizontal_card($rating,$edit_features_active=false,$near_reservat
 		if($edit_features_active==true&&$placeID!=false){ ?>
 			<div class="column info_right edit-stat">
 				<span class="card-edit">
-					<a href="my_house_edit.php?placeID=<?=$placeID?>">
+					<a href="my_house_edit.php?placeID=<?=$placeID?>"> 
 					Edit
+					</a>
 				</span>
 			
 				
 				<span class="card-rating">
-					Statistics
 					<a> </a>
+					Statistics
 				</span>
 				
 				<span class="card-rating">
-					Reservations
 					<a> </a>
+					Reservations
 				</span>
 			</div>
 
