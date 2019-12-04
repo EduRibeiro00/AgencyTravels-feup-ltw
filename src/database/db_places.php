@@ -52,6 +52,15 @@ function getRandomPlacesRandomCity($number) {
 // ----------------
 // currently used vv
 
+function getPlace($place_id) {
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT *
+                            FROM Place NATURAL JOIN Location
+                            WHERE placeID=?');
+    $stmt->execute(array($place_id));
+    return $stmt->fetch();
+}
+
 function getRandomPlacesFromCity($locationID, $number) {
     $db = Database::instance()->db();
     $stmt = $db->prepare('SELECT *
@@ -79,8 +88,8 @@ function getAveragePrice($placeID) {
     $stmt = $db->prepare('SELECT round(avg(pricePerDay)) as avg_price
                           FROM Availability
                           WHERE placeID = ?');
-    $stmt->execute(array($placeID));
-    return $stmt->fetch();
+	$stmt->execute(array($placeID));
+	return $stmt->fetch();
 }
 
 function getTopDestinations() {
@@ -112,6 +121,15 @@ function getRandomImagesFromCity($locationID, $number) {
                          WHERE locationID = ?
                          LIMIT ?');
     $stmt->execute(array($locationID, $number));
+    return $stmt->fetchAll();
+}
+
+function getHouseComments($place_id) {
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT comment, Review.stars as stars, User.name as name, Review.date as date
+                            FROM Place NATURAL JOIN Reservation NATURAL JOIN Review JOIN User on Reservation.touristID=User.userID 
+							WHERE placeID=?');
+    $stmt->execute(array($place_id));
     return $stmt->fetchAll();
 }
 

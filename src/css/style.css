@@ -1064,7 +1064,7 @@ footer a {
     width: 80%;
 }
 
-#Reviews_Container{
+#reviews{
     min-width: 0;
     min-height:0;
     grid-area:Reviews;
@@ -1072,13 +1072,13 @@ footer a {
     margin-right: 1rem;    
 }
 
-.Reviews{
+.review{
     border-bottom-style: solid; 
     border-bottom-width: 3px;
     border-bottom-color: var(--main_color);
 }
 
-#Reviews_Container .Comment_Author_Img{
+#reviews .Comment_Author_Img{
     height: 3em;
     width: 3em;
     border-style: solid;
@@ -1088,28 +1088,6 @@ footer a {
     clear: right;
 
 }
-
-.Review_Header_Content article{
-    position: relative;
-    top: 0.2rem;
-    left: 0.3rem;
-}
-.Review_Header_Content p{
-    margin:0;
-}
-
-.Review_Text_Title{
-    font-weight: bold;
-}
-
-.Review_Header_Second_Line p{
-    display: inline;
-}
-
-.Review_Header_Second_Line{
-    position: relative;   
-}
-
 
 #Avaiabilities{
     min-width: 0;

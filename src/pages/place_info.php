@@ -5,8 +5,9 @@
     include_once('../templates/tpl_place.php');
     include_once('../templates/tpl_similar_offer.php');
     include_once('../templates/tpl_availability.php');
-    include_once('../database/db_myplace.php');
-    include_once('../database/db_user.php');
+	include_once('../database/db_user.php');
+	include_once('../database/db_places.php');
+
 
     
     if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
@@ -19,38 +20,31 @@
     }
     
 	draw_head($jsFiles);
-    draw_navbar($user_info);
+	draw_navbar($user_info);
+
+	$placeID = $_GET['place_id'];
+	
+	$place = getPlace($placeID);
+    	
     
-    $place_id = $_GET['place_id'];
-    
-    $house_name=get_house_title($place_id)["title"];
-    $house_rating=get_house_rating($place_id)["rating"];
-    $house_description=get_house_description($place_id)["description"];
-    $house_numRooms=get_house_numRooms($place_id)["numRooms"];
-    $house_capacity=get_house_capacity($place_id)["capacity"];
-    $house_numBathrooms=get_house_numBathrooms($place_id)["numBathrooms"];
-    $house_address=get_house_address($place_id)["address"];
-    $house_address_city=get_house_address_city($place_id)["city"];
-    $house_address_country=get_house_address_country($place_id)["country"];
-    $house_gpsCoords=get_house_gpsCoords($place_id)["gpsCoords"];
-    $house_comments=get_house_comments($place_id);
-    $house_avg_price=get_avg_price($place_id)["avg"];
+    $house_comments = getHouseComments($placeID);
+	$housePrice = getAveragePrice($placeID)['avg_price'];
 
     //Adress string parsing
 
-    $house_address_full=$house_address.",".$house_address_city.",".$house_address_country;
+    $house_address_full = $place['address'] . ", " . $place['city'] . ", " . $place['country'];
     
     //Draw Section
     draw_myplace_slideshow();
     first_line();
   
-    draw_my_place_sidebar($house_avg_price,$house_rating); 
-    draw_my_place_icon_desc($house_name,$house_numRooms,$house_capacity,$house_numBathrooms,$house_description);
-    draw_my_place_location($house_address_full,$house_gpsCoords);
+    draw_my_place_sidebar($housePrice, $place['rating']); 
+    draw_my_place_icon_desc($place['title'], $place['numRooms'], $place['capacity'], $place['numBathrooms'], $place['description']);
+    draw_my_place_location($house_address_full, $place['gpsCoords']);
 
     draw_avaiability_block();
     //House Rating is the avg rating of the house
-    draw_all_comments($house_rating,$house_comments); 
+    draw_all_comments($place['rating'], $house_comments); 
     draw_similar_offer_slide_show();  
     last_line();
     draw_footer(); 

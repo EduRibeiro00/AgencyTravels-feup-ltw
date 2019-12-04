@@ -5,7 +5,7 @@ window.onload=function(){
 	
 	let someElement = document.getElementById('Pop_UP_Fast_Reservation')
 	const value= img_elem.offsetHeight+navbar.offsetHeight-window.screenY
-	let bottom_element=document.getElementById('Reviews_Container')
+	let bottom_element=document.getElementById('reviews')
 	const value_bottom =bottom_element.offsetTop
 	
 	
