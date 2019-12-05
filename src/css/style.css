@@ -1042,10 +1042,8 @@ footer a {
 #Pop_UP_Fast_Reservation img{
     width: 3em;
     height: 3em;
-    border-style: solid;
-    border-color: transparent;
-    border-radius: 5em;
     float: left;
+    margin-left: 0px;
 }
 
 #Google_Maps_Widget_Container{
@@ -1077,13 +1075,13 @@ footer a {
     border-bottom-width: 3px;
     border-bottom-color: var(--main_color);
 }
+.review .circular-cropper{
+    margin-left: 0px;
+}
 
 #reviews .Comment_Author_Img{
     height: 3em;
     width: 3em;
-    border-style: solid;
-    border-color: transparent;
-    border-radius: 25px;
     float: left;
     clear: right;
 

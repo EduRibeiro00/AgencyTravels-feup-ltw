@@ -46,7 +46,7 @@ function first_line()
         </section>
 
         <section id="Owner_info">
-            <img id="Owner_Img" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
+            <img id="Owner_Img" class="circular-cropper" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
 
             <span><?=$house_ownder_name?></span>
             <br>
