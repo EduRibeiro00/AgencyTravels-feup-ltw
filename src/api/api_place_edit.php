@@ -1,6 +1,6 @@
 <?php
 include_once('../includes/session_include.php');
-include_once('../database/db_user.php');
+include_once('../database/db_places.php');
     // verify if user is already logged in
     /*
     
@@ -11,7 +11,7 @@ include_once('../database/db_user.php');
     else {
         */
         
-        $placeId = $_POST['placeId'];
+        $placeID = $_POST['placeID'];
         $title = $_POST['title'];
         $desc = $_POST['desc'];
         $address = $_POST['address'];
@@ -21,7 +21,8 @@ include_once('../database/db_user.php');
         $numBathrooms = $_POST['numBathrooms'];
         $capacity = $_POST['capacity'];
 
-        updateUserInfo($placeID,$title,$desc,$address,$city,$country,$numRooms,$numBathrooms,$capacity);
+        updatePlaceInfo($placeID,$title,$desc,$address,$city,$country,$numRooms,$numBathrooms,$capacity);
+      
 
         
         

@@ -9,9 +9,11 @@ function draw_form($placeId)
     <section id="place_edit_form">
 
         <form>
-            <?php if($placeId != null) { ?>
+           
+        <?php if($placeId != null) { ?>
                 <input type="hidden" name="placeID" value=<?=$placeId?>>
             <?php } ?>
+
             <fieldset>
                 <legend>Description</legend>
                 <label>Title: <input type="text" name="title" value="<?= get_house_title($placeId)['title']; ?>"> </label>

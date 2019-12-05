@@ -126,12 +126,12 @@ function getPlaceLocationID($placeID){
 
 }
 
-function updateUserInfo($placeID,$title,$desc,$address,$city,$country,$numRooms,$numBathrooms,$capacity){
+function updatePlaceInfo($placeID,$title,$desc,$address,$city,$country,$numRooms,$numBathrooms,$capacity){
 
     $db = Database::instance()->db();
     
     try {
-        $stmt1 = $db->prepare('UPDATE Place
+        $stmt = $db->prepare('UPDATE Place
                               SET title = ?,
                                   address = ?,
                                   description = ?,
@@ -141,7 +141,7 @@ function updateUserInfo($placeID,$title,$desc,$address,$city,$country,$numRooms,
                                WHERE placeID = ?' 
                             );
 
-     $stmt1->execute(array($title,$address,$desc,$capacity,$numRooms,$numBathrooms,$placeID));
+     $stmt->execute(array($title,$address,$desc,$capacity,$numRooms,$numBathrooms,$placeID));
     }
 
     catch (PDOException $e) {

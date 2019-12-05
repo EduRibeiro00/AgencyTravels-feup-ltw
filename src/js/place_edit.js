@@ -5,13 +5,13 @@
 
 
 let profileForm = document.querySelector('#place_edit_form form');
-let errorMessage = document.getElementById('profile-form-error');
+//let errorMessage = document.getElementById('profile-form-error');
 
 profileForm.addEventListener('submit', function(event) {
 	
 	event.preventDefault();
-	errorMessage.style.display = "none";
-	errorMessage.textContent = "";
+	//errorMessage.style.display = "none";
+	//errorMessage.textContent = "";
 
 	let request = new XMLHttpRequest();
 
@@ -19,7 +19,7 @@ profileForm.addEventListener('submit', function(event) {
 	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 
 	request.addEventListener('load', function() {
-		let message = JSON.parse(this.responseText).message;
+		//let message = JSON.parse(this.responseText).message;
 		
 		/*
 		switch(message) {
@@ -69,17 +69,17 @@ profileForm.addEventListener('submit', function(event) {
 
 		*/
 	});
-	let placeId=document.querySelector('#place_edit_form input[name="placeID"]').value;
+	let placeID=document.querySelector('#place_edit_form input[name="placeID"]').value;
 	let title = document.querySelector('#place_edit_form input[name="title"]').value;
-	let desc=document.querySelector('#place_edit_form input[name="description"]').value;
+	let desc=document.querySelector('#place_edit_form textarea[name="description"]').value;
 	let address=document.querySelector('#place_edit_form input[name="address"]').value;
 	let city=document.querySelector('#place_edit_form input[name="city"]').value;
 	let country=document.querySelector('#place_edit_form input[name="country"]').value;
 	let numRooms=document.querySelector('#place_edit_form input[name="numRooms"]').value;
 	let numBathrooms=document.querySelector('#place_edit_form input[name="numBathrooms"]').value;
 	let capacity=document.querySelector('#place_edit_form input[name="capacity"]').value;
-	
-    request.send(encodeForAjax({placeId:placeId,title:title,desc:desc,address:address,city:city,country:country,numRooms:numRooms,numBathrooms:numBathrooms,capacity:capacity}));
+	console.log(capacity)
+    request.send(encodeForAjax({placeID:placeID,title:title,desc:desc,address:address,city:city,country:country,numRooms:numRooms,numBathrooms:numBathrooms,capacity:capacity}));
 });
 
 // -----------
