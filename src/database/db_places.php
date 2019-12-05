@@ -115,4 +115,28 @@ function getRandomImagesFromCity($locationID, $number) {
     return $stmt->fetchAll();
 }
 
-?>
+function getPlaceOwnerName($placeID){
+    
+    $db = Database::instance()->db();
+
+    $stmt = $db->prepare('SELECT User.name as name
+                          FROM Place JOIN User ON Place.ownerID=User.userID
+                          WHERE placeID = ?');
+    $stmt->execute(array($placeID));
+    
+    return $stmt->fetch();
+}
+
+function getCompatibleAvailability($placeID,$check_in_date,$check_out_date){
+
+
+    $db = Database::instance()->db();
+
+    $stmt = $db->prepare('SELECT pricePerDay as price
+                          FROM Availability Natural Join Place
+                          WHERE placeID = ? AND date(startDate)>= date(?) AND date(?)<=date(endDate)');
+    
+    $stmt->execute(array($placeID,$check_in_date,$check_out_date));
+    
+    return $stmt->fetch();
+}

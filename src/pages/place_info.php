@@ -7,16 +7,18 @@
     include_once('../templates/tpl_availability.php');
     include_once('../database/db_myplace.php');
     include_once('../database/db_user.php');
+    include_once('../database/db_places.php');
 
     
     if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
         $user_info = getUserInformation($_SESSION['userID']);
-        $jsFiles = ['../js/main.js', '../js/place_page.js'];
+        $jsFiles = ['../js/main.js', '../js/place_page.js','../js/price_reservation.js'];
     }
     else {
         $user_info = NULL;
-        $jsFiles = ['../js/main.js', '../js/place_page.js', '../js/login.js'];
+        $jsFiles = ['../js/main.js', '../js/place_page.js', '../js/login.js','../js/price_reservation.js'];
     }
+
     
 	draw_head($jsFiles);
     draw_navbar($user_info);
@@ -35,6 +37,7 @@
     $house_gpsCoords=get_house_gpsCoords($place_id)["gpsCoords"];
     $house_comments=get_house_comments($place_id);
     $house_avg_price=get_avg_price($place_id)["avg"];
+    $house_owner_name=getPlaceOwnerName($place_id)["name"];
 
     //Adress string parsing
 
@@ -44,7 +47,7 @@
     draw_myplace_slideshow();
     first_line();
   
-    draw_my_place_sidebar($house_avg_price,$house_rating); 
+    draw_my_place_sidebar($house_avg_price,$house_rating,$house_owner_name,$place_id); 
     draw_my_place_icon_desc($house_name,$house_numRooms,$house_capacity,$house_numBathrooms,$house_description);
     draw_my_place_location($house_address_full,$house_gpsCoords);
 

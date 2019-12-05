@@ -13,25 +13,31 @@ function first_line()
     </div>
 <?php } ?>
 
-<?php function draw_my_place_sidebar($house_avg_price,$house_rating)
-{ ?>
+<?php function draw_my_place_sidebar($house_avg_price,$house_rating,$house_ownder_name,$placeID)
+{ 
+    
+    ?>
 
     <aside id="Pop_UP_Fast_Reservation">
 
         <section id=Pop_UP_Fast_Reservation_Review_Short>
             <p>Price per night</p>
   
-            <p><?=$house_avg_price?></p>
+            <p><?=round($house_avg_price,2)?>€</p>
 
             <?php draw_star_rating($house_rating) ?>
 
         </section>
 
         <section id="Pop_UP_Fast_Reservation_Inputs">
-            <form action="#s" method="GET">
+            
+            <form>
+                <?php if($placeID != null) { ?>
+                    <input type="hidden" name="placeID" value=<?=$placeID?>>
+                <?php } ?>
 
-                <input id="Date_Start" type="date">
-                <input id="Date_End" type="date">
+                <input id="Date_Start" type="date" name="check_in_date">
+                <input id="Date_End" type="date" name="check_out_date">
                 <br>
                 <input id="Book_Submit_Button" type="submit">
 
@@ -42,11 +48,11 @@ function first_line()
         <section id="Owner_info">
             <img id="Owner_Img" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
 
-            <span>Moussa Marega</span>
+            <span><?=$house_ownder_name?></span>
             <br>
-            <form action="#" method="GET">
-                <button id="Button_Send_Email">
-                    Send Email
+            <form>
+                <button id="Button_Send_Message">
+                    Send Message
                 </button>
             </form>
 
