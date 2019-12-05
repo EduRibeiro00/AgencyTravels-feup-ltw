@@ -23,7 +23,7 @@ function first_line()
         <section id=Pop_UP_Fast_Reservation_Review_Short>
             <p>Price per night</p>
   
-            <p><?=round($house_avg_price,2)?>€</p>
+            <p id="side_price_per_night"><?=round($house_avg_price,2)?>€</p>
 
             <?php draw_star_rating($house_rating) ?>
 

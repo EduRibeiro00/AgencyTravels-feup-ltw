@@ -14,7 +14,7 @@ profileForm.addEventListener('submit', function(event) {
 	request.addEventListener('load', function() {
         
         let message = JSON.parse(this.responseText).message;
-        console.log(message)
+        console.log(message['price'])
 
 
             
@@ -23,8 +23,14 @@ profileForm.addEventListener('submit', function(event) {
 				
 				
             break
+            
             //Retornou algo aplicar DOM para alterar o valor do price per night
             default:
+
+                let price_element=document.getElementById('side_price_per_night')
+
+                price_element.innerHTML=message['price']+'€'
+                
 
 			break;
         }
