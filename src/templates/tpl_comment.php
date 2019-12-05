@@ -6,75 +6,34 @@ include_once('../templates/tpl_common.php');
 function draw_comment($comment){ ?>
 
 
-<section class="Reviews">
-    <!--GET PHP INFO-->
-    <header class="Review_Header">
-        
-        <p class="Review_Text_Title"><?=$comment["comment"]?></p>
-        
-        
-        <section class="Review_Header_Content">
-            
-            
-            <img class="Comment_Author_Img" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
-            
-            <article class="Review_Header_First_Line">
-                <!--//TODO: Implement imported from db-->
-                <p class="Review_Name_Author"><?=$comment["name"]?></p> 
-            </article>
-            
-            <article class="Review_Header_Second_Line">
-                
-                <?php  draw_star_rating($comment["stars"])?>
-                
-                <p class="Review_Author_Location">Location:
-                <?php
-                    $string_final=$comment["city"].",".$comment["country"];
-                    echo $string_final;
-                ?>
-                </p> 
-            </article>
-
-        </section>
+<article class="review">
+    <header>
+		<!-- TODO: mudar class -->
+		<img class="Comment_Author_Img" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
+		<p><?=$comment["name"]?></p> 
+		<?php draw_star_rating($comment["stars"])?>
     </header>
-
-    <article class="Review_Text">
-        
-        <p><?=$comment["comment"]?></p>
-
-    </article>
-    
-    <footer class="Review_Footer">
-        
-        <p>Published:<?= $comment ["date"]?></p>
-
+    <p><?=$comment["comment"]?></p>
+    <footer>
+        <p>Published: <?=$comment["date"]?></p>
     </footer>
-
-
-</section>
+</article>
 
 <?php 
 
 } 
 
 function draw_all_comments($house_rating,$house_comments){ ?>
-
-
-    <article id="Reviews_Container">
-
+    <article id="reviews">
     <header>
-        <p>Revisions</p>
+        <p>Reviews</p>
         <?php draw_star_rating($house_rating)?>
-        
     </header>
-
     <?php  
         foreach($house_comments as $comment)
             draw_comment($comment);    
     ?>
-
     </article>
-
 <?php } ?>
 
 

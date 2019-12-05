@@ -40,7 +40,4 @@ function draw_similar_offer_slide_show(){ ?>
     </article>
 
 
-<? } ?>
-
-
-
+<?php } ?>
