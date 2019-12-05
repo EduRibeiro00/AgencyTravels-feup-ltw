@@ -137,8 +137,9 @@ function updatePlaceInfo($placeID,$title,$desc,$address,$city,$country,$numRooms
                                   description = ?,
                                   capacity = ?,
                                   numRooms = ?,
-                                  numBathrooms = ?,  
-                               WHERE placeID = ?' 
+                                  numBathrooms = ? 
+                               WHERE placeID = ?
+                               ' 
                             );
 
      $stmt->execute(array($title,$address,$desc,$capacity,$numRooms,$numBathrooms,$placeID));

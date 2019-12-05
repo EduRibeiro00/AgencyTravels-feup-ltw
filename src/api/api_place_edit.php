@@ -21,7 +21,7 @@ include_once('../database/db_places.php');
         $numBathrooms = $_POST['numBathrooms'];
         $capacity = $_POST['capacity'];
 
-        updatePlaceInfo($placeID,$title,$desc,$address,$city,$country,$numRooms,$numBathrooms,$capacity);
+        $message=updatePlaceInfo($placeID,$title,$desc,$address,$city,$country,$numRooms,$numBathrooms,$capacity);
       
 
         
