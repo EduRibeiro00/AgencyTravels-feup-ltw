@@ -1196,7 +1196,6 @@ footer a {
 }
     
 #Similar_Offers_Left{
-
     flex-basis: 20%;
 }
 #Similar_Offers_Center{
@@ -1208,6 +1207,132 @@ footer a {
 
     flex-basis: 20%;
 }
+
+
+/*
+My Place
+*/
+
+#my_houses_container{
+    display: grid;
+    grid-template-columns: 1fr 0.2fr;
+    grid-template-rows:auto auto;
+    grid-template-areas: 
+                        "stats add"
+                        "list_house list_house"
+                        
+    ;
+    margin-left: 1rem;
+}
+
+#my_houses_statistics_container{
+    grid-area: stats;
+    border-bottom-style: solid;
+    border-bottom-width: 0.1em;
+    border-bottom-color:var(--main_color); 
+}
+
+#my_houses_statistics_header p{
+    color:var(--main_color);
+    font-size: 2em;
+    margin-left: -0.2em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+
+
+#my_houses_statistics_info{
+    display: flex;
+    align-items: center;
+    font-size: 1.5em;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+#my_houses_statistics_owner{
+    margin-right: auto;
+    margin-left: 1em;
+    width: fit-content;
+}
+
+
+#my_houses_statistics_info p{
+    padding-right: 5em;    
+}
+#my_houses_statistics_info img{
+
+    height: 3em;
+    width: 3em;
+}
+#my_houses_add_new{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: gray; 
+}
+
+.edit-stat span{  
+    width: 10em;
+    margin-left: auto;
+    text-align: center;
+}
+
+#my_houses_list_container{
+    grid-area: list_house;
+    margin-right: 4rem;
+}
+
+#my_houses_list_container .info_right{
+    margin-left: auto;
+    margin-right: 2em;
+    justify-content: space-around;
+}
+
+.card .info_right span{
+	margin-right: 1em;
+	padding: 0.3em 1em;
+	border: var(--border_color) 1px solid;
+	border-radius: 1em;
+	background: var(--main_color);
+	color: var(--light_text_color);
+}
+
+
+
+/*Edit-House-Form*/
+
+#my_house_edit_container legend{
+    color: var(--main_color);
+    font-size: 1.5em
+}
+#my_house_edit_container fieldset{
+    margin-bottom: 2em;
+}
+#my_house_edit_container .edit-house-imgs img{
+    width: 20em;
+    height: 10em;
+}
+
+#my_house_edit_container .edit-house-imgs{
+    justify-content: space-around;
+}
+
+#my_house_edit_container .edit-house-imgs input{
+    align-self: flex-end;
+}
+
+#my_house_edit_container .edit-house-location,#my_house_edit_container .edit-house-caracteristics{
+    justify-content: space-evenly;
+}
+
+
+
+
+
+
+
+
+
 
 /**
  * ------------ Responsive ------------
