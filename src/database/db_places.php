@@ -39,6 +39,16 @@ function getLocations($location) {
 }
 
 
+function getAllLocations() {
+    $db = Database::instance()->db();
+	$stmt = $db->prepare('SELECT * 
+                          FROM Location
+                          ORDER BY country');
+	$stmt->execute();
+	return $stmt->fetchAll();
+}
+
+
 function getRandomPlacesRandomCountry($number) {
     $country = getRandomCountry();
     return getRandomPlacesFromCountry($country['country'], $number);

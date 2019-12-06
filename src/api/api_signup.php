@@ -8,21 +8,16 @@ include_once('../database/db_user.php');
       $message = 'user already logged in';
   }
   else {
-    $image = $_POST['image'];
+    $image = $_FILES['imageFile']['tmp_name'];
     $username = $_POST['username'];
-    $name = $_POST['name'];
+    $name = $_POST['username'];
     $password = $_POST['password'];
     $email = $_POST['email'];
     $bio = $_POST['bio'];
     $birthDate = $_POST['birthDate'];
     $gender = $_POST['gender'];
-
-    /* TODO: imagem e location hardcoded por agora, meter a funcionar no tpl_profile_form
-             E preciso guardar a imagem nos assets, ir buscar o path e fazer um update na
-             base de dados, associando a imagem ao ID do user (preciso verificar se a imagem
-             e a mesma e nao foi modificada, e preciso verificar se o user nao tinha imagem)
-    */
-    $locationID = 1;
+    $locationID = $_POST['location'];
+    $hasFile = $_POST['hasFile'];
 
     if (!checkIfImageIsValid($image)) {
       $message = 'invalid image';
@@ -32,7 +27,7 @@ include_once('../database/db_user.php');
 
       if($returnValue === true) {
           $id = getUserID($username);
-          if($image != "") {
+          if($hasFile == "yes") {
             uploadUserImage($id, $image);
           }
           $_SESSION['userID'] = $id;

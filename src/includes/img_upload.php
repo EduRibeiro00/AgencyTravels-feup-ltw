@@ -6,13 +6,6 @@ function checkIfImageIsValid($image) {
   if($image == "")
     return true;
 
-  // checks whether or not the file passed has a valid extension
-  $allowed = array('jpeg', 'jpg', 'png', 'gif');
-  $ext = pathinfo($image, PATHINFO_EXTENSION);
-  if (!in_array($ext, $allowed)) {
-    return false;
-  }
-
   // checks if file is really an image
   return exif_imagetype($image);
 }
@@ -25,7 +18,7 @@ function uploadUserImage($userID, $image) {
 
     $date = date('Y-m-d H:i:s');
     $imageSalt = random_bytes(5);
-    $imageName = hash("sha256", $userID . $date. $imageSalt) . ".png";
+    $imageName = hash("sha256", $userID . $date . $imageSalt) . ".png";
 
     // Generate filenames for original, small and medium files
     $originalFileName = "../assets/images/users/original/$imageName";
@@ -46,7 +39,7 @@ function uploadUserImage($userID, $image) {
 
     // Create and save a small square thumbnail (70 x 70)
     $small = imagecreatetruecolor(70, 70);
-    imagecopyresized($small, $original, 0, 0, ($width>$square)?($width-$square)/2:0, ($height>$square)?($height-$square)/2:0, 200, 200, $square, $square);
+    imagecopyresampled($small, $original, 0, 0, ($width>$square)?($width-$square)/2:0, ($height>$square)?($height-$square)/2:0, 70, 70, $square, $square);
     imagepng($small, $smallFileName);
 
     // Calculate width and height of medium sized image (max width: 200)
@@ -59,11 +52,37 @@ function uploadUserImage($userID, $image) {
 
     // Create and save a medium image
     $medium = imagecreatetruecolor($mediumwidth, $mediumheight);
-    imagecopyresized($medium, $original, 0, 0, 0, 0, $mediumwidth, $mediumheight, $width, $height);
+    imagecopyresampled($medium, $original, 0, 0, 0, 0, $mediumwidth, $mediumheight, $width, $height);
     imagepng($medium, $mediumFileName);
 
     return true;
 }
+
+function deleteUserImage($userID) {
+  $oldImageName = getUserImage($userID);
+  if($oldImageName == "noImage.png") { // user doesn't have an image already
+    return true;
+  }
+
+  unlink("../assets/images/users/original/$oldImageName");
+  unlink("../assets/images/users/small/$oldImageName");
+  unlink("../assets/images/users/medium/$oldImageName");
+
+  deleteImageForUser($userID);
+
+  return true;
+}
+
+function updateUserImage($userID, $image) {
+  deleteUserImage($userID);
+  uploadUserImage($userID, $image);
+
+  return true;
+}
+
+
+// --------------------------------
+
 
 // small - 70 x 70
 // medium - max height: 300
@@ -94,7 +113,7 @@ function uploadPlaceImage($placeID, $image) {
 
   // Create and save a small square thumbnail (70 x 70)
   $small = imagecreatetruecolor(70, 70);
-  imagecopyresized($small, $original, 0, 0, ($width>$square)?($width-$square)/2:0, ($height>$square)?($height-$square)/2:0, 200, 200, $square, $square);
+  imagecopyresampled($small, $original, 0, 0, ($width>$square)?($width-$square)/2:0, ($height>$square)?($height-$square)/2:0, 70, 70, $square, $square);
   imagepng($small, $smallFileName);
 
   // Calculate width and height of medium sized image (max height: 300)
@@ -107,7 +126,7 @@ function uploadPlaceImage($placeID, $image) {
 
   // Create and save a medium image
   $medium = imagecreatetruecolor($mediumwidth, $mediumheight);
-  imagecopyresized($medium, $original, 0, 0, 0, 0, $mediumwidth, $mediumheight, $width, $height);
+  imagecopyresampled($medium, $original, 0, 0, 0, 0, $mediumwidth, $mediumheight, $width, $height);
   imagepng($medium, $mediumFileName);
 
 
@@ -121,7 +140,7 @@ function uploadPlaceImage($placeID, $image) {
 
   // Create and save a medium image
   $big = imagecreatetruecolor($bigwidth, $bigheight);
-  imagecopyresized($big, $original, 0, 0, 0, 0, $bigwidth, $bigheight, $width, $height);
+  imagecopyresampled($big, $original, 0, 0, 0, 0, $bigwidth, $bigheight, $width, $height);
   imagepng($big, $bigFileName);
 }
 

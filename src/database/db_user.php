@@ -84,6 +84,16 @@
     }
 
 
+    function deleteImageForUser($userID) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('DELETE
+                              FROM Image
+                              WHERE userID = ?'
+                            );
+        $stmt->execute(array($userID));
+    }
+
+
     function getUserImage($userID) {
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT image

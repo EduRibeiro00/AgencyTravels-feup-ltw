@@ -266,12 +266,12 @@ INSERT INTO Place (title, address, description, capacity, numRooms, numBathrooms
 );
 
 -- Image
-INSERT INTO Image(image, userID, placeID) VALUES ("https://avatars3.githubusercontent.com/u/48838522?s=400&v=4", 1, null);
-INSERT INTO Image(image, userID, placeID) VALUES ("https://avatars2.githubusercontent.com/u/38781152?s=400&v=4", 2, null);
-INSERT INTO Image(image, userID, placeID) VALUES ("http://www.risadas.pt/img/videos/06/cristiano_ronaldo_e_cristiano_reinaldo_o_melhor_jogador_do_m_img_1006.jpg", 4, null);
-INSERT INTO Image(image, userID, placeID) VALUES ("https://thumbs.web.sapo.io/?W=800&H=0&delay_optim=1&epic=N2U3X7hhyJSuXSDaiqdMBVRCLvdUlnoFz3od/3gbpzNUcPuXtvaWTZ+FCsxxn2MzdMEcGbFoGwsqTYiR7Ar1mTJm9TTDGM5Ewa+RbP3TNzbObCM=", 5, null);
-INSERT INTO Image(image, userID, placeID) VALUES ("http://2.bp.blogspot.com/-bKazzdWVNbQ/VRNCn0rFLOI/AAAAAAAAJBc/NEkaSqRrC6c/s1600/socrates.jpg", 6, null);
-INSERT INTO Image(image, userID, placeID) VALUES ("https://i.kym-cdn.com/news_feeds/icons/mobile/000/015/652/4b1.jpg", 7, null);
+INSERT INTO Image(image, userID, placeID) VALUES ("14b3a43790f206aff9d6aefe11c1b05c1c55ddacfd7f1df321cf22f3da1055c8.png", 1, null);
+INSERT INTO Image(image, userID, placeID) VALUES ("2a879a066cd4cbdf01a2fea09d8488e656b79aec3749fecb709cfd1be15b1caf.png", 2, null);
+INSERT INTO Image(image, userID, placeID) VALUES ("0f5ca98631a06547629225d4c77030408728b90fa29de1e592ec0f7d7c29ce82.png", 4, null);
+INSERT INTO Image(image, userID, placeID) VALUES ("3f10e3e9b4e52f8422728abeb3b37c8a3d5b9e01a8426a90d95510a93bc869dc.png", 5, null);
+INSERT INTO Image(image, userID, placeID) VALUES ("f4cced5a7ecd93fca8bf68c8f0e3ca72572fa0f7afaffc0c1dfb02c69f291d7e.png", 6, null);
+INSERT INTO Image(image, userID, placeID) VALUES ("d41408d4c70638efd7543c63c0d087f5c8632b725bce3ff25ed76928422d0005.png", 7, null);
 
 INSERT INTO Image(image, userID, placeID) VALUES ("https://media8.era.pt/apartamento-t3-santa-maria-da-feira-mozelos_6_1_919572_13408665_8_1_SezzmuO6oVgDrR%2fyaIIxvvFvM%2fmtaiiZANnij5GyVWTEB8h4ZPpqcw%3d%3d", null, 1);
 INSERT INTO Image(image, userID, placeID) VALUES ("https://media8.era.pt/apartamento-t3-santa-maria-da-feira-mozelos_6_1_919572_13408664_8_1_gz3rg2Te2VGKE3R570SvqorPFhSv262LBKQzpyZmTrXEB8h4ZPpqcw%3d%3d", null, 1);
