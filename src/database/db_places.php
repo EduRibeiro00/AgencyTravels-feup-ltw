@@ -263,18 +263,6 @@ function insertImageForPlace($placeID, $image) {
     $stmt->execute(array($placeID, $image));
 }
 
-function getPlaceOwnerName($placeID){
-    
-    $db = Database::instance()->db();
-
-    $stmt = $db->prepare('SELECT User.name as name
-                          FROM Place JOIN User ON Place.ownerID=User.userID
-                          WHERE placeID = ?');
-    $stmt->execute(array($placeID));
-    
-    return $stmt->fetch();
-}
-
 function getCompatibleAvailability($placeID, $check_in_date, $check_out_date){
     $db = Database::instance()->db();
 

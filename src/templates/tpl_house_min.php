@@ -16,8 +16,14 @@
         <h3><?=$title?></h3>
             
         <div class="places_list">
-            <?php foreach($places as $place) {
-              draw_house_miniature($place);
+            <?php 
+            if($places == null || count($places) == 0) { ?>
+              <p><em>No places available</em></p>
+           <?php }
+            else {
+              foreach($places as $place) {
+                draw_house_miniature($place);
+              }
             } ?>
         </div>
         

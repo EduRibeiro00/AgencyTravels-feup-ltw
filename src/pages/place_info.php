@@ -27,21 +27,18 @@
 	$placeID = $_GET['place_id'];
 	
 	$place = getPlace($placeID);
-    	
-    
     $house_comments = getHouseComments($placeID);
     $housePrice = getAveragePrice($placeID)['avg_price'];
-    $house_owner_name = getPlaceOwnerName($placeID)['name'];
+    $house_owner_info = getUserInformation($place['ownerID']);
 
     //Adress string parsing
-
     $house_address_full = $place['address'] . ", " . $place['city'] . ", " . $place['country'];
    
     //Draw Section
     draw_slideshow($place['images']);
     first_line();
   
-    draw_my_place_sidebar($housePrice, $place['rating'],$house_owner_name,$placeID); 
+    draw_my_place_sidebar($housePrice, $place['rating'], $house_owner_info, $placeID); 
     draw_my_place_icon_desc($place['title'], $place['numRooms'], $place['capacity'], $place['numBathrooms'], $place['description']);
     draw_my_place_location($house_address_full, $place['gpsCoords']);
 

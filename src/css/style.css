@@ -17,7 +17,6 @@ body {
     min-height: 100%;
     width: 100%;
     
-
     --background_color: #f9f9f9;
     --darker_bg_color: #f5f0f0;
     --main_color: #e47c78;
@@ -631,6 +630,10 @@ main#profile-page .place-listing {
     margin: 1em;
     margin-bottom: 0;
     background-color: var(--darker_bg_color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 

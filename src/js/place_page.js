@@ -9,20 +9,16 @@ function encodeForAjax(data) {
 // -------------
 
 //Sticky sideBar_Fast reservation
-
 window.onload = function () {
-	let img_elem = document.getElementById('carousel_container')
+	let navbar = document.querySelector('#navbar');
 
 	let someElement = document.getElementById('Pop_UP_Fast_Reservation')
-	const value = img_elem.offsetHeight + navbar.offsetHeight - window.screenY
+	const value = navbar.offsetHeight - window.screenY
 	window.addEventListener('scroll', function () {
-
 		if (window.pageYOffset >= (value - 100)) {
-
 			someElement.style.top = "4em"
 		}
 		else {
-
 			someElement.style.top = "0"
 		}
 

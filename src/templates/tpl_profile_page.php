@@ -1,7 +1,8 @@
 <?php
     include_once('../templates/tpl_house_min.php'); 
+    include_once('../templates/tpl_comment.php');
 
-    function draw_profile_info($user_info, $user_places, $city_image) { ?>
+    function draw_profile_info($user_info, $user_places, $city_image, $user_place_comments) { ?>
         <main id="profile-page">
           <section id="banner-image">
                 <img src="../assets/images/places/big/<?=$city_image[0]['image']?>">
@@ -52,8 +53,15 @@
 
             <section class="place-comments">
                 <h3>Some reviews of <?=$user_info['username']?> 's places</h3>
-                <p> TODO: desenhar comments </p>
+                
+                <?php if($user_place_comments == null || count($user_place_comments) == 0) { ?>
+                    <p><em>No reviews available</em></p>
+                <?php }
+                    else {
+                        foreach($user_place_comments as $comment) {
+                            draw_comment($comment, true);
+                         }
+                    } ?>
             </section>
-
         </main>
 <?php } ?>

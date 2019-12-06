@@ -4,10 +4,10 @@
 include_once('../templates/tpl_common.php');
 
 // TODO: depois por outros parametros
-function draw_horizontal_card($place, $edit_features_active=false) { ?>
+function draw_horizontal_card($place, $edit_features_active = false) { ?>
 	<article class="row card">
 		<!-- TODO: mudar para carroussel -->
-		<a class="row" href="#">
+		<a class="row" href="../pages/place_info.php?place_id=<?=$place['placeID']?>">
 			<img class="hcard-img" src="../assets/images/places/medium/<?=$place['image']?>">
 			<div class="column info">
 			<h4><?=$place['title']?></h4>
@@ -48,6 +48,4 @@ function draw_horizontal_card($place, $edit_features_active=false) { ?>
 		</a>
 	</article>
 		
-
-
 <?php } ?>

@@ -13,7 +13,7 @@ function first_line() { ?>
 <?php } ?>
 
 
-<?php function draw_my_place_sidebar($house_avg_price,$house_rating,$house_ownder_name,$placeID) { ?>
+<?php function draw_my_place_sidebar($house_avg_price,$house_rating, $house_owner_info, $placeID) { ?>
 
     <aside id="Pop_UP_Fast_Reservation">
 
@@ -43,10 +43,10 @@ function first_line() { ?>
         </section>
 
         <section id="Owner_info">
-            <img id="Owner_Img" class="circular-img" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
-
-            <span><?=$house_ownder_name?></span>
-            <br>
+            <a href="../pages/profile_page.php?userID=<?=$house_owner_info['userID']?>">
+                <img id="Owner_Img" class="circular-img" src="../assets/images/users/small/<?=$house_owner_info['image']?>">
+            </a>
+            <span><?=$house_owner_info['name']?></span>
             <form>
                 <button id="Button_Send_Message">
                     Send Message
