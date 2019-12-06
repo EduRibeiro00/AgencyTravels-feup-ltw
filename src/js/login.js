@@ -1,3 +1,13 @@
+'use strict'
+
+function encodeForAjax(data) {
+	return Object.keys(data).map(function(k){
+	  return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+	}).join('&')
+}
+
+// -------------
+
 //// Login
 // TODO: depois mudar para class e ver como fechar qd carregar fora. alem do close up procurar pai com esta classe
 let popup = document.getElementById('pop-up');

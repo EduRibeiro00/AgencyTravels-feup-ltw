@@ -4,11 +4,13 @@
     function getUserInformation($userID) {
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT *
-                             FROM User NATURAL JOIN Image NATURAL JOIN Location
+                             FROM User NATURAL JOIN Location
                              WHERE userID = ?'
                              );
         $stmt->execute(array($userID));
-        return $stmt->fetch();
+        $userInfo = $stmt->fetch();
+        $userInfo['image'] = getUserImage($userID);
+        return $userInfo;
     }
 
     function getUserPlaces($userID) {
@@ -73,30 +75,51 @@
          return $stmt->fetch()['userID'];
     }
 
-
-
-    function updateImageForUser($userID, $path) {
+    function insertImageForUser($userID, $image) {
         $db = Database::instance()->db();
-        try {
-            $stmt = $db->prepare('UPDATE Image
-                                  SET image = ?
-                                  WHERE userID = ?'
-                                );
-            $stmt->execute(array($path, $userID));
-        }
-        catch (PDOException $e) { // error ocurred, user doesn't have an image
-            return false;
-        }
-        return true;
-    }
-
-    function insertImageForUser($userID, $path) {
-        $db = Database::instance()->db();
-        $stmt = $db->prepare('INSERT INTO Image (image, userID)
+        $stmt = $db->prepare('INSERT INTO Image (userID, image)
                               VALUES(?, ?)'
                             );
-        $stmt->execute(array($path, $userID));
+        $stmt->execute(array($userID, $image));
     }
+
+
+    function deleteImageForUser($userID) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('DELETE
+                              FROM Image
+                              WHERE userID = ?'
+                            );
+        $stmt->execute(array($userID));
+    }
+
+
+    function getUserImage($userID) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT image
+                              FROM Image
+                              WHERE userID = ?'
+                            );
+        $stmt->execute(array($userID));
+        $result = $stmt->fetch();
+        if($result === false) {
+            return "noImage.png";
+        }
+        else {
+            return $result['image'];
+        }
+    }
+
+
+    function removeUserImage($userID) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('DELETE
+                              FROM Image
+                              WHERE userID = ?'
+                            );
+        $stmt->execute(array($userID));
+    }
+
 
     function checkUserCredentials($username, $password) {
         $db = Database::instance()->db();

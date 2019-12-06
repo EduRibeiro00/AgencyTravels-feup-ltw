@@ -1,6 +1,6 @@
 <?php
 
-function draw_profile_form($title, $user_info = null) {
+function draw_profile_form($all_locations, $title, $user_info = null) {
     if($user_info != null) {
         $id = $user_info['userID'];
         $username = $user_info['username'];
@@ -10,9 +10,11 @@ function draw_profile_form($title, $user_info = null) {
         $bio = $user_info['description'];
         $birthDate = $user_info['birthDate'];
         $gender = $user_info['gender'];
-        // TODO: fazer com image e location como deve ser (atualizar image com JS)
-        // $image = $user_info['image'];
-        $location = $user_info['city'];
+        $location = $user_info['locationID'];
+    
+        $imageName = $user_info['image'];
+        $imagePreview = "../assets/images/users/medium/$imageName";
+        $hasFile = $imageName == "noImage.png" ? "no" : "yes";
     }
     else {
         $id = null;
@@ -23,8 +25,9 @@ function draw_profile_form($title, $user_info = null) {
         $bio = '';
         $birthDate = '';
         $gender = '';
-        // $image = $user_info['image'];
         $location = '';
+        $imagePreview = '../assets/images/users/medium/noImage.png';
+        $hasFile = "no";
     } 
     
    if($gender == 'M') {
@@ -59,6 +62,17 @@ function draw_profile_form($title, $user_info = null) {
             <?php if($id != null) { ?>
                 <input type="hidden" name="userID" value=<?=$id?>>
             <?php } ?>
+
+            <section id="img-upload" class="row">
+                <div>
+                    <label for="prof-image">Profile image:
+                        <img id="img-to-upload" class="circular-img" src="<?=$imagePreview?>">
+                    </label>
+                </div>
+                <label class="button" for="imageFile">Select foto</label>
+                <input class="button" type="file" id="imageFile" accept="image/*" name="imageFile" data-hasFile=<?=$hasFile?>>
+                <label class="button" id="remove-button">Remove</label>
+            </section>
 
             <label for="username">Username: 
                 <input type="text" id="username" name="username" required value="<?=$username?>">
@@ -98,7 +112,13 @@ function draw_profile_form($title, $user_info = null) {
                     <input type="radio" name="gender" value="O" <?=$isOther?> required> O
             </div>
             <label for="location">Location: 
-                <input type="text" id="location" name="location" required value="<?=$location?>">
+                <select id="location" name="location" required>
+                    <?php foreach($all_locations as $eachLocation) { 
+                        $selected = $eachLocation['locationID'] == $location ? "selected" : ""; 
+                        $locationString = $eachLocation['country'] . ' - ' . $eachLocation['city']; ?>
+                        <option value=<?=$eachLocation['locationID']?> <?=$selected?>><?=$locationString?></option>
+                    <?php } ?>
+                </select>
             </label>
 
             <p id="profile-form-error" class="error-message"></p>

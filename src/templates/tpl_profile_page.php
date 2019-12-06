@@ -4,17 +4,18 @@
     function draw_profile_info($user_info, $user_places, $city_image) { ?>
         <main id="profile-page">
           <section id="banner-image">
-                <img src=<?=$city_image[0]['image']?>>
+                <img src="../assets/images/places/big/<?=$city_image[0]['image']?>">
           </section>
 
           <section class="profile-info">
                 <div id="profile-image">
-                    <img class="circular-img" src=<?=$user_info['image']?>>
+                    <img class="circular-img" src="../assets/images/users/medium/<?=$user_info['image']?>">
                 </div>
 
-                <!-- TODO: link para o mail -->
                 <div id="mail-icon" class="circular-cropper">
-                    <img src="https://icon-library.net/images/email-box-icon/email-box-icon-4.jpg">
+                    <a href="mailto:<?=$user_info['email']?>">
+                        <img src="../assets/images/others/mail_icon.jpg">
+                    </a>
                 </div>
                 
                 <?php if(isset($_SESSION['userID']) && $_SESSION['userID'] == $user_info['userID']) { ?>

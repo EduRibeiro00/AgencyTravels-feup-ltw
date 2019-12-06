@@ -10,9 +10,12 @@
 
     include_once('../templates/tpl_common.php');
     include_once('../templates/tpl_profile_form.php');
+    include_once('../database/db_places.php');
+
+    $all_locations = getAllLocations();
 
     draw_head($jsFiles);
     draw_navbar(NULL);
-    draw_profile_form('Signup');
+    draw_profile_form($all_locations, 'Signup');
     draw_footer();
 ?>

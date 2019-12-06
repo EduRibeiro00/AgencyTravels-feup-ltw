@@ -39,6 +39,16 @@ function getLocations($location) {
 }
 
 
+function getAllLocations() {
+    $db = Database::instance()->db();
+	$stmt = $db->prepare('SELECT * 
+                          FROM Location
+                          ORDER BY country');
+	$stmt->execute();
+	return $stmt->fetchAll();
+}
+
+
 function getRandomPlacesRandomCountry($number) {
     $country = getRandomCountry();
     return getRandomPlacesFromCountry($country['country'], $number);
@@ -72,6 +82,7 @@ function getRandomPlacesFromCity($locationID, $number) {
     $stmt->execute(array($locationID, $number));
     return $stmt->fetchAll();
 }
+
 
 function getRandomCity() {
     $db = Database::instance()->db();
@@ -122,6 +133,14 @@ function getRandomImagesFromCity($locationID, $number) {
                          LIMIT ?');
     $stmt->execute(array($locationID, $number));
     return $stmt->fetchAll();
+}
+
+function insertImageForPlace($place, $image) {
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('INSERT INTO Image (placeID, image)
+                          VALUES(?, ?)'
+                        );
+    $stmt->execute(array($placeID, $image));
 }
 
 function getPlaceOwnerName($placeID){

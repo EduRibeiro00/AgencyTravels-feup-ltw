@@ -19,19 +19,19 @@ function draw_head($jsArray, $class = null) { ?>
     <footer>
 			<div class="circular-cropper">
 				<a href="main_page.php">
-					<img id="logo" src="http://www.berkanacompany.com/wp-content/uploads/2014/05/logo-placeholder-300x200.jpg">
+					<img id="logo" src="../assets/images/others/logo.jpg">
 				</a>
 			</div>
         <span id="cpline"> &copy; Agency Travels, LTW 2019. All rights reserved. </span>
         <div id="follow">
 			Follow us:
 				<div class="circular-cropper">
-					<img id="github" src="https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2016/11/github-image-796x418.png">
+					<img id="github" src="../assets/images/others/github-logo.png">
 				</div>		
 					<ul>
                 <li><a href="https://github.com/EduRibeiro00">Eduardo Ribeiro</a>
-                <li><a href="https://github.com/arubenruben">Manuel Coutinho</a>
-                <li><a href="https://github.com/ManelCoutinho">Ruben Almeida</a>
+                <li><a href="https://github.com/ManelCoutinho">Manuel Coutinho</a>
+                <li><a href="https://github.com/arubenruben">Ruben Almeida</a>
             </ul>
         </div>
     </footer>
@@ -47,7 +47,7 @@ function draw_navbar($user_info, $class = null) {  // TODO: passar informacao do
     <nav id="navbar" <?=$class == null? '' : "class=$class" ?>>
 			<a class="circ-img-link" href="main_page.php">
 				<div class="circular-cropper">
-					<img id="logo" src="http://www.berkanacompany.com/wp-content/uploads/2014/05/logo-placeholder-300x200.jpg">
+					<img id="logo" src="../assets/images/others/logo.jpg">
 				</div>
 			</a>
 		</div>
@@ -67,7 +67,7 @@ function draw_navbar($user_info, $class = null) {  // TODO: passar informacao do
 			<a id="housespagelink" href="my_houses.php?userID=<?=$user_info['userID']?>">My Houses</a>
 			<a id="reservspagelink" href="my_reserves.php?userID=<?=$user_info['userID']?>">My Reservations</a>
 			<a id="link-image" class="circ-img-link" href="profile_page.php?userID=<?=$user_info['userID']?>">
-				<img class="circular-img" id="profilepic" src=<?=$user_info['image']?>>	
+				<img class="circular-img" id="profilepic" src="../assets/images/users/small/<?=$user_info['image']?>">	
 			</a>
 			<a id="link-name" href="profile_page.php?userID=<?=$user_info['userID']?>"><?=$name?></a>
 			<a id="logoutlink" href="../actions/action_logout.php">Logout</a>
