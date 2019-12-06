@@ -24,6 +24,7 @@
 
     $city_image = getRandomImagesFromCity($profile_user_info['locationID'], 1);
     $user_places = getUserPlaces($userID);
+    $user_place_comments = getReviewsForUserPlaces($userID, 5);
 
     foreach($user_places as $k => $place) {
         $user_places[$k]['avg_price'] = getAveragePrice($place['placeID'])['avg_price'];
@@ -31,6 +32,6 @@
 
     draw_head($jsFiles);
     draw_navbar($user_info, false);
-    draw_profile_info($profile_user_info, $user_places, $city_image);
+    draw_profile_info($profile_user_info, $user_places, $city_image, $user_place_comments);
     draw_footer();
 ?>

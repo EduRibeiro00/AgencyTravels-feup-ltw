@@ -214,7 +214,7 @@ INSERT INTO User (name, username, password, email, birthDate, gender, locationID
 INSERT INTO User (name, username, password, email, birthDate, gender, locationID ) VALUES ("Cristiano Reinaldo", "cr72", "1234567", "melhor.do.mundo@gmail.com", "1985-02-05", "O", 2);
 INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("José Figueiras", "ny911", "1234567", "inocente@gmail.com", "Pessoal, eu não tive NADA a ver com o 11 de setembro. NADA!!", "2001-09-11", "M", 9);
 INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("Sócrates", "expm", "1234567", "inocente2@gmail.com", "Ex Primeiro Ministro, com grandes amigos", "2001-09-11", "M", 2);
-INSERT INTO User (name, username, password, email, description, birthDate, gender ) VALUES ("Quota de Mulheres", "metoo", "1234567", "women.missing@gmail.com", "Entrei porque o site tinha quotas de sexo. Beijos a todos", "1987-03-08", "F");
+INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("Quota de Mulheres", "metoo", "1234567", "women.missing@gmail.com", "Entrei porque o site tinha quotas de sexo. Beijos a todos", "1987-03-08", "F", 2);
 
 INSERT INTO Place (title, address, description, capacity, numRooms, numBathrooms, gpsCoords, locationID, ownerID) VALUES(
 	"Apartamento em Santa Maria da Feira",
