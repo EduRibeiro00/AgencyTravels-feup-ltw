@@ -23,7 +23,7 @@ function draw_mainpage_body($topdests, $trendingdests, $randcity, $randplaces) {
                 <?php foreach($topdests as $topdest) { ?>
                   <li>
                     <a href="list_places.php?location=<?=$topdest['country']?>+-+<?=$topdest['city']?>">
-                        <img class="circular-img" src=<?=$topdest['image']?>>
+                        <img class="circular-img" src="../assets/images/places/small/<?=$topdest['image']?>">
                       <span><?=$topdest['city']?>, <?=$topdest['country']?></span>
                     </a>
                   </li>
@@ -40,7 +40,7 @@ function draw_mainpage_body($topdests, $trendingdests, $randcity, $randplaces) {
                 <?php foreach($trendingdests as $trendingdest) ?>
                   <li>
                     <a href=list_places.php?location=<?=$trendingdest['country']?>+-+<?=$trendingdest['city']?>>
-                      <img class="circular-img" src=<?=$trendingdest['image']?>>
+                      <img class="circular-img" src="../assets/images/places/small/<?=$trendingdest['image']?>">
                     <span><?=$trendingdest['city']?></span> <?=$trendingdest['numReservations']?> Reservations
                     </a>
                   </li>

@@ -21,7 +21,6 @@ function draw_horizontal_card($place, $edit_features_active=false) { ?>
 				</div>
 			</footer>
 			</div>
-			</a>
 
 		<?php
 
@@ -46,7 +45,7 @@ function draw_horizontal_card($place, $edit_features_active=false) { ?>
 			</div>
 
 		<?php } ?>
-
+		</a>
 	</article>
 		
 

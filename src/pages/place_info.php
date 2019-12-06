@@ -1,6 +1,7 @@
 <?php
     include_once('../includes/session_include.php');
     include_once('../templates/tpl_common.php');
+    include_once('../templates/tpl_slideshow.php');
     include_once('../templates/tpl_comment.php');
     include_once('../templates/tpl_place.php');
     include_once('../templates/tpl_similar_offer.php');
@@ -30,14 +31,14 @@
     
     $house_comments = getHouseComments($placeID);
     $housePrice = getAveragePrice($placeID)['avg_price'];
-    $house_owner_name=getPlaceOwnerName($placeID)['name'];
+    $house_owner_name = getPlaceOwnerName($placeID)['name'];
 
     //Adress string parsing
 
     $house_address_full = $place['address'] . ", " . $place['city'] . ", " . $place['country'];
-    
+   
     //Draw Section
-    draw_myplace_slideshow();
+    draw_slideshow($place['images']);
     first_line();
   
     draw_my_place_sidebar($housePrice, $place['rating'],$house_owner_name,$placeID); 

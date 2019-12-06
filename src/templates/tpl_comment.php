@@ -9,7 +9,7 @@ function draw_comment($comment){ ?>
 <article class="review">
     <header>
 		<!-- TODO: mudar class -->
-		<img class="Comment_Author_Img circular-cropper" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
+		<img class="Comment_Author_Img circular-img" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
 		<p><?=$comment["name"]?></p> 
 		<?php draw_star_rating($comment["stars"])?>
     </header>

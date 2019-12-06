@@ -22,7 +22,7 @@ profileForm.addEventListener('submit', function(event) {
 
 	request.addEventListener('load', function() {
 		let message = JSON.parse(this.responseText).message;
-		
+
 		switch(message) {
             case 'signup completed':
 				errorMessage.style.display = "none";

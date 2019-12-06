@@ -4,13 +4,11 @@
     function getUserInformation($userID) {
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT *
-                             FROM User NATURAL JOIN Location
+                             FROM User NATURAL JOIN Location NATURAL JOIN Image
                              WHERE userID = ?'
                              );
         $stmt->execute(array($userID));
-        $userInfo = $stmt->fetch();
-        $userInfo['image'] = getUserImage($userID);
-        return $userInfo;
+        return $stmt->fetch();
     }
 
     function getUserPlaces($userID) {

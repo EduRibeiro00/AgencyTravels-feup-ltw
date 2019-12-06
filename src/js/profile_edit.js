@@ -29,6 +29,11 @@ profileForm.addEventListener('submit', function(event) {
 				history.back();
                 break;
 
+			case 'invalid image':
+				errorMessage.textContent = "The image uploaded is invalid; please choose another one.";
+				errorMessage.style.display = "block";
+				break;
+
 			case 'user not logged in':
 				errorMessage.textContent = 'ERROR: User is not logged in';
                 errorMessage.style.display = "block";

@@ -1,5 +1,6 @@
 <?php
 include_once('../database/db_user.php');
+include_once('../database/db_places.php');
 
 function checkIfImageIsValid($image) {
   // no image
@@ -7,7 +8,10 @@ function checkIfImageIsValid($image) {
     return true;
 
   // checks if file is really an image
-  return exif_imagetype($image);
+  $return = exif_imagetype($image);
+
+  // accepts GIF, JPG, JPEG and PNG
+  return ($return !== false && $return <= IMAGETYPE_PNG);
 }
 
 
@@ -56,28 +60,6 @@ function uploadUserImage($userID, $image) {
     imagepng($medium, $mediumFileName);
 
     return true;
-}
-
-function deleteUserImage($userID) {
-  $oldImageName = getUserImage($userID);
-  if($oldImageName == "noImage.png") { // user doesn't have an image already
-    return true;
-  }
-
-  unlink("../assets/images/users/original/$oldImageName");
-  unlink("../assets/images/users/small/$oldImageName");
-  unlink("../assets/images/users/medium/$oldImageName");
-
-  deleteImageForUser($userID);
-
-  return true;
-}
-
-function updateUserImage($userID, $image) {
-  deleteUserImage($userID);
-  uploadUserImage($userID, $image);
-
-  return true;
 }
 
 
@@ -142,6 +124,8 @@ function uploadPlaceImage($placeID, $image) {
   $big = imagecreatetruecolor($bigwidth, $bigheight);
   imagecopyresampled($big, $original, 0, 0, 0, 0, $bigwidth, $bigheight, $width, $height);
   imagepng($big, $bigFileName);
+
+  return true;
 }
 
 ?>

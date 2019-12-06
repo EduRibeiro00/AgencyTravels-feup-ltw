@@ -1,5 +1,13 @@
 'use strict'
 
+function encodeForAjax(data) {
+	return Object.keys(data).map(function(k){
+	  return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+	}).join('&')
+}
+
+// -------------
+
 //// Seach appearance
 let searchForm = document.getElementById("search_form")
 searchForm.addEventListener("focusin", function() {
