@@ -38,17 +38,6 @@ function getLocations($location) {
 	return $stmt->fetchAll();
 }
 
-
-function getAllLocations() {
-    $db = Database::instance()->db();
-	$stmt = $db->prepare('SELECT * 
-                          FROM Location
-                          ORDER BY country');
-	$stmt->execute();
-	return $stmt->fetchAll();
-}
-
-
 function getRandomPlacesRandomCountry($number) {
     $country = getRandomCountry();
     return getRandomPlacesFromCountry($country['country'], $number);
@@ -62,14 +51,37 @@ function getRandomPlacesRandomCity($number) {
 // ----------------
 // currently used vv
 
-function getPlace($place_id) {
+function getAllLocations() {
+    $db = Database::instance()->db();
+	$stmt = $db->prepare('SELECT * 
+                          FROM Location
+                          ORDER BY country');
+	$stmt->execute();
+	return $stmt->fetchAll();
+}
+
+function getPlace($placeID) {
     $db = Database::instance()->db();
     $stmt = $db->prepare('SELECT *
-                            FROM Place NATURAL JOIN Location
-                            WHERE placeID=?');
-    $stmt->execute(array($place_id));
-    return $stmt->fetch();
+                          FROM Place NATURAL JOIN Location
+                          WHERE placeID = ?');
+    $stmt->execute(array($placeID));
+    $place_info = $stmt->fetch();
+    $place_info['images'] = getPlaceImages($placeID);
+    return $place_info;
 }
+
+function getPlaceImages($placeID) {
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT image
+                          FROM Image
+                          WHERE placeID = ?');
+    $stmt->execute(array($placeID));
+    $i = 0;
+    return $stmt->fetchAll();
+}
+
+
 
 function getRandomPlacesFromCity($locationID, $number) {
     $db = Database::instance()->db();
@@ -243,7 +255,7 @@ function getRandomImagesFromCity($locationID, $number) {
     return $stmt->fetchAll();
 }
 
-function insertImageForPlace($place, $image) {
+function insertImageForPlace($placeID, $image) {
     $db = Database::instance()->db();
     $stmt = $db->prepare('INSERT INTO Image (placeID, image)
                           VALUES(?, ?)'
@@ -263,9 +275,7 @@ function getPlaceOwnerName($placeID){
     return $stmt->fetch();
 }
 
-function getCompatibleAvailability($placeID,$check_in_date,$check_out_date){
-
-
+function getCompatibleAvailability($placeID, $check_in_date, $check_out_date){
     $db = Database::instance()->db();
 
     $stmt = $db->prepare('SELECT pricePerDay as price
@@ -276,30 +286,19 @@ function getCompatibleAvailability($placeID,$check_in_date,$check_out_date){
     
     return $stmt->fetch();
 }
+
 function getHouseComments($place_id) {
     $db = Database::instance()->db();
-    $stmt = $db->prepare('SELECT comment, Review.stars as stars, User.name as name, Review.date as date
-                            FROM Place NATURAL JOIN Reservation NATURAL JOIN Review JOIN User on Reservation.touristID=User.userID 
-							WHERE placeID=?');
+    $stmt = $db->prepare('SELECT comment, Review.stars as stars, User.username as username, User.userID as userID, image, Review.date as date, Place.placeID as placeID
+                          FROM Place NATURAL JOIN Reservation NATURAL JOIN Review JOIN User on Reservation.touristID=User.userID JOIN Image on User.userID = Image.userID
+						  WHERE Place.placeID = ?');
     $stmt->execute(array($place_id));
     return $stmt->fetchAll();
 }
 
-function getPlaceLocationID($placeID){
-    
+
+function updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $numRooms, $numBathrooms, $capacity){
     $db = Database::instance()->db();
-    $stmt = $db->prepare('SELECT locationID 
-                          FROM Place
-                          WHERE placeID = ?');
-    $stmt->execute(array($placeID));
-    return $stmt->fetch();
-
-}
-
-function updatePlaceInfo($placeID,$title,$desc,$address,$city,$country,$numRooms,$numBathrooms,$capacity){
-
-    $db = Database::instance()->db();
-    
     try {
         $stmt = $db->prepare('UPDATE Place
                               SET title = ?,
@@ -312,7 +311,7 @@ function updatePlaceInfo($placeID,$title,$desc,$address,$city,$country,$numRooms
                                ' 
                             );
 
-     $stmt->execute(array($title,$address,$desc,$capacity,$numRooms,$numBathrooms,$placeID));
+     $stmt->execute(array($title, $address, $desc, $capacity, $numRooms, $numBathrooms, $placeID));
     }
 
     catch (PDOException $e) {

@@ -1,5 +1,13 @@
 'use strict'
 
+function encodeForAjax(data) {
+	return Object.keys(data).map(function(k){
+	  return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+	}).join('&')
+}
+
+// -------------
+
 //// Seach appearance
 let searchForm = document.getElementById("search_form")
 searchForm.addEventListener("focusin", function() {
@@ -75,9 +83,6 @@ for(let x = 0; x < radios.length; x++){
 
 
 function parseSearchData(data){
-	// for(let kd of data){
-	// 	console.log(kd + " - " + data.get(data))
-	// }
 	let adults = data.get('nAdults') ? data.get('nAdults') : 1
 	let children = data.get('nChildren') ? data.get('nChildren') : 0
 	

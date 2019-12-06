@@ -32,10 +32,12 @@
     $jsFiles = ['../js/main.js', '../js/login.js'];
   }
 
+  $title = "Places in " . $slideshowcity['city'];
+  $titleLink = "list_places.php?location=" . $slideshowcity['country'] . "+-+" . $slideshowcity['city'];
 
   draw_head($jsFiles);
-  draw_navbar($user_info);
-  draw_slideshow($slideshowcity, $slideshowimgs);
+  draw_navbar($user_info, false);
+  draw_slideshow($slideshowimgs, $title, $titleLink);
 
   draw_mainpage_body($topdests, $trendingdests, $randcity, $randplaces);
   draw_footer();

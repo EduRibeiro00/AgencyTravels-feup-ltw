@@ -3,20 +3,17 @@
 include_once('../templates/tpl_common.php');
 
 //I need this, ok guys? Ass: Ruben Almeida
-function first_line()
-{ ?>
+function first_line() { ?>
     <div id="Place_Info_Container">
-    <?php } ?>
+        <?php } ?>
 
-    <?php function last_line()
-    { ?>
+        <?php function last_line()
+        { ?>
     </div>
 <?php } ?>
 
-<?php function draw_my_place_sidebar($house_avg_price,$house_rating,$house_ownder_name,$placeID)
-{ 
-    
-    ?>
+
+<?php function draw_my_place_sidebar($house_avg_price,$house_rating,$house_ownder_name,$placeID) { ?>
 
     <aside id="Pop_UP_Fast_Reservation">
 
@@ -46,7 +43,7 @@ function first_line()
         </section>
 
         <section id="Owner_info">
-            <img id="Owner_Img" class="circular-cropper" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
+            <img id="Owner_Img" class="circular-img" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
 
             <span><?=$house_ownder_name?></span>
             <br>
@@ -96,8 +93,8 @@ function draw_my_place_icon_desc($house_name, $house_numRooms, $house_capacity, 
 
 <?php }
 
-//TODO:Implement Google MAPS
 
+//TODO:Implement Google MAPS
 function draw_my_place_location($house_address_full, $house_gpsCoords)
 { ?>
 
@@ -117,64 +114,5 @@ function draw_my_place_location($house_address_full, $house_gpsCoords)
         </footer>
 
     </article>
-
-<?php } ?>
-
-<?php function draw_myplace_slideshow()
-{ ?>
-
-    <div id="carousel_container">
-        <div class="carousel">
-            <ul class="slides">
-                <input type="radio" name="radio-buttons" id="img-1" checked />
-                <li class="slide-container">
-                    <div class="slide-image">
-                        <img src="http://tap1.fkimg.com/media/vr-splice-j/05/a8/a5/30.jpg">
-                    </div>
-                    <div class="carousel-controls">
-                        <label for="img-3" class="prev-slide">
-                            <span>&lsaquo;</span>
-                        </label>
-                        <label for="img-2" class="next-slide">
-                            <span>&rsaquo;</span>
-                        </label>
-                    </div>
-                </li>
-                <input type="radio" name="radio-buttons" id="img-2" />
-                <li class="slide-container">
-                    <div class="slide-image">
-                        <img src="http://tap1.fkimg.com/media/vr-splice-j/06/62/40/5c.jpg">
-                    </div>
-                    <div class="carousel-controls">
-                        <label for="img-1" class="prev-slide">
-                            <span>&lsaquo;</span>
-                        </label>
-                        <label for="img-3" class="next-slide">
-                            <span>&rsaquo;</span>
-                        </label>
-                    </div>
-                </li>
-                <input type="radio" name="radio-buttons" id="img-3" />
-                <li class="slide-container">
-                    <div class="slide-image">
-                        <img src="http:////tap1.fkimg.com/media/vr-splice-j/06/0a/ff/92.jpg">
-                    </div>
-                    <div class="carousel-controls">
-                        <label for="img-2" class="prev-slide">
-                            <span>&lsaquo;</span>
-                        </label>
-                        <label for="img-1" class="next-slide">
-                            <span>&rsaquo;</span>
-                        </label>
-                    </div>
-                </li>
-                <div class="carousel-dots">
-                    <label for="img-1" class="carousel-dot" id="img-dot-1"></label>
-                    <label for="img-2" class="carousel-dot" id="img-dot-2"></label>
-                    <label for="img-3" class="carousel-dot" id="img-dot-3"></label>
-                </div>
-            </ul>
-        </div>
-    </div>
 
 <?php } ?>

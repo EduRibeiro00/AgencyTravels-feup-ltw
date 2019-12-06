@@ -21,6 +21,23 @@ window.addEventListener('scroll', function() {
 
 // -------------------
 
+//// Footer
+window.addEventListener('load', function() {
+	let html = document.documentElement;
+	let bodyHeight = html.scrollHeight - 30;
+
+	if(bodyHeight < screen.height) {
+		let footer = document.querySelector('body > footer');
+		footer.style.position = "fixed";
+		footer.style.bottom = "0";
+		footer.style.left = "0";
+		footer.style.right = "0";
+	}
+});
+
+
+// -------------------
+
 //// Search and Suggestions
 // TODO: refactor disto [0]??
 let locInput = document.getElementsByName("location")[0]
@@ -77,12 +94,5 @@ for(let x = 0; x < crosses.length; x++){
     crosses[x].addEventListener('click', function() {
 		this.parentElement.parentElement.style.display = "none"
 	});
-}
-
-
-function encodeForAjax(data) {
-	return Object.keys(data).map(function(k){
-	  return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-	}).join('&')
 }
 

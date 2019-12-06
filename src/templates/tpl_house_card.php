@@ -8,7 +8,7 @@ function draw_horizontal_card($place, $edit_features_active=false) { ?>
 	<article class="row card">
 		<!-- TODO: mudar para carroussel -->
 		<a class="row" href="#">
-			<img class="hcard-img" src="<?=$place['image']?>">
+			<img class="hcard-img" src="../assets/images/places/medium/<?=$place['image']?>">
 			<div class="column info">
 			<h4><?=$place['title']?></h4>
 			<!-- TODO: meter flexbox row, com divs ou spans -->
@@ -21,7 +21,6 @@ function draw_horizontal_card($place, $edit_features_active=false) { ?>
 				</div>
 			</footer>
 			</div>
-			</a>
 
 		<?php
 
@@ -46,7 +45,7 @@ function draw_horizontal_card($place, $edit_features_active=false) { ?>
 			</div>
 
 		<?php } ?>
-
+		</a>
 	</article>
 		
 

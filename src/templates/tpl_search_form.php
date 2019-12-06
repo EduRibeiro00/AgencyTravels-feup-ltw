@@ -6,7 +6,6 @@ function draw_search_form() { ?>
 	<div id="filters">
 		<fieldset id="dates_field">
 			<h4>Dates</h4>
-			<!-- TODO: mudar para current date mais 1 depois -->
 			<label for="checkin">Check In</label>
 			<input type="date" id="checkin" name="checkin" min="2019-11-23">
 			<label for="checkout">Check Out</label>
@@ -23,7 +22,6 @@ function draw_search_form() { ?>
 		</fieldset>
 		<fieldset id="price_field">
 			<h4>Price</h4>
-			<!-- TODO: min < max -->
 			<label for="MinPrice">Min Price
 				<input type="number" id="MinPrice" name="minPrice" value=0 min=0 max=999 step=1>
 			</label>

@@ -1,9 +1,11 @@
-<?php function draw_slideshow($slideshowcity, $slideshowimgs) { ?>
+<?php function draw_slideshow($slideshowimgs, $title = null, $titleLink = null) { ?>
     <section id="slideshow">
 
       <div class="carousel">
 
-        <h3><a href="list_places.php?location=<?=$slideshowcity['country']?>+-+<?=$slideshowcity['city']?>">Places in <?=$slideshowcity['city']?></a></h3>
+        <?php if($title != null && $titleLink != null) { ?>
+          <h3><a href=<?=$titleLink?>><?=$title?></a></h3>
+        <?php } ?>
 
         <ul class="slides">
 
