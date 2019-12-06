@@ -15,7 +15,7 @@
     $all_locations = getAllLocations();
 
     draw_head($jsFiles);
-    draw_navbar(NULL);
+    draw_navbar(NULL, false);
     draw_profile_form($all_locations, 'Signup');
     draw_footer();
 ?>

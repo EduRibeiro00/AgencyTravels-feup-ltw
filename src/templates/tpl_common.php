@@ -43,7 +43,7 @@ function draw_head($jsArray, $class = null) { ?>
 include_once('../templates/tpl_search_form.php');
 include_once('../templates/tpl_login_form.php');
 
-function draw_navbar($user_info, $hints = false) {  // TODO: passar informacao do user para dar display aqui ?>
+function draw_navbar($user_info, $hints, $class = null) { ?>
     <nav id="navbar" <?=$class == null? '' : "class=$class" ?>>
 			<a class="circ-img-link" href="main_page.php">
 				<div class="circular-cropper">
@@ -56,8 +56,9 @@ function draw_navbar($user_info, $hints = false) {  // TODO: passar informacao d
 			<!-- TODO: ver section-->
 			<section id="search-hints"></section>
 			<?php 
-			if($hints)
-				draw_search_form();
+				if($hints) {
+					draw_search_form();
+				}
 			?>
         </form>
 		

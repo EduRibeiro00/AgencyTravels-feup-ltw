@@ -5,12 +5,13 @@ include_once('../templates/tpl_common.php');
 //I need this, ok guys? Ass: Ruben Almeida
 function first_line() { ?>
     <div id="Place_Info_Container">
-    <?php } ?>
+        <?php } ?>
 
-    <?php function last_line()
-    { ?>
+        <?php function last_line()
+        { ?>
     </div>
 <?php } ?>
+
 
 <?php function draw_my_place_sidebar($house_avg_price,$house_rating,$house_ownder_name,$placeID) { ?>
 

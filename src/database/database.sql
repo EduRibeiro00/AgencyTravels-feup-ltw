@@ -267,7 +267,7 @@ INSERT INTO Place (title, address, description, capacity, numRooms, numBathrooms
 
 -- Image
 INSERT INTO Image(image, userID, placeID) VALUES ("14b3a43790f206aff9d6aefe11c1b05c1c55ddacfd7f1df321cf22f3da1055c8.png", 1, null);
-INSERT INTO Image(image, userID, placeID) VALUES ("2a879a066cd4cbdf01a2fea09d8488e656b79aec3749fecb709cfd1be15b1caf.png", 2, null);
+INSERT INTO Image(image, userID, placeID) VALUES ("97c5f50dc74ef7b62f986cb977b3ee216cc60d96fb2ebba565557401e0cf47ab.png", 2, null);
 INSERT INTO Image(image, userID, placeID) VALUES ("0f5ca98631a06547629225d4c77030408728b90fa29de1e592ec0f7d7c29ce82.png", 4, null);
 INSERT INTO Image(image, userID, placeID) VALUES ("3f10e3e9b4e52f8422728abeb3b37c8a3d5b9e01a8426a90d95510a93bc869dc.png", 5, null);
 INSERT INTO Image(image, userID, placeID) VALUES ("f4cced5a7ecd93fca8bf68c8f0e3ca72572fa0f7afaffc0c1dfb02c69f291d7e.png", 6, null);

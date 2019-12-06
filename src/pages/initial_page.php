@@ -6,15 +6,15 @@
 
   if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
     $user_info = getUserInformation($_SESSION['userID']);
-    $jsFiles = ['../js/main.js'];
+    $jsFiles = ['../js/main.js', '../js/filter.js'];
   }
   else {
     $user_info = NULL;
-    $jsFiles = ['../js/main.js', '../js/login.js'];
+    $jsFiles = ['../js/main.js', '../js/filter.js', '../js/login.js'];
   }
 
   draw_head($jsFiles, 'initial');
-  draw_navbar($user_info, 'transparent');
+  draw_navbar($user_info, true, 'transparent');
   draw_initial_page();
   draw_footer();
 ?>

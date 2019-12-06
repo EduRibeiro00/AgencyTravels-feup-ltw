@@ -289,28 +289,16 @@ function getCompatibleAvailability($placeID, $check_in_date, $check_out_date){
 
 function getHouseComments($place_id) {
     $db = Database::instance()->db();
-    $stmt = $db->prepare('SELECT comment, Review.stars as stars, User.name as name, Review.date as date
-                            FROM Place NATURAL JOIN Reservation NATURAL JOIN Review JOIN User on Reservation.touristID=User.userID 
-							WHERE placeID=?');
+    $stmt = $db->prepare('SELECT comment, Review.stars as stars, User.username as username, User.userID as userID, image, Review.date as date, Place.placeID as placeID
+                          FROM Place NATURAL JOIN Reservation NATURAL JOIN Review JOIN User on Reservation.touristID=User.userID JOIN Image on User.userID = Image.userID
+						  WHERE Place.placeID = ?');
     $stmt->execute(array($place_id));
     return $stmt->fetchAll();
 }
 
-function getPlaceLocationID($placeID){
-    
+
+function updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $numRooms, $numBathrooms, $capacity){
     $db = Database::instance()->db();
-    $stmt = $db->prepare('SELECT locationID 
-                          FROM Place
-                          WHERE placeID = ?');
-    $stmt->execute(array($placeID));
-    return $stmt->fetch();
-
-}
-
-function updatePlaceInfo($placeID,$title,$desc,$address,$city,$country,$numRooms,$numBathrooms,$capacity){
-
-    $db = Database::instance()->db();
-    
     try {
         $stmt = $db->prepare('UPDATE Place
                               SET title = ?,
@@ -323,7 +311,7 @@ function updatePlaceInfo($placeID,$title,$desc,$address,$city,$country,$numRooms
                                ' 
                             );
 
-     $stmt->execute(array($title,$address,$desc,$capacity,$numRooms,$numBathrooms,$placeID));
+     $stmt->execute(array($title, $address, $desc, $capacity, $numRooms, $numBathrooms, $placeID));
     }
 
     catch (PDOException $e) {

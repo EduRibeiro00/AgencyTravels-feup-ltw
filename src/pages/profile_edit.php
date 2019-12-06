@@ -17,7 +17,7 @@
     $all_locations = getAllLocations();
 
     draw_head($jsFiles);
-    draw_navbar($user_info);
+    draw_navbar($user_info, false);
     draw_profile_form($all_locations, 'Edit profile', $user_info);
     draw_footer();
 ?>

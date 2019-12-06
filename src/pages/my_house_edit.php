@@ -36,7 +36,9 @@
     include_once('../templates/tpl_house_edit_form.php');
 
     draw_head(['../js/main.js','../js/place_edit.js']);
-    draw_navbar();
+    
+    // TODO: meter a user_info como 1o argumento
+    draw_navbar(false);
     
 
 ?>

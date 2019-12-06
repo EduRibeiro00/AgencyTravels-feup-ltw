@@ -14,7 +14,10 @@
     }else{
     }
     */
-    draw_navbar();
+
+    // TODO: meter a user_info como 1o argumento
+    draw_navbar(false);
+    
     draw_my_houses_base_head();
     draw_my_houses_statistics();
     draw_my_houses_item_list();

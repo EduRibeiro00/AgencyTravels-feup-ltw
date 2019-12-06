@@ -4,12 +4,9 @@ include_once('../templates/tpl_common.php');
 
 
 function draw_comment($comment){ ?>
-
-
 <article class="review">
     <header>
-		<!-- TODO: mudar class -->
-		<img class="Comment_Author_Img circular-img" src="https://ligaportuguesa.pt/wp-content/uploads/2019/03/marega.jpg">
+		<img class="Comment_Author_Img circular-img" src="../assets/images/users/small/<?=$comment['image']?>">
 		<p><?=$comment["name"]?></p> 
 		<?php draw_star_rating($comment["stars"])?>
     </header>

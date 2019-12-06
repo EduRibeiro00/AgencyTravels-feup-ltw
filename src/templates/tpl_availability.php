@@ -2,7 +2,7 @@
 
 
 
-function draw_avaiability_block(){ ?>
+function draw_availability_block(){ ?>
 
     <article id="Avaiabilities">
 

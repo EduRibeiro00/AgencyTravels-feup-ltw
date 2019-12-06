@@ -79,10 +79,3 @@ for(let x = 0; x < crosses.length; x++){
 	});
 }
 
-
-function encodeForAjax(data) {
-	return Object.keys(data).map(function(k){
-	  return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-	}).join('&')
-}
-

@@ -83,9 +83,6 @@ for(let x = 0; x < radios.length; x++){
 
 
 function parseSearchData(data){
-	// for(let kd of data){
-	// 	console.log(kd + " - " + data.get(data))
-	// }
 	let adults = data.get('nAdults') ? data.get('nAdults') : 1
 	let children = data.get('nChildren') ? data.get('nChildren') : 0
 	

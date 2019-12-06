@@ -30,7 +30,7 @@
     }
 
     draw_head($jsFiles);
-    draw_navbar($user_info);
+    draw_navbar($user_info, false);
     draw_profile_info($profile_user_info, $user_places, $city_image);
     draw_footer();
 ?>

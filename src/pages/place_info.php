@@ -22,7 +22,7 @@
 
     
 	draw_head($jsFiles);
-	draw_navbar($user_info);
+	draw_navbar($user_info, false);
 
 	$placeID = $_GET['place_id'];
 	
@@ -45,7 +45,7 @@
     draw_my_place_icon_desc($place['title'], $place['numRooms'], $place['capacity'], $place['numBathrooms'], $place['description']);
     draw_my_place_location($house_address_full, $place['gpsCoords']);
 
-    draw_avaiability_block();
+    draw_availability_block();
     //House Rating is the avg rating of the house
     draw_all_comments($place['rating'], $house_comments); 
     draw_similar_offer_slide_show();  

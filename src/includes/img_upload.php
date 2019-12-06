@@ -62,6 +62,27 @@ function uploadUserImage($userID, $image) {
     return true;
 }
 
+function deleteUserImage($userID) {
+  $oldImageName = getUserImage($userID);
+  if($oldImageName == "noImage.png") { // user doesn't have an image already
+    return true;
+  }
+
+  unlink("../assets/images/users/original/$oldImageName");
+  unlink("../assets/images/users/small/$oldImageName");
+  unlink("../assets/images/users/medium/$oldImageName");
+
+  deleteImageForUser($userID);
+
+  return true;
+}
+
+function updateUserImage($userID, $image) {
+  deleteUserImage($userID);
+  uploadUserImage($userID, $image);
+
+  return true;
+}
 
 // --------------------------------
 

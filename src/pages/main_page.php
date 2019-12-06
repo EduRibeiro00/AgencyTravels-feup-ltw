@@ -36,7 +36,7 @@
   $titleLink = "list_places.php?location=" . $slideshowcity['country'] . "+-+" . $slideshowcity['city'];
 
   draw_head($jsFiles);
-  draw_navbar($user_info);
+  draw_navbar($user_info, false);
   draw_slideshow($slideshowimgs, $title, $titleLink);
 
   draw_mainpage_body($topdests, $trendingdests, $randcity, $randplaces);
