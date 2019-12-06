@@ -28,7 +28,7 @@ function draw_form($placeId)
                     <img src="http://tap1.fkimg.com/media/vr-splice-j/05/a8/a5/30.jpg">
                     <img src="http://tap1.fkimg.com/media/vr-splice-j/05/a8/a5/30.jpg">
                     <img src="http://tap1.fkimg.com/media/vr-splice-j/05/a8/a5/30.jpg">
-                    <input type="file" name="new_photo">
+                    <input type="file" accept="image/*" name="new_photo" multiple>
 
                 </article>
 
