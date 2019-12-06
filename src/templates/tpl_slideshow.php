@@ -3,7 +3,7 @@
 
       <div class="carousel">
 
-        <h3><a href="city_places.php?location_id=<?=$slideshowcity['locationID']?>">Places in <?=$slideshowcity['city']?></a></h3>
+        <h3><a href="list_places.php?location=<?=$slideshowcity['country']?>+-+<?=$slideshowcity['city']?>">Places in <?=$slideshowcity['city']?></a></h3>
 
         <ul class="slides">
 

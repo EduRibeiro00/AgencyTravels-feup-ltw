@@ -43,7 +43,7 @@ function draw_head($jsArray, $class = null) { ?>
 include_once('../templates/tpl_search_form.php');
 include_once('../templates/tpl_login_form.php');
 
-function draw_navbar($user_info, $class = null) {  // TODO: passar informacao do user para dar display aqui ?>
+function draw_navbar($user_info, $hints = false) {  // TODO: passar informacao do user para dar display aqui ?>
     <nav id="navbar" <?=$class == null? '' : "class=$class" ?>>
 			<a class="circ-img-link" href="main_page.php">
 				<div class="circular-cropper">
@@ -51,12 +51,12 @@ function draw_navbar($user_info, $class = null) {  // TODO: passar informacao do
 				</div>
 			</a>
 		</div>
-
-        <form id="search_form" action="../actions/action_search.php" method="get">
+        <form id="search_form" action="../pages/list_places.php" method="get">
 			<i class="fas fa-search"></i><input type="text" name="location" autocomplete="off" placeholder="Search for places in...">
 			<!-- TODO: ver section-->
 			<section id="search-hints"></section>
 			<?php 
+			if($hints)
 				draw_search_form();
 			?>
         </form>

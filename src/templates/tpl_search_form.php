@@ -35,19 +35,19 @@ function draw_search_form() { ?>
 		<fieldset id="rating_field">
 			<h4>Rating</h4>
 			<label for="5stars">
-				<input type = "radio" name = "rating" valor = "5stars" id = "5stars"><?php draw_star_rating(5); ?> 5
+				<input type = "radio" name = "rating" value = "5stars" id = "5stars"><?php draw_star_rating(5); ?> 5
 			</label>
 			<label for="4stars">
-				<input type = "radio" name = "rating" valor = "4stars" id = "4stars"><?php draw_star_rating(4); ?> 4+
+				<input type = "radio" name = "rating" value = "4stars" id = "4stars"><?php draw_star_rating(4); ?> 4+
 			</label>
 			<label for="3stars">
-				<input type = "radio" name = "rating" valor = "3stars" id = "3stars"><?php draw_star_rating(3); ?> 3+
+				<input type = "radio" name = "rating" value = "3stars" id = "3stars"><?php draw_star_rating(3); ?> 3+
 			</label>
 			<label for="2stars">
-				<input type = "radio" name = "rating" valor = "2stars" id = "2stars"><?php draw_star_rating(2); ?> 2+
+				<input type = "radio" name = "rating" value = "2stars" id = "2stars"><?php draw_star_rating(2); ?> 2+
 			</label>
 			<label for="1stars">
-				<input type = "radio" name = "rating" valor = "1stars" id = "1stars"><?php draw_star_rating(1); ?> 1+
+				<input type = "radio" name = "rating" value = "1stars" id = "1stars"><?php draw_star_rating(1); ?> 1+
 			</label>
 		</fieldset>
 		<fieldset id="facilities_field">
@@ -59,6 +59,6 @@ function draw_search_form() { ?>
 				<input type="number" id="bathrooms" name="nBathrooms" min=0 value=0 step=1>
 			</label>
 		</fieldset>
-		<input class="button" type="submit" value="Search">
+		<input class="button" type="submit" name="search" value="search">
 	</div>
 <?php } ?>

@@ -21,8 +21,6 @@ window.addEventListener('scroll', function() {
 
 // -------------------
 
-// -------------------
-
 //// Search and Suggestions
 // TODO: refactor disto [0]??
 let locInput = document.getElementsByName("location")[0]
@@ -31,9 +29,8 @@ let resultDropdown = document.getElementById('search-hints')
 locInput.addEventListener("keyup", function() {
 	let request = new XMLHttpRequest()
 	resultDropdown.innerHTML = ""
-	if(locInput.value == "") {
-		return
-	}
+	if(locInput.value == "") return
+
 
 	request.open("POST", "../api/api_search.php", true)
 	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
@@ -57,87 +54,20 @@ resultDropdown.addEventListener('mouseup', function(event) {
 	resultDropdown.innerHTML = ""
 })
 
+function parsedLocationHint(locHint){
+	if(locHint == null) return ""
+	let res = locHint.split(" - ")
+	if(res.length != 2 || res[0] == null || res[1] == null) return ""
+	return "?location=" + res[0] + "+-+" + res[1]
+	// let res = locHint.split(" - ")
+	// if(res.length != 2 || res[0] == null || res[1] == null) return ""
+	// return "?country=" + res[0] + "&city=" + res[1]
+}
 
-//// Seach appearance
-let searchForm = document.getElementById("search_form")
-searchForm.addEventListener("focusin", function() {
-	document.getElementById("filters").style.display = "grid"
-	window.addEventListener('click', closeWindow)
+let searchSymbol = document.querySelector(".fa-search")
+searchSymbol.addEventListener("click", function() {
+	window.location = "list_places.php" + parsedLocationHint(locInput.value)
 })
-
-searchForm.addEventListener("click", function() {
-	event.stopPropagation()
-})
-
-function closeWindow() {
-	document.getElementById("filters").style.display = "none"
-	resultDropdown.innerHTML = ""
-	window.removeEventListener("click", closeWindow)
-}
-
-
-// -------------------
-
-let checkin = document.getElementById('checkin')
-let checkout = document.getElementById('checkout')
-
-///// Min Checkin
-function setMinimumCheckin() {
-	let today = new Date()
-	let todayHTML = today.getFullYear()+'-'+('0'+(today.getMonth()+1)).slice(-2)+'-'+('0'+(today.getDate())).slice(-2)
-	checkin.min = todayHTML
-}
-
-setMinimumCheckin()
-
-// -------------------
-
-//// Checkout > checkin
-checkin.addEventListener('change', updateCheckout)
-
-function updateCheckout() {
-	let firstdate = checkin.value
-	if(firstdate == null) firstdate = checkin.min
-
-	let fdJS = new Date(firstdate)
-
-	fdJS.setDate(fdJS.getUTCDate()+1)
-
-	let nextDay = fdJS.getFullYear()+'-'+('0'+(fdJS.getMonth()+1)).slice(-2)+'-'+('0'+(fdJS.getDate())).slice(-2)
-	
-	checkout.min = nextDay
-}
-
-// -------------------
-
-//// MaxPrice > Min Price
-let minPrice = document.getElementById('MinPrice')
-let maxPrice = document.getElementById('MaxPrice')
-
-minPrice.addEventListener('change', updateMaxPrice);
-
-function updateMaxPrice() {
-	let minimun = minPrice.value
-	if(minimun == null) minimun = minPrice.min
-	
-	maxPrice.min = parseInt(minimun) + 1
-}
-
-// -------------------
-
-///// Radios
-let radios = document.getElementsByName('rating')
-let check;
-for(let x = 0; x < radios.length; x++){
-    radios[x].addEventListener('click', function() {
-        if(check != this){
-             check = this;
-        }else{
-            this.checked = false;
-            check = null;
-    	}
-	});
-}
 
 // -------------------
 
@@ -148,3 +78,11 @@ for(let x = 0; x < crosses.length; x++){
 		this.parentElement.parentElement.style.display = "none"
 	});
 }
+
+
+function encodeForAjax(data) {
+	return Object.keys(data).map(function(k){
+	  return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+	}).join('&')
+}
+

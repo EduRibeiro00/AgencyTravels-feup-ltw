@@ -30,6 +30,10 @@ body {
 	/* TODO: passar para javascript para n ser hardcoded */
 	--footer_height: 4em;
 	--footer_padding: 1em;
+	--footer_border: 20px;
+	/* TODO: ver como se passa par js */
+	--nav_padding: 0.4em;
+	--nav_height: 3.5em;
 }
 
 h1, h2, h3, h4, h5, h6, a, p, label {
@@ -157,8 +161,9 @@ body > nav {
     background-color: var(--main_color);
     color: var(--light_text_color);
     margin: 0;
-    padding: 0.4em;
-    font-size: 1em;
+    padding: var(--nav_padding);
+	font-size: 1em;
+	height: var(--nav_height) + 2* var(--nav_padding);
 }
 
 #navbar {
@@ -214,6 +219,9 @@ nav input[type="text"]::placeholder{
 	opacity: 100%;
 }
 
+.fa-search {
+	cursor: pointer;
+}
 
 /* TODO: se calhar forçar a profile pic a ser quadrada */ 
 
@@ -710,11 +718,13 @@ main#profile-page .place-listing {
 }
 
 .card:hover {
-	background: var(--darker_bg_color);
+    background: var(--darker_bg_color);
+    cursor: pointer;
 }
 
 .card .info {
-	margin: 0 1em;
+    margin: 0 1em;
+    flex-grow: 1;
 }
 
 /* TODO: depois apagar pq será carroussel */
@@ -739,6 +749,15 @@ main#profile-page .place-listing {
 	color: var(--light_text_color);
 }
 
+.card a {
+    flex-grow: 1;
+    font-size: 1em;
+}
+
+.card a:hover {
+    text-decoration: none;
+}
+
 .card footer {
 	align-items: flex-end;
 	flex-grow: 1;
@@ -753,6 +772,11 @@ main#profile-page .place-listing {
  * ------------ Search Results ------------
  */
 
+main#list_places {
+	margin-bottom: 0;
+	min-height: calc(100vh - (var(--footer_height) + 2* var(--footer_padding) + var(--footer_border)) - (var(--nav_height) + var(--nav_padding)*2));
+}
+
 section#house_results {
 	margin: 2em;
 	/* TODO: depois com a outra coluna n será preciso */
@@ -763,6 +787,35 @@ section#map {
 	width: auto;
 	position: fixed;
 	left: 55em;
+	z-index: -1;
+}
+
+/*
+ * ------------ Search Location Hint ------------
+ */
+
+#search-hints{
+	background: var(--background_color);
+	color: var(--main_color);
+	position: absolute;        
+	z-index: 325;
+	top: 3.5em;
+	left: 15em;
+	font-weight: 500;
+	font-size: 0.9em;
+}
+
+/* Formatting result items */
+#search-hints p{
+	margin: 0;
+	padding: 7px 10px;
+	border: 1px solid var(--border_color);
+	border-top: none;
+	cursor: pointer;
+}
+#search-hints p:hover{
+	background:var(--darker_bg_color);
+	font-weight: 600;
 }
 
 
@@ -876,7 +929,7 @@ section#map {
  body > footer {
     background-color: var(--footer_color);
     padding: var(--footer_padding);
-    border-top: 20px solid var(--main_color);
+    border-top: var(--footer_border) solid var(--main_color);
     display: flex;
 	align-items: center;
 }
@@ -983,8 +1036,6 @@ footer a {
 }
 
 #House_Info{
-    min-width: 0;
-    min-height:0;
     grid-area:Info;
     margin-left: 6rem;
     margin-right: 2rem;
@@ -1038,8 +1089,6 @@ footer a {
 }
 
 #Pop_UP_Fast_Reservation{
-    min-width: 0;
-    min-height:0;
     grid-area:Aside;
     border-left: 3px;
     padding-left: 0.2em;
@@ -1073,8 +1122,6 @@ footer a {
 }
 
 #Google_Maps_Widget_Container{
-    min-width: 0;
-    min-height:0;
     grid-area:Map;
     margin-left: 6rem;
     margin-right: 2rem;
@@ -1088,9 +1135,7 @@ footer a {
     width: 80%;
 }
 
-#reviews{
-    min-width: 0;
-    min-height:0;
+#Reviews_Container{
     grid-area:Reviews;
     margin-left: 6rem;
     margin-right: 1rem;    
@@ -1114,8 +1159,6 @@ footer a {
 }
 
 #Avaiabilities{
-    min-width: 0;
-    min-height:0;
     margin-top: 1em;
     margin-left: 6rem;
     grid-area:Avaiability;
@@ -1138,8 +1181,6 @@ footer a {
 }
 
 #Similar_Offers_Container{
-    min-width: 0;
-    min-height:0;
     grid-area:Similar;
     display: flex;
     justify-content: space-around;
