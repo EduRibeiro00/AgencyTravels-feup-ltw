@@ -72,7 +72,7 @@ CREATE TABLE Availability (
     availabilityID      INTEGER PRIMARY KEY,
     startDate           DATE CONSTRAINT nn_availability_startdate NOT NULL,              
     endDate             DATE CONSTRAINT nn_availability_enddate NOT NULL,
-    pricePerDay         REAL CONSTRAINT nn_availability_priceperday NOT NULL CONSTRAINT check_availability_priceperday CHECK (pricePerDay > 0),
+    pricePerNight         REAL CONSTRAINT nn_availability_pricePerNight NOT NULL CONSTRAINT check_availability_pricePerNight CHECK (pricePerNight > 0),
     placeID             INTEGER CONSTRAINT nn_availability_placeid NOT NULL CONSTRAINT fk_availability_placeid REFERENCES Place (placeID)  ON DELETE CASCADE
                                                                                                                                            ON UPDATE CASCADE,
     CONSTRAINT  check_availability_dates CHECK (endDate > startDate)
@@ -295,51 +295,51 @@ INSERT INTO Image(image, userID, placeID) VALUES ("8468848342de437cd15e767b424e6
 INSERT INTO Image(image, userID, placeID) VALUES ("e98d65d945eabf82ceb2e24a7472dbcab19f9f3678790211095b28060d050875.png", null, 5);
 
 -- Availability
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-11-10", "2019-11-20", 50.50, 1);
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-11-23", "2019-11-30", 45.00, 1);
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-12-20", "2019-12-27", 75.25, 1);
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-12-30", "2020-01-03", 99.99, 1);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-11-10", "2019-11-20", 50.50, 1);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-11-23", "2019-11-30", 45.00, 1);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-12-01", "2019-12-27", 75.25, 1);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-12-27", "2020-01-03", 99.99, 1);
 
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-11-12", "2019-11-15", 20.33, 2);
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-11-26", "2019-11-28", 23.47, 2);
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-12-29", "2020-01-02", 34.99, 2);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-11-01", "2019-11-17", 20.33, 2);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-11-17", "2019-11-28", 23.47, 2);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-12-01", "2020-01-02", 34.99, 2);
 
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-11-03", "2019-11-19", 43.34, 3);
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-11-24", "2019-11-26", 42.11, 3);
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-12-02", "2019-12-07", 57.45, 3);
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-12-17", "2020-01-04", 67.99, 3);
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2020-01-10", "2020-01-15", 52.89, 3);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-11-01", "2019-11-22", 43.34, 3);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-11-22", "2019-11-30", 42.11, 3);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-11-30", "2019-12-07", 57.45, 3);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-12-07", "2020-01-03", 67.99, 3);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2020-01-03", "2020-01-15", 52.89, 3);
 
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-11-12", "2019-12-15", 42.00, 4);
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-12-16", "2020-01-10", 56.00, 4);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-10-18", "2019-11-12", 37.00, 4);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-11-12", "2019-12-15", 42.00, 4);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-12-15", "2020-01-10", 56.00, 4);
 
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-11-01", "2019-11-29", 37.73, 5);
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-12-01", "2019-12-06", 38.83, 5);
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-12-08", "2019-12-13", 46.64, 5);
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-12-15", "2019-12-22", 48.84, 5);
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-12-23", "2019-12-28", 52.25, 5);
-INSERT INTO Availability (startDate, endDate, pricePerDay, placeID) VALUES ("2019-12-29", "2020-01-03", 59.99, 5);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-11-01", "2019-12-01", 37.73, 5);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-12-01", "2019-12-06", 38.83, 5);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-12-06", "2019-12-13", 46.64, 5);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-12-13", "2019-12-22", 48.84, 5);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-12-22", "2019-12-28", 52.25, 5);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-12-28", "2020-01-03", 59.99, 5);
 
 -- Reservation
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-25", "2019-11-28", 102, 1, 2);
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-01", "2019-12-07", 475, 1, 5);
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-10", "2019-12-17", 475, 1, 6);
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-28", "2019-12-29", 190, 1, 7);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-25", "2019-11-28", 135, 1, 2);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-01", "2019-12-07", 451.5, 1, 5);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-10", "2019-12-17", 526.75, 1, 6);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-28", "2019-12-29", 99.99, 1, 7);
 
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-06", "2019-11-10", 81.20, 2, 3);
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-16", "2019-11-23", 163.29, 2, 5);
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-01", "2019-12-21", 500.50 , 2, 2);
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-23", "2019-12-27", 174.95 , 2, 4);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-06", "2019-11-10", 81.32, 2, 3);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-16", "2019-11-23", 161.15, 2, 5);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-01", "2019-12-21", 699.8 , 2, 2);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-23", "2019-12-27", 139.96 , 2, 4);
 
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-21", "2019-11-22", 43.34, 3, 1);
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-28", "2019-12-01", 154.03, 3, 7);
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-09", "2019-12-16", 429.59, 3, 5);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-28", "2019-12-01", 141.67, 3, 7);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-09", "2019-12-16", 475.93, 3, 5);
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-01-05", "2019-01-08", 158.67, 3, 6);
 
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-04", "2019-11-10", 252, 4, 4);
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2018-12-04", "2018-12-10", 1234, 4, 3);
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2018-10-03", "2018-11-11", 81231, 4, 1);
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2018-06-01", "2018-06-12", 123.11, 4, 2);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-04", "2019-11-10", 222, 4, 4);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-04", "2019-12-10", 252, 4, 3);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-10-20", "2019-11-03", 518, 4, 1);
 
 -- Review
 INSERT INTO Review (date, stars, reservationID) VALUES ("2019-11-25", 4, 1);
@@ -381,79 +381,56 @@ BEGIN
     SELECT RAISE(ROLLBACK, 'Error in reply insertion - invalid date');
 END;
 
-CREATE TRIGGER IF NOT EXISTS VerifyDateReviewReplyUpdate
-BEFORE UPDATE OF date ON Reply
-WHEN (new.date < (SELECT date
-                  FROM Review
-                  WHERE reviewID = new.reviewID))
-BEGIN
-    SELECT RAISE(ROLLBACK, 'Error in reply update - invalid date');
-END;
-
-CREATE TRIGGER IF NOT EXISTS VerifyDateReviewUpdateReply
-BEFORE UPDATE OF date ON Review
-WHEN (new.date > (SELECT date
-                  FROM Reply
-                  WHERE reviewID = new.reviewID))
-BEGIN
-    SELECT RAISE(ROLLBACK, 'Error in review update - invalid date');
-END;
-
 ---------------------
 
+-- ATTENTION: <= vs < and =< vs <
+
 -- Triggers to check if a reservation is coincident with an availability
-CREATE TRIGGER IF NOT EXISTS CheckReservationAvailabilityInsert
-BEFORE INSERT ON Reservation
-WHEN (NOT EXISTS (SELECT *
-                  From Availability WHERE ((placeID = new.placeID)
-                  AND ((new.startDate >= startDate) AND (new.startDate < endDate)
-                    AND (new.endDate > startDate) AND (new.endDate <= endDate)))))
-BEGIN
-    SELECT RAISE(rollback,'Error in reservation insert - no availability for dates');
-END;
+-- CREATE TRIGGER IF NOT EXISTS CheckReservationAvailabilityInsert
+-- BEFORE INSERT ON Reservation
+-- WHEN (NOT EXISTS (SELECT *
+--                   From Availability WHERE ((placeID = new.placeID)
+--                   AND ((new.startDate >= startDate) AND (new.endDate <= endDate)))))
+-- BEGIN
+--     SELECT RAISE(rollback,'Error in reservation insert - no availability for dates');
+-- END;
 
-CREATE TRIGGER IF NOT EXISTS CheckReservationAvailabilityUpdateStart
-BEFORE UPDATE OF startDate ON Reservation
-WHEN (NOT EXISTS (SELECT *
-                  From Availability WHERE ((placeID = new.placeID)
-                  AND ((new.startDate >= startDate) AND (new.startDate < endDate)
-                    AND (new.endDate > startDate) AND (new.endDate <= endDate)))))
-BEGIN
-    SELECT RAISE(rollback,'Error in reservation update - no availability for dates');
-END;
+-- CREATE TRIGGER IF NOT EXISTS CheckReservationAvailabilityUpdateStart
+-- BEFORE UPDATE OF startDate ON Reservation
+-- WHEN (NOT EXISTS (SELECT *
+--                   From Availability WHERE ((placeID = new.placeID)
+--                   AND ((new.startDate >= startDate) AND (new.endDate <= endDate)))))
+-- BEGIN
+--     SELECT RAISE(rollback,'Error in reservation update - no availability for dates');
+-- END;
 
-CREATE TRIGGER IF NOT EXISTS CheckReservationAvailabilityUpdateEnd
-BEFORE UPDATE OF endDate ON Reservation
-WHEN (NOT EXISTS (SELECT *
-                  From Availability WHERE ((placeID = new.placeID)
-                  AND ((new.startDate >= startDate) AND (new.startDate < endDate)
-                    AND (new.endDate > startDate) AND (new.endDate <= endDate)))))
-BEGIN
-    SELECT RAISE(rollback,'Error in reservation update - no availability for dates');
-END;
+-- CREATE TRIGGER IF NOT EXISTS CheckReservationAvailabilityUpdateEnd
+-- BEFORE UPDATE OF endDate ON Reservation
+-- WHEN (NOT EXISTS (SELECT *
+--                   From Availability WHERE ((placeID = new.placeID)
+--                   AND ((new.startDate >= startDate) AND (new.endDate <= endDate)))))
+-- BEGIN
+--     SELECT RAISE(rollback,'Error in reservation update - no availability for dates');
+-- END;
 
-
-CREATE TRIGGER IF NOT EXISTS CheckAvailabilityUpdateStart
-BEFORE UPDATE OF startDate ON Availability
-WHEN (EXISTS (SELECT *
-              From Reservation WHERE ((placeID = new.placeID)
-              AND NOT ((new.startDate <= startDate) AND (new.startDate < endDate)
-              AND (new.endDate > startDate) AND (new.endDate >= endDate)))))
-BEGIN
-    SELECT RAISE(rollback,'Error in availability update - invalid dates for reservations');
-END;
+-- CREATE TRIGGER IF NOT EXISTS CheckAvailabilityUpdateStart
+-- BEFORE UPDATE OF startDate ON Availability
+-- WHEN (EXISTS (SELECT *
+--               From Reservation WHERE ((placeID = new.placeID)
+--               AND NOT ((new.startDate <= startDate) AND (new.endDate >= endDate)))))
+-- BEGIN
+--     SELECT RAISE(rollback,'Error in availability update - invalid dates for reservations');
+-- END;
 
 
-CREATE TRIGGER IF NOT EXISTS CheckAvailabilityUpdateStart
-BEFORE UPDATE OF endDate ON Availability
-WHEN (EXISTS (SELECT *
-              From Reservation WHERE ((placeID = new.placeID)
-              AND NOT ((new.startDate <= startDate) AND (new.startDate < endDate)
-              AND (new.endDate > startDate) AND (new.endDate >= endDate)))))
-BEGIN
-    SELECT RAISE(rollback,'Error in availability update - invalid dates for reservations');
-END;
-
+-- CREATE TRIGGER IF NOT EXISTS CheckAvailabilityUpdateEnd
+-- BEFORE UPDATE OF endDate ON Availability
+-- WHEN (EXISTS (SELECT *
+--               From Reservation WHERE ((placeID = new.placeID)
+--               AND NOT ((new.startDate <= startDate) AND (new.endDate >= endDate)))))
+-- BEGIN
+--     SELECT RAISE(rollback,'Error in availability update - invalid dates for reservations');
+-- END;
 
 ---------------------
 
@@ -463,8 +440,8 @@ BEFORE INSERT ON Reservation
 WHEN (EXISTS (SELECT *
                 From Reservation
                 WHERE ((placeID = new.placeID) AND
-                (new.startDate < endDate
-                AND new.endDate > startDate))))
+                (new.startDate <= endDate
+                AND new.endDate >= startDate))))
 BEGIN
     SELECT RAISE(rollback,'Error in reservation insert - invalid date');
 END;
@@ -498,8 +475,8 @@ BEFORE INSERT ON Availability
 WHEN (EXISTS (SELECT *
                 From Availability
                 WHERE( placeID = new.placeID
-                AND new.startDate <= endDate
-                AND new.endDate >= startDate)))
+                AND new.startDate < endDate
+                AND new.endDate > startDate)))
 BEGIN
     SELECT RAISE(rollback,'Error in availability insert - invalid date');
 END;
@@ -510,8 +487,8 @@ WHEN (EXISTS (SELECT *
                 From Availability
                 WHERE( placeID = new.placeID 
                 AND availabilityID <> new.availabilityID 
-                AND new.startDate <= endDate
-                AND new.endDate >= startDate)))
+                AND new.startDate < endDate
+                AND new.endDate > startDate)))
 BEGIN
     SELECT RAISE(rollback,'Error in availability update - invalid date');
 END;
@@ -522,8 +499,8 @@ WHEN (EXISTS (SELECT *
                 From Availability
                 WHERE( placeID = new.placeID
                 AND availabilityID <> new.availabilityID
-                AND new.startDate <= endDate
-                AND new.endDate >= startDate)))
+                AND new.startDate < endDate
+                AND new.endDate > startDate)))
 BEGIN
     SELECT RAISE(rollback,'Error in availability update - invalid date');
 END;

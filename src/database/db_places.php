@@ -129,7 +129,7 @@ function getFilteredPlacesLocDates($nPeople, $rating, $nRooms, $nBathrooms, $cit
 
 	$sqlCity = "%" . $city ."%";
 	$sqlCountry = "%" . $country ."%";
-    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, IFNULL(nVotes, 0) as nVotes, pricePerDay as price
+    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, IFNULL(nVotes, 0) as nVotes, pricePerNight as price
                           FROM Place LEFT JOIN 
 						  (
 							  SELECT placeID, count(*) AS nVotes 
@@ -140,7 +140,7 @@ function getFilteredPlacesLocDates($nPeople, $rating, $nRooms, $nBathrooms, $cit
 						  NATURAL JOIN Image
 						  NATURAL JOIN 
 						  ( -- TODO: por em view talvez??
-							  SELECT Place.placeID, pricePerDay
+							  SELECT Place.placeID, pricePerNight
 							  FROM Place NATURAL JOIN Availability
 							  WHERE startDate <= ? AND endDate >= ?
 						  )
@@ -159,7 +159,7 @@ function getFilteredPlacesLocDates($nPeople, $rating, $nRooms, $nBathrooms, $cit
 function getFilteredPlacesDates($nPeople, $rating, $nRooms, $nBathrooms, $location, $checkin, $checkout) {
 	$db = Database::instance()->db();
 	$sqlLocation = "%" . $location ."%";
-    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, IFNULL(nVotes, 0) as nVotes, pricePerDay as price
+    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, IFNULL(nVotes, 0) as nVotes, pricePerNight as price
                           FROM Place LEFT JOIN 
 						  (
 							  SELECT placeID, count(*) AS nVotes 
@@ -170,7 +170,7 @@ function getFilteredPlacesDates($nPeople, $rating, $nRooms, $nBathrooms, $locati
 						  NATURAL JOIN Image
 						  NATURAL JOIN 
 						  ( -- TODO: por em view talvez??
-							  SELECT Place.placeID, pricePerDay
+							  SELECT Place.placeID, pricePerNight
 							  FROM Place NATURAL JOIN Availability
 							  WHERE startDate <= ? AND endDate >= ?
 						  )
@@ -218,7 +218,7 @@ function getRandomCity() {
 
 function getAveragePrice($placeID) {
     $db = Database::instance()->db();
-    $stmt = $db->prepare('SELECT round(avg(pricePerDay)) as avg_price
+    $stmt = $db->prepare('SELECT round(avg(pricePerNight)) as avg_price
                           FROM Availability
                           WHERE placeID = ?');
 	$stmt->execute(array($placeID));
@@ -268,7 +268,7 @@ function insertImageForPlace($placeID, $image) {
 function getCompatibleAvailability($placeID, $check_in_date, $check_out_date){
     $db = Database::instance()->db();
 
-    $stmt = $db->prepare('SELECT pricePerDay as price
+    $stmt = $db->prepare('SELECT pricePerNight as price
                           FROM Availability Natural Join Place
                           WHERE placeID = ? AND date(startDate)>= date(?) AND date(?)<=date(endDate)');
     
