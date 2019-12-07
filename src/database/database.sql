@@ -413,24 +413,24 @@ END;
 --     SELECT RAISE(rollback,'Error in reservation update - no availability for dates');
 -- END;
 
-CREATE TRIGGER IF NOT EXISTS CheckAvailabilityUpdateStart
-BEFORE UPDATE OF startDate ON Availability
-WHEN (EXISTS (SELECT *
-              From Reservation WHERE ((placeID = new.placeID)
-              AND NOT ((new.startDate <= startDate) AND (new.endDate >= endDate)))))
-BEGIN
-    SELECT RAISE(rollback,'Error in availability update - invalid dates for reservations');
-END;
+-- CREATE TRIGGER IF NOT EXISTS CheckAvailabilityUpdateStart
+-- BEFORE UPDATE OF startDate ON Availability
+-- WHEN (EXISTS (SELECT *
+--               From Reservation WHERE ((placeID = new.placeID)
+--               AND NOT ((new.startDate <= startDate) AND (new.endDate >= endDate)))))
+-- BEGIN
+--     SELECT RAISE(rollback,'Error in availability update - invalid dates for reservations');
+-- END;
 
 
-CREATE TRIGGER IF NOT EXISTS CheckAvailabilityUpdateEnd
-BEFORE UPDATE OF endDate ON Availability
-WHEN (EXISTS (SELECT *
-              From Reservation WHERE ((placeID = new.placeID)
-              AND NOT ((new.startDate <= startDate) AND (new.endDate >= endDate)))))
-BEGIN
-    SELECT RAISE(rollback,'Error in availability update - invalid dates for reservations');
-END;
+-- CREATE TRIGGER IF NOT EXISTS CheckAvailabilityUpdateEnd
+-- BEFORE UPDATE OF endDate ON Availability
+-- WHEN (EXISTS (SELECT *
+--               From Reservation WHERE ((placeID = new.placeID)
+--               AND NOT ((new.startDate <= startDate) AND (new.endDate >= endDate)))))
+-- BEGIN
+--     SELECT RAISE(rollback,'Error in availability update - invalid dates for reservations');
+-- END;
 
 ---------------------
 
