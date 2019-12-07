@@ -2,9 +2,10 @@
 <!-- TODO: passar para parametro em vez de estático -->
 <?php 
 include_once('../templates/tpl_common.php');
+include_once('../database/db_places.php');
 
 // TODO: depois por outros parametros
-function draw_horizontal_card($place, $edit_features_active = false) { ?>
+function draw_horizontal_card($place, $edit_features_active = false,$nVotes=false) { ?>
 	<article class="row card">
 		<!-- TODO: mudar para carroussel -->
 		<a class="row" href="../pages/place_info.php?place_id=<?=$place['placeID']?>">
@@ -14,20 +15,27 @@ function draw_horizontal_card($place, $edit_features_active = false) { ?>
 			<!-- TODO: meter flexbox row, com divs ou spans -->
 			<p><span class="card-guests"><?=$place['capacity']?> guests</span><span class="card-bedroom"><?=$place['numRooms']?> bedroom</span><span class="card-bathroom"><?=$place['numBathrooms']?> bathroom</span></p>
 			<footer class="row">
-				<p><?=$place['price']?>€/noite</p>
+				<!--TODO: ISTO NAO PODE SER ASSIM -->
+				<p><?=getAveragePrice($place['placeID'])['avg_price']?>€/noite</p>
 				<div class="card-rating">
 					<?php draw_star_rating($place['rating']);?>
-					(<?=$place['nVotes']?>)
+					
+					<!--TODO: ISTO NAO PODE SER ASSIM; ACHO MAS EU N QUERO ERROS- RUBEN. QUE QUERY USRA PARA TIRAR PLACES + N VOTES -->
+					(<?php 
+						if($nVotes!=false)
+							echo $nVotes['cnt'];
+					?>)
+
 				</div>
 			</footer>
 			</div>
 
 		<?php
 
-		if($edit_features_active==true&&$placeID!=false){ ?>
+		if($edit_features_active==true){ ?>
 			<div class="column info_right edit-stat">
 				<span class="card-edit">
-					<a href="my_house_edit.php?placeID=<?=$placeID?>"> 
+					<a href="my_house_edit.php?placeID=<?=$place['placeID']?>"> 
 					Edit
 					</a>
 				</span>

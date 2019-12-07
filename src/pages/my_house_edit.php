@@ -1,45 +1,40 @@
 <?php
+include_once('../includes/session_include.php');
+include_once('../database/db_user.php');
+include_once('../templates/tpl_common.php');
+include_once('../templates/tpl_house_edit_form.php');
 
-    if(!(isset($_SESSION['userID']))){
-        // TODO// AFTER LOGIN IMPLEMENTED CONTINUE
-        //header("Location: main_page.php");
-        //die("UserId not set on my houses");
-    }else{
-        $_SESSION['userID']=1;
+if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
+    $user_info = getUserInformation($_SESSION['userID']);
+    $jsFiles = ['../js/main.js', '../js/place_edit.js'];
+} else {
+    die(header('Location: ../pages/initial_page.php'));
+}
+
+
+$userID=$_SESSION['userID'];
+$placeId = $_GET['placeID'];
+
+
+$array_places = getUserPlaces($userID);
+
+$couter_matchs = -1;
+
+//Verifies if that house belongs to the current owner login
+foreach ($array_places as $place) {
+    if ($place['placeID'] == $placeId) {
+        $couter_matchs = 1;
+        break;
     }
-    $_SESSION['userID']=2;
-    
-    $userID=$_SESSION['userID'];
-    $placeId=$_GET['placeID'];
-    
-    include_once('../database/db_user.php');
+}
+if ($couter_matchs == -1) {
+    // TODO// AFTER LOGIN IMPLEMENTED CONTINUE
+    header("Location: main_page.php");
+    die("Dont Have permissions");
+}
 
-    $array_places=getUserPlaces($userID);
-
-    $couter_matchs=-1;
-    
-    //Verifies if that house belongs to the current owner login
-    foreach($array_places as $place){
-        if($place['placeID']==$placeId){
-            $couter_matchs=1;
-            break;
-        } 
-    }
-    if($couter_matchs==-1){
-         // TODO// AFTER LOGIN IMPLEMENTED CONTINUE
-         header("Location: main_page.php");
-         die("Dont Have permissions");
-    }
-
-
-    include_once('../templates/tpl_common.php');
-    include_once('../templates/tpl_house_edit_form.php');
-
-    draw_head(['../js/main.js','../js/place_edit.js']);
-    
-    // TODO: meter a user_info como 1o argumento
-    draw_navbar(false);
-    
+draw_head($jsFiles);
+draw_navbar($user_info, false);
 
 ?>
 
@@ -49,11 +44,11 @@
 <div id="my_house_edit_container">
 
     <h2>My House Edit</h2>
-    
-    <?php draw_form($placeId); ?>
+
+    <?php draw_form($place); ?>
 
 </div>
 
 <?php
-    draw_footer();
+draw_footer();
 ?>

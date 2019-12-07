@@ -1,27 +1,27 @@
 <?php 
+    
+    include_once('../includes/session_include.php');
     include_once('../templates/tpl_common.php');
     include_once('../templates/tpl_my_houses.php');
-    draw_head(['../js/main.js',]);
     
-
-
-    $_SESSION['userID']=1;
-/*
-    if(!(isset($_SESSION['userID']))){
-        /* TODO// AFTER LOGIN IMPLEMENTED CONTINUE
-        //header("Location: main_page.php");
-        //die("UserId not set on my houses");
-    }else{
+    
+    if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
+        $userID=$_SESSION['userID'];
+        $user_info = getUserInformation($_SESSION['userID']);
+        $jsFiles = ['../js/main.js'];
     }
-    */
-
-    // TODO: meter a user_info como 1o argumento
-    draw_navbar(false);
+    else{
+        $user_info = NULL;
+        $jsFiles = ['../js/main.js', '../js/login.js'];
+    }
     
+    draw_head($jsFiles);
+    // TODO: meter a user_info como 1o argumento
+    draw_navbar($user_info,false);
     draw_my_houses_base_head();
-    draw_my_houses_statistics();
-    draw_my_houses_item_list();
-    draw_my_houses_base_end();
+    draw_my_houses_statistics($userID);
+    draw_my_houses_item_list($userID);
+    draw_my_houses_base_end();  
     draw_footer();
 ?>
 

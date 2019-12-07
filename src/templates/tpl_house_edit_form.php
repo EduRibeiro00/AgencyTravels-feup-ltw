@@ -1,22 +1,25 @@
 <?php
 
 include_once('../templates/tpl_common.php');
-include_once('../database/db_myplace.php');
+include_once('../database/db_places.php');
 
-function draw_form($placeId)
-{ ?>
+function draw_form($place)
+{ 
+    
+    $city=getPlace($place['placeID']);
+    ?>
 
     <section id="place_edit_form">
 
         <form>
            
-        <?php if($placeId != null) { ?>
-                <input type="hidden" name="placeID" value=<?=$placeId?>>
+        <?php if($place != null) { ?>
+                <input type="hidden" name="placeID" value=<?=$place['placeID']?>>
             <?php } ?>
 
             <fieldset>
                 <legend>Description</legend>
-                <label>Title: <input type="text" name="title" value="<?= get_house_title($placeId)['title']; ?>"> </label>
+                <label>Title: <input type="text" name="title" value="<?= $place['title']; ?>"> </label>
             </fieldset>
 
             <fieldset>
@@ -37,19 +40,18 @@ function draw_form($placeId)
             <fieldset>
                 <legend>Description</legend>
                 <textarea name="description" rows="10" cols="100">
-            <?= get_house_description($placeId)['description']; ?>
+            <?= $place['description']; ?>
             </textarea>
 
 
             </fieldset>
 
-
             <fieldset>
                 <legend>Location</legend>
                 <article class="row edit-house-location">
-                    <label>Address: <input type="text" name="address" value="<?= get_house_address($placeId)['address']; ?>"> </label>
-                    <label>City: <input type="text" name="city" value="<?= get_house_address_city($placeId)['city']; ?>"> </label>
-                    <label>Country: <input type="text" name="country" value="<?= get_house_address_country($placeId)['country']; ?>"> </label>
+                    <label>Address: <input type="text" name="address" value="<?= $place['address']; ?>"> </label>
+                    <label>City: <input type="text" name="city" value="<?= $city['city']; ?>"> </label>
+                    <label>Country: <input type="text" name="country" value="<?= $city['country']; ?>"> </label>
                 </article>
 
 
@@ -58,9 +60,9 @@ function draw_form($placeId)
             <fieldset>
                 <legend>House Caracteristics</legend>
                 <article class="row edit-house-caracteristics">
-                    <label>Number of Rooms<input type="text" name="numRooms" value=" <?= get_house_numRooms($placeId)['numRooms']; ?>"></label>
-                    <label>Number of Bathrooms<input type="text" name="numBathrooms" value=" <?= get_house_numBathrooms($placeId)['numBathrooms']; ?>"></label>
-                    <label>Capacity<input type="text" name="capacity" value=" <?= get_house_capacity($placeId)['capacity']; ?>"></label>
+                    <label>Number of Rooms<input type="text" name="numRooms" value=" <?= $place['numRooms']; ?>"></label>
+                    <label>Number of Bathrooms<input type="text" name="numBathrooms" value=" <?= $place['numBathrooms']; ?>"></label>
+                    <label>Capacity<input type="text" name="capacity" value=" <?= $place['capacity']; ?>"></label>
                 </article>
             </fieldset>
 
