@@ -12,7 +12,7 @@
     }
     else{
         $user_info = NULL;
-        $jsFiles = ['../js/main.js', '../js/login.js'];
+        $jsFiles = ['../js/main.js', '../js/login.js','../js/place_edit.js'];
     }
     
     draw_head($jsFiles);
