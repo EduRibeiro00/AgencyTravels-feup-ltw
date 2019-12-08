@@ -6,13 +6,16 @@ function encodeForAjax(data) {
 	}).join('&')
 }
 
+
 // photo upload
 const reader = new FileReader();
+let last_array_pos=0
 
 let profileFormImage = document.getElementById('img-to-upload');
-let imageInput = document.querySelector('input#imageFile');
+let imageInput = document.querySelector('input#imageFile_add_place');
 imageInput.addEventListener('change', function(event) {
-    const f = event.target.files[0];
+    const f = event.target.files[last_array_pos];
+    last_array_pos++
     imageInput.setAttribute('data-hasFile', "yes");
     reader.readAsDataURL(f);
 });

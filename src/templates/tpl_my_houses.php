@@ -105,8 +105,8 @@ function draw_form($place=null,$edit_menu=false)
         $imagePreview_medium = "../assets/images/places/medium/";
         
     }
-
-
+    //So tera file se for o modo menu
+    $hasFile=$edit_menu
     
 ?>
 
@@ -138,7 +138,7 @@ function draw_form($place=null,$edit_menu=false)
                     <?php
                         $str_aux=$imagePreview_medium.$imagearray[0]['image'];
                         ?>
-                        <img src="<?=$str_aux?>">
+                        <img class="edit_place_img_medium"src="<?=$str_aux?>">
                     <?php
                         for($i=1;$i<$imagearray_lenght;$i++){
                             //Clean up the string with the path
@@ -147,7 +147,7 @@ function draw_form($place=null,$edit_menu=false)
 
                             ?>
 
-                            <img class="" src="<?=$str_aux?>">
+                            <img class="edit_place_img_small" src="<?=$str_aux?>">
                     <?php
                         }
 
@@ -156,8 +156,8 @@ function draw_form($place=null,$edit_menu=false)
                 <div>
                     
                 </div>
-                <label class="button" for="imageFile">Select foto</label>
-                <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imageFile" data-hasFile="">
+                <label class="button" for="imageFile_add_place">Select foto</label>
+                <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile" multiple data-hasFile=<?=$hasFile?> >
             </section>
 
             </article>

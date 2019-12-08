@@ -22,15 +22,12 @@ updateMaxBirthDate();
 
 // photo upload
 const reader = new FileReader();
-let n_photos_in_array=0
 
 let profileFormImage = document.getElementById('img-to-upload');
-
-let imageInput = document.querySelector('input#imageFile_add_place');
-
+let imageInput = document.querySelector('input#imageFile');
 imageInput.addEventListener('change', function(event) {
-    const f = event.target.files[n_photos_in_array]
-    n_photos_in_array++
+    const f = event.target.files[0];
+    imageInput.setAttribute('data-hasFile', "yes");
     reader.readAsDataURL(f);
 });
 
