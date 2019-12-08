@@ -81,11 +81,17 @@ function draw_form($place=null,$edit_menu=false)
         $numRooms=$place['numRooms'];
         $numBathrooms=$place['numBathrooms'];
         $capacity=$place['capacity'];
-
-
+        
+        
+        $imagearray = getPlaceImages($place['placeID']);
+        $imagearray_lenght=count($imagearray);
+        $imagePreview_small = "../assets/images/places/small/";
+        $imagePreview_medium = "../assets/images/places/medium/";
+        
+    
         //GET ALL IMAGES
 
-        
+
     }else{
         $title='' ;
         $address='';
@@ -94,6 +100,10 @@ function draw_form($place=null,$edit_menu=false)
         $numRooms='';
         $numBathrooms='';
         $capacity='';
+        
+        $imagePreview_small = "../assets/images/places/small/";
+        $imagePreview_medium = "../assets/images/places/medium/";
+        
     }
 
 
@@ -125,13 +135,29 @@ function draw_form($place=null,$edit_menu=false)
             <!--Vai levar AJAX para caregar as novas photos uploaded-->
             <section id="img-upload" class="row">
                 <div>
-                    <img src="http://tap1.fkimg.com/media/vr-splice-j/05/a8/a5/30.jpg">
+                    <?php
+                        $str_aux=$imagePreview_medium.$imagearray[0]['image'];
+                        ?>
+                        <img src="<?=$str_aux?>">
+                    <?php
+                        for($i=1;$i<$imagearray_lenght;$i++){
+                            //Clean up the string with the path
+                            unset($str_aux);
+                            $str_aux=$imagePreview_small.$imagearray[$i]['image'];
+
+                            ?>
+
+                            <img class="" src="<?=$str_aux?>">
+                    <?php
+                        }
+
+                    ?>
                 </div>
                 <div>
                     
                 </div>
                 <label class="button" for="imageFile">Select foto</label>
-                <input class="button" type="file" id="imageFile" accept="image/*" name="imageFile" data-hasFile="">
+                <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imageFile" data-hasFile="">
             </section>
 
             </article>

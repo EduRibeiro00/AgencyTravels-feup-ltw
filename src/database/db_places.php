@@ -71,7 +71,7 @@ function getPlace($placeID) {
     return $place_info;
 }
 
-//FIZ DE BLOCO DRAIN THE SWAMP
+
 
 function getPlaceImages($placeID) {
     $db = Database::instance()->db();
