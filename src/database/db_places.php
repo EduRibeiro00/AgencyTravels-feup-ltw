@@ -265,16 +265,26 @@ function insertImageForPlace($placeID, $image) {
     $stmt->execute(array($placeID, $image));
 }
 
-function getCompatibleAvailability($placeID, $check_in_date, $check_out_date){
+function getCompatibleAvailability($placeID, $checkin, $checkout){
     $db = Database::instance()->db();
 
-    $stmt = $db->prepare('SELECT pricePerNight as price
+    $stmt = $db->prepare('SELECT Availability.*
                           FROM Availability Natural Join Place
-                          WHERE placeID = ? AND date(startDate)>= date(?) AND date(?)<=date(endDate)');
+                          WHERE placeID = ? 
+						  AND date(?) < date(endDate) AND date(?) > date(startDate)');
     
-    $stmt->execute(array($placeID,$check_in_date,$check_out_date));
-    
-    return $stmt->fetch();
+    $stmt->execute(array($placeID, $checkin, $checkout));
+    return $stmt->fetchAll();
+}
+
+function getOverlapReservations($placeID, $checkin, $checkout) {
+	$db = Database::instance()->db();
+	// TODO: atenção aos sinais
+	$stmt = $db->prepare('SELECT 1
+						  FROM Reservation Natural Join Place
+						  WHERE placeID = ? and date(?) < date(endDate) AND date(?) > date(startDate)');
+	$stmt->execute(array($placeID, $checkin, $checkout));
+	return $stmt->fetch();
 }
 
 function getHouseComments($place_id) {
