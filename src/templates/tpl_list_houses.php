@@ -68,7 +68,7 @@ function list_houses_result($places, $drawingOption, $drawMap = false) { ?>
 		<section id="house_results">
 			<?php 
 			if(empty($places)) { ?>
-				<p> TODO: msg de qd n há casa que correspondem à pesquisa </p>;
+				<em>No houses available</em>
 			<?php } else
 				foreach ($places as $place){
 					draw_horizontal_card($place, $drawingOption);
@@ -77,7 +77,7 @@ function list_houses_result($places, $drawingOption, $drawMap = false) { ?>
 		</section>
 
 		<!-- TODO: implementar maps com google maps API em JS -->
-		<?php if($drawMap) { ?>
+		<?php if(!empty($places) && $drawMap) { ?>
 			<section id="map">
 				<img src="https://via.placeholder.com/1024?text=Maps+Placeholder">
 			</section>
