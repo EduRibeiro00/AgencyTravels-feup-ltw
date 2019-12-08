@@ -287,3 +287,18 @@ function newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms
     return true;
 
 }
+
+function getPlaceID($title,$address,$ownerID){
+    
+    $db = Database::instance()->db();
+
+    $stmt = $db->prepare('SELECT placeID
+                          FROM Place
+                          WHERE title Like ? AND address Like ? AND ownerID = ? 
+						  ');
+    
+    $stmt->execute(array($title, $address, $ownerID));
+    return $stmt->fetchAll();
+
+
+}

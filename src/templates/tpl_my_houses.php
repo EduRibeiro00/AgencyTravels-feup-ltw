@@ -81,6 +81,11 @@ function draw_form($place=null,$edit_menu=false)
         $numRooms=$place['numRooms'];
         $numBathrooms=$place['numBathrooms'];
         $capacity=$place['capacity'];
+
+
+        //GET ALL IMAGES
+
+        
     }else{
         $title='' ;
         $address='';
