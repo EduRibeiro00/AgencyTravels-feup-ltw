@@ -53,7 +53,6 @@ function draw_my_houses_base_head()
         </section>
     <?php }
 
-    function draw_my_houses_base_end()
-    { ?>
+function draw_my_houses_base_end() { ?>
     </div>
 <?php } ?>

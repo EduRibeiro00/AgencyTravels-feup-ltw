@@ -79,7 +79,6 @@ function getPlaceImages($placeID) {
                           FROM Image
                           WHERE placeID = ?');
     $stmt->execute(array($placeID));
-    $i = 0;
     return $stmt->fetchAll();
 }
 
@@ -103,7 +102,7 @@ function getFilteredPlacesLoc($nPeople, $rating, $nRooms, $nBathrooms, $city, $c
 
 	$sqlCity = "%" . $city ."%";
 	$sqlCountry = "%" . $country ."%";
-    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, IFNULL(nVotes, 0) as nVotes
+    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, IFNULL(nVotes, 0) as nVotes
                           FROM Place LEFT JOIN 
 						  (
 							  SELECT placeID, count(*) AS nVotes 
@@ -111,7 +110,6 @@ function getFilteredPlacesLoc($nPeople, $rating, $nRooms, $nBathrooms, $city, $c
 							  GROUP BY placeID
 						  ) AS CV ON Place.placeID = CV.placeID -- This subquery gives the number of Votes
 						  NATURAL JOIN Location
-						  NATURAL JOIN Image
 						--   WHERE country LIKE ? AND city LIKE ?
 						  WHERE capacity >= ?
 						  AND rating >= ?
@@ -121,7 +119,11 @@ function getFilteredPlacesLoc($nPeople, $rating, $nRooms, $nBathrooms, $city, $c
 						  GROUP BY Place.placeID
 						  ');
 	$stmt->execute(array($nPeople, $rating, $nRooms, $nBathrooms, $sqlCity, $sqlCountry));
-	return $stmt->fetchAll();
+    $all_places = $stmt->fetchAll();
+	for($i = 0; $i < count($all_places); $i++) {
+		$all_places[$i]['images'] = getPlaceImages($all_places[$i]['placeID']);
+    }
+    return $all_places;
 }
 
 function getFilteredPlacesLocDates($nPeople, $rating, $nRooms, $nBathrooms, $city, $country, $checkin, $checkout) {
@@ -129,7 +131,7 @@ function getFilteredPlacesLocDates($nPeople, $rating, $nRooms, $nBathrooms, $cit
 
 	$sqlCity = "%" . $city ."%";
 	$sqlCountry = "%" . $country ."%";
-    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, IFNULL(nVotes, 0) as nVotes, pricePerNight as price
+    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, IFNULL(nVotes, 0) as nVotes, pricePerNight as price
                           FROM Place LEFT JOIN 
 						  (
 							  SELECT placeID, count(*) AS nVotes 
@@ -137,7 +139,6 @@ function getFilteredPlacesLocDates($nPeople, $rating, $nRooms, $nBathrooms, $cit
 							  GROUP BY placeID
 						  ) AS CV ON Place.placeID = CV.placeID -- This subquery gives the number of Votes
 						  NATURAL JOIN Location
-						  NATURAL JOIN Image
 						  NATURAL JOIN 
 						  ( -- TODO: por em view talvez??
 							  SELECT Place.placeID, pricePerNight
@@ -153,13 +154,17 @@ function getFilteredPlacesLocDates($nPeople, $rating, $nRooms, $nBathrooms, $cit
 						  GROUP BY Place.placeID
 						  ');
 	$stmt->execute(array($checkin, $checkout, $nPeople, $rating, $nRooms, $nBathrooms, $sqlCity, $sqlCountry));
-	return $stmt->fetchAll();
+    $all_places = $stmt->fetchAll();
+	for($i = 0; $i < count($all_places); $i++) {
+		$all_places[$i]['images'] = getPlaceImages($all_places[$i]['placeID']);
+    }
+    return $all_places;
 }
 
 function getFilteredPlacesDates($nPeople, $rating, $nRooms, $nBathrooms, $location, $checkin, $checkout) {
 	$db = Database::instance()->db();
 	$sqlLocation = "%" . $location ."%";
-    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, IFNULL(nVotes, 0) as nVotes, pricePerNight as price
+    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, IFNULL(nVotes, 0) as nVotes, pricePerNight as price
                           FROM Place LEFT JOIN 
 						  (
 							  SELECT placeID, count(*) AS nVotes 
@@ -167,7 +172,6 @@ function getFilteredPlacesDates($nPeople, $rating, $nRooms, $nBathrooms, $locati
 							  GROUP BY placeID
 						  ) AS CV ON Place.placeID = CV.placeID -- This subquery gives the number of Votes
 						  NATURAL JOIN Location
-						  NATURAL JOIN Image
 						  NATURAL JOIN 
 						  ( -- TODO: por em view talvez??
 							  SELECT Place.placeID, pricePerNight
@@ -183,17 +187,20 @@ function getFilteredPlacesDates($nPeople, $rating, $nRooms, $nBathrooms, $locati
 						  GROUP BY Place.placeID
 						  ');
 	$stmt->execute(array($checkin, $checkout, $nPeople, $rating, $nRooms, $nBathrooms, $sqlLocation, $sqlLocation));
-	return $stmt->fetchAll();
+    $all_places = $stmt->fetchAll();
+	for($i = 0; $i < count($all_places); $i++) {
+		$all_places[$i]['images'] = getPlaceImages($all_places[$i]['placeID']);
+    }
+    return $all_places;
 }
 
 // TODO: ver se assim ou mesmo com ifs lá dentro da outra
 function getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms, $location) {
 	$db = Database::instance()->db();
 	$sqlLocation = "%" . $location ."%";
-    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, IFNULL(nVotes, 0) as nVotes
+    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, IFNULL(nVotes, 0) as nVotes
                           FROM Place LEFT JOIN (select placeID, count(*) as nVotes from review NATURAL JOIN Reservation GROUP BY placeID) AS CV ON Place.placeID = CV.placeID -- This subquery gives the number of Votes
 						  NATURAL JOIN Location
-						  NATURAL JOIN Image
 						--   WHERE country LIKE ? AND city LIKE ?
 						  WHERE capacity >= ?
 						  AND rating >= ?
@@ -203,7 +210,11 @@ function getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms, $location) {
 						  GROUP BY Place.placeID
 						  ');
 	$stmt->execute(array($nPeople, $rating, $nRooms, $nBathrooms, $sqlLocation, $sqlLocation));
-    return $stmt->fetchAll();
+    $all_places = $stmt->fetchAll();
+	for($i = 0; $i < count($all_places); $i++) {
+		$all_places[$i]['images'] = getPlaceImages($all_places[$i]['placeID']);
+    }
+    return $all_places;
 }
 
 function getRandomCity() {

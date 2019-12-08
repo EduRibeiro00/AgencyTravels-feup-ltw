@@ -18,6 +18,8 @@
 	// include_once('../templates/tpl_login_form.php');
 	// draw_login_form();
 
+	// AVISO!! EM PRINCIPIO ESTA PAGINA NAO IRA SER UTILIZADA
+
 	draw_footer();
 
 ?>
