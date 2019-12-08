@@ -2,17 +2,17 @@
 include_once('../includes/session_include.php');
 include_once('../database/db_user.php');
 include_once('../templates/tpl_common.php');
-include_once('../templates/tpl_house_edit_form.php');
+include_once('../templates/tpl_my_houses.php');
 
 if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
     $user_info = getUserInformation($_SESSION['userID']);
-    $jsFiles = ['../js/main.js','../js/place_edit.js'];
+    $jsFiles = ['../js/main.js', '../js/place_edit.js'];
 } else {
     die(header('Location: ../pages/initial_page.php'));
 }
 
 
-$userID=$_SESSION['userID'];
+$userID = $_SESSION['userID'];
 $placeId = $_GET['placeID'];
 
 
@@ -41,7 +41,7 @@ draw_navbar($user_info, false);
 
     <h2>My House Edit</h2>
 
-    <?php draw_form($place); ?>
+    <?php draw_form($place, true); ?>
 
 </div>
 

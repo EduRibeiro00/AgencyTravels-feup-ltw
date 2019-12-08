@@ -1262,11 +1262,13 @@ My Place
     width: 3em;
 }
 #my_houses_add_new{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background-color: gray; 
+    
+    
+    font-size: 1.3em;
+    text-align: center;
+    align-self: center;
+    justify-self: center;
+    
 }
 
 .edit-stat span{  
@@ -1304,6 +1306,7 @@ My Place
 #my_house_edit_container h2 {
     color:var(--main_color);
     font-size: 2.4em;
+    margin-left: -0.4em;
 }
 
 #my_house_edit_container legend{
@@ -1313,7 +1316,7 @@ My Place
     display: none
 }
 #my_house_edit_container fieldset{
-    margin-bottom: 1em;
+    margin-bottom: 0.3em;
     border-style:none;
     font-family: var(--default_text_font);
 }

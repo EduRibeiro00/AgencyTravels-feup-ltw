@@ -313,4 +313,24 @@ function updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $nu
     return true;
 }
 
-?>
+function newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity,$ownerID){
+    $db = Database::instance()->db();
+    
+    try {
+        
+        $stmt = $db->prepare('INSERT INTO Place(title,rating,address,description,capacity,numRooms,numBathrooms,gpsCoords,locationID,ownerID)
+                            VALUES (?,0,?,?,?,?,?,0,?,?)' 
+                            );
+
+        $stmt->execute(array($title, $address, $desc, $capacity, $numRooms, $numBathrooms,$locationID, $ownerID));
+    }
+
+    catch (PDOException $e) {
+        return $e->getMessage();
+    }
+
+    //TODO:UPDATE LOCATION NOT IMPLEMENTED
+
+    return true;
+
+}
