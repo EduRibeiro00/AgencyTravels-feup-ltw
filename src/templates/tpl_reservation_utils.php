@@ -13,7 +13,7 @@ function timeToDay($time){
 
 function getPriceInDate($placeID, $checkin, $checkout){
 	if(!empty(getOverlapReservations($placeID, $checkin, $checkout)))
-		return 0;
+		return -1;
 	
 	$availabilties = getCompatibleAvailability($placeID, $checkin, $checkout);
 	
@@ -21,17 +21,18 @@ function getPriceInDate($placeID, $checkin, $checkout){
 
 
 	$acc = 0;
+	$nDays = timeToDay(strtotime($checkout) - strtotime($checkin));
 	foreach($availabilties as $av){
 		$endTime = strtotime($av['endDate']);
 		$checkinTime = strtotime($checkin);
 		$checkoutTime = strtotime($checkout);		
 
 		if($checkinTime < strtotime($av['startDate']))
-			return 0;
+			return -1;
 		
 		if($endTime >= $checkoutTime) {
 			$diff = $checkoutTime - $checkinTime;
-			return timeToDay($diff) * $av['pricePerNight'] + $acc;
+			return round((timeToDay($diff) * $av['pricePerNight'] + $acc) / $nDays, 2);
 		}
 
 		$diff = $endTime - $checkinTime;
@@ -39,7 +40,7 @@ function getPriceInDate($placeID, $checkin, $checkout){
 		$acc += timeToDay($diff) * $av['pricePerNight'];
 	}
 
-	return 0;
+	return -1;
 }
 
 ?>

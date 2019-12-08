@@ -16,7 +16,7 @@ function draw_horizontal_card($place, $edit_features_active = false,$nVotes=fals
 			<p><span class="card-guests"><?=$place['capacity']?> guests</span><span class="card-bedroom"><?=$place['numRooms']?> bedroom</span><span class="card-bathroom"><?=$place['numBathrooms']?> bathroom</span></p>
 			<footer class="row">
 				<!--TODO: ISTO NAO PODE SER ASSIM -->
-				<p><?=getAveragePrice($place['placeID'])['avg_price']?>€/noite</p>
+				<p><?=$place['price']?>€/noite</p>
 				<div class="card-rating">
 					<?php draw_star_rating($place['rating']);?>
 					
