@@ -6,7 +6,7 @@ include_once('../templates/tpl_house_edit_form.php');
 
 if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
     $user_info = getUserInformation($_SESSION['userID']);
-    $jsFiles = ['../js/main.js', '../js/place_edit.js'];
+    $jsFiles = ['../js/main.js','../js/place_edit.js'];
 } else {
     die(header('Location: ../pages/initial_page.php'));
 }
@@ -19,7 +19,6 @@ $placeId = $_GET['placeID'];
 $array_places = getUserPlaces($userID);
 
 $couter_matchs = -1;
-
 //Verifies if that house belongs to the current owner login
 foreach ($array_places as $place) {
     if ($place['placeID'] == $placeId) {
@@ -29,6 +28,7 @@ foreach ($array_places as $place) {
 }
 if ($couter_matchs == -1) {
     // TODO// AFTER LOGIN IMPLEMENTED CONTINUE
+    var_dump($array_places);
     header("Location: main_page.php");
     die("Dont Have permissions");
 }
@@ -37,10 +37,6 @@ draw_head($jsFiles);
 draw_navbar($user_info, false);
 
 ?>
-
-
-
-
 <div id="my_house_edit_container">
 
     <h2>My House Edit</h2>
