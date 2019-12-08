@@ -7,7 +7,7 @@ function draw_form($place)
 { 
     
     $city=getPlace($place['placeID']);
-    ?>
+?>
 
     <section id="place_edit_form">
 
@@ -19,21 +19,27 @@ function draw_form($place)
 
             <fieldset>
                 <legend>Description</legend>
-                <label>Title: <input type="text" name="title" value="<?= $place['title']; ?>"> </label>
+                <label>Title: <input type="text" name="title" size="40" value="<?= $place['title']; ?>"> </label>
             </fieldset>
 
             <fieldset>
-                <legend>Pictures</legend>
-                <!--Vai levar AJAX para apagar as photos-->
-                <!--Vai levar AJAX para caregar as novas photos uploaded-->
-                <article class="row edit-house-imgs">
+            
+            <legend>Pictures</legend>
+                
+            <!--Vai levar AJAX para apagar as photos-->
+            <!--Vai levar AJAX para caregar as novas photos uploaded-->
+            <section id="img-upload" class="row">
+                <div>
+                    <img src="http://tap1.fkimg.com/media/vr-splice-j/05/a8/a5/30.jpg">
+                </div>
+                <div>
+                    
+                </div>
+                <label class="button" for="imageFile">Select foto</label>
+                <input class="button" type="file" id="imageFile" accept="image/*" name="imageFile" data-hasFile="">
+            </section>
 
-                    <img src="http://tap1.fkimg.com/media/vr-splice-j/05/a8/a5/30.jpg">
-                    <img src="http://tap1.fkimg.com/media/vr-splice-j/05/a8/a5/30.jpg">
-                    <img src="http://tap1.fkimg.com/media/vr-splice-j/05/a8/a5/30.jpg">
-                    <input type="file" accept="image/*" name="new_photo" multiple>
-
-                </article>
+            </article>
 
             </fieldset>
 
@@ -48,8 +54,8 @@ function draw_form($place)
 
             <fieldset>
                 <legend>Location</legend>
-                <article class="row edit-house-location">
-                    <label>Address: <input type="text" name="address" value="<?= $place['address']; ?>"> </label>
+                <article class="column edit-house-location">
+                    <label>Address: <input type="text" name="address" size="70" value="<?= $place['address']; ?>"> </label>
                     <label>City: <input type="text" name="city" value="<?= $city['city']; ?>"> </label>
                     <label>Country: <input type="text" name="country" value="<?= $city['country']; ?>"> </label>
                 </article>
@@ -59,14 +65,16 @@ function draw_form($place)
 
             <fieldset>
                 <legend>House Caracteristics</legend>
-                <article class="row edit-house-caracteristics">
-                    <label>Number of Rooms<input type="text" name="numRooms" value=" <?= $place['numRooms']; ?>"></label>
-                    <label>Number of Bathrooms<input type="text" name="numBathrooms" value=" <?= $place['numBathrooms']; ?>"></label>
-                    <label>Capacity<input type="text" name="capacity" value=" <?= $place['capacity']; ?>"></label>
+                <article class="column edit-house-caracteristics">
+                    <label>Number of Rooms:<input type="text" name="numRooms" value=" <?= $place['numRooms']; ?>"></label>
+                    <label>Number of Bathrooms:<input type="text" name="numBathrooms" value=" <?= $place['numBathrooms']; ?>"></label>
+                    <label>Capacity:<input type="text" name="capacity" value=" <?= $place['capacity']; ?>"></label>
                 </article>
             </fieldset>
 
-            <input type="submit" value="Submit">
+            <div id="edit_place_submit">
+                <input class="button" type="submit" value="Confirm">
+            </div>
 
         </form>
 

@@ -9,6 +9,7 @@ function encodeForAjax(data) {
 // -------------
 
 let profileForm = document.querySelector('#place_edit_form form');
+console.log(profileForm)
 
 profileForm.addEventListener('submit', function (event) {
 
@@ -21,6 +22,7 @@ profileForm.addEventListener('submit', function (event) {
 
 	request.addEventListener('load', function () {
 		let message = JSON.parse(this.responseText).message;
+		console.log(message)
 
 		
 		switch(message) {
@@ -34,7 +36,6 @@ profileForm.addEventListener('submit', function (event) {
 		}
 
 	});
-
 	let placeID = document.querySelector('#place_edit_form input[name="placeID"]').value;
 	let title = document.querySelector('#place_edit_form input[name="title"]').value;
 	let desc = document.querySelector('#place_edit_form textarea[name="description"]').value;
@@ -44,7 +45,8 @@ profileForm.addEventListener('submit', function (event) {
 	let numRooms = document.querySelector('#place_edit_form input[name="numRooms"]').value;
 	let numBathrooms = document.querySelector('#place_edit_form input[name="numBathrooms"]').value;
 	let capacity = document.querySelector('#place_edit_form input[name="capacity"]').value;
-
+	
+	
 	request.send(encodeForAjax({ placeID: placeID, title: title, desc: desc, address: address, city: city, country: country, numRooms: numRooms, numBathrooms: numBathrooms, capacity: capacity }));
 });
 
