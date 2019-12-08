@@ -754,7 +754,8 @@ main#profile-page .place-listing {
 .card .info span{   
 	padding: 0.3em 1em;
 	border: var(--border_color) 1px solid;
-	border-radius: 1em;
+    border-radius: 1em;
+    margin-right: 1em;
 	background: var(--main_color);
 	color: var(--light_text_color);
 }
