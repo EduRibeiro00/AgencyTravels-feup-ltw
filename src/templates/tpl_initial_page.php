@@ -1,4 +1,5 @@
-<?php function draw_initial_page() { ?>
+<?php 
+function draw_initial_page() { ?>
 	<div class="flex-column">
 		<div id="greetings">
 			<header id="initial">

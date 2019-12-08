@@ -179,7 +179,11 @@ body > nav {
 .sticky {
 	position: fixed;
 	top: 0;
-	width: 100%;
+    width: 100%;
+}
+
+.sticky + * {
+    padding-top: 5em;
 }
 
 #profilepagelink {
@@ -235,6 +239,13 @@ nav input[type="text"]::placeholder{
 body.initial{
 	background-image: url("https://images.pexels.com/photos/1095817/pexels-photo-1095817.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
 	background-size: cover;
+}
+
+body.initial > footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 div.flex-column {
@@ -743,7 +754,8 @@ main#profile-page .place-listing {
 .card .info span{   
 	padding: 0.3em 1em;
 	border: var(--border_color) 1px solid;
-	border-radius: 1em;
+    border-radius: 1em;
+    margin-right: 1em;
 	background: var(--main_color);
 	color: var(--light_text_color);
 }
@@ -772,20 +784,27 @@ main#profile-page .place-listing {
  */
 
 main#list_places {
-	margin-bottom: 0;
-}
+    margin-bottom: 0;
+}   
 
 section#house_results {
 	margin: 2em;
-	/* TODO: depois com a outra coluna n será preciso */
-	max-width: 55em;
+    max-width: 55em;
 }
 
+/* TODO: ver melhor como posicionar o mapa */
 section#map {
-	width: auto;
-	position: fixed;
-	left: 55em;
-	z-index: -1;
+    margin: 1em;
+    position: fixed;
+	left: 50em;
+    z-index: -1;
+    height: 83%;
+    padding-bottom: 5em;
+}
+
+section#map img {
+    width: 100%;
+    height: 100%;
 }
 
 /*
@@ -1384,5 +1403,9 @@ My Place
 
     main#main-page article {
         margin: 1em auto;
+    }
+
+    section#map {
+        display: none;
     }
 }

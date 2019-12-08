@@ -79,7 +79,6 @@ function getPlaceImages($placeID) {
                           FROM Image
                           WHERE placeID = ?');
     $stmt->execute(array($placeID));
-    $i = 0;
     return $stmt->fetchAll();
 }
 
@@ -103,7 +102,7 @@ function getFilteredPlacesLoc($nPeople, $rating, $nRooms, $nBathrooms, $city, $c
 
 	$sqlCity = "%" . $city ."%";
 	$sqlCountry = "%" . $country ."%";
-    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, IFNULL(nVotes, 0) as nVotes
+    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, IFNULL(nVotes, 0) as nVotes
                           FROM Place LEFT JOIN 
 						  (
 							  SELECT placeID, count(*) AS nVotes 
@@ -111,7 +110,6 @@ function getFilteredPlacesLoc($nPeople, $rating, $nRooms, $nBathrooms, $city, $c
 							  GROUP BY placeID
 						  ) AS CV ON Place.placeID = CV.placeID -- This subquery gives the number of Votes
 						  NATURAL JOIN Location
-						  NATURAL JOIN Image
 						--   WHERE country LIKE ? AND city LIKE ?
 						  WHERE capacity >= ?
 						  AND rating >= ?
@@ -121,79 +119,20 @@ function getFilteredPlacesLoc($nPeople, $rating, $nRooms, $nBathrooms, $city, $c
 						  GROUP BY Place.placeID
 						  ');
 	$stmt->execute(array($nPeople, $rating, $nRooms, $nBathrooms, $sqlCity, $sqlCountry));
-	return $stmt->fetchAll();
-}
-
-function getFilteredPlacesLocDates($nPeople, $rating, $nRooms, $nBathrooms, $city, $country, $checkin, $checkout) {
-	$db = Database::instance()->db();
-
-	$sqlCity = "%" . $city ."%";
-	$sqlCountry = "%" . $country ."%";
-    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, IFNULL(nVotes, 0) as nVotes, pricePerNight as price
-                          FROM Place LEFT JOIN 
-						  (
-							  SELECT placeID, count(*) AS nVotes 
-							  FROM review NATURAL JOIN Reservation 
-							  GROUP BY placeID
-						  ) AS CV ON Place.placeID = CV.placeID -- This subquery gives the number of Votes
-						  NATURAL JOIN Location
-						  NATURAL JOIN Image
-						  NATURAL JOIN 
-						  ( -- TODO: por em view talvez??
-							  SELECT Place.placeID, pricePerNight
-							  FROM Place NATURAL JOIN Availability
-							  WHERE startDate <= ? AND endDate >= ?
-						  )
-						--   WHERE country LIKE ? AND city LIKE ?
-						  WHERE capacity >= ?
-						  AND rating >= ?
-						  AND numRooms >= ?
-						  AND numBathrooms >= ?
-						  AND city LIKE ? AND country LIKE ?
-						  GROUP BY Place.placeID
-						  ');
-	$stmt->execute(array($checkin, $checkout, $nPeople, $rating, $nRooms, $nBathrooms, $sqlCity, $sqlCountry));
-	return $stmt->fetchAll();
-}
-
-function getFilteredPlacesDates($nPeople, $rating, $nRooms, $nBathrooms, $location, $checkin, $checkout) {
-	$db = Database::instance()->db();
-	$sqlLocation = "%" . $location ."%";
-    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, IFNULL(nVotes, 0) as nVotes, pricePerNight as price
-                          FROM Place LEFT JOIN 
-						  (
-							  SELECT placeID, count(*) AS nVotes 
-							  FROM review NATURAL JOIN Reservation 
-							  GROUP BY placeID
-						  ) AS CV ON Place.placeID = CV.placeID -- This subquery gives the number of Votes
-						  NATURAL JOIN Location
-						  NATURAL JOIN Image
-						  NATURAL JOIN 
-						  ( -- TODO: por em view talvez??
-							  SELECT Place.placeID, pricePerNight
-							  FROM Place NATURAL JOIN Availability
-							  WHERE startDate <= ? AND endDate >= ?
-						  )
-						--   WHERE country LIKE ? AND city LIKE ?
-						  WHERE capacity >= ?
-						  AND rating >= ?
-						  AND numRooms >= ?
-						  AND numBathrooms >= ?
-						  AND (city LIKE ? OR country LIKE ?)
-						  GROUP BY Place.placeID
-						  ');
-	$stmt->execute(array($checkin, $checkout, $nPeople, $rating, $nRooms, $nBathrooms, $sqlLocation, $sqlLocation));
-	return $stmt->fetchAll();
+    $all_places = $stmt->fetchAll();
+	for($i = 0; $i < count($all_places); $i++) {
+		$all_places[$i]['images'] = getPlaceImages($all_places[$i]['placeID']);
+    }
+    return $all_places;
 }
 
 // TODO: ver se assim ou mesmo com ifs lá dentro da outra
 function getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms, $location) {
 	$db = Database::instance()->db();
 	$sqlLocation = "%" . $location ."%";
-    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, IFNULL(nVotes, 0) as nVotes
+    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, IFNULL(nVotes, 0) as nVotes
                           FROM Place LEFT JOIN (select placeID, count(*) as nVotes from review NATURAL JOIN Reservation GROUP BY placeID) AS CV ON Place.placeID = CV.placeID -- This subquery gives the number of Votes
 						  NATURAL JOIN Location
-						  NATURAL JOIN Image
 						--   WHERE country LIKE ? AND city LIKE ?
 						  WHERE capacity >= ?
 						  AND rating >= ?
@@ -203,7 +142,11 @@ function getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms, $location) {
 						  GROUP BY Place.placeID
 						  ');
 	$stmt->execute(array($nPeople, $rating, $nRooms, $nBathrooms, $sqlLocation, $sqlLocation));
-    return $stmt->fetchAll();
+    $all_places = $stmt->fetchAll();
+	for($i = 0; $i < count($all_places); $i++) {
+		$all_places[$i]['images'] = getPlaceImages($all_places[$i]['placeID']);
+    }
+    return $all_places;
 }
 
 function getRandomCity() {
@@ -265,16 +208,26 @@ function insertImageForPlace($placeID, $image) {
     $stmt->execute(array($placeID, $image));
 }
 
-function getCompatibleAvailability($placeID, $check_in_date, $check_out_date){
+function getCompatibleAvailability($placeID, $checkin, $checkout){
     $db = Database::instance()->db();
 
-    $stmt = $db->prepare('SELECT pricePerNight as price
+    $stmt = $db->prepare('SELECT Availability.*
                           FROM Availability Natural Join Place
-                          WHERE placeID = ? AND date(startDate)>= date(?) AND date(?)<=date(endDate)');
+                          WHERE placeID = ? 
+						  AND date(?) < date(endDate) AND date(?) > date(startDate)');
     
-    $stmt->execute(array($placeID,$check_in_date,$check_out_date));
-    
-    return $stmt->fetch();
+    $stmt->execute(array($placeID, $checkin, $checkout));
+    return $stmt->fetchAll();
+}
+
+function getOverlapReservations($placeID, $checkin, $checkout) {
+	$db = Database::instance()->db();
+	// TODO: atenção aos sinais
+	$stmt = $db->prepare('SELECT 1
+						  FROM Reservation Natural Join Place
+						  WHERE placeID = ? and date(?) < date(endDate) AND date(?) > date(startDate)');
+	$stmt->execute(array($placeID, $checkin, $checkout));
+	return $stmt->fetch();
 }
 
 function getHouseComments($place_id) {

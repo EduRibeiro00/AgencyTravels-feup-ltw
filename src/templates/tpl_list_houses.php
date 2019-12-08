@@ -1,8 +1,7 @@
 <?php 
 include_once('../templates/tpl_house_card.php');
+include_once('../templates/tpl_reservation_utils.php');
 include_once('../database/db_places.php');
-
-
 
 function getPlaces(){
 	$location = $_GET['location'];
@@ -29,51 +28,60 @@ function getPlaces(){
 		$nRooms = $_GET['nRooms'] ? $_GET['nRooms'] : 0;			// check
 		$nBathrooms = $_GET['nBathrooms'] ? $_GET['nBathrooms'] : 0;// check
 		$nPeople = $adults + $children;
-		if($foundLoc && $foundDates)
-			$places = getFilteredPlacesLocDates($nPeople, $rating, $nRooms, $nBathrooms, $prov[1], $prov[0], $checkin, $checkout);
-		else if($foundLoc)
+		if($foundLoc)
 		 	$places = getFilteredPlacesLoc($nPeople, $rating, $nRooms, $nBathrooms, $prov[1], $prov[0]);
-		else if($foundDates)
-			$places = getFilteredPlacesDates($nPeople, $rating, $nRooms, $nBathrooms, $location, $checkin, $checkout);
 		else
 		 	$places = getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms, $location);
-		// //if($checkin == null && $checkout == null){
-		foreach($places as $key => &$place){
-			if($place['price'] == null)
+		
+			 foreach($places as $key => &$place){
+			if(!$foundDates)
 				$place['price'] = getAveragePrice($place['placeID'])['avg_price'];
+			else{
+				$place['price'] = getPriceInDate($place['placeID'], $checkin, $checkout);
+				if($place['price'] < 0) {
+					unset($places[$key]);
+					continue;
+				}
+			}
 			if(!($place['price'] <= $maxPrice && $place['price'] >= $minPrice)) unset($places[$key]);
 		}
 		return $places;
 	}
-	if($foundLoc){
+	if($foundLoc)
 		$places = getFilteredPlacesLoc(1, 0, 1, 0, $prov[1], $prov[0]);
-	}
-	else{
+	else
 		$places  = getFilteredPlaces(1, 0, 1, 0, $location);
-	}
 	
 	foreach($places as $key => &$place){
 		$place['price'] = getAveragePrice($place['placeID'])['avg_price'];
-		if(!($place['price'] <= $maxPrice && $place['price'] >= $minPrice)) unset($places[$key]);
+		if($maxPrice != 1000)
+			if(!($place['price'] <= $maxPrice && $place['price'] >= $minPrice)) unset($places[$key]);
+		else
+			if(!($place['price'] >= $minPrice)) unset($places[$key]);
 	}
 	return $places;
 }
 				
 // TODO ver parametros depois
-function list_houses_result($places,$edit_features_active=false) { ?>
+function list_houses_result($places, $drawingOption, $drawMap = false) { ?>
 	<main id="list_places" class="row">
 		<section id="house_results">
 			<?php 
-			if(empty($places))
-				echo "<p> TODO: msg de qd n há casa que correspondem à pesquisa </p>";
-			else
+			if(empty($places)) { ?>
+				<em>No houses available</em>
+			<?php } else
 				foreach ($places as $place){
-					draw_horizontal_card($place,$edit_features_active);
+					draw_horizontal_card($place, $drawingOption);
 				}
 			?>
 		</section>
-		<section id="map">
-			<img src="https://via.placeholder.com/1024?text=Maps+Placeholder">
-		</section>
+
+		<!-- TODO: implementar maps com google maps API em JS -->
+		<?php if(!empty($places) && $drawMap) { ?>
+			<section id="map">
+				<img src="https://via.placeholder.com/1024?text=Maps+Placeholder">
+			</section>
+		<?php } ?>
+
 	</main>
 <?php } ?>

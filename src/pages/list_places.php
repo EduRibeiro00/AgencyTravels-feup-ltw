@@ -13,9 +13,9 @@
 		$jsFiles = ['../js/main.js', '../js/login.js', '../js/filter.js'];
 	}
 
-	$places = 
+	$places = getPlaces();
 	draw_head($jsFiles);
 	draw_navbar($user_info, true);
-	list_houses_result($places);
+	list_houses_result($places, 'Search', true);
 	draw_footer();
 ?>
