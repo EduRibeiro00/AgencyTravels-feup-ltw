@@ -136,6 +136,8 @@ function draw_form($place=null,$edit_menu=false)
             <section id="img-upload" class="row">
                 <div>
                     <?php
+
+                    if($hasFile){
                         $str_aux=$imagePreview_medium.$imagearray[0]['image'];
                         ?>
                         <img class="edit_place_img_medium"src="<?=$str_aux?>">
@@ -144,12 +146,13 @@ function draw_form($place=null,$edit_menu=false)
                             //Clean up the string with the path
                             unset($str_aux);
                             $str_aux=$imagePreview_small.$imagearray[$i]['image'];
-
+    
                             ?>
-
+    
                             <img class="edit_place_img_small" src="<?=$str_aux?>">
                     <?php
                         }
+                    }
 
                     ?>
                 </div>

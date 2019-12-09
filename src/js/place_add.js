@@ -38,8 +38,6 @@ profileForm.addEventListener('submit', function (event) {
     
 	let	formData = new FormData(profileForm);
 	
-	formData.append('hasFile', document.querySelector('#img-upload input[type="file"]').getAttribute('data-hasFile'));
-
 	request.send(formData);
 	
 });
