@@ -1378,7 +1378,11 @@ My Place
 #my_house_edit_container label input{
     margin-left: 0.3em;
 }
+.edit_place_img_small{
 
+    max-height: 10em;
+    max-width: 50em;
+}
 
 
 
