@@ -9,6 +9,9 @@
                              );
         $stmt->execute(array($userID));
         $userInfo = $stmt->fetch();
+        if($userInfo === false) {
+            return false;
+        }
         $userInfo['image'] = getUserImage($userID);
         return $userInfo;
     }

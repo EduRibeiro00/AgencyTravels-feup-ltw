@@ -12,7 +12,12 @@ function draw_horizontal_card($place, $drawingOption) { ?>
 			<!-- TODO: meter flexbox row, com divs ou spans -->
 			<p><span class="card-guests"><?=$place['capacity']?> guests</span><span class="card-bedroom"><?=$place['numRooms']?> bedroom</span><span class="card-bathroom"><?=$place['numBathrooms']?> bathroom</span></p>
 			<footer class="row">
-				<p><?=$place['price']?>€ / noite</p>
+				<?php if(isset($place['price']) && $place['price'] != null) { ?>
+					<p><?=$place['price']?>€ / noite</p>
+				<?php }
+				else { ?>
+					<p><em>No prices available</em></p>
+				<?php } ?>
 				<div class="card-rating">
 					<?php if(isset($place['nVotes']) && $place['nVotes'] != null && $place['nVotes'] != 0) { 
 						draw_star_rating($place['rating']); ?>

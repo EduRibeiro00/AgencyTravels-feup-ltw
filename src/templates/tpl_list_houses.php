@@ -1,6 +1,6 @@
 <?php 
 include_once('../templates/tpl_house_card.php');
-include_once('../templates/tpl_reservation_utils.php');
+include_once('../includes/reservation_utils.php');
 include_once('../database/db_places.php');
 
 function getPlaces(){

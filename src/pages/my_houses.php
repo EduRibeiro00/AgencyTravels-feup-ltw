@@ -1,18 +1,22 @@
-<?php 
-    
+<?php     
     include_once('../includes/session_include.php');
     include_once('../templates/tpl_common.php');
     include_once('../templates/tpl_my_houses.php');
-    
-    
+
+    if(!isset($_GET['userID'])) {
+        die(header('Location: ../pages/initial_page.php'));
+    }
+
+    // $userID = 
+
     if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
-        $userID=$_SESSION['userID'];
         $user_info = getUserInformation($_SESSION['userID']);
+        $userID = $_SESSION['userID'];
         $jsFiles = ['../js/main.js'];
     }
     else{
         $user_info = NULL;
-        $jsFiles = ['../js/main.js', '../js/login.js','../js/place_edit.js'];
+        $jsFiles = ['../js/main.js', '../js/login.js'];
     }
     
     draw_head($jsFiles);

@@ -67,6 +67,9 @@ function getPlace($placeID) {
                           WHERE placeID = ?');
     $stmt->execute(array($placeID));
     $place_info = $stmt->fetch();
+    if($place_info === false) {
+        return false;
+    }
     $place_info['images'] = getPlaceImages($placeID);
     return $place_info;
 }

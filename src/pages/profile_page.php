@@ -2,9 +2,14 @@
     include_once('../includes/session_include.php');
     include_once('../database/db_user.php');
     
-    $userID = $_GET['userID'];
+    if(!isset($_GET['userID'])) {
+        die(header('Location: ../pages/initial_page.php'));
+    }
     
+    $userID = $_GET['userID'];
+
     $profile_user_info = getUserInformation($userID);
+
     if($profile_user_info === false) {
         die(header('Location: ../pages/initial_page.php'));
     }
