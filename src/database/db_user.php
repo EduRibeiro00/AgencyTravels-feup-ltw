@@ -18,9 +18,7 @@
 
     function getUserPlaces($userID) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT *, (SELECT image
-                                         FROM Image
-                                         WHERE placeID = Place.placeID) as image
+        $stmt = $db->prepare('SELECT *
                              FROM Place
                              WHERE ownerID = ?'
                             );

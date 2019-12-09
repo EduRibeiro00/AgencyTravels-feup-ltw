@@ -16,11 +16,10 @@
     }
     else{
         $user_info = NULL;
-        $jsFiles = ['../js/main.js', '../js/login.js'];
+        $jsFiles = ['../js/main.js', '../js/login.js','../js/place_edit.js','../js/place_add.js'];
     }
     
     draw_head($jsFiles);
-    // TODO: meter a user_info como 1o argumento
     draw_navbar($user_info,false);
     draw_my_houses_base_head();
     draw_my_houses_statistics($userID);

@@ -74,7 +74,7 @@ function getPlace($placeID) {
     return $place_info;
 }
 
-//FIZ DE BLOCO DRAIN THE SWAMP
+
 
 function getPlaceImages($placeID) {
     $db = Database::instance()->db();
@@ -269,4 +269,39 @@ function updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $nu
     return true;
 }
 
-?>
+function newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity,$ownerID){
+    $db = Database::instance()->db();
+    
+    try {
+        
+        $stmt = $db->prepare('INSERT INTO Place(title,rating,address,description,capacity,numRooms,numBathrooms,gpsCoords,locationID,ownerID)
+                            VALUES (?,0,?,?,?,?,?,0,?,?)' 
+                            );
+
+        $stmt->execute(array($title, $address, $desc, $capacity, $numRooms, $numBathrooms,$locationID, $ownerID));
+    }
+
+    catch (PDOException $e) {
+        return $e->getMessage();
+    }
+
+    //TODO:UPDATE LOCATION NOT IMPLEMENTED
+
+    return true;
+
+}
+
+function getPlaceID($title,$address,$ownerID){
+    
+    $db = Database::instance()->db();
+
+    $stmt = $db->prepare('SELECT placeID
+                          FROM Place
+                          WHERE title Like ? AND address Like ? AND ownerID = ? 
+						  ');
+    
+    $stmt->execute(array($title, $address, $ownerID));
+    return $stmt->fetchAll();
+
+
+}
