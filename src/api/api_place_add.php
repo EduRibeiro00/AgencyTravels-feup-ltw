@@ -4,13 +4,14 @@ include_once('../database/db_places.php');
 include_once('../database/db_location.php');
 include_once('../includes/img_upload.php');
 
+$message='welcome';
 
 if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $message = 'user not logged in';
 } else {
-    $ownerID = $_POST['ownerID'];
+    $ownerID = $_POST['userID'];
     $title = $_POST['title'];
-    $desc = $_POST['desc'];
+    $desc = $_POST['description'];
     $address = $_POST['address'];
     $city = $_POST['city'];
     $country = $_POST['country'];
@@ -18,17 +19,18 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $numBathrooms = $_POST['numBathrooms'];
     $capacity = $_POST['capacity'];
 
-
-    $files_array = $_FILES['imageFile']['tmp_name'];
+    $files_array = $_FILES['imagePlaceFile'];
     //Going to iterate all images and parse just the valid ones
     $files_array_length=count($files_array);
 
-    for ($i = 0; $i < $files_array_length; $i++) {
+    $i=0;
 
-        if (!checkIfImageIsValid($files_array[$i])) {
+    foreach ($_FILES['imagePlaceFile']['name'] as $filename){ 
+        if (!checkIfImageIsValid($_FILES['imagePlaceFile']['tmp_name'][$i])) {
             $message = 'invalid image';
-            break;
-        }
+        break;
+    }
+    $i=$i+1;
     }
 
     //IF THE ERROR MESSAGE WAS NOT TRIGGERED, CONTINUE

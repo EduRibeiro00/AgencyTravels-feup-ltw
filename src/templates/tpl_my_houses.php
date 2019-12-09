@@ -160,7 +160,7 @@ function draw_form($place=null,$edit_menu=false)
                     
                 </div>
                 <label class="button" for="imageFile_add_place">Select foto</label>
-                <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile" multiple data-hasFile=<?=$hasFile?> >
+                <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile[]" multiple data-hasFile=<?=$hasFile?> >
             </section>
 
             </article>
