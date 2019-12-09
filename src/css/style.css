@@ -223,7 +223,8 @@ nav input[type="text"] {
 }
 
 nav input[type="text"]::placeholder{
-	opacity: 100%;
+    opacity: 100%;
+    color: var(--light_text_color);
 }
 
 .fa-search {
@@ -568,7 +569,7 @@ main#main-page .place-listing {
     padding: 0.3em 2em;
     border: 1px solid var(--border_color);
     border-radius: 1em;
-    transition: all .3s ease-in-out;
+    transition: opacity .3s ease-in-out;
 }
 
 .button:hover {
@@ -724,12 +725,18 @@ main#profile-page .place-listing {
 
 .card {
 	border-bottom: 1px var(--border_color) solid;
-	padding: 1em 0;
 	color: var(--main_color);	
 }
 
-.card:hover {
+.card > a {
+    padding: 1em 0;
+    flex-grow: 1;
+    font-size: 1em;
+}
+
+.card > a:hover {
     background: var(--darker_bg_color);
+    text-decoration: none;
     cursor: pointer;
 }
 
@@ -760,13 +767,12 @@ main#profile-page .place-listing {
 	color: var(--light_text_color);
 }
 
-.card a {
-    flex-grow: 1;
-    font-size: 1em;
+.card-options {
+    justify-content: space-evenly;
 }
 
-.card a:hover {
-    text-decoration: none;
+.card-options > * {
+    text-align: center;
 }
 
 .card footer {
@@ -776,7 +782,7 @@ main#profile-page .place-listing {
 }
 
 .card footer .card-rating {
-	margin: 1em;
+    margin: 1em;
 }
 
 /*
@@ -943,7 +949,7 @@ section#map img {
  * ------------ Footer ------------
  */
 
- body > footer {
+body > footer {
     background-color: var(--footer_color);
     padding: var(--footer_padding);
     border-top: var(--footer_border) solid var(--main_color);
@@ -1225,100 +1231,57 @@ footer a {
     flex-basis: 20%;
 }
 
+/**
+ * ------------ My houses ------------
+ */
 
-/*
-My Place
-*/
-
-#my_houses_container{
-    display: grid;
-    grid-template-columns: 1fr 0.2fr;
-    grid-template-rows:auto auto;
-    grid-template-areas: 
-                        "stats add"
-                        "list_house list_house"
-                        
-    ;
-    margin-left: 1rem;
+#new-place-button {
+    margin: 1em;
+    display: block;
 }
 
-#my_houses_statistics_container{
-    grid-area: stats;
-    border-bottom-style: solid;
-    border-bottom-width: 0.1em;
-    border-bottom-color:var(--main_color); 
-}
-
-#my_houses_statistics_header p{
-    color:var(--main_color);
-    font-size: 2em;
-    margin-left: -0.2em;
-    margin-bottom: 0.5em;
-    margin-top: 0.5em;
-}
-
-
-#my_houses_statistics_info{
-    display: flex;
+#my-houses-header {
     align-items: center;
     font-size: 1.5em;
-    justify-content: flex-start;
-    flex-direction: row;
-}
-#my_houses_statistics_owner{
-    margin-right: auto;
-    margin-left: 1em;
-    width: fit-content;
+    justify-content: space-between;
+    max-width: 100%;
 }
 
-
-#my_houses_statistics_info p{
-    padding-right: 5em;    
+#my-houses-header p {
+    padding-right: 3em;
+    color: black;   
 }
-#my_houses_statistics_info img{
 
+#my-houses-header a {
+    font-size: 1em;
+}
+
+#my-houses-header img {
     height: 3em;
     width: 3em;
 }
-#my_houses_add_new{
-    
-    
-    font-size: 1.3em;
-    text-align: center;
-    align-self: center;
-    justify-self: center;
-    
+
+#my-houses-owner-info {
+    flex-grow: 1;
+    justify-content: flex-start;
+    border-bottom: 3px var(--main_color) solid;
+    padding-bottom: 0.3em;
 }
 
-.edit-stat span{  
-    width: 10em;
-    margin-left: auto;
-    text-align: center;
+#my-houses-owner-info div:first-child {
+    margin-left: 1em;
+    flex-grow: 1;
 }
 
-#my_houses_list_container{
-    grid-area: list_house;
-    margin-right: 4rem;
-}
-
-#my_houses_list_container .info_right{
-    margin-left: auto;
-    margin-right: 2em;
-    justify-content: space-around;
-}
-
-.card .info_right span{
-	margin-right: 1em;
-	padding: 0.3em 1em;
-	border: var(--border_color) 1px solid;
-	border-radius: 1em;
-	background: var(--main_color);
-	color: var(--light_text_color);
+#my-houses-owner-info a {
+    margin-right: 1em;
 }
 
 
+/**
+ * ------------ House Form ------------
+ */
 
-/*Edit-House-Form*/
 #my_house_edit_container{
     margin:2em;
 }
@@ -1367,8 +1330,8 @@ My Place
 #edit_place_submit{
     text-align: center;
     margin-bottom: 2em;
-
 }
+
 #my_house_edit_container img{
     border-style: solid;
     border-color: var(--main_color);
@@ -1378,10 +1341,6 @@ My Place
 #my_house_edit_container label input{
     margin-left: 0.3em;
 }
-
-
-
-
 
 
 

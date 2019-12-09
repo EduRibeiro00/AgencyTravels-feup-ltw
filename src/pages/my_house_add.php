@@ -2,8 +2,7 @@
 include_once('../includes/session_include.php');
 include_once('../database/db_user.php');
 include_once('../templates/tpl_common.php');
-include_once('../templates/tpl_my_houses.php');
-
+include_once('../templates/tpl_house_form.php');
 include_once('../database/db_location.php');
 
 if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
@@ -14,7 +13,7 @@ if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
 }
 
 
-$userID=$_SESSION['userID'];
+$userID = $_SESSION['userID'];
 
 
 draw_head($jsFiles);

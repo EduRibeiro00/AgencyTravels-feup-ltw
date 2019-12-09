@@ -1,5 +1,6 @@
 <?php
     include_once('../database/db_connection.php');
+    include_once('../database/db_images.php');
 
     function getUserInformation($userID) {
         $db = Database::instance()->db();
@@ -23,7 +24,11 @@
                              WHERE ownerID = ?'
                             );
         $stmt->execute(array($userID));
-        return $stmt->fetchAll();
+        $all_places = $stmt->fetchAll();
+        for($i = 0; $i < count($all_places); $i++) {
+            $all_places[$i]['images'] = getPlaceImages($all_places[$i]['placeID']);
+        }
+        return $all_places;
     }
 
     
@@ -36,8 +41,6 @@
         $stmt->execute(array($userID, $limit));
         return $stmt->fetchAll();
     }
-
-
 
 
     function updateUserInfo($userID, $username, $name, $password, $email, $bio, $birthDate, $gender, $locationID) {
@@ -90,51 +93,6 @@
          return $stmt->fetch()['userID'];
     }
 
-    function insertImageForUser($userID, $image) {
-        $db = Database::instance()->db();
-        $stmt = $db->prepare('INSERT INTO Image (userID, image)
-                              VALUES(?, ?)'
-                            );
-        $stmt->execute(array($userID, $image));
-    }
-
-
-    function deleteImageForUser($userID) {
-        $db = Database::instance()->db();
-        $stmt = $db->prepare('DELETE
-                              FROM Image
-                              WHERE userID = ?'
-                            );
-        $stmt->execute(array($userID));
-    }
-
-
-    function getUserImage($userID) {
-        $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT image
-                              FROM Image
-                              WHERE userID = ?'
-                            );
-        $stmt->execute(array($userID));
-        $result = $stmt->fetch();
-        if($result === false) {
-            return "noImage.png";
-        }
-        else {
-            return $result['image'];
-        }
-    }
-
-
-    function removeUserImage($userID) {
-        $db = Database::instance()->db();
-        $stmt = $db->prepare('DELETE
-                              FROM Image
-                              WHERE userID = ?'
-                            );
-        $stmt->execute(array($userID));
-    }
-
 
     function checkUserCredentials($username, $password) {
         $db = Database::instance()->db();
@@ -160,10 +118,10 @@
         $db = Database::instance()->db();
 
         $stmt = $db->prepare('SELECT count(*) as cnt
-                              FROM Reservation Natural Join Place Natural Join User
-                              WHERE User.userID = ?
+                              FROM Reservation Natural Join Place, User
+                              WHERE ownerID = User.userID AND User.userID = ?
                             ');
          $stmt->execute(array($userID));
-         return $stmt->fetch();
+         return $stmt->fetch()['cnt'];
     }
 ?>

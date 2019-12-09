@@ -1,5 +1,4 @@
 <?php 
-// TODO: ver isto de inclusao circular
 include_once('../templates/tpl_common.php');
 
 function draw_search_form() { ?>

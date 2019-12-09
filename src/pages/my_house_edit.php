@@ -2,7 +2,7 @@
 include_once('../includes/session_include.php');
 include_once('../database/db_user.php');
 include_once('../templates/tpl_common.php');
-include_once('../templates/tpl_my_houses.php');
+include_once('../templates/tpl_house_form.php');
 
 if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
     $user_info = getUserInformation($_SESSION['userID']);

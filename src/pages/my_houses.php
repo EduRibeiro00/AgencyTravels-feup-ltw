@@ -7,7 +7,11 @@
         die(header('Location: ../pages/initial_page.php'));
     }
 
-    // $userID = 
+    $houseOwnerID =  $_GET['userID'];
+    $houseOwnerInfo = getUserInformation($houseOwnerID);
+    if($houseOwnerInfo === false) {
+        die(header('Location: ../pages/initial_page.php'));
+    }
 
     if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
         $user_info = getUserInformation($_SESSION['userID']);
@@ -19,12 +23,18 @@
         $jsFiles = ['../js/main.js', '../js/login.js','../js/place_edit.js','../js/place_add.js'];
     }
     
+    $myHouses = getUserPlaces($houseOwnerID);
+    
+    for($i = 0; $i < count($myHouses); $i++) {
+        $myHouses[$i]['price'] = getAveragePrice($myHouses[$i]['placeID'])['avg_price'];
+        $myHouses[$i]['nVotes'] = getPlaceNumVotes($myHouses[$i]['placeID']);
+    }
+
+    $numReservs = getUserNumberofReservations($houseOwnerID);
+
     draw_head($jsFiles);
-    draw_navbar($user_info,false);
-    draw_my_houses_base_head();
-    draw_my_houses_statistics($userID);
-    draw_my_houses_item_list($userID);
-    draw_my_houses_base_end();  
+    draw_navbar($user_info, false);
+    draw_my_houses_body($houseOwnerInfo, $myHouses, $numReservs);  
     draw_footer();
 ?>
 

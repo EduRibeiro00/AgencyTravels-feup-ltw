@@ -2,7 +2,7 @@
 include_once('../templates/tpl_common.php');
 include_once('../database/db_places.php');
 
-function draw_horizontal_card($place, $drawingOption) { ?>
+function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 	<article class="row card">
 		<!-- TODO: mudar para carroussel (para ja apenas a utilizar a 1a imagem, mas $place ja as tem todas) -->
 		<a class="row" href="../pages/place_info.php?place_id=<?=$place['placeID']?>">
@@ -29,32 +29,27 @@ function draw_horizontal_card($place, $drawingOption) { ?>
 				</div>
 			</footer>
 			</div>
-			</a>
+		</a>
 		<?php
 
-		// TODO: ver isto melhor
-		if($drawingOption == 'My_House'){ ?>
 
-			<div class="column info_right edit-stat">
-				<span class="card-edit">
-					<a href="my_house_edit.php?placeID=<?=$place['placeID']?>"> 
+		if($drawingOption == 'My_Houses' && isset($_SESSION['userID']) && $_SESSION['userID'] == $userID){ ?>
+			<div class="column card-options">
+				<a class="button" href="my_house_edit.php?placeID=<?=$place['placeID']?>"> 
 					Edit
-					</a>
-				</span>
+				</a>
 			
-				<span class="card-rating">
-					<a> </a>
+				<a class="button" href="my_house_edit.php?placeID=<?=$place['placeID']?>"> 
 					Statistics
-				</span>
+				</a>
 				
-				<span class="card-rating">
-					<a> </a>
+				<a class="button" href="my_house_edit.php?placeID=<?=$place['placeID']?>"> 
 					Reservations
-				</span>
+				</a>
 			</div>
 		<?php } 
 		 else if($drawingOption == "My_Reserves") {
-
+			// TODO: drawing options for My Reservations page
 		 } ?>
 
 	</article>

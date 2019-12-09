@@ -1,7 +1,7 @@
 <?php
 include_once('../includes/session_include.php');
 include_once('../database/db_places.php');
-
+include_once('../database/db_images.php');
 
     if(!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
         $message = 'user not logged in';

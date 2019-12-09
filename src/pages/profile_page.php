@@ -7,9 +7,7 @@
     }
     
     $userID = $_GET['userID'];
-
     $profile_user_info = getUserInformation($userID);
-
     if($profile_user_info === false) {
         die(header('Location: ../pages/initial_page.php'));
     }

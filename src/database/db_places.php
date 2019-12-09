@@ -1,6 +1,6 @@
 <?php
 include_once('../database/db_connection.php');
-
+include_once('../database/db_images.php');
 
 // -------------------
 // not being used rn vv
@@ -74,29 +74,29 @@ function getPlace($placeID) {
     return $place_info;
 }
 
-
-
-function getPlaceImages($placeID) {
+function getPlaceNumVotes($placeID) {
     $db = Database::instance()->db();
-    $stmt = $db->prepare('SELECT image
-                          FROM Image
+	$stmt = $db->prepare('SELECT count(*) AS nVotes 
+                          FROM Review NATURAL JOIN Reservation
                           WHERE placeID = ?');
-    $stmt->execute(array($placeID));
-    return $stmt->fetchAll();
+	$stmt->execute(array($placeID));
+	return $stmt->fetch()['nVotes'];
 }
-
 
 
 function getRandomPlacesFromCity($locationID, $number) {
     $db = Database::instance()->db();
     $stmt = $db->prepare('SELECT *
-                          FROM Place NATURAL JOIN Image
+                          FROM Place
                           WHERE locationID = ?
-                          GROUP BY placeID
                           ORDER BY random()
                           LIMIT ?');
     $stmt->execute(array($locationID, $number));
-    return $stmt->fetchAll();
+    $all_places = $stmt->fetchAll();
+	for($i = 0; $i < count($all_places); $i++) {
+		$all_places[$i]['images'] = getPlaceImages($all_places[$i]['placeID']);
+    }
+    return $all_places;
 }
 
 // TODO: add checkin and checkout ver imagens tbm
@@ -191,24 +191,6 @@ function getTrendingDestinations() {
                           LIMIT 4');
     $stmt->execute();
     return $stmt->fetchAll();
-}
-
-function getRandomImagesFromCity($locationID, $number) {
-    $db = Database::instance()->db();
-    $stmt = $db->prepare('SELECT image
-                         FROM Place NATURAL JOIN Image
-                         WHERE locationID = ?
-                         LIMIT ?');
-    $stmt->execute(array($locationID, $number));
-    return $stmt->fetchAll();
-}
-
-function insertImageForPlace($placeID, $image) {
-    $db = Database::instance()->db();
-    $stmt = $db->prepare('INSERT INTO Image (placeID, image)
-                          VALUES(?, ?)'
-                        );
-    $stmt->execute(array($placeID, $image));
 }
 
 function getCompatibleAvailability($placeID, $checkin, $checkout){
