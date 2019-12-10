@@ -1,3 +1,5 @@
+@import "./constants.css";
+
 /* TODO: uniformizar botoes */
 *,
 *:before,
@@ -16,27 +18,6 @@ body {
 
     min-height: 100%;
     width: 100%;
-    
-    --background_color: #f9f9f9;
-    --darker_bg_color: #f5f0f0;
-    --main_color: #e47c78;
-    --footer_color: #a59b9b;
-	--transp_main_color: rgba(228, 124, 120, 0.7); /* rgba format so it doesn't make the text transparent, only the background */
-	--yellow_color: #f1ee2d;
-    --error_msg_color: #be1e1e;
-
-    --light_text_color: #f3f3f6;
-    --border_color: #868686;
-
-	--default_text_font: "Trebuchet MS", Helvetica, sans-serif;
-    
-	/* TODO: passar para javascript para n ser hardcoded */
-	--footer_height: 4em;
-	--footer_padding: 1em;
-	--footer_border: 20px;
-	/* TODO: ver como se passa par js */
-	--nav_padding: 0.4em;
-	--nav_height: 3.5em;
 }
 
 h1, h2, h3, h4, h5, h6, a, p, label {
@@ -1156,26 +1137,21 @@ footer a {
 
 }
 
-#Avaiabilities{
-    margin-top: 1em;
+
+/* TODO: limpar forma como h4 e padding top é definido */
+#availabilities{
+    padding: 3em;
     margin-left: 6rem;
     grid-area:Avaiability;
     border-bottom-style: solid; 
     border-bottom-width: 3px;
-    border-bottom-color: var(--main_color);
+	border-bottom-color: var(--main_color);
+	padding-top: 1em;
 
 }
 
-#Avaiabilities_Calendars form{
-    display: inline;
-}
-
-#Avaiabilities_Calendars p{
-    display: inline;
-}
-
-#Avaiabilities_Number_Guests select{
- margin-bottom: 1em;   
+#availabilities input{
+	display: none;
 }
 
 #Similar_Offers_Container{
