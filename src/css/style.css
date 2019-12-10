@@ -725,13 +725,14 @@ main#profile-page .place-listing {
 
 .card {
 	border-bottom: 1px var(--border_color) solid;
-	color: var(--main_color);	
+    color: var(--main_color);
+    min-width: 45em;
 }
 
 .card > a {
     padding: 1em 0;
-    flex-grow: 1;
     font-size: 1em;
+    width: 45em;
 }
 
 .card > a:hover {
@@ -767,7 +768,8 @@ main#profile-page .place-listing {
 
 .card-options {
     justify-content: space-evenly;
-    margin-left: 1em;
+    flex-grow: 1;
+    margin: 0 1em;
 }
 
 .card-options > * {
@@ -784,6 +786,12 @@ main#profile-page .place-listing {
     margin: 1em;
 }
 
+.reserv-dates {
+    margin: 0 1em;
+    color: black;
+    justify-content: space-evenly;
+}
+
 /*
  * ------------ Search Results ------------
  */
@@ -794,7 +802,6 @@ main#list_places {
 
 section#house_results {
 	margin: 2em;
-    max-width: 55em;
 }
 
 /* TODO: ver melhor como posicionar o mapa */

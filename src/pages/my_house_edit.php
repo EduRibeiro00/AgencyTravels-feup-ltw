@@ -29,14 +29,12 @@ foreach ($array_places as $place) {
 if ($couter_matchs == -1) {
     // TODO// AFTER LOGIN IMPLEMENTED CONTINUE
     var_dump($array_places);
-    header("Location: main_page.php");
-    die("Dont Have permissions");
+    die(header("Location: ../pages/initial_page.php"));
 }
 
 draw_head($jsFiles);
-draw_navbar($user_info, false);
+draw_navbar($user_info, false); ?>
 
-?>
 <div id="my_house_edit_container">
 
     <h2>My House Edit</h2>

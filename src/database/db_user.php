@@ -36,7 +36,8 @@
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT *
                               FROM Reservation NATURAL JOIN Place
-                              WHERE touristID = ?'
+                              WHERE touristID = ?
+                              ORDER BY startDate ASC, endDate ASC'
                             );
         $stmt->execute(array($userID));
         $all_places = $stmt->fetchAll();
