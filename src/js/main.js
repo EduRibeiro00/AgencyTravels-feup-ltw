@@ -13,7 +13,8 @@ var navbar = document.getElementById("navbar")
 var sticky = navbar.offsetTop
 
 window.addEventListener('scroll', function() {
-	if(window.pageYOffset >= sticky)
+	// TODO: ver o 20 hardcoded
+	if((window.pageYOffset - 20) > sticky)
 		navbar.classList.add("sticky")
 	else
 		navbar.classList.remove("sticky")
@@ -24,7 +25,8 @@ window.addEventListener('scroll', function() {
 //// Footer
 window.addEventListener('load', function() {
 	let html = document.documentElement;
-	let bodyHeight = html.scrollHeight - 30;
+	let body = document.body;
+	let bodyHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight) + 50;
 
 	if(bodyHeight < screen.height) {
 		let footer = document.querySelector('body > footer');

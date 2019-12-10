@@ -79,7 +79,6 @@ function getPlaceImages($placeID) {
                           FROM Image
                           WHERE placeID = ?');
     $stmt->execute(array($placeID));
-    $i = 0;
     return $stmt->fetchAll();
 }
 
@@ -103,7 +102,7 @@ function getFilteredPlacesLoc($nPeople, $rating, $nRooms, $nBathrooms, $city, $c
 
 	$sqlCity = "%" . $city ."%";
 	$sqlCountry = "%" . $country ."%";
-    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, IFNULL(nVotes, 0) as nVotes
+    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, IFNULL(nVotes, 0) as nVotes
                           FROM Place LEFT JOIN 
 						  (
 							  SELECT placeID, count(*) AS nVotes 
@@ -111,7 +110,6 @@ function getFilteredPlacesLoc($nPeople, $rating, $nRooms, $nBathrooms, $city, $c
 							  GROUP BY placeID
 						  ) AS CV ON Place.placeID = CV.placeID -- This subquery gives the number of Votes
 						  NATURAL JOIN Location
-						  NATURAL JOIN Image
 						--   WHERE country LIKE ? AND city LIKE ?
 						  WHERE capacity >= ?
 						  AND rating >= ?
@@ -121,17 +119,20 @@ function getFilteredPlacesLoc($nPeople, $rating, $nRooms, $nBathrooms, $city, $c
 						  GROUP BY Place.placeID
 						  ');
 	$stmt->execute(array($nPeople, $rating, $nRooms, $nBathrooms, $sqlCity, $sqlCountry));
-	return $stmt->fetchAll();
+    $all_places = $stmt->fetchAll();
+	for($i = 0; $i < count($all_places); $i++) {
+		$all_places[$i]['images'] = getPlaceImages($all_places[$i]['placeID']);
+    }
+    return $all_places;
 }
 
 // TODO: ver se assim ou mesmo com ifs lá dentro da outra
 function getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms, $location) {
 	$db = Database::instance()->db();
 	$sqlLocation = "%" . $location ."%";
-    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, image, IFNULL(nVotes, 0) as nVotes
+    $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, IFNULL(nVotes, 0) as nVotes
                           FROM Place LEFT JOIN (select placeID, count(*) as nVotes from review NATURAL JOIN Reservation GROUP BY placeID) AS CV ON Place.placeID = CV.placeID -- This subquery gives the number of Votes
 						  NATURAL JOIN Location
-						  NATURAL JOIN Image
 						--   WHERE country LIKE ? AND city LIKE ?
 						  WHERE capacity >= ?
 						  AND rating >= ?
@@ -141,7 +142,11 @@ function getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms, $location) {
 						  GROUP BY Place.placeID
 						  ');
 	$stmt->execute(array($nPeople, $rating, $nRooms, $nBathrooms, $sqlLocation, $sqlLocation));
-    return $stmt->fetchAll();
+    $all_places = $stmt->fetchAll();
+	for($i = 0; $i < count($all_places); $i++) {
+		$all_places[$i]['images'] = getPlaceImages($all_places[$i]['placeID']);
+    }
+    return $all_places;
 }
 
 function getRandomCity() {
@@ -288,4 +293,25 @@ function updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $nu
     return true;
 }
 
+function newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity,$ownerID){
+    $db = Database::instance()->db();
+    
+    try {
+        
+        $stmt = $db->prepare('INSERT INTO Place(title,rating,address,description,capacity,numRooms,numBathrooms,gpsCoords,locationID,ownerID)
+                            VALUES (?,0,?,?,?,?,?,0,?,?)' 
+                            );
+
+        $stmt->execute(array($title, $address, $desc, $capacity, $numRooms, $numBathrooms,$locationID, $ownerID));
+    }
+
+    catch (PDOException $e) {
+        return $e->getMessage();
+    }
+
+    //TODO:UPDATE LOCATION NOT IMPLEMENTED
+
+    return true;
+
+}
 ?>

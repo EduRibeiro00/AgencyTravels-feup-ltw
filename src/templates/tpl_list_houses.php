@@ -70,19 +70,25 @@ function getPlaces(){
 }
 				
 // TODO ver parametros depois
-function list_houses_result($places,$edit_features_active=false) { ?>
+function list_houses_result($places, $drawingOption, $drawMap = false) { ?>
 	<main id="list_places" class="row">
 		<section id="house_results">
 			<?php 
-			if(empty($places))
-				echo "<p> TODO: msg de qd n há casa que correspondem à pesquisa </p>";
-			else
-				foreach ($places as $place)
-					draw_horizontal_card($place,$edit_features_active);
+			if(empty($places)) { ?>
+				<em>No houses available</em>
+			<?php } else
+				foreach ($places as $place){
+					draw_horizontal_card($place, $drawingOption);
+				}
 			?>
 		</section>
-		<section id="map">
-			<img src="https://via.placeholder.com/1024?text=Maps+Placeholder">
-		</section>
+
+		<!-- TODO: implementar maps com google maps API em JS -->
+		<?php if(!empty($places) && $drawMap) { ?>
+			<section id="map">
+				<img src="https://via.placeholder.com/1024?text=Maps+Placeholder">
+			</section>
+		<?php } ?>
+
 	</main>
 <?php } ?>

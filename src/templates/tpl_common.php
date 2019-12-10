@@ -23,11 +23,11 @@ function draw_head($jsArray, $class = null) { ?>
 
 <?php function draw_footer() { ?>
     <footer>
-			<div class="circular-cropper">
-				<a href="main_page.php">
-					<img id="logo" src="../assets/images/others/logo.jpg">
-				</a>
-			</div>
+			<a class="circ-img-link" href="main_page.php">
+				<div class="circular-cropper">
+						<img id="logo" src="../assets/images/others/logo.jpg">
+				</div>
+			</a>
         <span id="cpline"> &copy; Agency Travels, LTW 2019. All rights reserved. </span>
         <div id="follow">
 			Follow us:
@@ -57,16 +57,15 @@ function draw_navbar($user_info, $hints, $class = null) { ?>
 				</div>
 			</a>
 		</div>
-        <form id="search_form" action="../pages/list_places.php" method="get">
-			<i class="fas fa-search"></i><input type="text" name="location" autocomplete="off" placeholder="Search for places in...">
-			<!-- TODO: ver section-->
-			<section id="search-hints"></section>
-			<?php 
-				if($hints) {
-					draw_search_form();
-				}
-			?>
-        </form>
+      <form id="search_form" action="../pages/list_places.php" method="get">
+				<i class="fas fa-search"></i><input type="text" name="location" autocomplete="off" placeholder="Search for places in...">
+				<section id="search-hints"></section>
+				<?php 
+					if($hints) {
+						draw_search_form();
+					}
+				?>
+      </form>
 		
 		<?php if(isset($user_info)) {
 			$name = explode(" ", $user_info['name'])[0]; ?>

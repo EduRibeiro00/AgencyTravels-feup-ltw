@@ -21,16 +21,14 @@ function first_line() { ?>
             <?php draw_star_rating($house_rating) ?>
         </section>
 
-		<section id="Pop_UP_Fast_Reservation_Inputs">
-            <form>
-                <?php if($placeID != null) { ?>
-                    <input type="hidden" name="placeID" value=<?=$placeID?>>
-                <?php } ?>
-                <input id="fr_checkin" type="text" name="check_in_date">
-                <input id="fr_checkout" type="text" name="check_out_date">
-                <input id="Book_Submit_Button" type="submit">
-            </form>
-        </section>
+		<form id="Pop_UP_Fast_Reservation_Inputs">
+			<?php if($placeID != null) { ?>
+				<input type="hidden" name="placeID" value=<?=$placeID?>>
+			<?php } ?>
+			<input id="fr_checkin" type="text" name="check_in_date">
+			<input id="fr_checkout" type="text" name="check_out_date">
+			<input id="Book_Submit_Button" type="submit">
+		</form>
 
         <section id="Owner_info">
             <a href="../pages/profile_page.php?userID=<?=$house_owner_info['userID']?>">
