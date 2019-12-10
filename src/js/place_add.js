@@ -35,8 +35,6 @@ profileForm.addEventListener('submit', function (event) {
 				
 			});
 			
-	console.log(profileForm)
-	
 	let	formData = new FormData(profileForm);
 	
 	request.send(formData);

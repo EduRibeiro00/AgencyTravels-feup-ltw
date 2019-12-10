@@ -23,7 +23,6 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
 
     //Going to iterate all images and parse just the valid ones    
     $total = count($images);
-    $j=0;
     
     for( $i=0 ; $i < $total ; $i++ ) {
             
@@ -35,7 +34,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     //IF THE ERROR MESSAGE WAS NOT TRIGGERED, CONTINUE
     if (strcmp($message, 'invalid image') > 0) {
 
-        $j=1;
+
         //Validate Inputs
         if (
             !is_numeric($title) &&
@@ -47,7 +46,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
             is_numeric($numBathrooms) &&
             is_numeric($capacity)
         ) {
-            $j=2;
+    
 
             //WHEN WE INSERT A NEW PLACE WE MUST FIRST CHECK IF THERE IS ALREADY A LOCATION WITH THAT ID, IF NOT -> CREATE
             $array_locations = locationGetID($city, $country);
@@ -61,24 +60,24 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                 }
                 $locationID = locationGetID($city, $country)['locationID'];
             } else {
-                $j=3;
+        
                 $locationID = $array_locations['locationID'];
             }
 
             if (is_null($locationID)) {
-                $j=4;
+        
                 $message = 'Location ID NULL';
             } else {
-                $j=5;
+        
                 $message = newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID);
             }
-                $j=6;
+        
 
                 //GET THE NEW PLACE ID
                 $placeID = getPlaceID($title, $address, $ownerID)['placeID'];
 
                 for( $i=0 ; $i < $total ; $i++ ) {
-                    $j=7;
+            
                     if (uploadPlaceImage($placeID, $images[$i]) != true) {
                         $message = 'Invalid IMAGE';
                         break;
@@ -87,7 +86,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
             
         }
     } else {
-        $j=8;
+
         $message = 'Parameters not validated';
     }
 
