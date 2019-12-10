@@ -4,7 +4,7 @@ include_once('../database/db_places.php');
 include_once('../database/db_location.php');
 include_once('../includes/img_upload.php');
 
-$message='welcome';
+$message = 'welcome';
 
 if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $message = 'user not logged in';
@@ -19,18 +19,17 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $numBathrooms = $_POST['numBathrooms'];
     $capacity = $_POST['capacity'];
 
-    $files_array = $_FILES['imagePlaceFile'];
-    //Going to iterate all images and parse just the valid ones
-    $files_array_length=count($files_array);
 
-    $i=0;
+    //Going to iterate all images and parse just the valid ones    
+    $total = count($_FILES['imagePlaceFile']['name']);
 
-    foreach ($_FILES['imagePlaceFile']['name'] as $filename){ 
+    $i = 0;
+    foreach ($_FILES['imagePlaceFile']['name'] as $filename) {
         if (!checkIfImageIsValid($_FILES['imagePlaceFile']['tmp_name'][$i])) {
             $message = 'invalid image';
-        break;
-    }
-    $i=$i+1;
+            break;
+        }
+        $i = $i + 1;
     }
 
     //IF THE ERROR MESSAGE WAS NOT TRIGGERED, CONTINUE
@@ -71,23 +70,27 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                 $message = newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID);
             }
 
-            if(strcmp($message,'true')==0){
-                
+            if (strcmp($message, 'true') == 0) {
+
                 //GET THE NEW PLACE ID
-                $placeID=getPlaceID($title,$address,$ownerID)['placeID'];
+                $placeID = getPlaceID($title, $address, $ownerID)['placeID'];
 
+                $j = 0;
 
-                for($j=0;$j<$files_array_length;$j++){
-                    if(uploadPlaceImage($placeID,$files_array[$j])!=true){
-                        $message='Invalid IMAGE';
+                foreach ($_FILES['imagePlaceFile']['name'] as $filename) {
+
+                    if (uploadPlaceImage($placeID, $_FILES['imagePlaceFile']['tmp_name'][$j]) != true) {
+                        $message = 'Invalid IMAGE';
                         break;
                     }
+                    $j = $j + 1;
                 }
             }
-
-        } else {
-            $message = 'Parameters not validated';
         }
+    } else {
+        $message = 'Parameters not validated';
     }
+
 }
+$message=$total;
 echo json_encode(array('message' => $message));

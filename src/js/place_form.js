@@ -18,6 +18,7 @@ let image_delete_preview=document.querySelector('#img-delete_place_add');
 let img_id=0;
 let img_array=new Array()
 
+//TODO:IMPLEMENT the remove cross
 imageInput.addEventListener('change', function (event) {
 
     let width_pos=0;
@@ -28,17 +29,16 @@ imageInput.addEventListener('change', function (event) {
         
         reader_inside.addEventListener('load', function (event) {
             let image_to_append = document.createElement("img");
-            let remove_button=document.createElement("a");
+            let remove_button=document.createElement("i");
             image_to_append.className = "edit_place_img_small";
-            remove_button.className="close";
+            remove_button.className="fas fa-times delete_preview_photo"
             remove_button.href=img_id;
             img_array[img_id]=image_to_append;
             img_id++;
             image_to_append.src = event.target.result;
             width_pos+=image_to_append.width
-            remove_button.setAttribute('margin-left',width_pos);
             image_block_preview.appendChild(image_to_append);
-            image_delete_preview.appendChild(remove_button);
+            //image_delete_preview.appendChild(remove_button);
             
             remove_button.addEventListener('click',function(event){
                 event.preventDefault();
@@ -48,10 +48,8 @@ imageInput.addEventListener('change', function (event) {
 
                 img_array[pos_delete_array].remove()
 
-
-    
-                console.log("Aqui") 
-            
+                remove_button.remove()
+        
             }
             )
         });

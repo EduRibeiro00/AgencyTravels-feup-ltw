@@ -1379,9 +1379,13 @@ My Place
     margin-left: 0.3em;
 }
 .edit_place_img_small{
-
+    position: relative;
     max-height: 10em;
     max-width: 50em;
+}
+.delete_preview_photo{
+    position: absolute;
+
 }
 
 
@@ -1394,30 +1398,7 @@ My Place
     margin-left: 0;
 }
 
-
-/*CROSS/DELETE ICON */
-.close {
-  width: 32px;
-  height: 32px;
-  opacity: 0.3;
-  background-color: red;
-}
-.close:hover {
-  opacity: 1;
-}
-.close:before, .close:after {
-  content: ' ';
-  height: 33px;
-  width: 2px;
-  background-color: red;
-}
-.close:before {
-  transform: rotate(45deg);
-}
-.close:after {
-  transform: rotate(-45deg);
-}
-
+  
 
 
 
