@@ -26,24 +26,27 @@ let inlineCal = new Lightpick({
 	numberOfColumns	: 3,
 	inline			: true,
 	priceTooltip	: true,
-	onSelect		: function(date){
-		if(date == null)
-			return
-		let req = new XMLHttpRequest()
-
-		req.open("POST", "../api/api_place_info.php", true)
-		req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-		
-		req.addEventListener('load', function() {
-			let message = JSON.parse(this.responseText).price
-			inlineCal.setPrice(message + "€")
-	
-		});
-		let url = new URL(window.location.href)
-		let placeID = url.searchParams.get("place_id")
-		req.send(encodeForAjax({placeID: placeID, date: date.format('YYYY-MM-DD')}))
-    }
+	onSelect		: priceDay
 });
+
+function priceDay(date){
+	if(date == null)
+		return
+	let req = new XMLHttpRequest()
+
+	req.open("POST", "../api/api_place_info.php", true)
+	req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+	
+	req.addEventListener('load', function() {
+		let message = JSON.parse(this.responseText).price
+		console.log(message)
+		inlineCal.showPrice(message + "€")
+
+	});
+	let url = new URL(window.location.href)
+	let placeID = url.searchParams.get("place_id")
+	req.send(encodeForAjax({placeID: placeID, date: date.format('YYYY-MM-DD')}))
+}
 
 //Sticky sideBar_Fast reservation
 window.onload = function () {
@@ -72,11 +75,13 @@ window.onload = function () {
 		inlineCal.setMaxDate(message.endDate)
 
 		let disableDates = []
-		message.invalidDates.forEach(iD => {
-			disableDates.push([iD['startDate'], iD['endDate']])
-		})
+		if(message.invalidDates != null){
+			message.invalidDates.forEach(iD => {
+				disableDates.push([iD['startDate'], iD['endDate']])
+			})
 
-		inlineCal.setDisableDates(disableDates)
+			inlineCal.setDisableDates(disableDates)
+		}
 
 	});
 	let url = new URL(window.location.href)

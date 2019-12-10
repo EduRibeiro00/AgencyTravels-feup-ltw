@@ -94,7 +94,7 @@
 		},
 		fixed: false,
 		priceTooltip: false,
-		price: null,
+		// price: null,
   
 		onSelect: null,
 		onSelectStart: null,
@@ -734,9 +734,6 @@
 				  }, 100);
 				} else if (!opts.singleDate || opts.inline || !opts.autoclose) {
 				  updateDates(self.el, opts);
-				  if(opts.priceTooltip && opts.price != null){
-					self.showTooltip(target, opts.price);
-				  } 
 				}
 			  }
 			} else if (opts.startDate && !opts.endDate) {
@@ -924,7 +921,6 @@
 				
 				self.showTooltip(target, days + ' ' + pluralText);
 			  } else {
-				  if(!opts.priceTooltip)
 				self.hideTooltip();
 			  }
 			}
@@ -1022,7 +1018,6 @@
   
 		self.showTooltip = function(target, text) {
 		  var tooltip = self.el.querySelector('.lightpick__tooltip');
-		  tooltip.style.visibility = 'visible';
 
 		  var hasParentEl = self.el.classList.contains('lightpick--inlined'),
 			dayBounding = target.getBoundingClientRect(),
@@ -1031,20 +1026,13 @@
 			  : self.el.getBoundingClientRect(),
 			_left = dayBounding.left - pickerBouding.left + dayBounding.width / 2,
 			_top = dayBounding.top - pickerBouding.top;
-  
+		   
+		  tooltip.style.visibility = 'visible';
 		  tooltip.textContent = text;
   
 		  var tooltipBounding = tooltip.getBoundingClientRect();
-			if(self._opts.inline){
-				dayBounding = self.el.querySelector('.is-start-date').getBoundingClientRect();
-				// TODO: ainda n está perfeito
-				_left = dayBounding.left - pickerBouding.left - dayBounding.width - tooltipBounding.width / 4;
-				_top = dayBounding.top - dayBounding.height * 2 - pickerBouding.top - tooltipBounding.height
-			}
-			else{
-				_top -= tooltipBounding.height;
-				_left -= tooltipBounding.width / 2;
-			}
+			_top -= tooltipBounding.height;
+			_left -= tooltipBounding.width / 2;
 
 		  setTimeout(function() {
 			tooltip.style.top = _top + 'px';
@@ -1458,14 +1446,35 @@
 		}
 	  },
 
-	  setPrice: function(price){
-		this._opts.price = price;
-		// date && moment(date, this._opts.format).isValid()
-		//   ? moment(date, this._opts.format)
-		//   : null;
-		// if (this.isShowing) {
-		// 	updateDates(this.el, this._opts);
-		// }
+	  showPrice: function(price){
+		self = this;
+		if(!self._opts.priceTooltip)
+			return
+
+		
+		var tooltip = self.el.querySelector('.lightpick__tooltip');
+
+		var hasParentEl = self.el.classList.contains('lightpick--inlined'),
+		pickerBouding = hasParentEl
+			? self.el.parentNode.getBoundingClientRect()
+			: self.el.getBoundingClientRect(),
+			_left, _top;
+		
+		tooltip.style.visibility = 'visible';
+		tooltip.textContent = price;
+
+		var tooltipBounding = tooltip.getBoundingClientRect();
+		if(self._opts.inline){
+			let dayBounding = self.el.querySelector('.is-start-date').getBoundingClientRect();
+			// TODO: ainda n está perfeito
+			_left = dayBounding.left - pickerBouding.left - dayBounding.width - tooltipBounding.width / 4;
+			_top = dayBounding.top - dayBounding.height * 2 - pickerBouding.top - tooltipBounding.height
+		}
+
+		setTimeout(function() {
+			tooltip.style.top = _top + 'px';
+			tooltip.style.left = _left + 'px';
+		}, 10);
 	  },
 
 	  getStartDate: function() {
