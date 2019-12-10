@@ -1356,12 +1356,14 @@ footer a {
     height: var(--small-image-height);
     width: var(--small-image-width);
 }
-.delete_preview_photo{
-    position: absolute;
-
+.img_add_preview_container{
+    position: relative;
 }
 #image_delete_place_add{
     margin-left: 0;
+}
+.delete_image_preview{
+    color: red;
 }
 
   
