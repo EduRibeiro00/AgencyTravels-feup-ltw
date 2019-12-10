@@ -65,21 +65,27 @@ function draw_form($place = null, $edit_menu = false) {
 
                 <legend>Pictures</legend>
 
-                <!--Vai levar AJAX para apagar as photos-->
-                <!--Vai levar AJAX para caregar as novas photos uploaded-->
+                
                 <section id="img-upload" class="row">
-                    <div>
+                <!--First we render the preview Images-->    
+                <div id="house_form_img_preview">
+                
+                </div>
+                
+                <!--then we render the local Images-->    
+
+                    <div id="house_form_img_local">
                         <?php
                             for ($i = 0; $i < $imagearray_lenght; $i++) {
                                 //Clean up the string with the path
                                 unset($str_aux);
 
                                 //LOAD THE MEDIUM SIZE IMAGE
-                                if ($i == 0) {
-                                    $str_aux = $imagePreview_medium . $imagearray[0]['image'];
-                                    ?>
+                                if ($i === 0) {
+                                    $str_aux = $imagePreview_medium.$imagearray[0]['image'];
+                            ?>
+                                    <img class="edit_place_img_medium" src="<?=$str_aux?>">
 
-                                <img class="edit_place_img_medium" src="<?= $str_aux ?>">
                             <?php
                                     } else {
                                         $str_aux = $imagePreview_small . $imagearray[$i]['image'];
@@ -89,9 +95,7 @@ function draw_form($place = null, $edit_menu = false) {
                             }
                             ?>
                     </div>
-                    <div>
-
-                    </div>
+    
                     <label class="button" for="imageFile_add_place">Select foto</label>
                     <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile[]" multiple multiple data-hasFile=<?= $hasFile ?>>
                 </section>

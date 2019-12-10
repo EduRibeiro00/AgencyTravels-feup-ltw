@@ -36,7 +36,11 @@ body {
 	--footer_border: 20px;
 	/* TODO: ver como se passa par js */
 	--nav_padding: 0.4em;
-	--nav_height: 3.5em;
+    --nav_height: 3.5em;
+    --small-image-height:75px;
+    --small-image-width:75px;
+    --medium-image-height:160px;
+    --medium-image-width:280px;
 }
 
 h1, h2, h3, h4, h5, h6, a, p, label {
@@ -1344,22 +1348,18 @@ footer a {
 #my_house_edit_container label input{
     margin-left: 0.3em;
 }
+.edit_place_img_medium{
+    height: var(--medium-image-height);
+    width: var(--medium-image-width);
+}
 .edit_place_img_small{
-    position: relative;
-    max-height: 10em;
-    max-width: 50em;
+    height: var(--small-image-height);
+    width: var(--small-image-width);
 }
 .delete_preview_photo{
     position: absolute;
 
 }
-
-
-
-
-
-
-
 #image_delete_place_add{
     margin-left: 0;
 }
