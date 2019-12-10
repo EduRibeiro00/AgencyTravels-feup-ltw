@@ -1344,6 +1344,15 @@ footer a {
 #my_house_edit_container label input{
     margin-left: 0.3em;
 }
+.edit_place_img_small{
+    position: relative;
+    max-height: 10em;
+    max-width: 50em;
+}
+.delete_preview_photo{
+    position: absolute;
+
+}
 
 
 
@@ -1351,7 +1360,11 @@ footer a {
 
 
 
+#image_delete_place_add{
+    margin-left: 0;
+}
 
+  
 
 /**
  * ------------ Responsive ------------

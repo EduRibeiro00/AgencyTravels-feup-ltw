@@ -4,13 +4,14 @@ include_once('../database/db_places.php');
 include_once('../database/db_location.php');
 include_once('../includes/img_upload.php');
 
+$message = 'welcome';
 
 if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $message = 'user not logged in';
 } else {
-    $ownerID = $_POST['ownerID'];
+    $ownerID = $_POST['userID'];
     $title = $_POST['title'];
-    $desc = $_POST['desc'];
+    $desc = $_POST['description'];
     $address = $_POST['address'];
     $city = $_POST['city'];
     $country = $_POST['country'];
@@ -18,19 +19,18 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $numBathrooms = $_POST['numBathrooms'];
     $capacity = $_POST['capacity'];
 
+    $images = $_FILES['imagePlaceFile']['tmp_name'];
 
-    $files_array = $_FILES['imageFile']['tmp_name'];
-    //Going to iterate all images and parse just the valid ones
-    $files_array_length=count($files_array);
-
-    for ($i = 0; $i < $files_array_length; $i++) {
-
-        if (!checkIfImageIsValid($files_array[$i])) {
+    //Going to iterate all images and parse just the valid ones    
+    $total = count($images);
+    
+    for( $i=0 ; $i < $total ; $i++ ) {
+            
+        if (!checkIfImageIsValid($images[$i])) {
             $message = 'invalid image';
             break;
         }
     }
-
     //IF THE ERROR MESSAGE WAS NOT TRIGGERED, CONTINUE
     if (strcmp($message, 'invalid image') > 0) {
 
@@ -46,7 +46,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
             is_numeric($numBathrooms) &&
             is_numeric($capacity)
         ) {
-
+    
 
             //WHEN WE INSERT A NEW PLACE WE MUST FIRST CHECK IF THERE IS ALREADY A LOCATION WITH THAT ID, IF NOT -> CREATE
             $array_locations = locationGetID($city, $country);
@@ -60,32 +60,36 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                 }
                 $locationID = locationGetID($city, $country)['locationID'];
             } else {
+        
                 $locationID = $array_locations['locationID'];
             }
 
             if (is_null($locationID)) {
+        
                 $message = 'Location ID NULL';
             } else {
+        
                 $message = newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID);
             }
+        
 
-            if(strcmp($message,'true')==0){
-                
                 //GET THE NEW PLACE ID
-                $placeID=getPlaceID($title,$address,$ownerID)['placeID'];
+                $placeID = getPlaceID($title, $address, $ownerID)['placeID'];
 
-
-                for($j=0;$j<$files_array_length;$j++){
-                    if(uploadPlaceImage($placeID,$files_array[$j])!=true){
-                        $message='Invalid IMAGE';
+                for( $i=0 ; $i < $total ; $i++ ) {
+            
+                    if (uploadPlaceImage($placeID, $images[$i]) != true) {
+                        $message = 'Invalid IMAGE';
                         break;
                     }
                 }
-            }
-
-        } else {
-            $message = 'Parameters not validated';
+            
         }
+    } else {
+
+        $message = 'Parameters not validated';
     }
+
 }
+
 echo json_encode(array('message' => $message));
