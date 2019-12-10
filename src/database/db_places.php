@@ -298,7 +298,7 @@ function getPlaceID($title,$address,$ownerID){
 						  ');
     
     $stmt->execute(array($title, $address, $ownerID));
-    return $stmt->fetchAll();
+    return $stmt->fetch();
 
 
 }

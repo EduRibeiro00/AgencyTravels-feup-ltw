@@ -19,23 +19,23 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $numBathrooms = $_POST['numBathrooms'];
     $capacity = $_POST['capacity'];
 
+    $images = $_FILES['imagePlaceFile']['tmp_name'];
 
     //Going to iterate all images and parse just the valid ones    
-    $total = count($_FILES['imagePlaceFile']['name']);
-
-    $i = 0;
-    foreach ($_FILES['imagePlaceFile']['name'] as $filename) {
-        if (!checkIfImageIsValid($_FILES['imagePlaceFile']['tmp_name'][$i])) {
+    $total = count($images);
+    $j=0;
+    
+    for( $i=0 ; $i < $total ; $i++ ) {
+            
+        if (!checkIfImageIsValid($images[$i])) {
             $message = 'invalid image';
             break;
         }
-        $i = $i + 1;
     }
-
     //IF THE ERROR MESSAGE WAS NOT TRIGGERED, CONTINUE
     if (strcmp($message, 'invalid image') > 0) {
 
-
+        $j=1;
         //Validate Inputs
         if (
             !is_numeric($title) &&
@@ -47,7 +47,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
             is_numeric($numBathrooms) &&
             is_numeric($capacity)
         ) {
-
+            $j=2;
 
             //WHEN WE INSERT A NEW PLACE WE MUST FIRST CHECK IF THERE IS ALREADY A LOCATION WITH THAT ID, IF NOT -> CREATE
             $array_locations = locationGetID($city, $country);
@@ -61,36 +61,36 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                 }
                 $locationID = locationGetID($city, $country)['locationID'];
             } else {
+                $j=3;
                 $locationID = $array_locations['locationID'];
             }
 
             if (is_null($locationID)) {
+                $j=4;
                 $message = 'Location ID NULL';
             } else {
+                $j=5;
                 $message = newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID);
             }
-
-            if (strcmp($message, 'true') == 0) {
+                $j=6;
 
                 //GET THE NEW PLACE ID
                 $placeID = getPlaceID($title, $address, $ownerID)['placeID'];
 
-                $j = 0;
-
-                foreach ($_FILES['imagePlaceFile']['name'] as $filename) {
-
-                    if (uploadPlaceImage($placeID, $_FILES['imagePlaceFile']['tmp_name'][$j]) != true) {
+                for( $i=0 ; $i < $total ; $i++ ) {
+                    $j=7;
+                    if (uploadPlaceImage($placeID, $images[$i]) != true) {
                         $message = 'Invalid IMAGE';
                         break;
                     }
-                    $j = $j + 1;
                 }
-            }
+            
         }
     } else {
+        $j=8;
         $message = 'Parameters not validated';
     }
 
 }
-$message=$total;
+
 echo json_encode(array('message' => $message));
