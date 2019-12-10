@@ -65,6 +65,15 @@
     }
 
 
+    function cancelUserReservation($reservationID) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('DELETE
+                              FROM Reservation
+                              WHERE reservationID = ?'
+                            );
+        return $stmt->execute(array($reservationID));
+    }
+
     
     function getReviewsForUserPlaces($userID, $limit) {
         $db = Database::instance()->db();

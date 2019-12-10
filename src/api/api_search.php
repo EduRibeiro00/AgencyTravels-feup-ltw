@@ -1,4 +1,5 @@
 <?php
+	include_once('../includes/session_include.php');
 	include_once('../database/db_places.php');
 	
 	if(isset($_POST["val"])){	

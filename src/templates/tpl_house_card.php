@@ -60,8 +60,8 @@ function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 			<section class="column card-options">
 
 				<?php  
-					if(canCancelReservation($place['startDate'])) { ?>
-						<a class="button" href="my_house_edit.php?placeID=<?=$place['placeID']?>"> 
+					if(!canCancelReservation($place['startDate'])) { ?>
+						<a class="button cancel-button" href="#" data-id="<?=$place['reservationID']?>"> 
 							Cancel
 						</a>
 			   <?php } 
