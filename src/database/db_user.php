@@ -31,6 +31,39 @@
         return $all_places;
     }
 
+
+    function getUserReservations($userID) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT *
+                              FROM Reservation NATURAL JOIN Place
+                              WHERE touristID = ?'
+                            );
+        $stmt->execute(array($userID));
+        $all_places = $stmt->fetchAll();
+        for($i = 0; $i < count($all_places); $i++) {
+            $all_places[$i]['images'] = getPlaceImages($all_places[$i]['placeID']);
+            $all_places[$i]['reviewID'] = getReviewForReservation($all_places[$i]['reservationID']);
+        }
+        return $all_places;
+    }
+
+    function getReviewForReservation($reservationID) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT reviewID
+                              FROM Review
+                              WHERE reservationID = ?'
+                            );
+        $stmt->execute(array($reservationID));
+        $review = $stmt->fetch();
+        if($review === false) {
+            return false;
+        }
+        else {
+            return $review['reviewID'];
+        }
+    }
+
+
     
     function getReviewsForUserPlaces($userID, $limit) {
         $db = Database::instance()->db();
@@ -114,7 +147,7 @@
         return $stmt->fetch();
     }
     
-    function getUserNumberofReservations($userID){
+    function getUserPlacesNumberofReservations($userID){
         $db = Database::instance()->db();
 
         $stmt = $db->prepare('SELECT count(*) as cnt

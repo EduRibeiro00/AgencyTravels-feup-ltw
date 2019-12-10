@@ -4,7 +4,7 @@ include_once('../database/db_user.php');
 include_once('../database/db_places.php');
 
 function draw_my_houses_body($houseOwnerInfo, $myHouses, $numReservs) { ?>
-    <main id="my-houses-container">
+    <main id="my-container">
     <?php draw_my_houses_header($houseOwnerInfo, $numReservs);
           list_houses($myHouses, "My_Houses", $houseOwnerInfo['userID']); ?>
     </main>
@@ -12,8 +12,8 @@ function draw_my_houses_body($houseOwnerInfo, $myHouses, $numReservs) { ?>
 
 function draw_my_houses_header($houseOwnerInfo, $numReservs) { ?>
     <h3>My Houses</h3>
-    <section id="my-houses-header" class="row">
-        <div id="my-houses-owner-info" class="row">
+    <section id="my-header" class="row">
+        <div id="my-user-info" class="row">
             <div class="row">
                 <a class="circ-img-link" href="../pages/profile_page.php?userID=<?=$houseOwnerInfo['userID']?>">
                     <img class="circular-img" src="../assets/images/users/small/<?=$houseOwnerInfo['image']?>">

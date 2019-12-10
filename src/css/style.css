@@ -750,8 +750,6 @@ main#profile-page .place-listing {
 	width: 16em;
 	height: 11.5em;
 	object-position: center;
-	/* TODO: ver esta prop */
-	object-fit: none;
 }
 
 .card .info h4{
@@ -769,6 +767,7 @@ main#profile-page .place-listing {
 
 .card-options {
     justify-content: space-evenly;
+    margin-left: 1em;
 }
 
 .card-options > * {
@@ -878,6 +877,10 @@ section#map img {
 
 .fas.fa-star {
 	color: var(--yellow_color);
+}
+
+.fa.fa-star {
+	color: var(--border_color);
 }
 
 /* TODO: por na mesma coluna check in check out que os de baixo */
@@ -1232,7 +1235,7 @@ footer a {
 }
 
 /**
- * ------------ My houses ------------
+ * ------------ My houses and My reservations ------------
  */
 
 #new-place-button {
@@ -1240,40 +1243,40 @@ footer a {
     display: block;
 }
 
-#my-houses-header {
+#my-header {
     align-items: center;
     font-size: 1.5em;
     justify-content: space-between;
     max-width: 100%;
 }
 
-#my-houses-header p {
+#my-header p {
     padding-right: 3em;
     color: black;   
 }
 
-#my-houses-header a {
+#my-header a {
     font-size: 1em;
 }
 
-#my-houses-header img {
+#my-header img {
     height: 3em;
     width: 3em;
 }
 
-#my-houses-owner-info {
+#my-user-info {
     flex-grow: 1;
     justify-content: flex-start;
     border-bottom: 3px var(--main_color) solid;
     padding-bottom: 0.3em;
 }
 
-#my-houses-owner-info div:first-child {
+#my-user-info div:first-child {
     margin-left: 1em;
     flex-grow: 1;
 }
 
-#my-houses-owner-info a {
+#my-user-info a {
     margin-right: 1em;
 }
 

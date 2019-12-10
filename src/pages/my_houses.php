@@ -30,7 +30,7 @@
         $myHouses[$i]['nVotes'] = getPlaceNumVotes($myHouses[$i]['placeID']);
     }
 
-    $numReservs = getUserNumberofReservations($houseOwnerID);
+    $numReservs = getUserPlacesNumberofReservations($houseOwnerID);
 
     draw_head($jsFiles);
     draw_navbar($user_info, false);

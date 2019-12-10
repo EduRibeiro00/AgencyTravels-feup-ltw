@@ -30,28 +30,62 @@ function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 			</footer>
 			</div>
 		</a>
-		<?php
 
-
-		if($drawingOption == 'My_Houses' && isset($_SESSION['userID']) && $_SESSION['userID'] == $userID){ ?>
+<?php 	if($drawingOption == 'My_Houses' && isset($_SESSION['userID']) && $_SESSION['userID'] == $userID) { ?>
 			<div class="column card-options">
 				<a class="button" href="my_house_edit.php?placeID=<?=$place['placeID']?>"> 
 					Edit
 				</a>
 			
 				<a class="button" href="my_house_edit.php?placeID=<?=$place['placeID']?>"> 
-					Statistics
+					Remove
 				</a>
 				
 				<a class="button" href="my_house_edit.php?placeID=<?=$place['placeID']?>"> 
 					Reservations
 				</a>
 			</div>
-		<?php } 
-		 else if($drawingOption == "My_Reserves") {
-			// TODO: drawing options for My Reservations page
-		 } ?>
+   <?php } 
+		 else if($drawingOption == "My_Reservs" && isset($_SESSION['userID']) && $_SESSION['userID'] == $userID) { ?>
+			<div class="reserv-dates column">
+				<p>Reservation from:</p>
+				<p><?=$place['startDate']?></p>
+				<p>Until:</p>
+				<p><?=$place['endDate']?></p>
+			</div>
+			
+			<div class="column card-options">
 
+				<?php  
+					if(canCancelReservation($place['startDate'])) { ?>
+						<a class="button" href="my_house_edit.php?placeID=<?=$place['placeID']?>"> 
+							Cancel
+						</a>
+			   <?php } 
+			   
+					 if(canReviewPlace($place['endDate'])) { ?>
+						<a class="button" href="my_house_edit.php?placeID=<?=$place['placeID']?>"> 
+							Review place
+						</a> 
+					<?php } ?>
+			</div>
+		<?php } ?>
+	
 	</article>
-		
-<?php } ?>
+<?php }
+
+
+// user can cancel reservation up to 3 days before
+function canCancelReservation($reservationStartDate) {
+	$currentDate = date('Y-m-d');
+	$dateDifference = date_diff(date_create($currentDate), date_create($reservationStartDate));
+
+	return ($reservationStartDate > $currentDate && $dateDifference->format('%a') >= 3);
+} 
+
+
+// user can review place after reservation has ended
+function canReviewPlace($reservationEndDate) {
+	$currentDate = date('Y-m-d');
+	return $currentDate > $reservationEndDate;
+} ?>
