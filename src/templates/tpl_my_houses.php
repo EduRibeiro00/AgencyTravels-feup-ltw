@@ -163,6 +163,11 @@ function draw_form($place=null,$edit_menu=false)
                 <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile[]" multiple data-hasFile=<?=$hasFile?> >
             </section>
 
+            <section id="img-delete_place_add" class="row">
+            
+            </section>
+
+
             </article>
 
             </fieldset>
