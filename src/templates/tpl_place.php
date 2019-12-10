@@ -13,33 +13,23 @@ function first_line() { ?>
 <?php } ?>
 
 
-<?php function draw_my_place_sidebar($house_avg_price,$house_rating, $house_owner_info, $placeID) { ?>
-
+<?php function draw_my_place_sidebar($housePrice,$house_rating, $house_owner_info, $placeID) { ?>
     <aside id="Pop_UP_Fast_Reservation">
-
         <section id=Pop_UP_Fast_Reservation_Review_Short>
             <p>Price per night</p>
-  
-            <p id="side_price_per_night"><?=round($house_avg_price,2)?>€</p>
-
+            <p id="side_price_per_night"><?=$housePrice?>€</p>
             <?php draw_star_rating($house_rating) ?>
-
         </section>
 
-        <section id="Pop_UP_Fast_Reservation_Inputs">
-            
+		<section id="Pop_UP_Fast_Reservation_Inputs">
             <form>
                 <?php if($placeID != null) { ?>
                     <input type="hidden" name="placeID" value=<?=$placeID?>>
                 <?php } ?>
-
-                <input id="Date_Start" type="date" name="check_in_date">
-                <input id="Date_End" type="date" name="check_out_date">
-                <br>
+                <input id="fr_checkin" type="text" name="check_in_date">
+                <input id="fr_checkout" type="text" name="check_out_date">
                 <input id="Book_Submit_Button" type="submit">
-
             </form>
-
         </section>
 
         <section id="Owner_info">
@@ -48,11 +38,8 @@ function first_line() { ?>
             </a>
             <span><?=$house_owner_info['name']?></span>
             <form>
-                <button id="Button_Send_Message">
-                    Send Message
-                </button>
+                <button id="Button_Send_Message">Send Message</button>
             </form>
-
         </section>
 
     </aside>

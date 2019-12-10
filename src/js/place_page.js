@@ -29,6 +29,32 @@ let inlineCal = new Lightpick({
 	onSelect		: priceDay
 });
 
+let checkin = document.getElementById('fr_checkin')
+let checkout = document.getElementById('fr_checkout')
+
+let reservationCal = new Lightpick({
+	field			: checkin,
+    secondField		: checkout,
+	format			: 'YYYY-MM-DD',
+	dropdowns		: {
+			years: {
+				min: 2019,
+				max: 2139,
+			},
+			months: true
+	},
+	minDate			: new Date(),
+	minDays			: 2,
+	autoclose		: false,
+	footer			: true,
+	numberOfMonths	: 1,
+	singleDate		: false,
+	tooltipNights	: true,
+	fixed			: true,
+	disabledDatesInRange: false
+
+});
+
 function priceDay(date){
 	if(date == null)
 		return
@@ -39,7 +65,6 @@ function priceDay(date){
 	
 	req.addEventListener('load', function() {
 		let message = JSON.parse(this.responseText).price
-		console.log(message)
 		inlineCal.showPrice(message + "€")
 
 	});
@@ -50,16 +75,22 @@ function priceDay(date){
 
 //Sticky sideBar_Fast reservation
 window.onload = function () {
-	let navbar = document.querySelector('#navbar');
+	let navbar = document.getElementById('navbar');
 
 	let someElement = document.getElementById('Pop_UP_Fast_Reservation')
 	const value = navbar.offsetHeight - window.screenY
 	window.addEventListener('scroll', function () {
 		if (window.pageYOffset >= (value - 100)) {
 			someElement.style.top = "4em"
+			console.log("aqui - 4")
+			// reservationCal.fixed = true
 		}
 		else {
+			console.log("aqui - 0")
+
 			someElement.style.top = "0"
+			// reservationCal.fixed = false
+
 		}
 
 	})
@@ -74,6 +105,9 @@ window.onload = function () {
 		inlineCal.setMinDate(message.startDate)
 		inlineCal.setMaxDate(message.endDate)
 
+		reservationCal.setMinDate(message.startDate)
+		reservationCal.setMaxDate(message.endDate)
+
 		let disableDates = []
 		if(message.invalidDates != null){
 			message.invalidDates.forEach(iD => {
@@ -81,6 +115,7 @@ window.onload = function () {
 			})
 
 			inlineCal.setDisableDates(disableDates)
+			reservationCal.setDisableDates(disableDates)
 		}
 
 	});

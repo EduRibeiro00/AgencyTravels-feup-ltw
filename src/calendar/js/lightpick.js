@@ -535,8 +535,7 @@
 		  opts.endDate ||
 		  !opts.disableDates
 		)
-		  return;
-  
+		  return;  
 		var days = el.querySelectorAll('.lightpick__day'),
 		  disabledArray = opts.disableDates.map(function(entry) {
 			return entry instanceof Array ||
@@ -1420,9 +1419,8 @@
   
 	  setDisableDates: function(dates) {
 		this._opts.disableDates = dates;
-  
 		if (this.isShowing) {
-		  updateDates(this.el, this._opts);
+			updateDates(this.el, this._opts);
 		}
 	  },
 
