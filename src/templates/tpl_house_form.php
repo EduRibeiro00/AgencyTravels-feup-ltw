@@ -83,14 +83,20 @@ function draw_form($place = null, $edit_menu = false) {
                                 //LOAD THE MEDIUM SIZE IMAGE
                                 if ($i === 0) {
                                     $str_aux = $imagePreview_medium.$imagearray[0]['image'];
-                            ?>
-                                    <img class="edit_place_img_medium" src="<?=$str_aux?>">
+                            ?>  
+                                    <div class="img_edit_local_container">
+                                    <i class="fas fa-times delete_image_local" data-hash="<?=$imagearray[$i]['image']?>"></i>
+                                        <img class="edit_place_img_medium" src="<?=$str_aux?>">
+                                    </div>
 
                             <?php
                                     } else {
                                         $str_aux = $imagePreview_small . $imagearray[$i]['image'];
                                         ?>
-                                <img class="edit_place_img_small" src="<?= $str_aux ?>">
+                            <div class="img_edit_local_container">
+                                <i class="fas fa-times delete_image_local"data-hash="<?=$imagearray[$i]['image']?>"></i>
+                                <img class="edit_place_img_small" src="<?= $str_aux?>">
+                            </div>
                             <?php } 
                             }
                             ?>

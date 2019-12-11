@@ -16,7 +16,6 @@ let profileFormImage = document.getElementById('img-to-upload');
 let image_block_preview = document.querySelector('#house_form_img_preview');
 let imageInput = document.querySelector('input#imageFile_add_place');
 //Going to update the sizeof the medium photo
-let localImages=document.querySelector('#house_form_img_local .edit_place_img_medium');
 //In order to be possible to append childs
 let image_delete_preview=document.querySelector('#img-delete_place_add');
 let img_id=0;
@@ -47,6 +46,8 @@ function generateImgDivContainer(imgSrc){
 imageInput.addEventListener('change', function (event) {
 
     //UPDATE THE FIRST LOCAL PHOTO TO SMALL
+    let localImages=document.querySelector('#house_form_img_local img');
+    
     if(localImages!=null){
         localImages.className="edit_place_img_small";
     }
@@ -81,6 +82,8 @@ imageInput.addEventListener('change', function (event) {
                         is_empty=false;
                     }
                 }
+
+                
 
                 //IF THE INPUT BECOMES EMPTY RESET THE SIZE OF THE FIRST IMAGE
                 //!=NULL could be add form there are no local photos

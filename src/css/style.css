@@ -1369,6 +1369,19 @@ footer a {
     display: flex;
     flex-direction: row;
 }
+#house_form_img_local{
+    display: flex;
+    flex-direction: row;
+}
+
+.img_edit_local_container{
+    position: relative;
+}
+.delete_image_local{
+    top: 0.3em;  
+    right: 1.5em;
+    color: red;
+}
 
   
 
