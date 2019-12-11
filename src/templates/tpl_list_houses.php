@@ -16,6 +16,13 @@ function getPlaces(){
 	
 	// TODO: mudar para ou e se tiver apenas 1 -> somar um dia / subtrair um dia à outra
 	$foundDates = ($checkin != null && $checkout != null);
+	if($foundDates){
+		$ph  = explode("/", $checkin);
+		$checkin = $ph[2] . "-" . $ph[1] . "-" . $ph[0];
+
+		$ph  = explode("/", $checkout);
+		$checkout = $ph[2] . "-" . $ph[1] . "-" . $ph[0];
+	}
 
 	if (isset($_GET['search'])) {
 		// TODO: parsed parameters

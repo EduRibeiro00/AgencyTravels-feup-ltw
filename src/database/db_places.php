@@ -171,6 +171,16 @@ function getAveragePrice($placeID) {
 	return $stmt->fetch();
 }
 
+function getPrice($placeID, $date) {
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT pricePerNight as price
+                          FROM Availability
+                          WHERE placeID = ?
+						  AND date(?) <= date(endDate) AND date(?) >= date(startDate)');
+	$stmt->execute(array($placeID, $date, $date));
+	return $stmt->fetch();
+}
+
 function getTopDestinations() {
     $db = Database::instance()->db();
     $stmt = $db->prepare('SELECT *, (SELECT image
@@ -224,6 +234,23 @@ function getHouseComments($place_id) {
     return $stmt->fetchAll();
 }
 
+function getFromDayForwardReservations($placeID, $day) {
+	$db = Database::instance()->db();
+	$stmt = $db->prepare('SELECT Reservation.*
+						  FROM Reservation Natural Join Place
+						  WHERE placeID = ? AND date(?) < date(endDate)');
+	$stmt->execute(array($placeID, $day));
+	return $stmt->fetchAll();
+}
+
+function getFromDayForwardAvailabilities($placeID, $day) {
+	$db = Database::instance()->db();
+	$stmt = $db->prepare('SELECT Availability.*
+						  FROM Availability Natural Join Place
+						  WHERE placeID = ? AND date(?) < date(endDate)');
+	$stmt->execute(array($placeID, $day));
+	return $stmt->fetchAll();
+}
 
 function updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $numRooms, $numBathrooms, $capacity){
     $db = Database::instance()->db();
@@ -270,7 +297,6 @@ function newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms
     //TODO:UPDATE LOCATION NOT IMPLEMENTED
 
     return true;
-
 }
 
 function getPlaceID($title,$address,$ownerID){
@@ -284,6 +310,6 @@ function getPlaceID($title,$address,$ownerID){
     
     $stmt->execute(array($title, $address, $ownerID));
     return $stmt->fetch();
-
-
 }
+
+?>

@@ -6,9 +6,9 @@ function draw_search_form() { ?>
 		<fieldset id="dates_field">
 			<h4>Dates</h4>
 			<label for="checkin">Check In</label>
-			<input type="date" id="checkin" name="checkin" min="2019-11-23">
+			<input type="text" id="checkin" name="checkin">
 			<label for="checkout">Check Out</label>
-			<input type="date" id="checkout" name="checkout">
+			<input type="text" id="checkout" name="checkout">
 		</fieldset>
 		<fieldset id="guests_field">
 			<h4>Guests</h4>

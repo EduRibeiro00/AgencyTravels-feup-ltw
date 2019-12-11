@@ -1,3 +1,5 @@
+@import "./constants.css";
+
 /* TODO: uniformizar botoes */
 *,
 *:before,
@@ -16,27 +18,6 @@ body {
 
     min-height: 100%;
     width: 100%;
-    
-    --background_color: #f9f9f9;
-    --darker_bg_color: #f5f0f0;
-    --main_color: #e47c78;
-    --footer_color: #a59b9b;
-	--transp_main_color: rgba(228, 124, 120, 0.7); /* rgba format so it doesn't make the text transparent, only the background */
-	--yellow_color: #f1ee2d;
-    --error_msg_color: #be1e1e;
-
-    --light_text_color: #f3f3f6;
-    --border_color: #868686;
-
-	--default_text_font: "Trebuchet MS", Helvetica, sans-serif;
-    
-	/* TODO: passar para javascript para n ser hardcoded */
-	--footer_height: 4em;
-	--footer_padding: 1em;
-	--footer_border: 20px;
-	/* TODO: ver como se passa par js */
-	--nav_padding: 0.4em;
-	--nav_height: 3.5em;
 }
 
 h1, h2, h3, h4, h5, h6, a, p, label {
@@ -170,7 +151,7 @@ body > nav {
 }
 
 #navbar {
-	z-index: 250;
+	z-index: 501;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -1056,22 +1037,29 @@ footer a {
 /* TODO: por inputs bonitos */
 /*---------------------place_info.php-----
 */
-#Place_Info_Container{
+#place_page{
+	/* TODO: ver */
+	color: black;
     display: grid;
     grid-template-columns: auto auto;
-    grid-template-rows:auto auto auto auto auto;
-    grid-template-areas: 
-                        "Info Aside"
-                        "Map Aside"
-                        "Reviews Aside"
-                        "Avaiability Avaiability"
+    grid-template-rows:auto auto;
+    grid-template-areas:"Column Aside"
                         "Similar Similar";                        
 }
 
+#place_page section.column{
+	grid-area: Column;
+}
+
+#place_page aside{
+	grid-area: Aside;
+}
+
+#fr_card {
+	position: sticky;
+}
+
 #House_Info{
-    grid-area:Info;
-    margin-left: 6rem;
-    margin-right: 2rem;
     border-bottom: 2px;
     border-bottom-color: var(--main_color);
     border-bottom-style: solid;
@@ -1081,7 +1069,6 @@ footer a {
 }
 
 #House_Info header{
-    
     font-size: 2rem;
     padding-bottom: 0.1em;
     border-bottom-style: solid;
@@ -1121,17 +1108,6 @@ footer a {
     height: 1em; 
 }
 
-#Pop_UP_Fast_Reservation{
-    grid-area:Aside;
-    border-left: 3px;
-    padding-left: 0.2em;
-    border-top:1em;
-    position: -webkit-sticky;
-    position: sticky;
-    top:0;
-    left: 55%;
-    height: 25vh;
-}
 #Owner_info{
     margin-top: 1em;
 }
@@ -1147,7 +1123,7 @@ footer a {
     margin-top:1em;
     margin-left: 6em;
 }
-#Pop_UP_Fast_Reservation img{
+#fr_card img{
     width: 3em;
     height: 3em;
     float: left;
@@ -1155,9 +1131,6 @@ footer a {
 }
 
 #Google_Maps_Widget_Container{
-    grid-area:Map;
-    margin-left: 6rem;
-    margin-right: 2rem;
     border-bottom-style: solid;
     border-bottom-width: 3px;
     border-bottom-color: var(--main_color);
@@ -1169,7 +1142,6 @@ footer a {
 }
 
 #Reviews_Container{
-    grid-area:Reviews;
     margin-left: 6rem;
     margin-right: 1rem;    
 }
@@ -1191,26 +1163,16 @@ footer a {
 
 }
 
-#Avaiabilities{
-    margin-top: 1em;
-    margin-left: 6rem;
-    grid-area:Avaiability;
+
+/* TODO: limpar forma como h4 e padding top é definido */
+#availabilities{
     border-bottom-style: solid; 
     border-bottom-width: 3px;
-    border-bottom-color: var(--main_color);
-
+	border-bottom-color: var(--main_color);
 }
 
-#Avaiabilities_Calendars form{
-    display: inline;
-}
-
-#Avaiabilities_Calendars p{
-    display: inline;
-}
-
-#Avaiabilities_Number_Guests select{
- margin-bottom: 1em;   
+#availabilities input{
+	display: none;
 }
 
 #Similar_Offers_Container{
@@ -1220,8 +1182,6 @@ footer a {
     align-items: center;
     flex-wrap: nowrap;
     flex-direction: row;
-    margin-left: 6rem;
-    margin-right: 2rem;
 }
 #Similar_Offers_Container img{
     width: 100%;
@@ -1232,12 +1192,9 @@ footer a {
     flex-basis: 20%;
 }
 #Similar_Offers_Center{
-    margin-top: 2em;
-
     flex-basis: 40%;
 }
 #Similar_Offers_Right{
-
     flex-basis: 20%;
 }
 

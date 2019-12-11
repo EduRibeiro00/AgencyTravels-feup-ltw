@@ -8,6 +8,36 @@ function encodeForAjax(data) {
 
 // -------------
 
+let checkin = document.getElementById('checkin')
+let checkout = document.getElementById('checkout')
+
+new Lightpick({
+	field			: checkin,
+    secondField		: checkout,
+	// format			: 'DD/MM/YYYY',
+	dropdowns		: {
+			years: {
+				min: 2019,
+				max: 2139,
+			},
+			months: true
+	},
+	minDate			: new Date(),
+	minDays			: 2,
+	autoclose		: false,
+	footer			: true,
+	numberOfMonths	: 2,
+	singleDate		: false,
+	tooltipNights	: true,
+	fixed			: true
+});
+
+let cal = document.getElementsByClassName("lightpick")[0]
+cal.addEventListener('click', function(ev) {
+	ev.stopPropagation();
+})
+
+
 //// Seach appearance
 let searchForm = document.getElementById("search_form")
 searchForm.addEventListener("focusin", function() {
@@ -23,34 +53,6 @@ function closeWindow() {
 	document.getElementById("filters").style.display = "none"
 	resultDropdown.innerHTML = ""
 	window.removeEventListener("click", closeWindow)
-}
-
-let checkin = document.getElementById('checkin')
-let checkout = document.getElementById('checkout')
-
-///// Min Checkin
-function setMinimumCheckin() {
-	let today = new Date()
-	let todayHTML = today.getFullYear()+'-'+('0'+(today.getMonth()+1)).slice(-2)+'-'+('0'+(today.getDate())).slice(-2)
-	checkin.min = todayHTML
-}
-
-setMinimumCheckin()
-
-//// Checkout > checkin
-checkin.addEventListener('change', updateCheckout)
-
-function updateCheckout() {
-	let firstdate = checkin.value
-	if(firstdate == null) firstdate = checkin.min
-
-	let fdJS = new Date(firstdate)
-
-	fdJS.setDate(fdJS.getUTCDate()+1)
-
-	let nextDay = fdJS.getFullYear()+'-'+('0'+(fdJS.getMonth()+1)).slice(-2)+'-'+('0'+(fdJS.getDate())).slice(-2)
-	
-	checkout.min = nextDay
 }
 
 //// MaxPrice > Min Price

@@ -8,10 +8,10 @@ function encodeForAjax(data) {
 
 // -------------
 
-let profileForm = document.querySelector('#Pop_UP_Fast_Reservation form');
+let priceForm = document.querySelector('#fr_card form');
 
 
-profileForm.addEventListener('submit', function(event) {
+priceForm.addEventListener('submit', function(event) {
     event.preventDefault();
 	
 	let request = new XMLHttpRequest();
@@ -20,36 +20,32 @@ profileForm.addEventListener('submit', function(event) {
 	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 
 	request.addEventListener('load', function() {
-        
-        let message = JSON.parse(this.responseText).message;
-        console.log(message['price'])
+		let message = JSON.parse(this.responseText).message;
+		let priceEl = document.getElementById('side_price_per_night')
 
-
-            
 		switch(message) {        
-            case 'false':
-				
-				
-            break
-            
-            //Retornou algo aplicar DOM para alterar o valor do price per night
+			case 'Invalid submission', -3:
+				// TODO: por algo mais bonito
+				priceEl.innerHTML = "Submission missing parameters"
+				break;
+			case -2:
+				priceEl.innerHTML = "Wrong Range: there is a gap in Availabilities"
+				break;
+			case -1:
+				priceEl.innerHTML = "Reservation Overlap"
+				break;
             default:
-
-                let price_element=document.getElementById('side_price_per_night')
-
-                price_element.innerHTML=message['price']+'€'
-                
-
-			break;
+				priceEl.innerHTML=message+'€'
+				break;
         }
     
     });
     
-    let placeID=document.querySelector('#Pop_UP_Fast_Reservation_Inputs input[name="placeID"]').value
-    let check_in_date = document.querySelector('#Pop_UP_Fast_Reservation_Inputs input[name="check_in_date"]').value
-    let check_out_date = document.querySelector('#Pop_UP_Fast_Reservation_Inputs input[name="check_out_date"]').value
-  
-    request.send(encodeForAjax({placeID:placeID,check_in_date: check_in_date,check_out_date:check_out_date}));
+	let placeID = document.querySelector('#Pop_UP_Fast_Reservation_Inputs input[name="placeID"]').value
+	let checkin = document.querySelector('#Pop_UP_Fast_Reservation_Inputs input[name="check_in_date"]').value
+	let checkout = document.querySelector('#Pop_UP_Fast_Reservation_Inputs input[name="check_out_date"]').value
+
+    request.send(encodeForAjax({placeID:placeID, checkin: checkin, checkout:checkout}));
 });
 
 // -----------

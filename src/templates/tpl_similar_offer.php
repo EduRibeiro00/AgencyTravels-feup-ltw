@@ -22,22 +22,22 @@
 
 function draw_similar_offer_slide_show(){ ?>
 
-    <article id="Similar_Offers_Container">
+    <section id="Similar_Offers_Container">
 
-    <section id="Similar_Offers_Left">
+    <div id="Similar_Offers_Left">
         <?php draw_similar_offer() ?>
+    </div>
+
+    <div id="Similar_Offers_Center">
+        <?php draw_similar_offer() ?>
+    </div>
+
+    <div id="Similar_Offers_Right">
+        <?php draw_similar_offer() ?>
+    </div>        
+
+
     </section>
-
-    <section id="Similar_Offers_Center">
-        <?php draw_similar_offer() ?>
-    </section>
-
-    <section id="Similar_Offers_Right">
-        <?php draw_similar_offer() ?>
-    </section>        
-
-
-    </article>
 
 
 <?php } ?>

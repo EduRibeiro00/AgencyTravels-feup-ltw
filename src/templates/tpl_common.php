@@ -6,8 +6,14 @@ function draw_head($jsArray, $class = null) { ?>
 		<title>Agency Travels</title>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="../css/style.css">
+		<!-- TODO: ver se isto sempre -->
+		<link rel="stylesheet" href="../calendar/css/lightpick.css">
+
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-		<link href="https://fonts.googleapis.com/css?family=Parisienne|Roboto&display=swap" rel="stylesheet"> 
+		<link href="https://fonts.googleapis.com/css?family=Parisienne|Roboto&display=swap" rel="stylesheet">
+		<!-- TODO: ver se isto sempre -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+		<script src="../calendar/js/lightpick.js"></script>
 		<?php foreach($jsArray as $jsFile) { ?>
 			<script src=<?=$jsFile?> defer></script>
 		<?php } ?>

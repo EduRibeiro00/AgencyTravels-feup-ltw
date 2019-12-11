@@ -317,8 +317,8 @@ INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2
 INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-11-01", "2019-12-01", 37.73, 5);
 INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-12-01", "2019-12-06", 38.83, 5);
 INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-12-06", "2019-12-13", 46.64, 5);
-INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-12-13", "2019-12-22", 48.84, 5);
-INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-12-22", "2019-12-28", 52.25, 5);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-12-15", "2019-12-22", 48.84, 5);
+INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-12-23", "2019-12-28", 52.25, 5);
 INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES ("2019-12-28", "2020-01-03", 59.99, 5);
 
 -- Reservation
