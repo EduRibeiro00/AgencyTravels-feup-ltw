@@ -1,6 +1,7 @@
 <?php 
 include_once('../templates/tpl_common.php');
 include_once('../database/db_places.php');
+include_once('../includes/reservation_utils.php');
 
 function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 	<article class="row card">
@@ -66,7 +67,7 @@ function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 						</a>
 			   <?php } 
 			   
-					 if(canReviewPlace($place['endDate'])) { ?>
+					 if(canReviewPlace($place['endDate'], $place['reviewID'])) { ?>
 						<a class="button" href="place_info.php?place_id=<?=$place['placeID']?>"> 
 							Review place
 						</a> 
@@ -76,19 +77,3 @@ function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 	
 	</article>
 <?php }
-
-
-// user can cancel reservation up to 3 days before
-function canCancelReservation($reservationStartDate) {
-	$currentDate = date('Y-m-d');
-	$dateDifference = date_diff(date_create($currentDate), date_create($reservationStartDate));
-
-	return ($reservationStartDate > $currentDate && $dateDifference->format('%a') >= 3);
-} 
-
-
-// user can review place after reservation has ended
-function canReviewPlace($reservationEndDate) {
-	$currentDate = date('Y-m-d');
-	return $currentDate > $reservationEndDate;
-} ?>
