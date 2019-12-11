@@ -44,20 +44,41 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     }
 
     //IF THE ERROR MESSAGE WAS NOT TRIGGERED, CONTINUE
-    if (strcmp($message, 'invalid image') > 0) {
+    if (strcmp($message, true_message) == 0) {
 
         //Validate Inputs
-        if (
-            !is_numeric($title) &&
-            !is_numeric($desc) &&
-            !is_numeric($address) &&
-            !is_numeric($city) &&
-            !is_numeric($country) &&
-            is_numeric($numRooms) &&
-            is_numeric($numBathrooms) &&
-            is_numeric($capacity)
-        ) {
+        $inputs_are_valid = true;
 
+        //TODO: TO RETURN A PERSONALIZED MESSAGE
+        if (is_numeric($title)) {
+            $inputs_are_valid = false;
+        }
+        if (is_numeric($desc)) {
+            $inputs_are_valid = false;
+        }
+        if (is_numeric($address)) {
+
+            $inputs_are_valid = false;
+        }
+        if (is_numeric($city)) {
+
+            $inputs_are_valid = false;
+        }
+        if (is_numeric($country)) {
+            $inputs_are_valid = false;
+        }
+        if (!is_numeric($numRooms)) {
+            $inputs_are_valid = false;
+        }
+        if (!is_numeric($numBathrooms)) {
+
+            $inputs_are_valid = false;
+        }
+
+        if (!is_numeric($capacity))
+            $inputs_are_valid = false;
+
+        if ($inputs_are_valid) {
 
             //WHEN WE INSERT A NEW PLACE WE MUST FIRST CHECK IF THERE IS ALREADY A LOCATION WITH THAT ID, IF NOT -> CREATE
             $array_locations = locationGetID($city, $country);
@@ -93,9 +114,9 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                     $message = 'Error while inserting a new place';
                 }
             }
+        } else {
+            $message = 'Parameters not validated';
         }
-    } else {
-        $message = 'Parameters not validated';
     }
 }
 

@@ -9,6 +9,7 @@ function encodeForAjax(data) {
 // -------------
 
 let profileForm = document.querySelector('#place_edit_form form');
+let errorMessage = document.getElementById('place-form-error');
 
 profileForm.addEventListener('submit', function (event) {
 
@@ -25,11 +26,13 @@ profileForm.addEventListener('submit', function (event) {
 
 		switch (message) {
 			case 'true':
-				//errorMessage.style.display = "none";
+				history.back();
 				break;
 
 			default:
-				history.back();
+				errorMessage.textContent = "The username cannot have spaces.";
+				errorMessage.style.display = "block";
+				
 				break;
 		}
 

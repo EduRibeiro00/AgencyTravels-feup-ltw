@@ -144,9 +144,12 @@ function draw_form($place = null, $edit_menu = false) {
                 </article>
             </fieldset>
 
+            <p id="place-form-error" class="error-message"></p>
+
             <div id="edit_place_submit">
                 <input class="button" type="submit" value="Confirm">
             </div>
+
 
         </form>
 

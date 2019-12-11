@@ -32,8 +32,8 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     //IMAGES UPLOADED
     $images = $_FILES['imagePlaceFile']['tmp_name'];
     //CREATE AN ARRAY TO STORE ALL THE VALID IMAGES UPLOADED
-    $images_uploaded_valid=array();
-    $num_images_uploaded_valid=0;
+    $images_uploaded_valid = array();
+    $num_images_uploaded_valid = 0;
     //
     $capacity = $_POST['capacity'];
     $ownerID = $_SESSION['userID'];
@@ -71,7 +71,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
 
         //CHECK IF ALL PHOTOS UPLOADED ARE VALID
         $total = count($images);
-        
+
         for ($i = 0; $i < $total; $i++) {
 
             if ($images[$i] != "") {
@@ -81,23 +81,45 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                     break;
                 }
 
-                $images_uploaded_valid[$num_images_uploaded_valid]=$images[$i];
+                $images_uploaded_valid[$num_images_uploaded_valid] = $images[$i];
                 $num_images_uploaded_valid++;
             }
         }
 
         if (strcmp($message, true_message) === 0) {
             //Validate Inputs
-            if (
-                !is_numeric($title) &&
-                !is_numeric($desc) &&
-                !is_numeric($address) &&
-                !is_numeric($city) &&
-                !is_numeric($country) &&
-                is_numeric($numRooms) &&
-                is_numeric($numBathrooms) &&
-                is_numeric($capacity)
-            ) {
+            $inputs_are_valid = true;
+
+            //TODO: TO RETURN A PERSONALIZED MESSAGE
+            if (is_numeric($title)) {
+                $inputs_are_valid = false;
+            }
+            if (is_numeric($desc)) {
+                $inputs_are_valid = false;
+            }
+            if (is_numeric($address)) {
+
+                $inputs_are_valid = false;
+            }
+            if (is_numeric($city)) {
+
+                $inputs_are_valid = false;
+            }
+            if (is_numeric($country)) {
+                $inputs_are_valid = false;
+            }
+            if (!is_numeric($numRooms)) {
+                $inputs_are_valid = false;
+            }
+            if (!is_numeric($numBathrooms)) {
+
+                $inputs_are_valid = false;
+            }
+
+            if (!is_numeric($capacity))
+                $inputs_are_valid = false;
+
+            if ($inputs_are_valid) {
                 if (updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $numRooms, $numBathrooms, $capacity) != true) {
                     $message = 'Error Updating home';
                 } else {
@@ -109,8 +131,11 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                                 break;
                             }
                         }
-                        if (deletePlaceSelectedPhotos($placeID, $photosToRemove, $num_photos_to_remove) != true) {
-                            $message = 'Error removing the photo';
+                        //IN ORDER TO AVOID AN ERROR OF PHOTOSTOREMOVE BEING NULL. NOT CRITICAL
+                        if($num_photos_to_remove>0){
+                            if (deletePlaceSelectedPhotos($placeID, $photosToRemove, $num_photos_to_remove) != true) {
+                                $message = 'Error removing the photo';
+                            }
                         }
                     }
                 }
