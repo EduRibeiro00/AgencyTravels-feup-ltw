@@ -47,7 +47,9 @@ function generateImgDivContainer(imgSrc){
 imageInput.addEventListener('change', function (event) {
 
     //UPDATE THE FIRST LOCAL PHOTO TO SMALL
-    localImages.className="edit_place_img_small";
+    if(localImages!=null){
+        localImages.className="edit_place_img_small";
+    }
 
     for (let i = 0; i < event.target.files.length; i++) {
         let reader_inside = new FileReader();
@@ -67,22 +69,24 @@ imageInput.addEventListener('change', function (event) {
                 
                 if(pos_delete_array>img_array.length){
                     console.error('DONT TRY TO VIOLATE THE JS ITS USELESS MATE');
+                }else{
+                    img_array[pos_delete_array].remove();
+                    delete img_array[pos_delete_array];
+                }
+                
+                let is_empty=true;
+                //THE INDEX REPRESENT THE INDEX OF LAST ELEMENT. INCOMPATIBLE WITH REMOVE. REMOVE IS NOT AVOIDABLE HERE
+                for(let i=0;i<img_array.length;i++){
+                    if(img_array[i]!=null){
+                        is_empty=false;
+                    }
                 }
 
-                img_array[pos_delete_array].remove();
-                delete img_array[pos_delete_array];
-                img_array.length--;
-                
                 //IF THE INPUT BECOMES EMPTY RESET THE SIZE OF THE FIRST IMAGE
-                if(img_array.length==0){
+                //!=NULL could be add form there are no local photos
+                if(is_empty==true&&localImages!=null){
                     localImages.className="edit_place_img_medium";
                 }
-                //remove_button.remove()
-                /*
-                let obj=event.target;
-                let pos_delete_array=obj.href[obj.href.length-1]
-                */
-        
             }
             )
         });

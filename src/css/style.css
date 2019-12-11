@@ -1365,6 +1365,10 @@ footer a {
 .delete_image_preview{
     color: red;
 }
+#house_form_img_preview{
+    display: flex;
+    flex-direction: row;
+}
 
   
 
