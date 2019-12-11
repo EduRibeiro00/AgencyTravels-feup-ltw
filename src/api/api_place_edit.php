@@ -5,6 +5,12 @@ include_once('../includes/img_upload.php');
 
 const true_message = 'true';
 
+
+function check_File_Integrity($imageName, $array_fileNames)
+{
+    return in_array($imageName, $array_fileNames);
+}
+
 function find_photo_in_database_array($photo_hash, $images_place_from_database, $images_place_from_database_len)
 {
     for ($i = 0; $i < $images_place_from_database_len; $i++) {
@@ -30,13 +36,38 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $numRooms = $_POST['numRooms'];
     $numBathrooms = $_POST['numBathrooms'];
     //IMAGES UPLOADED
-    $images = $_FILES['imagePlaceFile']['tmp_name'];
-    //CREATE AN ARRAY TO STORE ALL THE VALID IMAGES UPLOADED
-    $images_uploaded_valid = array();
-    $num_images_uploaded_valid = 0;
     //
     $capacity = $_POST['capacity'];
     $ownerID = $_SESSION['userID'];
+
+    $array_fileNames = array();
+
+    $fileName0 = $_POST['File0'];
+    $fileName1 = $_POST['File1'];
+    $fileName2 = $_POST['File2'];
+    $fileName3 = $_POST['File3'];
+    $fileName4 = $_POST['File4'];
+    $fileName5 = $_POST['File5'];
+
+
+    if (isset($fileName0) && $fileName0 != "") {
+        array_push($array_fileNames, $fileName0);
+    }
+    if (isset($fileName1) && $fileName1 != "") {
+        array_push($array_fileNames, $fileName1);
+    }
+    if (isset($fileName2) && $fileName2 != "") {
+        array_push($array_fileNames, $fileName2);
+    }
+    if (isset($fileName3) && $fileName3 != "") {
+        array_push($array_fileNames, $fileName3);
+    }
+    if (isset($fileName4) && $fileName4 != "") {
+        array_push($array_fileNames, $fileName4);
+    }
+    if (isset($fileName5) && $fileName5 != "") {
+        array_push($array_fileNames, $fileName5);
+    }
 
     $photosToRemove_str = $_POST['imagesToRemoveArray'];
     //Declare here because of the scope
@@ -66,26 +97,32 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
         }
     }
 
+    $images = $_FILES['imagePlaceFile'];
+    //CREATE AN ARRAY TO STORE ALL THE VALID IMAGES UPLOADED
+    $images_uploaded_valid = array();
+    $num_images_uploaded_valid = 0;
+
     //TESTS IF THERE IS ANY ERROR SO FAR
     if (strcmp($message, true_message) === 0) {
 
         //CHECK IF ALL PHOTOS UPLOADED ARE VALID
-        $total = count($images);
+        $total = count($images['tmp_name']);
 
         for ($i = 0; $i < $total; $i++) {
 
-            if ($images[$i] != "") {
+            if ($images['tmp_name'][$i] != "") {
 
-                if (!checkIfImageIsValid($images[$i])) {
-                    $message = 'invalid image';
-                    break;
+                if (check_File_Integrity($images['name'][$i], $array_fileNames) == true) {
+                    if (!checkIfImageIsValid($images['tmp_name'][$i])) {
+                        $message = 'invalid image';
+                        break;
+                    }
+
+                    $images_uploaded_valid[$num_images_uploaded_valid] = $images['tmp_name'][$i];
+                    $num_images_uploaded_valid++;
                 }
-
-                $images_uploaded_valid[$num_images_uploaded_valid] = $images[$i];
-                $num_images_uploaded_valid++;
             }
         }
-
         if (strcmp($message, true_message) === 0) {
             //Validate Inputs
             $inputs_are_valid = true;
@@ -132,7 +169,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                             }
                         }
                         //IN ORDER TO AVOID AN ERROR OF PHOTOSTOREMOVE BEING NULL. NOT CRITICAL
-                        if($num_photos_to_remove>0){
+                        if ($num_photos_to_remove > 0) {
                             if (deletePlaceSelectedPhotos($placeID, $photosToRemove, $num_photos_to_remove) != true) {
                                 $message = 'Error removing the photo';
                             }

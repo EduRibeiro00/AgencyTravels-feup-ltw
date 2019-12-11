@@ -4,13 +4,12 @@ include_once('../database/db_places.php');
 include_once('../database/db_location.php');
 include_once('../includes/img_upload.php');
 
+const true_message = 'true';
+
 function check_File_Integrity($imageName, $array_fileNames)
 {
     return in_array($imageName, $array_fileNames);
 }
-
-
-const true_message = 'true';
 
 if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $message = 'user not logged in';
