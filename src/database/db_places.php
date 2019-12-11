@@ -310,9 +310,7 @@ function newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms
 }
 
 function getPlaceID($title,$address,$ownerID){
-    
     $db = Database::instance()->db();
-
     $stmt = $db->prepare('SELECT placeID
                           FROM Place
                           WHERE title Like ? AND address Like ? AND ownerID = ? 
@@ -321,5 +319,16 @@ function getPlaceID($title,$address,$ownerID){
     $stmt->execute(array($title, $address, $ownerID));
     return $stmt->fetch();
 }
+
+function getPlaceNewRating($placeID) {
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT rating
+                          FROM Place
+                          WHERE placeID = ?
+						  ');
+    $stmt->execute(array($placeID));
+    return $stmt->fetch()['rating'];
+}
+
 
 ?>

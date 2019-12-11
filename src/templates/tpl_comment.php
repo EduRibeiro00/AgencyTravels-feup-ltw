@@ -2,7 +2,7 @@
 include_once('../templates/tpl_common.php');
 include_once('../database/db_user.php');
 
-function draw_comment($comment, $linkToPlace = false){ ?>
+function draw_comment($comment, $linkToPlace, $commentReplies = null){ ?>
     <article class="review" data-reviewID="<?=$comment['reviewID']?>">
         <?php if($linkToPlace) { ?>
           <a href="../pages/place_info.php?place_id=<?=$comment['placeID']?>">
@@ -24,7 +24,9 @@ function draw_comment($comment, $linkToPlace = false){ ?>
             </footer>
         <?php if($linkToPlace) { ?>
             </a>
-        <?php } ?>
+        <?php }
+
+            if($commentReplies != null) { } ?>
     </article>
 
 <?php } ?> 
@@ -33,11 +35,11 @@ function draw_comment($comment, $linkToPlace = false){ ?>
     <article id="reviews">
     <header>
         <p>Reviews</p>
-        <?php draw_star_rating($house_rating)?>
+        <?php draw_star_rating($house_rating); ?>
     </header>
     <?php  
         foreach($house_comments as $comment)
-            draw_comment($comment);    
+            draw_comment($comment, false);    
     ?>
     </article>
 <?php } ?>

@@ -17,8 +17,9 @@
         }
         else {
             $newReviews = getHouseCommentsAfterID($placeID, $lastReviewID);
+            $newRating = getPlaceNewRating($placeID);
             $message = 'yes';
-            echo json_encode(array('message' => $message, 'reviews' => $newReviews));
+            echo json_encode(array('message' => $message, 'reviews' => $newReviews, 'newRating' => $newRating));
         }
     }
     else {

@@ -32,37 +32,46 @@ if(reviewForm != null) {
         let message = reply.message;
         switch(message) {
             case 'yes':
-                    let newReviews = reply.reviews;
-                    for(let i = 0; i < newReviews.length; i++) {
-                        let newReview = newReviews[i];
-                        let newReviewContainer = reviewPlaceholder.cloneNode(true);
-                        newReviewContainer.setAttribute('data-reviewID', newReview.reviewID);
+                let newReviews = reply.reviews;
+                for(let i = 0; i < newReviews.length; i++) {
+                    let newReview = newReviews[i];
+                    let newReviewContainer = reviewPlaceholder.cloneNode(true);
+                    newReviewContainer.setAttribute('data-reviewID', newReview.reviewID);
                         
-                        let imageLink = newReviewContainer.querySelector('header a');
-                        imageLink.setAttribute('href', '../pages/profile_page.php?userID=' + newReview.userID);
+                    let imageLink = newReviewContainer.querySelector('header a');
+                    imageLink.setAttribute('href', '../pages/profile_page.php?userID=' + newReview.userID);
 
-                        let image = newReviewContainer.querySelector('header a img');
-                        image.setAttribute('src', '../assets/images/users/small/' + newReview.image);
+                    let image = newReviewContainer.querySelector('header a img');
+                    image.setAttribute('src', '../assets/images/users/small/' + newReview.image);
 
-                        let usernameP = newReviewContainer.querySelector('header p');
-                        usernameP.innerHTML = newReview.username;
+                    let usernameP = newReviewContainer.querySelector('header p');
+                    usernameP.innerHTML = newReview.username;
 
-                        let starsDiv = newReviewContainer.querySelector('div.front-stars');
-                        starsDiv.style.width = newReview.stars * 20.0 + '%';
+                    let starsDiv = newReviewContainer.querySelector('div.front-stars');
+                    starsDiv.style.width = newReview.stars * 20.0 + '%';
 
-                        let commentP = newReviewContainer.querySelector('header + p');
-                        commentP.innerHTML = newReview.comment;
+                    let commentP = newReviewContainer.querySelector('header + p');
+                    commentP.innerHTML = newReview.comment;
 
-                        let dateP = newReviewContainer.querySelector('footer p');
-                        dateP.innerHTML = "Published: " + newReview.date;
+                    let dateP = newReviewContainer.querySelector('footer p');
+                    dateP.innerHTML = "Published: " + newReview.date;
                         
-                        document.querySelector('article#reviews').insertBefore(newReviewContainer, null);
-                        document.getElementById('add-review-section').style.display = "none";
-                    }
+                    document.querySelector('article#reviews').insertBefore(newReviewContainer, null);
+                    document.getElementById('add-review-section').style.display = "none";
+                }
+
+                // updating the star rating on the page
+                let starsSideRating = document.querySelector('#fr_card .front-stars');
+                starsSideRating.style.width = reply.newRating * 20.0 + '%';
+
+                let reviewsBeginningRating = document.querySelector('#reviews .front-stars');
+                reviewsBeginningRating.style.width = reply.newRating * 20.0 + '%';
                 break;
+
             case 'no':
                 // console.log("Error on adding the new review");
-                break;    
+                break;
+                    
             default:
                 console.log(message);
                 break;
