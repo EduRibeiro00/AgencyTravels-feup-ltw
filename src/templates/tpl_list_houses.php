@@ -1,6 +1,6 @@
 <?php 
 include_once('../templates/tpl_house_card.php');
-include_once('../templates/tpl_reservation_utils.php');
+include_once('../includes/reservation_utils.php');
 include_once('../database/db_places.php');
 
 function getPlaces(){
@@ -62,8 +62,8 @@ function getPlaces(){
 	return $places;
 }
 				
-// TODO ver parametros depois
-function list_houses_result($places, $drawingOption, $drawMap = false) { ?>
+
+function list_houses($places, $drawingOption, $userID, $drawMap = false) { ?>
 	<main id="list_places" class="row">
 		<section id="house_results">
 			<?php 
@@ -71,7 +71,7 @@ function list_houses_result($places, $drawingOption, $drawMap = false) { ?>
 				<em>No houses available</em>
 			<?php } else
 				foreach ($places as $place){
-					draw_horizontal_card($place, $drawingOption);
+					draw_horizontal_card($place, $drawingOption, $userID);
 				}
 			?>
 		</section>

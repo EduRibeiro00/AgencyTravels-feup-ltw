@@ -65,7 +65,7 @@ function draw_navbar($user_info, $hints, $class = null) { ?>
 			$name = explode(" ", $user_info['name'])[0]; ?>
 			
 			<a id="housespagelink" href="my_houses.php?userID=<?=$user_info['userID']?>">My Houses</a>
-			<a id="reservspagelink" href="my_reserves.php?userID=<?=$user_info['userID']?>">My Reservations</a>
+			<a id="reservspagelink" href="my_reservs.php">My Reservations</a>
 			<a id="link-image" class="circ-img-link" href="profile_page.php?userID=<?=$user_info['userID']?>">
 				<img class="circular-img" id="profilepic" src="../assets/images/users/small/<?=$user_info['image']?>">	
 			</a>

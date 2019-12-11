@@ -5,7 +5,7 @@
               <h4><?=$place['title']?></h4>
               <p><?=$place['avg_price']?>€/noite</p>
             </div>
-			<img src="../assets/images/places/medium/<?=$place['image']?>">
+			<img src="../assets/images/places/medium/<?=$place['images'][0]['image']?>">
 		</a>
     </article>
 <?php } ?>

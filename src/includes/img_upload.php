@@ -1,6 +1,7 @@
 <?php
 include_once('../database/db_user.php');
 include_once('../database/db_places.php');
+include_once('../database/db_images.php');
 
 function checkIfImageIsValid($image) {
   // no image

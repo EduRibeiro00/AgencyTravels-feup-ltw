@@ -13,8 +13,8 @@ include_once('../database/db_user.php');
         $username = $_POST['username'];
         $name = $_POST['name'];
         $password = $_POST['password'];
-        $newPassword = $_POST['newPassword'];
-        $confNewPassord = $_POST['confNewPassword'];
+        $newPassword = $_POST['new-password'];
+        $confNewPassord = $_POST['conf-new-password'];
         $email = $_POST['email'];
         $bio = $_POST['bio'];
         $birthDate = $_POST['birthDate'];
@@ -62,6 +62,5 @@ include_once('../database/db_user.php');
             }
         }
     }
-
     echo json_encode(array('message' => $message));
 ?>

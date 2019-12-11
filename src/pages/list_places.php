@@ -16,6 +16,6 @@
 	$places = getPlaces();
 	draw_head($jsFiles);
 	draw_navbar($user_info, true);
-	list_houses_result($places, 'Search', true);
+	list_houses($places, 'Search', null, true);
 	draw_footer();
 ?>

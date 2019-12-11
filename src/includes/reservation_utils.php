@@ -43,4 +43,19 @@ function getPriceInDate($placeID, $checkin, $checkout){
 	return -1;
 }
 
+// user can cancel reservation up to 3 days before
+function canCancelReservation($reservationStartDate) {
+	$currentDate = date('Y-m-d');
+	$dateDifference = date_diff(date_create($currentDate), date_create($reservationStartDate));
+
+	return ($reservationStartDate > $currentDate && $dateDifference->format('%a') >= 3);
+} 
+
+
+// user can review place after reservation has ended
+function canReviewPlace($reservationEndDate, $reviewID) {
+	$currentDate = date('Y-m-d');
+	return $currentDate > $reservationEndDate && $reviewID === false;
+}
+
 ?>

@@ -18,9 +18,9 @@ profileForm.addEventListener('submit', function (event) {
 	let request = new XMLHttpRequest();
 
 	request.open("POST", "../api/api_place_edit.php", true)
-	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-
+	
 	request.addEventListener('load', function () {
+		console.log(this.responseText);
 		let message = JSON.parse(this.responseText).message;
 		console.log(message)
 
@@ -36,18 +36,9 @@ profileForm.addEventListener('submit', function (event) {
 		}
 
 	});
-	let placeID = document.querySelector('#place_edit_form input[name="placeID"]').value;
-	let title = document.querySelector('#place_edit_form input[name="title"]').value;
-	let desc = document.querySelector('#place_edit_form textarea[name="description"]').value;
-	let address = document.querySelector('#place_edit_form input[name="address"]').value;
-	let city = document.querySelector('#place_edit_form input[name="city"]').value;
-	let country = document.querySelector('#place_edit_form input[name="country"]').value;
-	let numRooms = document.querySelector('#place_edit_form input[name="numRooms"]').value;
-	let numBathrooms = document.querySelector('#place_edit_form input[name="numBathrooms"]').value;
-	let capacity = document.querySelector('#place_edit_form input[name="capacity"]').value;
+	let	formData = new FormData(profileForm);
 	
-	
-	request.send(encodeForAjax({ placeID: placeID, title: title, desc: desc, address: address, city: city, country: country, numRooms: numRooms, numBathrooms: numBathrooms, capacity: capacity }));
+	request.send(formData);
 });
 
 // -----------
