@@ -43,7 +43,7 @@ function draw_form($place = null, $edit_menu = false) {
     $hasFile = $edit_menu
 
     ?>
-
+<!-- TODO: O MANEL MANDOU POR UM TODO PARA VER OS BUTOES -->
     <section id="place_edit_form">
 
         <form>
@@ -67,7 +67,7 @@ function draw_form($place = null, $edit_menu = false) {
 
                 
                 <section id="img-upload" class="row">
-                <!--First we render the preview Images-->    
+                <!--First we render the preview Images THIS SECTION IS USED BY JS DOM-->    
                 <div id="house_form_img_preview">
                 
                 </div>

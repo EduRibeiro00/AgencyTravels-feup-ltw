@@ -88,12 +88,13 @@ function removeImageFromPlace($placeID, $image)
     try {
         $db = Database::instance()->db();
         $stmt = $db->prepare(
-            'DELETE  FROM Image
-            WHERE image=? AND placeID=?'
+            'DELETE FROM Image
+            WHERE image LIKE ? AND placeID=?'
         );
         $stmt->execute(array($image,$placeID));
 
      } catch (PDOException $e) {
         return $e->getMessage();
     }
+    return true;
 }

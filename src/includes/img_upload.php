@@ -150,17 +150,20 @@ function uploadPlaceImage($placeID, $image) {
   return true;
 }
 
-function deleteSelectedPhotos($placeID, $images,$images_array_len){
+
+function deletePlaceSelectedPhotos($placeID, $images,$images_array_len){
   //TODO: Delete from the local FILES
   for($i=0;$i<$images_array_len;$i++){
-
-    removeImageFromPlace($placeID,$images[$i]);
-
+    
+    if(removeImageFromPlace($placeID,$images[$i])==true){
+      unlink("../assets/images/places/original/$images[$i]");
+      unlink("../assets/images/places/small/$images[$i]");
+      unlink("../assets/images/places/medium/$images[$i]");
+    }else{
+      return false;
+    }
   }
-
-
-
-  return false;
+  return true;
 }
 
 ?>

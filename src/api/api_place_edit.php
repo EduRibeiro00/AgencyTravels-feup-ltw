@@ -3,9 +3,10 @@ include_once('../includes/session_include.php');
 include_once('../database/db_places.php');
 include_once('../includes/img_upload.php');
 
+const true_message = 'true';
+
 function find_photo_in_database_array($photo_hash, $images_place_from_database, $images_place_from_database_len)
 {
-
     for ($i = 0; $i < $images_place_from_database_len; $i++) {
         if (strcmp($photo_hash, $images_place_from_database[$i]['image']) == 0) {
             return true;
@@ -13,9 +14,6 @@ function find_photo_in_database_array($photo_hash, $images_place_from_database, 
     }
     return false;
 }
-
-
-const true_message = 'true';
 
 if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $message = 'user not logged in';
@@ -31,10 +29,18 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $country = $_POST['country'];
     $numRooms = $_POST['numRooms'];
     $numBathrooms = $_POST['numBathrooms'];
+    //IMAGES UPLOADED
     $images = $_FILES['imagePlaceFile']['tmp_name'];
+    //CREATE AN ARRAY TO STORE ALL THE VALID IMAGES UPLOADED
+    $images_uploaded_valid=array();
+    $num_images_uploaded_valid=0;
+    //
     $capacity = $_POST['capacity'];
+    $ownerID = $_SESSION['userID'];
 
     $photosToRemove_str = $_POST['imagesToRemoveArray'];
+    //Declare here because of the scope
+    $photosToRemove;
 
     //Check if there is any photo to remove
     if (strlen($photosToRemove_str) != 0) {
@@ -44,7 +50,6 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
         $num_photos_to_remove = 0;
     }
 
-    $ownerID = $_SESSION['userID'];
     $place_info_from_database = getPlace($placeID);
 
     if ($place_info_from_database['ownerID'] != $ownerID) {
@@ -66,6 +71,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
 
         //CHECK IF ALL PHOTOS UPLOADED ARE VALID
         $total = count($images);
+        
         for ($i = 0; $i < $total; $i++) {
 
             if ($images[$i] != "") {
@@ -74,9 +80,9 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                     $message = 'invalid image';
                     break;
                 }
-            } else {
-                //IF ITS A "" ENTRY ON THE ARRAY WE DECREMENT THE NUMBER OF ELEMENTS
-                $total--;
+
+                $images_uploaded_valid[$num_images_uploaded_valid]=$images[$i];
+                $num_images_uploaded_valid++;
             }
         }
 
@@ -92,23 +98,19 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                 is_numeric($numBathrooms) &&
                 is_numeric($capacity)
             ) {
-
-                if (strcmp(updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $numRooms, $numBathrooms, $capacity), true_message) != 0) {
+                if (updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $numRooms, $numBathrooms, $capacity) != true) {
                     $message = 'Error Updating home';
                 } else {
                     if (strcmp($message, true_message) == 0) {
-                        //NEW PHOTOS UPLOADED
-                        for ($i = 0; $i < $total; $i++) {
-                            if (uploadPlaceImage($placeID, $images[$i]) != true) {
-                                $message = 'Invalid IMAGE';
+                        //NEW PHOTOS UPLOADED JUST THE VALID ONES STORED AT THAT SPECIFIC ARRAY
+                        for ($i = 0; $i < $num_images_uploaded_valid; $i++) {
+                            if (uploadPlaceImage($placeID, $images_uploaded_valid[$i]) != true) {
+                                $message = 'Invalid IMAGE uploaded';
                                 break;
                             }
                         }
-
-                        for($j=0;$j<$num_photos_to_remove;$j++){
-
-
-                            
+                        if (deletePlaceSelectedPhotos($placeID, $photosToRemove, $num_photos_to_remove) != true) {
+                            $message = 'Error removing the photo';
                         }
                     }
                 }
