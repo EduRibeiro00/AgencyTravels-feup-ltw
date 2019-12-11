@@ -27,20 +27,11 @@ for(let i=0;i<allLocalImageCross.length;i++){
 
 		let firstContainerWithLocalImagesRemaining=document.querySelector(".img_edit_local_container img");
 		let controlIfThereIsNoPreviewImages=document.querySelector(".img_add_preview_container")
-		
+		//JUST UPDATE THIS SIZE IF THERE IS NO IMAGE IN PREVIEW
 		if(controlIfThereIsNoPreviewImages==null){
 			firstContainerWithLocalImagesRemaining.className="edit_place_img_medium";
 		}
-		
-		
-
-		 
-
-		 
-
-
-
-
+	
 	});
 
 
@@ -55,10 +46,9 @@ profileForm.addEventListener('submit', function (event) {
 	request.open("POST", "../api/api_place_edit.php", true)
 	
 	request.addEventListener('load', function () {
+		console.log(this.responseText);
 		let message = JSON.parse(this.responseText).message;
-		console.log(message)
-
-		
+				
 		switch(message) {
             case 'true':
 				//errorMessage.style.display = "none";
@@ -71,6 +61,7 @@ profileForm.addEventListener('submit', function (event) {
 
 	});
 	let	formData = new FormData(profileForm);
+	formData.append('imagesToRemoveArray',array_photos_to_remove);
 	
 	request.send(formData);
 });
