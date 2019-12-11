@@ -99,7 +99,7 @@ CREATE TABLE Reservation (
 DROP TABLE IF EXISTS Review;
 
 CREATE TABLE Review (
-    reviewID        INTEGER PRIMARY KEY,
+    reviewID        INTEGER PRIMARY KEY AUTOINCREMENT,
     comment         TEXT,
     date            DATE CONSTRAINT nn_review_date NOT NULL,
     stars           INTEGER CONSTRAINT nn_review_stars NOT NULL CONSTRAINT check_review_stars CHECK (stars >= 0 AND stars <= 5),
@@ -112,7 +112,7 @@ CREATE TABLE Review (
 DROP TABLE IF EXISTS Reply;
 
 CREATE TABLE Reply (
-    replyID        INTEGER PRIMARY KEY,
+    replyID        INTEGER PRIMARY KEY AUTOINCREMENT,
     comment        TEXT CONSTRAINT nn_reply_comment NOT NULL,
     date           DATE CONSTRAINT nn_reply_date NOT NULL,
     reviewID       INTEGER CONSTRAINT fk_reply_reviewid REFERENCES Review(reviewID) ON DELETE CASCADE
@@ -334,7 +334,7 @@ INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES (
 
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-21", "2019-11-22", 43.34, 3, 1);
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-28", "2019-12-01", 141.67, 3, 7);
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-09", "2019-12-16", 475.93, 3, 5);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-09", "2019-11-16", 475.93, 3, 5);
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-01-05", "2019-01-08", 158.67, 3, 6);
 
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-04", "2019-11-10", 222, 4, 4);
@@ -352,11 +352,11 @@ INSERT INTO Review (comment, date, stars, reservationID) VALUES ("Se desse dava 
 INSERT INTO Review (date, stars, reservationID) VALUES ("2018-01-10", 5, 8);
 
 INSERT INTO Review (date, stars, reservationID) VALUES ("2019-11-23", 3, 9);
-INSERT INTO Review (comment, date, stars, reservationID) VALUES ("O pior sitio em que já fiquei. Não recomendo", "2019-12-18", 1, 11);
+INSERT INTO Review (comment, date, stars, reservationID) VALUES ("O pior sitio em que já fiquei. Não recomendo", "2019-12-18", 1, 10);
+-- INSERT INTO Review (comment, date, stars, reservationID) VALUES ("O pior sitio em que já fiquei. Não recomendo", "2019-12-18", 1, 11);
 INSERT INTO Review (comment, date, stars, reservationID) VALUES ("O pior sitio em que já fiquei. Não recomendo", "2019-12-18", 1, 12);
 INSERT INTO Review (comment, date, stars, reservationID) VALUES ("O pior sitio em que já fiquei. Não recomendo", "2019-12-18", 1, 13);
 INSERT INTO Review (comment, date, stars, reservationID) VALUES ("O pior sitio em que já fiquei. Não recomendo", "2019-12-18", 1, 14);
-INSERT INTO Review (comment, date, stars, reservationID) VALUES ("O pior sitio em que já fiquei. Não recomendo", "2019-12-18", 1, 10);
 
 -- Reply
 INSERT INTO Reply (comment, date, reviewID, userID) VALUES ("Ainda bem que gostou", "2019-12-21", 2, 3);

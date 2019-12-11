@@ -49,7 +49,7 @@
     }
 
 
-    function getUserReservationIDForPlace($userID, $placeID) {
+    function getUserReservationsForPlace($userID, $placeID) {
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT *
                               FROM Reservation
@@ -86,7 +86,23 @@
         return $stmt->execute(array($reservationID));
     }
 
-    
+
+    function checkIfUserHasReservation($userID, $reservationID) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT *
+                              FROM Reservation
+                              WHERE reservationID = ? AND touristID = ?'
+                            );
+        $stmt->execute(array($reservationID, $userID));
+        if($stmt->fetch() === false) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+
     function getReviewsForUserPlaces($userID, $limit) {
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT comment, Review.stars as stars, User.username as username, User.userID as userID, image, Review.date as date, Place.placeID as placeID
@@ -171,7 +187,6 @@
     
     function getUserPlacesNumberofReservations($userID){
         $db = Database::instance()->db();
-
         $stmt = $db->prepare('SELECT count(*) as cnt
                               FROM Reservation Natural Join Place, User
                               WHERE ownerID = User.userID AND User.userID = ?
@@ -179,4 +194,18 @@
          $stmt->execute(array($userID));
          return $stmt->fetch()['cnt'];
     }
+
+
+    function addReview($reservationID, $stars, $comment) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('INSERT INTO Review (comment, date, stars, reservationID) VALUES (?, ?, ?, ?)');
+        try {
+            $stmt->execute(array($comment, date('Y-m-d'), $stars, $reservationID));
+        }
+        catch(PDOException $e) {
+            return false;
+        }
+        return true;
+    }
+
 ?>

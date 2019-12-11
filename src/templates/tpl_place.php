@@ -4,6 +4,7 @@ include_once('../templates/tpl_common.php');
 include_once('../templates/tpl_availability.php');
 include_once('../templates/tpl_comment.php');
 include_once('../templates/tpl_similar_offer.php');
+include_once('../includes/reservation_utils.php');
 
 function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePrice) { ?>
 	<main id="place_page">
@@ -17,6 +18,13 @@ function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePri
 	  
 		  	//House Rating is the avg rating of the house
 			draw_all_comments($place['rating'], $houseComments);
+
+            if(isset($_SESSION['userID']) && $_SESSION['userID'] != "") {
+                $reservationID = canUserReviewPlace($_SESSION['userID'], $place['placeID']);
+                if($reservationID !== false) {
+                    draw_add_review($reservationID, $place['placeID']);
+                }
+            }
 
 			draw_availability_block();
 
@@ -96,4 +104,40 @@ function draw_my_place_location($house_address_full, $house_gpsCoords) { ?>
             <p>GPS_Coords:<?= $house_gpsCoords ?></p>
         </footer>
     </article>
+<?php }
+
+
+// TODO: css para isto
+function draw_add_review($reservationID, $placeID) { ?>
+    <section id="add-review-placeholder">
+        <article class="review" data-reviewID="">
+            <header>
+                <a href="">
+        		    <img class="Comment_Author_Img circular-img" src="">   
+                </a>
+                <p></p> 
+        		<?php draw_star_rating(0)?>
+            </header>
+            <p></p>
+            <footer>
+                <p></p>
+            </footer>
+        </article>
+    </section>
+
+    <section id="add-review-section">
+        <h4>Thank you for staying in this place! We hope you enjoyed your stay.</h4>
+        <p>Leave a review...</p>
+        <form id="review-form">
+            <input type="hidden" name="reservationID" value=<?=$reservationID?>>
+            <input type="hidden" name="placeID" value=<?=$placeID?>>
+            <label for="review-stars">Stars:
+                <input type="number" name="review-stars" min="1" max="5" step="1" required>
+            </label>
+            <label for="review-desc">Comment:
+                <textarea rows="10" cols="50" name="review-desc"></textarea>
+            </label>
+            <input class="button" type="submit" value="Submit">
+        </form>
+    </section>
 <?php } ?>

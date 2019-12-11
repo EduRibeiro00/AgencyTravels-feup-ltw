@@ -227,12 +227,22 @@ function getOverlapReservations($placeID, $checkin, $checkout) {
 
 function getHouseComments($place_id) {
     $db = Database::instance()->db();
-    $stmt = $db->prepare('SELECT comment, Review.stars as stars, User.username as username, User.userID as userID, image, Review.date as date, Place.placeID as placeID
+    $stmt = $db->prepare('SELECT comment, Review.stars as stars, User.username as username, User.userID as userID, image, Review.date as date, Place.placeID as placeID, reviewID
                           FROM Place NATURAL JOIN Reservation NATURAL JOIN Review JOIN User on Reservation.touristID=User.userID JOIN Image on User.userID = Image.userID
 						  WHERE Place.placeID = ?');
     $stmt->execute(array($place_id));
     return $stmt->fetchAll();
 }
+
+function getHouseCommentsAfterID($place_id, $last_review_id) {
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT comment, Review.stars as stars, User.username as username, User.userID as userID, image, Review.date as date, Place.placeID as placeID, reviewID
+                          FROM Place NATURAL JOIN Reservation NATURAL JOIN Review JOIN User on Reservation.touristID=User.userID JOIN Image on User.userID = Image.userID
+						  WHERE Place.placeID = ? AND reviewID > ?');
+    $stmt->execute(array($place_id, $last_review_id));
+    return $stmt->fetchAll();
+}
+
 
 function getFromDayForwardReservations($placeID, $day) {
 	$db = Database::instance()->db();

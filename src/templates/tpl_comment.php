@@ -3,7 +3,7 @@ include_once('../templates/tpl_common.php');
 include_once('../database/db_user.php');
 
 function draw_comment($comment, $linkToPlace = false){ ?>
-    <article class="review">
+    <article class="review" data-reviewID="<?=$comment['reviewID']?>">
         <?php if($linkToPlace) { ?>
           <a href="../pages/place_info.php?place_id=<?=$comment['placeID']?>">
         <?php } ?>
@@ -29,7 +29,7 @@ function draw_comment($comment, $linkToPlace = false){ ?>
 
 <?php } ?> 
 
-<?php function draw_all_comments($house_rating,$house_comments) { ?>
+<?php function draw_all_comments($house_rating, $house_comments) { ?>
     <article id="reviews">
     <header>
         <p>Reviews</p>
