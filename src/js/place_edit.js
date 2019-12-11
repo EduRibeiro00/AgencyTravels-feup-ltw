@@ -6,50 +6,7 @@ function encodeForAjax(data) {
 	}).join('&')
 }
 
-// -------------
-
-let profileForm = document.querySelector('#place_edit_form form');
-let array_photos_to_remove = new Array();
-let allLocalImageCross = document.querySelectorAll(".delete_image_local");
-let errorMessage = document.getElementById('place-form-error');
-
-
-for (let i = 0; i < allLocalImageCross.length; i++) {
-
-	allLocalImageCross[i].addEventListener('click', function (event) {
-		//Retrevie the hash  custom data header inserted in the PHP to identify the image
-		let hash = event.target.dataset.hash;
-
-		array_photos_to_remove.push(hash);
-		//Remove the parent node the div where is inserted the image in
-		event.currentTarget.parentNode.remove();
-
-		//FORCE THE NEW FIRST SIBLING TO BECOME CLASS MEDIUM SIZE
-
-		let firstContainerWithLocalImagesRemaining = document.querySelector(".img_edit_local_container img");
-		let controlIfThereIsNoPreviewImages = document.querySelector(".img_add_preview_container")
-		//JUST UPDATE THIS SIZE IF THERE IS NO IMAGE IN PREVIEW
-		if (controlIfThereIsNoPreviewImages == null) {
-			firstContainerWithLocalImagesRemaining.className = "edit_place_img_medium";
-		}
-
-	});
-
-
-}
-let profileFormImage = document.getElementById('img-to-upload');
-let image_block_preview = document.querySelector('#house_form_img_preview');
-let imageInput = document.querySelector('input#imageFile_add_place');
-//Going to update the sizeof the medium photo
-//In order to be possible to append childs
-let image_delete_preview = document.querySelector('#img-delete_place_add');
-
-let img_id = 0;
-let number_images = 0;
-let img_array = new Array();
-let files_array = new Array();
-
-
+//function to create the element+ container when we add a new image. Auxiliaary function
 function generateImgDivContainer(imgSrc) {
 	let div_container = document.createElement("div");
 	let image_to_append = document.createElement("img");
@@ -70,6 +27,54 @@ function generateImgDivContainer(imgSrc) {
 	return div_container;
 }
 
+// -------------
+
+let profileForm = document.querySelector('#place_edit_form form');
+let array_photos_to_remove = new Array();
+let allLocalImageCross = document.querySelectorAll(".delete_image_local");
+let errorMessage = document.getElementById('place-form-error');
+let profileFormImage = document.getElementById('img-to-upload');
+let image_block_preview = document.querySelector('#house_form_img_preview');
+let imageInput = document.querySelector('input#imageFile_add_place');
+//Going to update the sizeof the medium photo
+//In order to be possible to append childs
+let image_delete_preview = document.querySelector('#img-delete_place_add');
+
+let img_id = 0;
+let number_images = 0;
+//THE NUMBER OF IMAGES LOCAL IS THE SAME AS THE NAME OF ORIGINAL DELETE CROSSES
+const number_images_local = allLocalImageCross.length;
+let img_array = new Array();
+let files_array = new Array();
+
+//Establish event listener to all "local"(preexistent)delete buttons
+for (let i = 0; i < allLocalImageCross.length; i++) {
+
+	allLocalImageCross[i].addEventListener('click', function (event) {
+
+		if ((number_images + number_images_local - array_photos_to_remove.length) > 1) {
+
+			//Retrevie the hash  custom data header inserted in the PHP to identify the image
+			let hash = event.target.dataset.hash;
+			//WE STORE IN THIS ARRAY THE HASH NAME TO BE POSSIBLE TO REMOVE FROM THE DATABASE. THAT INFORMATION COME IN THE HTML HEADER OF THIS ELEMENT
+			array_photos_to_remove.push(hash);
+			//Remove the parent node the div where is inserted the image in
+
+			event.currentTarget.parentNode.remove();
+
+			//FORCE THE NEW FIRST SIBLING TO BECOME CLASS MEDIUM SIZE
+
+			let firstContainerWithLocalImagesRemaining = document.querySelector(".img_edit_local_container img");
+			let controlIfThereIsNoPreviewImages = document.querySelector(".img_add_preview_container")
+			//JUST UPDATE THIS SIZE IF THERE IS NO IMAGE IN PREVIEW
+			if (controlIfThereIsNoPreviewImages == null) {
+				firstContainerWithLocalImagesRemaining.className = "edit_place_img_medium";
+			}
+		}
+	});
+}
+
+//WHEN AN INPUT IS LOADED IT FIRE THIS EVENT
 imageInput.addEventListener('change', function (event) {
 
 	//UPDATE THE FIRST LOCAL PHOTO TO SMALL
@@ -79,17 +84,21 @@ imageInput.addEventListener('change', function (event) {
 		localImages.className = "edit_place_img_small";
 	}
 
+	//FOR ALL FILES UPLOADED
 	for (let i = 0; i < event.target.files.length; i++) {
+		//IF WE REMOVE THE ERROR IS RELEATED WITH THE MULTIPLE FILES UPLOAD. BUSY SERVICE
 		let reader_inside = new FileReader();
 		let f = event.target.files[i];
+
 		//Add files to the files array
 		files_array.push(f.name);
 		reader_inside.readAsDataURL(f);
-
-
+		//WHEN THE READASDATAURL IS DONE
 		reader_inside.addEventListener('load', function (event) {
 
-			if (number_images < 6) {
+			//WE ONLY ADD AN NEW IMAGE IF THE NUMBER OF ELEMENTS IS LESS THAN 6 AT THAT MOMENT
+			if ((number_images + number_images_local - array_photos_to_remove.length) < 6) {
+				//CALL THE FUNCTION TO GENERATE AN ELEMENT OF THAT TYPE
 				let child_element = generateImgDivContainer(event.target.result);
 				image_block_preview.appendChild(child_element);
 
@@ -104,7 +113,7 @@ imageInput.addEventListener('change', function (event) {
 					if (pos_delete_array > img_array.length) {
 						console.error('DONT TRY TO VIOLATE THE JS ITS USELESS MATE');
 						//FORCE A MINIMUM OF 1 IMAGE
-					} else if (number_images > 1) {
+					} else if ((number_images + number_images_local - array_photos_to_remove.length) > 1) {
 						//REMOVE FROM GUI
 						img_array[pos_delete_array].remove();
 						//REMOVE JS DATA
@@ -115,6 +124,7 @@ imageInput.addEventListener('change', function (event) {
 						number_images--;
 					}
 
+					// I M USING DELETE LEAVES HOLES AND LENGTH REPRESENTS THE LAST ELEMENT NOT THE NUMBER OF ELEMENTS IN JS THIS MUST BE DONE TO CHECK IF THERE ARE ELEMENTS
 					let is_empty = true;
 					//THE INDEX REPRESENT THE INDEX OF LAST ELEMENT. INCOMPATIBLE WITH REMOVE. REMOVE IS NOT AVOIDABLE HERE
 					for (let i = 0; i < img_array.length; i++) {
@@ -171,8 +181,8 @@ profileForm.addEventListener('submit', function (event) {
 				errorMessage.style.display = "block";
 				break;
 			case 'Parameters not validated':
-					errorMessage.textContent = "There is a problem with your inputs";
-					errorMessage.style.display = "block";
+				errorMessage.textContent = "There is a problem with your inputs";
+				errorMessage.style.display = "block";
 				break;
 			case 'Invalid IMAGE uploaded':
 				console.warn('There is a problem with your image');
@@ -180,7 +190,7 @@ profileForm.addEventListener('submit', function (event) {
 				errorMessage.style.display = "block";
 				break;
 			case 'Error removing the photo':
-				console.warn('There is a problem with your image');					
+				console.warn('There is a problem with your image');
 				break;
 			default:
 				history.back();

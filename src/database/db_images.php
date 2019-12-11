@@ -75,7 +75,8 @@ function getRandomImagesFromCity($locationID, $number)
 }
 
 function insertImageForPlace($placeID, $image)
-{
+{   
+    //TODO: TRY CATCH ?
     $db = Database::instance()->db();
     $stmt = $db->prepare(
         'INSERT INTO Image (placeID, image)
@@ -97,4 +98,16 @@ function removeImageFromPlace($placeID, $image)
         return $e->getMessage();
     }
     return true;
+}
+
+function getNumberOfImagesForPlace($placeID){
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT count(*) as nImages
+                        FROM Image
+                          WHERE placeID=?'
+    );
+    $stmt->execute(array($placeID));
+    
+    return $stmt->fetch();
+
 }

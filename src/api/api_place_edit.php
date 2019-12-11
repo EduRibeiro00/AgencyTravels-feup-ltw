@@ -2,14 +2,9 @@
 include_once('../includes/session_include.php');
 include_once('../database/db_places.php');
 include_once('../includes/img_upload.php');
+include_once('../includes/place_forms.php');
 
 const true_message = 'true';
-
-
-function check_File_Integrity($imageName, $array_fileNames)
-{
-    return in_array($imageName, $array_fileNames);
-}
 
 function find_photo_in_database_array($photo_hash, $images_place_from_database, $images_place_from_database_len)
 {
@@ -40,34 +35,9 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $capacity = $_POST['capacity'];
     $ownerID = $_SESSION['userID'];
 
-    $array_fileNames = array();
+    $array_fileNames=buildArrayWithFilesToAdd();
 
-    $fileName0 = $_POST['File0'];
-    $fileName1 = $_POST['File1'];
-    $fileName2 = $_POST['File2'];
-    $fileName3 = $_POST['File3'];
-    $fileName4 = $_POST['File4'];
-    $fileName5 = $_POST['File5'];
-
-
-    if (isset($fileName0) && $fileName0 != "") {
-        array_push($array_fileNames, $fileName0);
-    }
-    if (isset($fileName1) && $fileName1 != "") {
-        array_push($array_fileNames, $fileName1);
-    }
-    if (isset($fileName2) && $fileName2 != "") {
-        array_push($array_fileNames, $fileName2);
-    }
-    if (isset($fileName3) && $fileName3 != "") {
-        array_push($array_fileNames, $fileName3);
-    }
-    if (isset($fileName4) && $fileName4 != "") {
-        array_push($array_fileNames, $fileName4);
-    }
-    if (isset($fileName5) && $fileName5 != "") {
-        array_push($array_fileNames, $fileName5);
-    }
+    $num_photos_to_initial = getNumberOfImagesForPlace($placeID)['nImages'];
 
     $photosToRemove_str = $_POST['imagesToRemoveArray'];
     //Declare here because of the scope
@@ -117,67 +87,73 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                         $message = 'invalid image';
                         break;
                     }
-
                     $images_uploaded_valid[$num_images_uploaded_valid] = $images['tmp_name'][$i];
                     $num_images_uploaded_valid++;
                 }
             }
         }
-        if (strcmp($message, true_message) === 0) {
-            //Validate Inputs
-            $inputs_are_valid = true;
+        //TEST IF THE EDIT FORM MANTAINS 1 PHOTO AFTER ALL THE OPERATIONS.
+        if (($num_photos_to_initial + $num_images_uploaded_valid - $num_photos_to_remove) < 1) {
+            $message = 'A place Must Have at least one image';
+            //$message=$num_photos_to_initial.$num_images_uploaded_valid.$num_photos_to_remove;
+            $message=$array_fileNames;
+        } else {
+            if (strcmp($message, true_message) === 0) {
+                //Validate Inputs
+                $inputs_are_valid = true;
 
-            //TODO: TO RETURN A PERSONALIZED MESSAGE
-            if (is_numeric($title)) {
-                $inputs_are_valid = false;
-            }
-            if (is_numeric($desc)) {
-                $inputs_are_valid = false;
-            }
-            if (is_numeric($address)) {
+                //TODO: TO RETURN A PERSONALIZED MESSAGE
+                if (is_numeric($title)) {
+                    $inputs_are_valid = false;
+                }
+                if (is_numeric($desc)) {
+                    $inputs_are_valid = false;
+                }
+                if (is_numeric($address)) {
 
-                $inputs_are_valid = false;
-            }
-            if (is_numeric($city)) {
+                    $inputs_are_valid = false;
+                }
+                if (is_numeric($city)) {
 
-                $inputs_are_valid = false;
-            }
-            if (is_numeric($country)) {
-                $inputs_are_valid = false;
-            }
-            if (!is_numeric($numRooms)) {
-                $inputs_are_valid = false;
-            }
-            if (!is_numeric($numBathrooms)) {
+                    $inputs_are_valid = false;
+                }
+                if (is_numeric($country)) {
+                    $inputs_are_valid = false;
+                }
+                if (!is_numeric($numRooms)) {
+                    $inputs_are_valid = false;
+                }
+                if (!is_numeric($numBathrooms)) {
 
-                $inputs_are_valid = false;
-            }
+                    $inputs_are_valid = false;
+                }
 
-            if (!is_numeric($capacity))
-                $inputs_are_valid = false;
+                if (!is_numeric($capacity))
+                    $inputs_are_valid = false;
 
-            if ($inputs_are_valid) {
-                if (updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $numRooms, $numBathrooms, $capacity) != true) {
-                    $message = 'Error Updating home';
-                } else {
-                    if (strcmp($message, true_message) == 0) {
-                        //NEW PHOTOS UPLOADED JUST THE VALID ONES STORED AT THAT SPECIFIC ARRAY
-                        for ($i = 0; $i < $num_images_uploaded_valid; $i++) {
-                            if (uploadPlaceImage($placeID, $images_uploaded_valid[$i]) != true) {
-                                $message = 'Invalid IMAGE uploaded';
-                                break;
+                if ($inputs_are_valid) {
+                    if (updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $numRooms, $numBathrooms, $capacity) != true) {
+                        $message = 'Error Updating home';
+                    } else {
+                        if (strcmp($message, true_message) == 0) {
+                            //NEW PHOTOS UPLOADED JUST THE VALID ONES STORED AT THAT SPECIFIC ARRAY
+                            for ($i = 0; $i < $num_images_uploaded_valid; $i++) {
+                                if (uploadPlaceImage($placeID, $images_uploaded_valid[$i]) != true) {
+                                    $message = 'Invalid IMAGE uploaded';
+                                    break;
+                                }
                             }
-                        }
-                        //IN ORDER TO AVOID AN ERROR OF PHOTOSTOREMOVE BEING NULL. NOT CRITICAL
-                        if ($num_photos_to_remove > 0) {
-                            if (deletePlaceSelectedPhotos($placeID, $photosToRemove, $num_photos_to_remove) != true) {
-                                $message = 'Error removing the photo';
+                            //IN ORDER TO AVOID AN ERROR OF PHOTOSTOREMOVE BEING NULL. NOT CRITICAL
+                            if ($num_photos_to_remove > 0) {
+                                if (deletePlaceSelectedPhotos($placeID, $photosToRemove, $num_photos_to_remove) != true) {
+                                    $message = 'Error removing the photo';
+                                }
                             }
                         }
                     }
+                } else {
+                    $message = 'Parameters not validated';
                 }
-            } else {
-                $message = 'Parameters not validated';
             }
         }
     }

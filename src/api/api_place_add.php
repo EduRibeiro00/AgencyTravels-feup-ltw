@@ -3,13 +3,9 @@ include_once('../includes/session_include.php');
 include_once('../database/db_places.php');
 include_once('../database/db_location.php');
 include_once('../includes/img_upload.php');
+include_once('../includes/place_forms.php');
 
 const true_message = 'true';
-
-function check_File_Integrity($imageName, $array_fileNames)
-{
-    return in_array($imageName, $array_fileNames);
-}
 
 if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $message = 'user not logged in';
@@ -26,35 +22,10 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $numBathrooms = $_POST['numBathrooms'];
     $capacity = $_POST['capacity'];
 
-    $array_fileNames = array();
+    //Retrevie the 6 possible file to add
+    $array_fileNames = buildArrayWithFilesToAdd();
 
-    $fileName0 = $_POST['File0'];
-    $fileName1 = $_POST['File1'];
-    $fileName2 = $_POST['File2'];
-    $fileName3 = $_POST['File3'];
-    $fileName4 = $_POST['File4'];
-    $fileName5 = $_POST['File5'];
-
-
-    if (isset($fileName0) && $fileName0 != "") {
-        array_push($array_fileNames, $fileName0);
-    }
-    if (isset($fileName1) && $fileName1 != "") {
-        array_push($array_fileNames, $fileName1);
-    }
-    if (isset($fileName2) && $fileName2 != "") {
-        array_push($array_fileNames, $fileName2);
-    }
-    if (isset($fileName3) && $fileName3 != "") {
-        array_push($array_fileNames, $fileName3);
-    }
-    if (isset($fileName4) && $fileName4 != "") {
-        array_push($array_fileNames, $fileName4);
-    }
-    if (isset($fileName5) && $fileName5 != "") {
-        array_push($array_fileNames, $fileName5);
-    }
-
+    //FILES HAS WHAT WE WANT TO ADD + WHAT WE DONT WANT TO ADD
     $images = $_FILES['imagePlaceFile'];
     //CREATE AN ARRAY TO STORE ALL THE VALID IMAGES UPLOADED
     $images_uploaded_valid = array();
@@ -64,25 +35,26 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $total = count($images['tmp_name']);
 
     for ($i = 0; $i < $total; $i++) {
-
+        
         if ($images['tmp_name'][$i] != "") {
-
+            
             if (check_File_Integrity($images['name'][$i], $array_fileNames) == true) {
+                
                 if (!checkIfImageIsValid($images['tmp_name'][$i])) {
                     $message = 'invalid image';
                     break;
                 }
-
+                //HERE WILL BE JUST THE PHOTOS THAT ARE VALID AND WHOSE NAME EXISTS IN THE ARRAY OF PHOTOS TO UPLOAD
                 $images_uploaded_valid[$num_images_uploaded_valid] = $images['tmp_name'][$i];
                 $num_images_uploaded_valid++;
             }
         }
     }
 
-    if ($num_images_uploaded_valid < 1 || $num_images_uploaded_valid > 6) {
+    //TEST THE NUMBER O FILES UPLOADED IS NOT EMPTY AND IF NOT MORE THAN 6 (5+1- STARTS AT 0)
+    if ($num_images_uploaded_valid < 1 || $num_images_uploaded_valid > 5) {
         $message = 'You cannot create an house with that number of pictures';
     } else {
-
 
         //IF THE ERROR MESSAGE WAS NOT TRIGGERED, CONTINUE
         if (strcmp($message, true_message) == 0) {
