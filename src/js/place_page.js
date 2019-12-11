@@ -75,25 +75,14 @@ function priceDay(date){
 
 //Sticky sideBar_Fast reservation
 window.onload = function () {
-	let navbar = document.getElementById('navbar');
+	let navbar = document.getElementById('navbar')
+	let fastRes = document.getElementById('fr_card')
+	fastRes.style.top = navbar.offsetHeight + "px"
+	// TODO: do sticky calendar
+	// let frInputBound = document.getElementById('fr_checkin').getBoundingClientRect()
+	// console.log(frInputBound)
+	// reservationCal.setStickyValue(frInputBound.top)
 
-	let someElement = document.getElementById('Pop_UP_Fast_Reservation')
-	const value = navbar.offsetHeight - window.screenY
-	window.addEventListener('scroll', function () {
-		if (window.pageYOffset >= (value - 100)) {
-			someElement.style.top = "4em"
-			console.log("aqui - 4")
-			// reservationCal.fixed = true
-		}
-		else {
-			console.log("aqui - 0")
-
-			someElement.style.top = "0"
-			// reservationCal.fixed = false
-
-		}
-
-	})
 	let request = new XMLHttpRequest();
 
 	request.open("POST", "../api/api_place_info.php", true)

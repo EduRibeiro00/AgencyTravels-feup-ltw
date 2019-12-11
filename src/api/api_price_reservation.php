@@ -1,14 +1,19 @@
 <?php
-include_once('../database/db_places.php');
+include_once('../templates/tpl_reservation_utils.php');
 
+
+if(!isset($_POST['placeID']) || !isset($_POST['checkin']) || !isset($_POST['checkout'])){
+	echo json_encode(array('message' => "Invalid submission"));
+	return;
+}
 
 $placeID = $_POST['placeID'];
-$check_in_date = $_POST['check_in_date'];
-$check_out_date = $_POST['check_out_date'];
+$checkin = $_POST['checkin'];
+$checkout = $_POST['checkout'];
 
 
-$message=getCompatibleAvailability($placeID,$check_in_date,$check_out_date);
+$price = getPriceInDate($placeID, $checkin, $checkout);
 
-echo json_encode(array('message' => $message));
+echo json_encode(array('message' => $price));
 
 ?>

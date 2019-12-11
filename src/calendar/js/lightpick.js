@@ -93,6 +93,8 @@
 		  }
 		},
 		fixed: false,
+		sticky: false,
+		stickyValue: null,
 		priceTooltip: false,
 		// price: null,
   
@@ -1243,41 +1245,37 @@
 		  top = 0,
 		  left = 0;
 		
-		if(!this._opts.fixed){
-			if (orientation[0] == 'auto' || !/top|bottom/.test(orientation[0])) {
+		if (orientation[0] == 'auto' || !/top|bottom/.test(orientation[0])) {
 			if (
 				rect.bottom + calRect.height > window.innerHeight &&
 				window.pageYOffset > calRect.height
 			) {
-				top = rect.top + window.pageYOffset - calRect.height;
+				top = rect.top - calRect.height;
 			} else {
-				top = rect.bottom + window.pageYOffset;
+				top = rect.bottom;
 			}
 			} else {
-			top = rect[orientation[0]] + window.pageYOffset;
-	
+			top = rect[orientation[0]];
+
 			if (orientation[0] == 'top') {
 				top -= calRect.height;
 			}
-			}
-		} else{
-			if (orientation[0] == 'auto' || !/top|bottom/.test(orientation[0])) {
-				if (
-				  rect.bottom + calRect.height > window.innerHeight &&
-				  window.pageYOffset > calRect.height
-				) {
-				  top = rect.top - calRect.height;
-				} else {
-				  top = rect.bottom;
-				}
-			  } else {
-				top = rect[orientation[0]];
-		
-				if (orientation[0] == 'top') {
-				  top -= calRect.height;
-				}
-			  }
+		}
+
+		if(this._opts.fixed)
 			  this.el.style.position = "fixed";
+		// Sticky TODO
+		else if(this._opts.sticky){
+			console.log(this._opts.stickyValue)
+			console.log(window.pageYOffset+"px")
+			if(this._opts.stickyValue == null)
+			 	this.el.style.position = "absolute";
+			else if(this._opts.stickyValue > window.pageYOffset + "px")
+				this.el.style.position = "fixed";
+			else{
+				console.log("ola")
+				 this.el.style.position = "absolute";
+			}
 		}
   
 		if (
@@ -1309,6 +1307,10 @@
 		this.el.style.left = left + 'px';
 	  },
   
+	  setStickyValue: function(value){
+		this._opts.stickyValue = value + "px";
+	  },
+
 	  setStartDate: function(date, preventOnSelect) {
 		var dateISO = moment(date, moment.ISO_8601),
 		  dateOptFormat = moment(date, this._opts.format);

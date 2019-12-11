@@ -28,7 +28,7 @@ function getPriceInDate($placeID, $checkin, $checkout){
 		$checkoutTime = strtotime($checkout);		
 
 		if($checkinTime < strtotime($av['startDate']))
-			return -1;
+			return -2;
 		
 		if($endTime >= $checkoutTime) {
 			$diff = $checkoutTime - $checkinTime;
@@ -40,7 +40,7 @@ function getPriceInDate($placeID, $checkin, $checkout){
 		$acc += timeToDay($diff) * $av['pricePerNight'];
 	}
 
-	return -1;
+	return -3;
 }
 
 ?>

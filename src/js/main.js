@@ -9,12 +9,11 @@ function encodeForAjax(data) {
 // -------------------
 
 //// Sticky nav bar
-var navbar = document.getElementById("navbar")
-var sticky = navbar.offsetTop
+let navbar = document.getElementById("navbar")
 
 window.addEventListener('scroll', function() {
 	// TODO: ver o 20 hardcoded
-	if((window.pageYOffset - 20) > sticky)
+	if((window.pageYOffset - 20) > navbar.offsetTop)
 		navbar.classList.add("sticky")
 	else
 		navbar.classList.remove("sticky")

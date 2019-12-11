@@ -1021,22 +1021,29 @@ footer a {
 /* TODO: por inputs bonitos */
 /*---------------------place_info.php-----
 */
-#Place_Info_Container{
+#place_page{
+	/* TODO: ver */
+	color: black;
     display: grid;
     grid-template-columns: auto auto;
-    grid-template-rows:auto auto auto auto auto;
-    grid-template-areas: 
-                        "Info Aside"
-                        "Map Aside"
-                        "Reviews Aside"
-                        "Avaiability Avaiability"
+    grid-template-rows:auto auto;
+    grid-template-areas:"Column Aside"
                         "Similar Similar";                        
 }
 
+#place_page section.column{
+	grid-area: Column;
+}
+
+#place_page aside{
+	grid-area: Aside;
+}
+
+#fr_card {
+	position: sticky;
+}
+
 #House_Info{
-    grid-area:Info;
-    margin-left: 6rem;
-    margin-right: 2rem;
     border-bottom: 2px;
     border-bottom-color: var(--main_color);
     border-bottom-style: solid;
@@ -1046,7 +1053,6 @@ footer a {
 }
 
 #House_Info header{
-    
     font-size: 2rem;
     padding-bottom: 0.1em;
     border-bottom-style: solid;
@@ -1086,17 +1092,6 @@ footer a {
     height: 1em; 
 }
 
-#Pop_UP_Fast_Reservation{
-    grid-area:Aside;
-    border-left: 3px;
-    padding-left: 0.2em;
-    border-top:1em;
-    position: -webkit-sticky;
-    position: sticky;
-    top:0;
-    left: 55%;
-    height: 25vh;
-}
 #Owner_info{
     margin-top: 1em;
 }
@@ -1112,7 +1107,7 @@ footer a {
     margin-top:1em;
     margin-left: 6em;
 }
-#Pop_UP_Fast_Reservation img{
+#fr_card img{
     width: 3em;
     height: 3em;
     float: left;
@@ -1120,9 +1115,6 @@ footer a {
 }
 
 #Google_Maps_Widget_Container{
-    grid-area:Map;
-    margin-left: 6rem;
-    margin-right: 2rem;
     border-bottom-style: solid;
     border-bottom-width: 3px;
     border-bottom-color: var(--main_color);
@@ -1134,7 +1126,6 @@ footer a {
 }
 
 #Reviews_Container{
-    grid-area:Reviews;
     margin-left: 6rem;
     margin-right: 1rem;    
 }
@@ -1159,14 +1150,9 @@ footer a {
 
 /* TODO: limpar forma como h4 e padding top é definido */
 #availabilities{
-    padding: 3em;
-    margin-left: 6rem;
-    grid-area:Avaiability;
     border-bottom-style: solid; 
     border-bottom-width: 3px;
 	border-bottom-color: var(--main_color);
-	padding-top: 1em;
-
 }
 
 #availabilities input{
@@ -1180,8 +1166,6 @@ footer a {
     align-items: center;
     flex-wrap: nowrap;
     flex-direction: row;
-    margin-left: 6rem;
-    margin-right: 2rem;
 }
 #Similar_Offers_Container img{
     width: 100%;
@@ -1192,12 +1176,9 @@ footer a {
     flex-basis: 20%;
 }
 #Similar_Offers_Center{
-    margin-top: 2em;
-
     flex-basis: 40%;
 }
 #Similar_Offers_Right{
-
     flex-basis: 20%;
 }
 
