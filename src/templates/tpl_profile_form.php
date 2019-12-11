@@ -68,10 +68,11 @@ function draw_profile_form($all_locations, $title, $user_info = null) {
                     <label for="prof-image">Profile image:
                         <img id="img-to-upload" class="circular-img" src="<?=$imagePreview?>">
                     </label>
-                </div>
+				</div>
+				<!-- TODO ver este label -->
                 <label class="button" for="imageFile">Select foto</label>
-                <input class="button" type="file" id="imageFile" accept="image/*" name="imageFile" data-hasFile=<?=$hasFile?>>
-                <label class="button" id="remove-button">Remove</label>
+                <input type="file" id="imageFile" accept="image/*" name="imageFile" data-hasFile=<?=$hasFile?>>
+                <button class="button" type="button" id="remove-button">Remove</button>
             </section>
 
             <label for="username">Username: 
@@ -122,8 +123,7 @@ function draw_profile_form($all_locations, $title, $user_info = null) {
             </label>
 
             <p id="profile-form-error" class="error-message"></p>
-
-	        <input class="button" type="submit" value="Confirm">
+			<button class="button">Confirm</button>
         </form>
     </section>
 

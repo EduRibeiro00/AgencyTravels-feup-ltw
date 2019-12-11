@@ -1,5 +1,7 @@
 @import "./constants.css";
 @import "./carousel.css";
+@import "./house_card.css";
+
 
 
 /* TODO: uniformizar botoes */
@@ -388,16 +390,22 @@ main#main-page .place-listing {
     margin: 1em auto;
 }
 
-.button {
-    background-color: var(--main_color);
+.button{
+	background-color: var(--main_color);
     color: var(--light_text_color);
     padding: 0.3em 2em;
     border: 1px solid var(--border_color);
     border-radius: 1em;
-    transition: opacity .3s ease-in-out;
 }
 
-.button:hover {
+/* TODO: idealmente depois tirar o label */
+label.button,
+a.button,
+button.button {
+    transition: opacity .3s ease-in-out;
+}
+a.button:hover,
+button.button:hover {
     text-decoration: none;
 	opacity: 0.8;
 	cursor: pointer;
@@ -493,6 +501,8 @@ main#profile-page .place-listing {
     flex-direction: column;
 }
 
+/* TODO: ver depois isto direito */
+#img-upload > .button,
 #profile-form label, #profile-form #form-gender {
     font-size: 1.2em;
     color: var(--main_color);
@@ -516,7 +526,7 @@ main#profile-page .place-listing {
     height: 12em;
 }
 
-#img-upload > label.button {
+#img-upload > .button {
     color: var(--light_text_color);
     font-weight: normal;
     margin-right: 1em;
@@ -530,7 +540,7 @@ main#profile-page .place-listing {
     display: inline-block;
 }
 
-#profile-form input[type="submit"] {
+#profile-form button {
     text-align: center;
     margin: 1em auto;
 }
@@ -541,80 +551,6 @@ main#profile-page .place-listing {
 
 #new-password {
     margin-right: 3em;
-}
-
-
-/**
- * ------------ House Card ------------
- */
-
-.card {
-	border-bottom: 1px var(--border_color) solid;
-    color: var(--main_color);
-    min-width: 45em;
-}
-
-.card > a {
-    padding: 1em 0;
-    font-size: 1em;
-    width: 45em;
-}
-
-.card > a:hover {
-    background: var(--darker_bg_color);
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.card .info {
-    margin: 0 1em;
-    flex-grow: 1;
-}
-
-/* TODO: depois apagar pq será carroussel */
-.hcard-img {
-	width: 16em;
-	height: 11.5em;
-	object-position: center;
-}
-
-.card .info h4{
-	margin: 0.3em 0;
-}
-
-.card .info span{   
-	padding: 0.3em 1em;
-	border: var(--border_color) 1px solid;
-    border-radius: 1em;
-    margin-right: 1em;
-	background: var(--main_color);
-	color: var(--light_text_color);
-}
-
-.card-options {
-    justify-content: space-evenly;
-    flex-grow: 1;
-    margin: 0 1em;
-}
-
-.card-options > * {
-    text-align: center;
-}
-
-.card footer {
-	align-items: flex-end;
-	flex-grow: 1;
-	justify-content: space-between;
-}
-
-.card footer .card-rating {
-    margin: 1em;
-}
-
-.reserv-dates {
-    margin: 0 1em;
-    color: black;
-    justify-content: space-evenly;
 }
 
 /*
@@ -743,6 +679,7 @@ section#map img {
 	grid-area: facilities;
 }
 
+#filters button,
 #filters input[type="submit"]{
 	grid-area: submit;
 	font-size: 1em;
@@ -921,18 +858,10 @@ footer a {
     
 }
 
-#Pictographic_Info{
-    list-style-type: none;
-    padding-bottom: 1em;
-    border-bottom-style: solid;
-    border-bottom-width: 3px;
-    border-bottom-color: var(--main_color);
-    padding-left: 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    
-
+ul.row {
+	list-style-type: none;
+	justify-content: space-around;
+	padding: 0;
 }
 
 #Pictographic_Info li{

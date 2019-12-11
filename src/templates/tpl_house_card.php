@@ -2,6 +2,7 @@
 include_once('../templates/tpl_common.php');
 include_once('../database/db_places.php');
 include_once('../includes/reservation_utils.php');
+include_once('../templates/tpl_place.php');
 
 function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 	<article class="row card">
@@ -10,10 +11,10 @@ function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 			<img class="hcard-img" src="../assets/images/places/medium/<?=$place['images'][0]['image']?>">
 			<div class="column info">
 			<h4><?=$place['title']?></h4>
-			<p><span class="card-guests"><?=$place['capacity']?> guests</span><span class="card-bedroom"><?=$place['numRooms']?> bedroom</span><span class="card-bathroom"><?=$place['numBathrooms']?> bathroom</span></p>
+			<?php draw_place_details($place['numRooms'], $place['capacity'], $place['numBathrooms']); ?>
 			<footer class="row">
 				<?php if(isset($place['price']) && $place['price'] != null) { ?>
-					<p><?=$place['price']?>€ / noite</p>
+					<p><?=$place['price']?>€ / night</p>
 				<?php }
 				else { ?>
 					<p><em>No prices available</em></p>

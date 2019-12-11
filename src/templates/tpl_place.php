@@ -1,15 +1,17 @@
 <?php
 
 include_once('../templates/tpl_common.php');
-include_once('../templates/tpl_availability.php');
 include_once('../templates/tpl_comment.php');
+include_once('../templates/tpl_similar_offer.php');
 
 
 function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePrice) { ?>
 	<main id="place_page">
 		<section class="column">
+		<h2><?=$place['title']?></h2>
 		<?php
-			draw_my_place_icon_desc($place['title'], $place['numRooms'], $place['capacity'], $place['numBathrooms'], $place['description']);
+			draw_place_details($place['numRooms'], $place['capacity'], $place['numBathrooms']);
+			draw_place_description($place['description']);
 			
 			//Adress string parsing
 			$houseAddress = $place['address'] . ", " . $place['city'] . ", " . $place['country'];
@@ -18,8 +20,7 @@ function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePri
 		  	//House Rating is the avg rating of the house
 			draw_all_comments($place['rating'], $houseComments);
 
-			draw_availability_block();
-
+			draw_availability();
 		?>
 		</section>
 		<?php 
@@ -61,24 +62,22 @@ function draw_my_place_sidebar($housePrice,$house_rating, $house_owner_info, $pl
     </aside>
 <?php } 
 
+function draw_place_details($house_numRooms, $house_capacity, $house_numBathrooms) { ?>
+	<ul class="row">
+		<li class="button">
+			<i class="fas fa-bed"></i> Rooms <?=$house_numRooms?>
+		</li>
+		<li class="button">
+			<i class="fas fa-user"></i> Capacity <?=$house_capacity?>
+		</li>
+		<li class="button">
+			<i class="fas fa-toilet"></i> Bathrooms <?=$house_numBathrooms?>
+		</li>
+	</ul>
+<?php }
 
-function draw_my_place_icon_desc($house_name, $house_numRooms, $house_capacity, $house_numBathrooms, $house_description) { ?>
+function draw_place_description($house_description) { ?>
     <article id="House_Info">
-        <header><?= $house_name ?></header>
-        <ul id="Pictographic_Info">
-            <li>
-                <i class="fas fa-bed"></i>
-                Number of Rooms <?= $house_numRooms ?>
-            </li>
-            <li>
-                <i class="fas fa-user"></i>
-                Capacity <?= $house_capacity ?>
-            </li>
-            <li>
-                <i class="fas fa-toilet"></i>
-                Bathrooms <?= $house_numBathrooms ?>
-            </li>
-        </ul>
         <p id="House_Description"> <?= $house_description ?></p>
     </article>
 <?php }
@@ -95,5 +94,13 @@ function draw_my_place_location($house_address_full, $house_gpsCoords) { ?>
             <p>Address:<?= $house_address_full ?></p>
             <p>GPS_Coords:<?= $house_gpsCoords ?></p>
         </footer>
+    </article>
+<?php } 
+
+
+function draw_availability(){ ?>
+    <article id="availabilities">
+		<h3>Availabilties</h3>
+		<input id="av_checkin" type="text">
     </article>
 <?php } ?>
