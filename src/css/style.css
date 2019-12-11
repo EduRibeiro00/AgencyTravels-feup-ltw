@@ -25,11 +25,14 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6, a, p, label {
-    font-family: var(--default_text_font);
+	font-family: var(--default_text_font);
+	/* margin: 0; */
 }
 
 h1, h2, h3, h4, h5, h6 {
 	color: var(--main_color);
+	margin: 0;
+	padding: 1em 0;
 }
 
 /* circular cropper: apenas para usar em imagens fixas como o logotipo e o github */
@@ -290,9 +293,8 @@ main#main-page {
                          "randlocationplaces randlocationplaces"; 
 }
 
-main h3 {
+#main-page h3 {
     font-size: 2em;
-    margin: .5em;
 }
 
 main a {
@@ -350,7 +352,8 @@ ol li span:before {
 }
 
 main#main-page .place-listing {
-    grid-area: randlocationplaces;
+	grid-area: randlocationplaces;
+	padding: 1em;
 }
 
 .place-listing {
@@ -822,7 +825,8 @@ footer a {
 ul.row {
 	list-style-type: none;
 	justify-content: space-around;
-	padding: 0;
+	padding: 1em 0;
+	margin: 0;
 }
 
 #Pictographic_Info li{
@@ -847,21 +851,30 @@ ul.row {
 #place_page {
 	max-width: 100em;
 	margin: 0 auto;
+	padding: 1em;
 }
 
-#place_page section.column article{
-	border-bottom: 2px solid var(--main_color);
+#place_page section.column > *{
+	border-bottom: 3px solid var(--main_color);
+}
+
+#place_page section.column > article:last-of-type{
+	border-bottom: none;
+	margin-bottom: 1em;
 }
 
 /****************  Fast Reservation Form ****************/
 
 #fr_card{
+	margin: 1em;
+	padding: 1em;
 	width: 22em;
 	background-color: var(--background_color);
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 #fr_card form{
+	margin: 1em 0;
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 	grid-template-rows: auto auto;
@@ -883,68 +896,66 @@ ul.row {
 	grid-area: button;
 }
 
-#owner_contact {
-	grid-area: contact;
-	align-self: end;
-}
+ /****************  User Info Card ****************/
 
- /****************  Owner Info Card ****************/
-
-#owner_card{
+.user_card{
 	display: grid;
 	grid-template-columns: min-content auto;
     grid-template-rows: auto auto;
     grid-template-areas: "img username"
-						 "img contact"; 
+						 "img other"; 
 	border-top: 1px solid var(--border_color);
-	margin: 1em;
 	padding: 1em 0;
 }
 
-#owner_img{
+.user_img{
 	grid-area: img;
 	margin-right: 1em;
 }
 
-#owner_username {
+.user_img img{
+	width: 3em;
+    height: auto;
+}
+
+.user_username {
 	grid-area: username;
 }
 
-#owner_contact {
-	grid-area: contact;
-	align-self: end;
+.user_contact {
+	grid-area: other;
 }
 
-#fr_card img{
-    width: 3em;
-    height: 3em;
-    float: left;
-    margin-left: 0px;
+.review .overlay_anchor {
+	position:absolute;
+	left:0;
+	top:0;
+	bottom:0;
+	right:0;
 }
 
-#Google_Maps_Widget_Container{
-    border-bottom-style: solid;
-    border-bottom-width: 3px;
-    border-bottom-color: var(--main_color);
-
-}
-#Google_Maps_Img{
-    height: 80%;
-    width: 80%;
+.review header{
+	position:relative;
+	pointer-events: none;
+	z-index: 1;
 }
 
-#Reviews_Container{
-    margin-left: 6rem;
-    margin-right: 1rem;    
+.review header a{
+	pointer-events: all;
+  	position:relative;
 }
 
 .review{
-    border-bottom-style: solid; 
-    border-bottom-width: 3px;
-    border-bottom-color: var(--main_color);
+	border-bottom: solid 2px var(--border_color_transp);
+	position: relative;
 }
+
+.review:last-of-type{
+    border-bottom: none;
+}
+
 .review .circular-cropper{
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 #reviews .Comment_Author_Img{
@@ -959,7 +970,14 @@ ul.row {
 	display: none;
 }
 
+#availabilities .lightpick--inlined{
+	margin: 0 auto;
+	width: min-content;
+	display: block;
+}
+
 #Similar_Offers_Container{
+	border-top: 3px solid var(--main_color);
     grid-area:Similar;
     display: flex;
     justify-content: space-around;

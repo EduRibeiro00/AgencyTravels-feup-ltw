@@ -3,6 +3,8 @@
 include_once('../templates/tpl_common.php');
 include_once('../templates/tpl_comment.php');
 include_once('../templates/tpl_similar_offer.php');
+include_once('../templates/tpl_cards.php');
+
 
 
 function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePrice) { ?>
@@ -53,12 +55,12 @@ function draw_place_description($house_description) { ?>
 
 //TODO:Implement Google MAPS
 function draw_place_location($house_address_full, $house_gpsCoords) { ?>
-    <article id="Google_Maps_Widget_Container">
+    <article>
         <h3>Location</h3>
-        <img id=Google_Maps_Img src="http://gnomo.fe.up.pt/~up201704618/Screenshot_2019-11-20%20Oporto4all%20-%20Trindade,%20Porto,%20Portugal.png">
+        <img style="height: auto; width:80%" id=Google_Maps_Img src="http://gnomo.fe.up.pt/~up201704618/Screenshot_2019-11-20%20Oporto4all%20-%20Trindade,%20Porto,%20Portugal.png">
         <footer>
-            <p>Address:<?= $house_address_full ?></p>
-            <p>GPS_Coords:<?= $house_gpsCoords ?></p>
+            <p>Address: <?= $house_address_full ?></p>
+            <p>GPS Coords: <?= $house_gpsCoords ?></p>
         </footer>
     </article>
 <?php } 
@@ -90,16 +92,7 @@ function draw_my_place_sidebar($housePrice,$house_rating, $houseOwner, $placeID,
 				<input id="fr_checkout" type="text" name="check_out_date" autocomplete="off" placeholder="Check Out...">
 				<button class="button" type="submit">Reserve</button>
 			</form>
-
-			<section id="owner_card">
-				<a id="owner_img" href="../pages/profile_page.php?userID=<?=$houseOwner['userID']?>">
-					<img class="circular-img" src="../assets/images/users/small/<?=$houseOwner['image']?>">
-				</a>
-				<a id="owner_username" href="../pages/profile_page.php?userID=<?=$houseOwner['userID']?>">
-					<?=$houseOwner['name']?>
-				</a>
-				<a id="owner_contact" href="mailto: <?=$houseOwner['email']?>">Speak with the Owner</a>
-			</section>
+			<?php draw_user_card($houseOwner, 'email') ?>
 		</article>
     </aside>
 <?php } 

@@ -52,7 +52,7 @@
             ?>
 
             <section class="place-comments">
-                <h3>Some reviews of <?=$user_info['username']?> 's places</h3>
+                <h3>Some reviews of <?=$user_info['username']?>'s places</h3>
                 
                 <?php if($user_place_comments == null || count($user_place_comments) == 0) { ?>
                     <p><em>No reviews available</em></p>

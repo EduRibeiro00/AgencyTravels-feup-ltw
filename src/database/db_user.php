@@ -77,7 +77,7 @@
     
     function getReviewsForUserPlaces($userID, $limit) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT comment, Review.stars as stars, User.username as username, User.userID as userID, image, Review.date as date, Place.placeID as placeID
+        $stmt = $db->prepare('SELECT comment, Review.stars as stars, User.name as name, User.userID as userID, image, Review.date as date, Place.placeID as placeID
                               FROM Place NATURAL JOIN Reservation NATURAL JOIN Review JOIN User on Reservation.touristID=User.userID JOIN Image on User.userID = Image.userID
                               WHERE Place.ownerID = ?
                               LIMIT ?');

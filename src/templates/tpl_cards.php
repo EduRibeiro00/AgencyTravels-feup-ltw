@@ -78,3 +78,20 @@ function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 	
 	</article>
 <?php }
+
+
+function draw_user_card($user, $drawingOption) { ?>
+	<section class="user_card">
+		<a class="user_img" href="../pages/profile_page.php?userID=<?=$user['userID']?>">
+			<img class="circular-img" src="../assets/images/users/small/<?=$user['image']?>">
+		</a>
+		<a class="user_username" href="../pages/profile_page.php?userID=<?=$user['userID']?>">
+			<?=$user['name']?>
+		</a>
+		<?php if($drawingOption == 'email') {?>
+			<a class="user_contact" href="mailto: <?=$user['email']?>">Speak with the Owner</a>
+		<?php } else if($drawingOption == 'rating') draw_star_rating($user['stars']) ?>
+
+	</section>
+
+<?php } ?>

@@ -1,33 +1,20 @@
 <?php
 include_once('../templates/tpl_common.php');
+include_once('../templates/tpl_cards.php');
 include_once('../database/db_user.php');
 
-function draw_comment($comment, $linkToPlace = false){ 
-    
-    
-?>
+function draw_comment($comment, $linkToPlace = false){ ?>
     <article class="review">
-        <?php if($linkToPlace) { ?>
-          <a href="../pages/place_info.php?place_id=<?=$comment['placeID']?>">
+		<?php if($linkToPlace) { ?>
+          <a class="overlay_anchor" href="../pages/place_info.php?place_id=<?=$comment['placeID']?>"></a>
         <?php } ?>
-            <header>
-                <?php if(!$linkToPlace) { ?>
-                    <a href="../pages/profile_page.php?userID=<?=$comment['userID']?>">
-                <?php } ?>
-    	    	        <img class="Comment_Author_Img circular-img" src="../assets/images/users/small/<?=$comment['image']?>">
-                <?php if(!$linkToPlace) { ?>    
-                    </a>
-                <?php } ?>
-                <p><?=$comment["username"]?></p> 
-    	    	<?php draw_star_rating($comment["stars"])?>
-            </header>
-            <p><?=$comment["comment"]?></p>
-            <footer>
-                <p>Published: <?=$comment["date"]?></p>
-            </footer>
-        <?php if($linkToPlace) { ?>
-            </a>
-        <?php } ?>
+		<header>
+			<?php draw_user_card($comment, 'rating') ?>
+		</header>
+		<p><?=$comment["comment"]?></p>
+		<footer>
+			<p>Published: <?=$comment["date"]?></p>
+		</footer>
     </article>
 
 <?php } ?> 
