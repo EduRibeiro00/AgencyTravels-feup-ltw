@@ -77,11 +77,19 @@ function priceDay(date){
 window.onload = function () {
 	let navbar = document.getElementById('navbar')
 	let fastRes = document.getElementById('fr_card')
+	let checkinFR = document.getElementById('fr_checkin')
+	
 	fastRes.style.top = navbar.offsetHeight + "px"
-	// TODO: do sticky calendar
-	// let frInputBound = document.getElementById('fr_checkin').getBoundingClientRect()
-	// console.log(frInputBound)
-	// reservationCal.setStickyValue(frInputBound.top)
+
+	let fr = document.getElementById('fr_card')
+	window.addEventListener('scroll', function(){
+		if(window.pageYOffset == fr.offsetTop - navbar.offsetHeight)
+			reservationCal.setPositionProp('fixed', checkinFR.offsetHeight + checkinFR.offsetTop + navbar.offsetHeight);
+		else
+			reservationCal.setPositionProp('', fr.offsetTop + checkinFR.offsetHeight + checkinFR.offsetTop);
+
+	})
+	
 
 	let request = new XMLHttpRequest();
 

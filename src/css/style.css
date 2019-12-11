@@ -151,7 +151,7 @@ body > nav {
 }
 
 #navbar {
-	z-index: 250;
+	z-index: 501;
     display: flex;
     justify-content: flex-start;
     align-items: center;

@@ -93,8 +93,6 @@
 		  }
 		},
 		fixed: false,
-		sticky: false,
-		stickyValue: null,
 		priceTooltip: false,
 		// price: null,
   
@@ -1264,19 +1262,6 @@
 
 		if(this._opts.fixed)
 			  this.el.style.position = "fixed";
-		// Sticky TODO
-		else if(this._opts.sticky){
-			console.log(this._opts.stickyValue)
-			console.log(window.pageYOffset+"px")
-			if(this._opts.stickyValue == null)
-			 	this.el.style.position = "absolute";
-			else if(this._opts.stickyValue > window.pageYOffset + "px")
-				this.el.style.position = "fixed";
-			else{
-				console.log("ola")
-				 this.el.style.position = "absolute";
-			}
-		}
   
 		if (
 		  !/left|right/.test(orientation[0]) &&
@@ -1307,8 +1292,11 @@
 		this.el.style.left = left + 'px';
 	  },
   
-	  setStickyValue: function(value){
-		this._opts.stickyValue = value + "px";
+	  setPositionProp: function(position, top){
+		this.el.style.position = position;
+		// if(this.isShowing){
+			this.el.style.top = top+"px"
+		// }
 	  },
 
 	  setStartDate: function(date, preventOnSelect) {
