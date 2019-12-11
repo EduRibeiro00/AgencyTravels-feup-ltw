@@ -150,4 +150,17 @@ function uploadPlaceImage($placeID, $image) {
   return true;
 }
 
+function deleteSelectedPhotos($placeID, $images,$images_array_len){
+  //TODO: Delete from the local FILES
+  for($i=0;$i<$images_array_len;$i++){
+
+    removeImageFromPlace($placeID,$images[$i]);
+
+  }
+
+
+
+  return false;
+}
+
 ?>

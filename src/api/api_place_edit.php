@@ -3,6 +3,18 @@ include_once('../includes/session_include.php');
 include_once('../database/db_places.php');
 include_once('../includes/img_upload.php');
 
+function find_photo_in_database_array($photo_hash, $images_place_from_database, $images_place_from_database_len)
+{
+
+    for ($i = 0; $i < $images_place_from_database_len; $i++) {
+        if (strcmp($photo_hash, $images_place_from_database[$i]['image']) == 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 const true_message = 'true';
 
 if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
@@ -19,13 +31,14 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $country = $_POST['country'];
     $numRooms = $_POST['numRooms'];
     $numBathrooms = $_POST['numBathrooms'];
+    $images = $_FILES['imagePlaceFile']['tmp_name'];
     $capacity = $_POST['capacity'];
 
-    $images = $_FILES['imagePlaceFile']['tmp_name'];
-    $photosToRemove = $_POST['imagesToRemoveArray'];
+    $photosToRemove_str = $_POST['imagesToRemoveArray'];
 
     //Check if there is any photo to remove
-    if ($photosToRemove != NULL) {
+    if (strlen($photosToRemove_str) != 0) {
+        $photosToRemove = explode(",", $photosToRemove_str);
         $num_photos_to_remove = count($photosToRemove);
     } else {
         $num_photos_to_remove = 0;
@@ -41,7 +54,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
         $images_place_from_database = $place_info_from_database['images'];
         //CHECK IF THAT IMAGE BELONGS TO THE HOUSE
         for ($i = 0; $i < $num_photos_to_remove; $i++) {
-            if (in_array($photo, $images_place_from_database) === false) {
+            if (find_photo_in_database_array($photosToRemove[$i], $images_place_from_database, count($images_place_from_database)) === false) {
                 $message = 'image not from that place';
                 break;
             }
@@ -54,9 +67,16 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
         //CHECK IF ALL PHOTOS UPLOADED ARE VALID
         $total = count($images);
         for ($i = 0; $i < $total; $i++) {
-            if (!checkIfImageIsValid($images[$i])) {
-                $message = 'invalid image';
-                break;
+
+            if ($images[$i] != "") {
+
+                if (!checkIfImageIsValid($images[$i])) {
+                    $message = 'invalid image';
+                    break;
+                }
+            } else {
+                //IF ITS A "" ENTRY ON THE ARRAY WE DECREMENT THE NUMBER OF ELEMENTS
+                $total--;
             }
         }
 
@@ -73,14 +93,23 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                 is_numeric($capacity)
             ) {
 
-                $message = updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $numRooms, $numBathrooms, $capacity);
+                if (strcmp(updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $numRooms, $numBathrooms, $capacity), true_message) != 0) {
+                    $message = 'Error Updating home';
+                } else {
+                    if (strcmp($message, true_message) == 0) {
+                        //NEW PHOTOS UPLOADED
+                        for ($i = 0; $i < $total; $i++) {
+                            if (uploadPlaceImage($placeID, $images[$i]) != true) {
+                                $message = 'Invalid IMAGE';
+                                break;
+                            }
+                        }
+
+                        for($j=0;$j<$num_photos_to_remove;$j++){
 
 
-                //NEW PHOTOS UPLOADED
-                for ($i = 0; $i < $total; $i++) {
-                    if (uploadPlaceImage($placeID, $images[$i]) != true) {
-                        $message = 'Invalid IMAGE';
-                        break;
+                            
+                        }
                     }
                 }
             } else {
@@ -89,5 +118,4 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
         }
     }
 }
-
 echo json_encode(array('message' => $message));
