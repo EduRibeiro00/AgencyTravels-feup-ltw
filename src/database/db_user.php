@@ -48,6 +48,18 @@
         return $all_places;
     }
 
+
+    function getUserReservationIDForPlace($userID, $placeID) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT *
+                              FROM Reservation
+                              WHERE touristID = ? AND placeID = ?'
+                            );
+        $stmt->execute(array($userID, $placeID));
+        return $stmt->fetchAll();
+    }
+
+
     function getReviewForReservation($reservationID) {
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT reviewID

@@ -1,5 +1,6 @@
 <?php
 include_once('../database/db_places.php');
+include_once('..database/db_user.php');
 
 function compareDates($element1, $element2) { 
     $datetime1 = strtotime($element1['startDate']); 
@@ -56,6 +57,11 @@ function canCancelReservation($reservationStartDate) {
 function canReviewPlace($reservationEndDate, $reviewID) {
 	$currentDate = date('Y-m-d');
 	return $currentDate > $reservationEndDate && $reviewID === false;
+}
+
+
+function canUserReviewPlace($userID, $placeID) {
+
 }
 
 ?>

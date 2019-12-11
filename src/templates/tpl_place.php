@@ -3,7 +3,7 @@
 include_once('../templates/tpl_common.php');
 include_once('../templates/tpl_availability.php');
 include_once('../templates/tpl_comment.php');
-
+include_once('../templates/tpl_similar_offer.php');
 
 function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePrice) { ?>
 	<main id="place_page">
@@ -84,7 +84,7 @@ function draw_my_place_icon_desc($house_name, $house_numRooms, $house_capacity, 
 <?php }
 
 
-//TODO:Implement Google MAPS
+// TODO:Implement Google MAPS
 function draw_my_place_location($house_address_full, $house_gpsCoords) { ?>
     <article id="Google_Maps_Widget_Container">
         <header>Location</header>

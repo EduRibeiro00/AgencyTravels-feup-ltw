@@ -2,10 +2,7 @@
 include_once('../templates/tpl_common.php');
 include_once('../database/db_user.php');
 
-function draw_comment($comment, $linkToPlace = false){ 
-    
-    
-?>
+function draw_comment($comment, $linkToPlace = false){ ?>
     <article class="review">
         <?php if($linkToPlace) { ?>
           <a href="../pages/place_info.php?place_id=<?=$comment['placeID']?>">
