@@ -54,7 +54,7 @@ let reservationCal = new Lightpick({
 	tooltipNights	: true,
 	fixed			: true,
 	disabledDatesInRange: false,
-	onSelectEnd: getPriceAsync
+	onSelectEnd		: getPriceAsync
 
 });
 
