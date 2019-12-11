@@ -158,4 +158,5 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
         }
     }
 }
+$message=$array_fileNames;
 echo json_encode(array('message' => $message));

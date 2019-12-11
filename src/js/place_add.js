@@ -54,13 +54,16 @@ imageInput.addEventListener('change', function (event) {
 		let reader_inside = new FileReader();
 		let f = event.target.files[i];
 		//Add files to the files array
-		files_array.push(f.name);
+		
+		if(number_images<6){
+			files_array.push(f.name);
+			number_images++;
+		}
 		reader_inside.readAsDataURL(f);
 
 
 		reader_inside.addEventListener('load', function (event) {
 
-			if (number_images < 6) {
 				let child_element = generateImgDivContainer(event.target.result);
 				image_block_preview.appendChild(child_element);
 
@@ -100,7 +103,7 @@ imageInput.addEventListener('change', function (event) {
 					}
 				}
 				)
-			}
+			
 		});
 	}
 });

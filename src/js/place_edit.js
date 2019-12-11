@@ -19,7 +19,6 @@ function generateImgDivContainer(imgSrc) {
 
 	img_array[img_id] = div_container;
 	img_id++;
-	number_images++;
 	image_to_append.src = imgSrc;
 
 	div_container.appendChild(image_to_append);
@@ -91,55 +90,59 @@ imageInput.addEventListener('change', function (event) {
 		let f = event.target.files[i];
 
 		//Add files to the files array
-		files_array.push(f.name);
+		if ((number_images + number_images_local - array_photos_to_remove.length) < 6) {
+			files_array.push(f.name);
+			number_images++;
+		}
+
 		reader_inside.readAsDataURL(f);
 		//WHEN THE READASDATAURL IS DONE
 		reader_inside.addEventListener('load', function (event) {
 
 			//WE ONLY ADD AN NEW IMAGE IF THE NUMBER OF ELEMENTS IS LESS THAN 6 AT THAT MOMENT
-			if ((number_images + number_images_local - array_photos_to_remove.length) < 6) {
-				//CALL THE FUNCTION TO GENERATE AN ELEMENT OF THAT TYPE
-				let child_element = generateImgDivContainer(event.target.result);
-				image_block_preview.appendChild(child_element);
 
-				let remove_button = child_element.getElementsByClassName("delete_image_preview");
+			//CALL THE FUNCTION TO GENERATE AN ELEMENT OF THAT TYPE
+			let child_element = generateImgDivContainer(event.target.result);
+			image_block_preview.appendChild(child_element);
 
-				remove_button[0].addEventListener('click', function (event) {
+			let remove_button = child_element.getElementsByClassName("delete_image_preview");
 
-					event.preventDefault();
+			remove_button[0].addEventListener('click', function (event) {
 
-					let pos_delete_array = remove_button[0].getAttribute('identifier_local');
+				event.preventDefault();
 
-					if (pos_delete_array > img_array.length) {
-						console.error('DONT TRY TO VIOLATE THE JS ITS USELESS MATE');
-						//FORCE A MINIMUM OF 1 IMAGE
-					} else if ((number_images + number_images_local - array_photos_to_remove.length) > 1) {
-						//REMOVE FROM GUI
-						img_array[pos_delete_array].remove();
-						//REMOVE JS DATA
-						delete img_array[pos_delete_array];
-						//REMOVES FILE FROM ARRAY FILES
-						delete files_array[pos_delete_array];
-						//
-						number_images--;
-					}
+				let pos_delete_array = remove_button[0].getAttribute('identifier_local');
 
-					// I M USING DELETE LEAVES HOLES AND LENGTH REPRESENTS THE LAST ELEMENT NOT THE NUMBER OF ELEMENTS IN JS THIS MUST BE DONE TO CHECK IF THERE ARE ELEMENTS
-					let is_empty = true;
-					//THE INDEX REPRESENT THE INDEX OF LAST ELEMENT. INCOMPATIBLE WITH REMOVE. REMOVE IS NOT AVOIDABLE HERE
-					for (let i = 0; i < img_array.length; i++) {
-						if (img_array[i] != null) {
-							is_empty = false;
-						}
-					}
-					//IF THE INPUT BECOMES EMPTY RESET THE SIZE OF THE FIRST IMAGE
-					//!=NULL could be add form there are no local photos
-					if (is_empty == true && localImages != null) {
-						localImages.className = "edit_place_img_medium";
+				if (pos_delete_array > img_array.length) {
+					console.error('DONT TRY TO VIOLATE THE JS ITS USELESS MATE');
+					//FORCE A MINIMUM OF 1 IMAGE
+				} else if ((number_images + number_images_local - array_photos_to_remove.length) > 1) {
+					//REMOVE FROM GUI
+					img_array[pos_delete_array].remove();
+					//REMOVE JS DATA
+					delete img_array[pos_delete_array];
+					//REMOVES FILE FROM ARRAY FILES
+					delete files_array[pos_delete_array];
+					//
+					number_images--;
+				}
+
+				// I M USING DELETE LEAVES HOLES AND LENGTH REPRESENTS THE LAST ELEMENT NOT THE NUMBER OF ELEMENTS IN JS THIS MUST BE DONE TO CHECK IF THERE ARE ELEMENTS
+				let is_empty = true;
+				//THE INDEX REPRESENT THE INDEX OF LAST ELEMENT. INCOMPATIBLE WITH REMOVE. REMOVE IS NOT AVOIDABLE HERE
+				for (let i = 0; i < img_array.length; i++) {
+					if (img_array[i] != null) {
+						is_empty = false;
 					}
 				}
-				)
+				//IF THE INPUT BECOMES EMPTY RESET THE SIZE OF THE FIRST IMAGE
+				//!=NULL could be add form there are no local photos
+				if (is_empty == true && localImages != null) {
+					localImages.className = "edit_place_img_medium";
+				}
 			}
+			)
+
 		});
 	}
 });
