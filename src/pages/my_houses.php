@@ -28,7 +28,7 @@
     $myHouses = getUserPlaces($houseOwnerID);
     
     for($i = 0; $i < count($myHouses); $i++) {
-        $myHouses[$i]['price'] = getAveragePrice($myHouses[$i]['placeID'])['avg_price'];
+        $myHouses[$i]['price'] = getAveragePrice($myHouses[$i]['placeID']);
         $myHouses[$i]['nVotes'] = getPlaceNumVotes($myHouses[$i]['placeID']);
     }
 

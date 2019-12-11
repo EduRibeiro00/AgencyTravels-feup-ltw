@@ -164,11 +164,11 @@ function getRandomCity() {
 
 function getAveragePrice($placeID) {
     $db = Database::instance()->db();
-    $stmt = $db->prepare('SELECT round(avg(pricePerNight)) as avg_price
+    $stmt = $db->prepare('SELECT IFNULL(round(avg(pricePerNight)), 0) as avg_price
                           FROM Availability
-                          WHERE placeID = ?');
-	$stmt->execute(array($placeID));
-	return $stmt->fetch();
+                          WHERE placeID = ? AND date(endDate) >= date(?)');
+	$stmt->execute(array($placeID, date('Y-m-d')));
+	return $stmt->fetch()['avg_price'];
 }
 
 function getPrice($placeID, $date) {

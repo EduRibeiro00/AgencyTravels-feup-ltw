@@ -39,7 +39,7 @@ function getPlaces(){
 	
 			foreach($places as $key => &$place){
 		if(!$foundDates)
-			$place['price'] = getAveragePrice($place['placeID'])['avg_price'];
+			$place['price'] = getAveragePrice($place['placeID']);
 		else{
 			$place['price'] = getPriceInDate($place['placeID'], $checkin, $checkout);
 			if($place['price'] < 0) {

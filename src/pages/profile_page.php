@@ -30,7 +30,7 @@
     $user_place_comments = getReviewsForUserPlaces($userID, 5);
 
     foreach($user_places as $k => $place) {
-        $user_places[$k]['avg_price'] = getAveragePrice($place['placeID'])['avg_price'];
+        $user_places[$k]['avg_price'] = getAveragePrice($place['placeID']);
     }
 
     draw_head($jsFiles);

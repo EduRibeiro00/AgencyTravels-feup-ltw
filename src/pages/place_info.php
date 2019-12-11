@@ -33,7 +33,7 @@
 	
 	$place = getPlace($placeID);
     $houseComments = getHouseComments($placeID);
-    $housePrice = getAveragePrice($placeID)['avg_price'];
+    $housePrice = getAveragePrice($placeID);
     $houseOwnerInfo = getUserInformation($place['ownerID']);
 
    

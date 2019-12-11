@@ -32,10 +32,11 @@ function draw_comment($comment, $linkToPlace = false){
 
 <?php } ?> 
 
-<?php function draw_all_comments($house_rating,$house_comments) { ?>
+<?php function draw_all_comments($house_rating, $house_comments) { 
+	?>
     <article id="reviews">
     <header>
-        <p>Reviews</p>
+        <h3><?=count($house_comments)?> Reviews</h3>
         <?php draw_star_rating($house_rating)?>
     </header>
     <?php  

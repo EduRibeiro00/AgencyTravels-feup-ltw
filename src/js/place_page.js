@@ -53,9 +53,46 @@ let reservationCal = new Lightpick({
 	singleDate		: false,
 	tooltipNights	: true,
 	fixed			: true,
-	disabledDatesInRange: false
+	disabledDatesInRange: false,
+	onSelectEnd: getPriceAsync
 
 });
+
+
+function getPriceAsync() {
+	let request = new XMLHttpRequest();
+
+	request.open("POST", "../api/api_price_reservation.php", true)
+	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+
+	request.addEventListener('load', function() {
+		let message = JSON.parse(this.responseText).message;
+		let priceEl = document.getElementById('fr-price')
+
+		switch(message) {        
+			case 'Invalid submission', -3:
+				// TODO: por algo mais bonito
+				priceEl.innerHTML = "Submission missing parameters"
+				break;
+			case -2:
+				priceEl.innerHTML = "Wrong Range: there is a gap in Availabilities"
+				break;
+			case -1:
+				priceEl.innerHTML = "Reservation Overlap"
+				break;
+            default:
+				priceEl.innerHTML=message+'€'
+				break;
+        }
+    
+    });
+    
+	let placeID = document.querySelector('#fr_card input[name="placeID"]').value
+	let checkin = document.getElementById('fr_checkin').value
+	let checkout = document.getElementById('fr_checkout').value
+
+    request.send(encodeForAjax({placeID:placeID, checkin: checkin, checkout:checkout}));
+}
 
 function priceDay(date){
 	if(date == null)
