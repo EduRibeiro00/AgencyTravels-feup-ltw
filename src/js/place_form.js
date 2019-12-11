@@ -21,6 +21,7 @@ let image_delete_preview=document.querySelector('#img-delete_place_add');
 let img_id=0;
 let img_array=new Array()
 
+
 function generateImgDivContainer(imgSrc){
     let div_container = document.createElement("div");
     let image_to_append = document.createElement("img");
@@ -61,18 +62,25 @@ imageInput.addEventListener('change', function (event) {
 
             let child_element=generateImgDivContainer(event.target.result);
             image_block_preview.appendChild(child_element);
+            console.log(imageInput)
             let remove_button=child_element.getElementsByClassName("delete_image_preview");    
         
             remove_button[0].addEventListener('click',function(event){
                 
                 event.preventDefault();
+                let array_to_delete_filelist_img=Array.from(imageInput.files)
+                
                 let pos_delete_array=remove_button[0].getAttribute('identifier_local');
                 
                 if(pos_delete_array>img_array.length){
                     console.error('DONT TRY TO VIOLATE THE JS ITS USELESS MATE');
                 }else{
                     img_array[pos_delete_array].remove();
-                    delete img_array[pos_delete_array];
+                    img_array.splice(pos_delete_array,1);
+                    console.log(imageInput)
+                    array_to_delete_filelist_img.splice(pos_delete_array,1);
+                    console.log(imageInput)
+                    img_id--;
                 }
                 
                 let is_empty=true;
