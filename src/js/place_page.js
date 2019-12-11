@@ -14,6 +14,7 @@ function encodeForAjax(data) {
 let inlineCal = new Lightpick({
 	field			: document.getElementById('av_checkin'),
 	format			: 'YYYY-MM-DD',
+	lang			: 'en-US',
 	dropdowns		: {
 			years: {
 				min: 2019,
@@ -36,6 +37,7 @@ let reservationCal = new Lightpick({
 	field			: checkin,
     secondField		: checkout,
 	format			: 'YYYY-MM-DD',
+	lang			: 'en-US',
 	dropdowns		: {
 			years: {
 				min: 2019,

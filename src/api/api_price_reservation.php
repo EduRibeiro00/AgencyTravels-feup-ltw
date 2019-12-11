@@ -1,5 +1,5 @@
 <?php
-include_once('../templates/tpl_reservation_utils.php');
+include_once('../includes/reservation_utils.php');
 
 
 if(!isset($_POST['placeID']) || !isset($_POST['checkin']) || !isset($_POST['checkout'])){
