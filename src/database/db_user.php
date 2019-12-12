@@ -48,6 +48,17 @@
         return $all_places;
     }
 
+	function userHasReservationsInRange($userID, $checkin, $checkout) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT 1
+                              FROM Reservation
+                              WHERE touristID = ?
+                              AND date(?) < date(endDate) AND date(?) > date(startDate)'
+                            );
+        $stmt->execute(array($userID, $checkin, $checkout));
+        return $stmt->fetchAll();
+	}
+	
     function getReviewForReservation($reservationID) {
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT reviewID

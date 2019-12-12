@@ -159,3 +159,72 @@ window.onload = function () {
 	let placeID = url.searchParams.get("place_id")
 	request.send(encodeForAjax({placeID: placeID}))
 }
+
+let frForm = document.querySelector('#fr_card form')
+let frPopup = document.getElementById('fr-popup')
+let frMessage = document.getElementById('fr-message')
+
+frForm.addEventListener('submit', function(event) {
+	event.preventDefault();
+	frPopup.style.display = "block";
+	
+
+	frMessage.textContent = "";
+	frMessage.style.display = "none";
+
+
+	let request = new XMLHttpRequest();
+
+	request.open("POST", "../api/api_reservation.php", true)
+	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+
+	request.addEventListener('load', function() {
+		let message = JSON.parse(this.responseText).message;
+		console.log(message)
+		// TODO: botoes
+		switch(message) {
+            case 'user not logged in':
+				frMessage.textContent = 'ERROR: User is not logged in';
+                frMessage.style.display = "block";
+				break;
+			case 'incomplete data':
+				frMessage.textContent = 'ERROR: Data Received was incomplete';
+                frMessage.style.display = "block";
+				break;
+			case 'reservation overlap':
+				frMessage.textContent = 'ERROR: Your Reservation Overlaps one existent Reservation';
+                frMessage.style.display = "block";
+				break;
+			case 'inexsitent availability':
+				frMessage.textContent = 'ERROR: Days in Range without Availability';
+                frMessage.style.display = "block";
+				break;
+			case 'overlap own reservation':
+				frMessage.textContent = 'You already have one Reservation in the date range. Are you sure you want to continue?';
+                frMessage.style.display = "block";
+				break;
+			case 'own place':
+				frMessage.textContent = 'This is your own Place. Are you sure you want to continue?';
+                frMessage.style.display = "block";
+				break;
+            default:
+				break;
+		}
+	});
+
+	let hiddenInput = frForm.children[0]
+	if(hiddenInput == null){
+		frPopup.style.display = "none";
+		return;
+	}
+
+    let frCheckin = document.getElementById('fr_checkin').value;
+	let frCheckout = document.getElementById('fr_checkout').value;
+
+    request.send(encodeForAjax({placeID: hiddenInput.value, checkin: frCheckin, checkout: frCheckout}));
+});
+
+window.addEventListener('click', function(event){
+	if (event.target == frPopup)
+		frPopup.style.display = "none";
+});

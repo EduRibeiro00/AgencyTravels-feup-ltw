@@ -2,7 +2,7 @@
 
 .lightpick {
     position: absolute;
-    z-index: 500;
+    z-index: 350;
     padding: 4px;
     border-radius: 4px;
     background-color: var(--background_color);
@@ -14,7 +14,7 @@
 .lightpick--inlined {
     position: relative;
 	display: inline-block;
-	z-index: 220;
+	z-index: 1;
 }
 
 .lightpick,

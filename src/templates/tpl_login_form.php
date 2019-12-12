@@ -1,7 +1,7 @@
 
 <?php function draw_login_form() { ?>
-	<div id="pop-up">
-		<form id="login-form" class="column">
+	<div id="login-popup" class="pop-up">
+		<form id="login-form" class="column animate">
 			
 			<div class="circular-cropper">
 				<img id="logo-login" src="../assets/images/others/logo.jpg">
@@ -17,7 +17,7 @@
 			<label for="password">Password</label>
 			<input type="password" placeholder="Enter Password" name="password" required>
 
-			<button id="submit-button" class="button" type="submit">Login</button>
+			<button id="login-button" class="button" type="submit">Login</button>
 		</form>
 	</div>
 <?php } ?>

@@ -7,7 +7,9 @@ include_once('../templates/tpl_cards.php');
 
 
 
-function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePrice) { ?>
+function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePrice) { 
+	draw_confirmation_form();
+	?>
 	<main id="place_page">
 		<section class="column">
 		<h2><?=$place['title']?></h2>
@@ -88,11 +90,24 @@ function draw_my_place_sidebar($housePrice,$house_rating, $houseOwner, $placeID,
 				<?php if($placeID != null) { ?>
 					<input type="hidden" name="placeID" value=<?=$placeID?>>
 				<?php } ?>
-				<input id="fr_checkin" type="text" name="check_in_date" autocomplete="off" placeholder="Check In...">
-				<input id="fr_checkout" type="text" name="check_out_date" autocomplete="off" placeholder="Check Out...">
+				<input id="fr_checkin" type="text" name="check_in_date" autocomplete="off" placeholder="Check In..." required>
+				<input id="fr_checkout" type="text" name="check_out_date" autocomplete="off" placeholder="Check Out..." required>
+
 				<button class="button" type="submit">Reserve</button>
 			</form>
-			<?php draw_user_card($houseOwner, 'email') ?>
+			<?php draw_user_card($houseOwner, 'email');?>
 		</article>
     </aside>
 <?php } 
+
+function draw_confirmation_form() { ?>
+	<div id="fr-popup" class="pop-up">
+		<form id="fr-confirmation" class="animate">
+			<i class="close-popup fas fa-times"></i>
+			<p id="fr-message"></p>
+			<button id="confirm-button" class="button" type="submit">Confirm</button>
+			<button id="cancel-button" class="button" type="reset">Cancel</button>
+
+		</form>
+	</div>
+<?php } ?>
