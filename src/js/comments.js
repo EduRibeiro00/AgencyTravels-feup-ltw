@@ -58,6 +58,10 @@ if(reviewForm != null) {
                         
                     document.querySelector('article#reviews').insertBefore(newReviewContainer, null);
                     document.getElementById('add-review-section').style.display = "none";
+
+                    if(newReviewContainer.querySelector('.reply-form') != null) {
+                        newReviewContainer.querySelector('.reply-form').addEventListener('submit', replyFormFunction);
+                    }
                 }
 
                 // updating the star rating on the page
@@ -71,7 +75,7 @@ if(reviewForm != null) {
             case 'no':
                 // console.log("Error on adding the new review");
                 break;
-                    
+
             default:
                 console.log(message);
                 break;
@@ -83,8 +87,89 @@ if(reviewForm != null) {
         let stars = document.querySelector('input[name="review-stars"]').value;
         let comment = document.querySelector('textarea[name="review-desc"]').value;
         let placeID = document.querySelector('input[name="placeID"]').value;
-        let lastReviewID = document.querySelector('article#reviews article.review:last-of-type').getAttribute('data-reviewID');
+        let lastReviewID;
+        if(document.querySelector('article#reviews article.review:last-of-type') != null) {
+            lastReviewID = document.querySelector('article#reviews article.review:last-of-type').getAttribute('data-reviewID');
+        }
+        else {
+            lastReviewID = -1;
+        }
 
         request.send(encodeForAjax({reservationID: reservationID, stars: stars, comment: comment, placeID: placeID, lastReviewID: lastReviewID}));
     });
+}
+
+// ----------------------------
+// Replies
+
+let replyForms = document.querySelectorAll('.reply-form');
+for(let i = 0; i < replyForms.length; i++) {
+    let replyForm = replyForms[i];
+
+    replyForm.addEventListener('submit', replyFormFunction);
+}
+
+function replyFormFunction(event) {
+
+        let reviewArticle = event.target.parentElement.parentElement;
+
+        event.preventDefault();
+        let request = new XMLHttpRequest();
+        request.open("POST", "../api/api_add_reply.php", true);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        request.addEventListener('load', function () {
+        let reply = JSON.parse(this.responseText);
+        let message = reply.message;
+        switch(message) {
+            case 'yes':
+
+                let newReplies = reply.replies;
+                for(let i = 0; i < newReplies.length; i++) {
+                    let newReply = newReplies[i];
+
+                    let newReplyContainer = document.createElement('article');
+                    newReplyContainer.classList.add('reply');
+                    newReplyContainer.setAttribute('data-replyID', newReply.replyID);
+
+                    newReplyContainer.innerHTML = '<header>' +
+                                                    '<a href="../pages/profile_page.php?userID=' + newReply.userID + '">' +
+                                                        '<img class="reply-author-img circular-img" src="../assets/images/users/small/' + newReply.image + '">' + 
+                                                    '</a>' + 
+                                                    '<p>' + newReply.username + '</p>' +
+                                                  '</header>' +
+                                                  '<p>' + newReply.comment + '</p>' + 
+                                                  '<footer>' +
+                                                    '<p>' + 'Published: ' + newReply.date + '</p>' +
+                                                  '</footer>';
+
+                    reviewArticle.querySelector('.comment-replies').insertBefore(newReplyContainer, null);
+                }
+
+                break;
+
+            case 'no':
+                // console.log("Error on adding the new review");
+                break;
+
+            default:
+                console.log(message);
+                break;
+        }
+
+        });
+
+        let reviewID = reviewArticle.getAttribute('data-reviewID');
+        let comment = event.target.querySelector('textarea[name="reply-desc"]').value;
+        let lastReplyID;
+        if(reviewArticle.querySelector('.comment-replies article.reply:last-of-type') != null) {
+            lastReplyID = reviewArticle.querySelector('.comment-replies article.reply:last-of-type').getAttribute('data-replyID');
+        }
+        else {
+            lastReplyID = -1;
+        }
+
+        request.send(encodeForAjax({comment: comment, reviewID: reviewID, lastReplyID: lastReplyID}));
+
+        event.target.querySelector('textarea[name="reply-desc"]').value = "";
 }

@@ -33,6 +33,10 @@
 	
 	$place = getPlace($placeID);
     $houseComments = getHouseComments($placeID);
+    for($i = 0; $i < count($houseComments); $i++) {
+        $houseComments[$i]['replies'] = getRepliesForReview($houseComments[$i]['reviewID']);
+    }
+
     $housePrice = getAveragePrice($placeID)['avg_price'];
     $houseOwnerInfo = getUserInformation($place['ownerID']);
 

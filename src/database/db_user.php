@@ -208,4 +208,16 @@
         return true;
     }
 
+    function addReply($reviewID, $comment, $userID) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('INSERT INTO Reply (comment, date, reviewID, userID) VALUES (?, ?, ?, ?)');
+        try {
+            $stmt->execute(array($comment, date('Y-m-d'), $reviewID, $userID));
+        }
+        catch(PDOException $e) {
+            return false;
+        }
+        return true;
+    }
+
 ?>

@@ -331,4 +331,24 @@ function getPlaceNewRating($placeID) {
 }
 
 
+function getRepliesForReview($reviewID) {
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT *
+                          FROM Reply NATURAL JOIN User NATURAL JOIN Image
+                          WHERE reviewID = ?
+						  ');
+    $stmt->execute(array($reviewID));
+    return $stmt->fetchAll();
+}
+
+function getRepliesForReviewAfterID($reviewID, $lastReplyID) {
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT *
+                          FROM Reply NATURAL JOIN User NATURAL JOIN Image
+                          WHERE reviewID = ? AND replyID > ?
+						  ');
+    $stmt->execute(array($reviewID, $lastReplyID));
+    return $stmt->fetchAll();
+}
+
 ?>

@@ -2,7 +2,7 @@
 include_once('../templates/tpl_common.php');
 include_once('../database/db_user.php');
 
-function draw_comment($comment, $linkToPlace, $commentReplies = null){ ?>
+function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
     <article class="review" data-reviewID="<?=$comment['reviewID']?>">
         <?php if($linkToPlace) { ?>
           <a href="../pages/place_info.php?place_id=<?=$comment['placeID']?>">
@@ -26,7 +26,38 @@ function draw_comment($comment, $linkToPlace, $commentReplies = null){ ?>
             </a>
         <?php }
 
-            if($commentReplies != null) { } ?>
+
+            if($commentReplies) {  ?>
+                <section class="comment-replies">
+                    <?php foreach($comment['replies'] as $reply) { ?>
+                        <article class="reply" data-replyID="<?=$reply['replyID']?>">
+                            <header>
+                                <a href="../pages/profile_page.php?userID=<?=$reply['userID']?>">
+                                    <img class="reply-author-img circular-img" src="../assets/images/users/small/<?=$reply['image']?>">
+                                </a>
+                                <p><?=$reply["username"]?></p>
+                            </header>
+                            <p><?=$reply["comment"]?></p>
+                            <footer>
+                                <p>Published: <?=$reply["date"]?></p>
+                            </footer>
+                        </article>
+                    <?php } ?>
+                </section>
+
+                <?php if(isset($_SESSION['userID']) && $_SESSION['userID'] != "") { ?>
+                    <section class="add-reply-section">
+                        <p>Add a reply:</p>
+                        <form class="reply-form">
+                            <label for="reply-desc">Comment:
+                                <textarea rows="10" cols="50" name="reply-desc"></textarea>
+                            </label>
+                            <input class="button" type="submit" value="Submit">
+                        </form>
+                    </section>
+                <?php } ?>
+          <?php } ?>
+
     </article>
 
 <?php } ?> 
@@ -39,7 +70,7 @@ function draw_comment($comment, $linkToPlace, $commentReplies = null){ ?>
     </header>
     <?php  
         foreach($house_comments as $comment)
-            draw_comment($comment, false);    
+            draw_comment($comment, false, true);    
     ?>
     </article>
 <?php } ?>
