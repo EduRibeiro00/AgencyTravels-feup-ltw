@@ -37,7 +37,7 @@ function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 					Edit
 				</a>
 			
-				<a class="button" href="my_house_edit.php?placeID=<?=$place['placeID']?>"> 
+				<a class="button remove-button" href="#" data-id="<?=$place['placeID']?>">
 					Remove
 				</a>
 				

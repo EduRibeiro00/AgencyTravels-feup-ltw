@@ -2,8 +2,7 @@
 include_once('../database/db_connection.php');
 
 
-function getPlaceImages($placeID)
-{
+function getPlaceImages($placeID) {
     $db = Database::instance()->db();
     $stmt = $db->prepare('SELECT image
                           FROM Image
@@ -12,8 +11,7 @@ function getPlaceImages($placeID)
     return $stmt->fetchAll();
 }
 
-function getUserImage($userID)
-{
+function getUserImage($userID) {
     $db = Database::instance()->db();
     $stmt = $db->prepare(
         'SELECT image
@@ -29,8 +27,7 @@ function getUserImage($userID)
     }
 }
 
-function insertImageForUser($userID, $image)
-{
+function insertImageForUser($userID, $image) {
     $db = Database::instance()->db();
     $stmt = $db->prepare(
         'INSERT INTO Image (userID, image)
@@ -40,8 +37,7 @@ function insertImageForUser($userID, $image)
 }
 
 
-function deleteImageForUser($userID)
-{
+function deleteImageForUser($userID) {
     $db = Database::instance()->db();
     $stmt = $db->prepare(
         'DELETE
@@ -52,8 +48,7 @@ function deleteImageForUser($userID)
 }
 
 
-function removeUserImage($userID)
-{
+function removeUserImage($userID) {
     $db = Database::instance()->db();
     $stmt = $db->prepare(
         'DELETE
@@ -63,8 +58,7 @@ function removeUserImage($userID)
     $stmt->execute(array($userID));
 }
 
-function getRandomImagesFromCity($locationID, $number)
-{
+function getRandomImagesFromCity($locationID, $number) {
     $db = Database::instance()->db();
     $stmt = $db->prepare('SELECT image
                          FROM Place NATURAL JOIN Image
@@ -74,8 +68,7 @@ function getRandomImagesFromCity($locationID, $number)
     return $stmt->fetchAll();
 }
 
-function insertImageForPlace($placeID, $image)
-{   
+function insertImageForPlace($placeID, $image) {  
     //TODO: TRY CATCH ?
     $db = Database::instance()->db();
     $stmt = $db->prepare(
@@ -84,8 +77,8 @@ function insertImageForPlace($placeID, $image)
     );
     $stmt->execute(array($placeID, $image));
 }
-function removeImageFromPlace($placeID, $image)
-{
+
+function removeImageFromPlace($placeID, $image) {
     try {
         $db = Database::instance()->db();
         $stmt = $db->prepare(
@@ -100,14 +93,12 @@ function removeImageFromPlace($placeID, $image)
     return true;
 }
 
-function getNumberOfImagesForPlace($placeID){
+function getNumberOfImagesForPlace($placeID) {
     $db = Database::instance()->db();
     $stmt = $db->prepare('SELECT count(*) as nImages
                         FROM Image
                           WHERE placeID=?'
     );
     $stmt->execute(array($placeID));
-    
     return $stmt->fetch();
-
 }

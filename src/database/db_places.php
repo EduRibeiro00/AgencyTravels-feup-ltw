@@ -83,6 +83,15 @@ function getPlaceNumVotes($placeID) {
 	return $stmt->fetch()['nVotes'];
 }
 
+// already deletes everything related to the place because of cascade in DB
+function deletePlace($placeID) {
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('DELETE
+                          FROM Place
+                          WHERE placeID = ?');
+	return $stmt->execute(array($placeID));
+}
+
 
 function getRandomPlacesFromCity($locationID, $number) {
     $db = Database::instance()->db();

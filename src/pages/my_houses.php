@@ -15,11 +15,11 @@
     if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
         $user_info = getUserInformation($_SESSION['userID']);
         $userID = $_SESSION['userID'];
-        $jsFiles = ['../js/main.js'];
+        $jsFiles = ['../js/main.js', '../js/delete_place.js'];
     }
     else{
         $user_info = NULL;
-        $jsFiles = ['../js/main.js', '../js/login.js','../js/place_edit.js','../js/place_add.js'];
+        $jsFiles = ['../js/main.js', '../js/login.js'];
     }
     
     include_once('../templates/tpl_common.php');
