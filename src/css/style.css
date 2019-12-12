@@ -878,9 +878,9 @@ footer a {
 	background-color: rgba(0,0,0,0.4);
 }
 
-/* TODO: por inputs bonitos */
-/*---------------------place_info.php-----
-*/
+/* 
+ *--------- Place Info ---------
+ */
 #place_page{
 	/* TODO: ver */
 	color: black;
@@ -931,8 +931,6 @@ footer a {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    
-
 }
 
 #Pictographic_Info li{
@@ -1040,6 +1038,10 @@ footer a {
 }
 #Similar_Offers_Right{
     flex-basis: 20%;
+}
+
+section#add-review-placeholder {
+    display: none;
 }
 
 /**

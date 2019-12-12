@@ -1,5 +1,6 @@
 <?php
 include_once('../database/db_places.php');
+include_once('../database/db_user.php');
 
 function compareDates($element1, $element2) { 
     $datetime1 = strtotime($element1['startDate']); 
@@ -52,10 +53,24 @@ function canCancelReservation($reservationStartDate) {
 } 
 
 
-// user can review place after reservation has ended
+// can review place after reservation has ended, and if it there is no review yet
 function canReviewPlace($reservationEndDate, $reviewID) {
 	$currentDate = date('Y-m-d');
 	return $currentDate > $reservationEndDate && $reviewID === false;
+}
+
+// user can review a place if at least one of the reservations has ended and has no review yet.
+// returns reservation ID to which review is going to be attached to
+function canUserReviewPlace($userID, $placeID) {
+	$reservs = getUserReservationsForPlace($userID, $placeID);
+	if($reservs === false) return false;
+
+	foreach($reservs as $reserve) {
+		if(canReviewPlace($reserve['endDate'], getReviewForReservation($reserve['reservationID']))) {
+			return $reserve['reservationID'];
+		}
+	}
+	return false;
 }
 
 ?>

@@ -227,12 +227,22 @@ function getOverlapReservations($placeID, $checkin, $checkout) {
 
 function getHouseComments($place_id) {
     $db = Database::instance()->db();
-    $stmt = $db->prepare('SELECT comment, Review.stars as stars, User.username as username, User.userID as userID, image, Review.date as date, Place.placeID as placeID
+    $stmt = $db->prepare('SELECT comment, Review.stars as stars, User.username as username, User.userID as userID, image, Review.date as date, Place.placeID as placeID, reviewID
                           FROM Place NATURAL JOIN Reservation NATURAL JOIN Review JOIN User on Reservation.touristID=User.userID JOIN Image on User.userID = Image.userID
 						  WHERE Place.placeID = ?');
     $stmt->execute(array($place_id));
     return $stmt->fetchAll();
 }
+
+function getHouseCommentsAfterID($place_id, $last_review_id) {
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT comment, Review.stars as stars, User.username as username, User.userID as userID, image, Review.date as date, Place.placeID as placeID, reviewID
+                          FROM Place NATURAL JOIN Reservation NATURAL JOIN Review JOIN User on Reservation.touristID=User.userID JOIN Image on User.userID = Image.userID
+						  WHERE Place.placeID = ? AND reviewID > ?');
+    $stmt->execute(array($place_id, $last_review_id));
+    return $stmt->fetchAll();
+}
+
 
 function getFromDayForwardReservations($placeID, $day) {
 	$db = Database::instance()->db();
@@ -300,9 +310,7 @@ function newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms
 }
 
 function getPlaceID($title,$address,$ownerID){
-    
     $db = Database::instance()->db();
-
     $stmt = $db->prepare('SELECT placeID
                           FROM Place
                           WHERE title Like ? AND address Like ? AND ownerID = ? 
@@ -310,6 +318,37 @@ function getPlaceID($title,$address,$ownerID){
     
     $stmt->execute(array($title, $address, $ownerID));
     return $stmt->fetch();
+}
+
+function getPlaceNewRating($placeID) {
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT rating
+                          FROM Place
+                          WHERE placeID = ?
+						  ');
+    $stmt->execute(array($placeID));
+    return $stmt->fetch()['rating'];
+}
+
+
+function getRepliesForReview($reviewID) {
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT *
+                          FROM Reply NATURAL JOIN User NATURAL JOIN Image
+                          WHERE reviewID = ?
+						  ');
+    $stmt->execute(array($reviewID));
+    return $stmt->fetchAll();
+}
+
+function getRepliesForReviewAfterID($reviewID, $lastReplyID) {
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT *
+                          FROM Reply NATURAL JOIN User NATURAL JOIN Image
+                          WHERE reviewID = ? AND replyID > ?
+						  ');
+    $stmt->execute(array($reviewID, $lastReplyID));
+    return $stmt->fetchAll();
 }
 
 ?>

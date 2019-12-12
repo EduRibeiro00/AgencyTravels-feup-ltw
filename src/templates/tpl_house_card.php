@@ -68,7 +68,7 @@ function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 			   <?php } 
 			   
 					 if(canReviewPlace($place['endDate'], $place['reviewID'])) { ?>
-						<a class="button" href="place_info.php?place_id=<?=$place['placeID']?>"> 
+						<a class="button" href="place_info.php?place_id=<?=$place['placeID']?>#add-review-section"> 
 							Review place
 						</a> 
 					<?php } ?>
