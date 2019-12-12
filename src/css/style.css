@@ -1154,24 +1154,39 @@ section#add-review-placeholder {
 #my_house_edit_container label input{
     margin-left: 0.3em;
 }
+.edit_place_img_medium{
+    height: var(--medium-image-height);
+    width: var(--medium-image-width);
+}
 .edit_place_img_small{
+    height: var(--small-image-height);
+    width: var(--small-image-width);
+}
+.img_add_preview_container{
     position: relative;
-    max-height: 10em;
-    max-width: 50em;
 }
-.delete_preview_photo{
-    position: absolute;
-
-}
-
-
-
-
-
-
-
 #image_delete_place_add{
     margin-left: 0;
+}
+.delete_image_preview{
+    color: red;
+}
+#house_form_img_preview{
+    display: flex;
+    flex-direction: row;
+}
+#house_form_img_local{
+    display: flex;
+    flex-direction: row;
+}
+
+.img_edit_local_container{
+    position: relative;
+}
+.delete_image_local{
+    top: 0.3em;  
+    right: 1.5em;
+    color: red;
 }
 
   

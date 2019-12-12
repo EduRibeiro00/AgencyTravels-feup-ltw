@@ -7,7 +7,7 @@ include_once('../database/db_location.php');
 
 if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
     $user_info = getUserInformation($_SESSION['userID']);
-    $jsFiles = ['../js/main.js','../js/place_add.js','../js/place_form.js'];
+    $jsFiles = ['../js/main.js','../js/place_add.js'];
 } else {
     die(header('Location: ../pages/initial_page.php'));
 }

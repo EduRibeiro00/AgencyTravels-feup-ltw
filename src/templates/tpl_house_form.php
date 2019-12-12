@@ -43,7 +43,7 @@ function draw_form($place = null, $edit_menu = false) {
     $hasFile = $edit_menu
 
     ?>
-
+<!-- TODO: O MANEL MANDOU POR UM TODO PARA VER OS BUTOES -->
     <section id="place_edit_form">
 
         <form>
@@ -65,33 +65,43 @@ function draw_form($place = null, $edit_menu = false) {
 
                 <legend>Pictures</legend>
 
-                <!--Vai levar AJAX para apagar as photos-->
-                <!--Vai levar AJAX para caregar as novas photos uploaded-->
+                
                 <section id="img-upload" class="row">
-                    <div>
+                <!--First we render the preview Images THIS SECTION IS USED BY JS DOM-->    
+                <div id="house_form_img_preview">
+                
+                </div>
+                
+                <!--then we render the local Images-->    
+
+                    <div id="house_form_img_local">
                         <?php
                             for ($i = 0; $i < $imagearray_lenght; $i++) {
                                 //Clean up the string with the path
                                 unset($str_aux);
 
                                 //LOAD THE MEDIUM SIZE IMAGE
-                                if ($i == 0) {
-                                    $str_aux = $imagePreview_medium . $imagearray[0]['image'];
-                                    ?>
+                                if ($i === 0) {
+                                    $str_aux = $imagePreview_medium.$imagearray[0]['image'];
+                            ?>  
+                                    <div class="img_edit_local_container">
+                                    <i class="fas fa-times delete_image_local" data-hash="<?=$imagearray[$i]['image']?>"></i>
+                                        <img class="edit_place_img_medium" src="<?=$str_aux?>">
+                                    </div>
 
-                                <img class="edit_place_img_medium" src="<?= $str_aux ?>">
                             <?php
                                     } else {
                                         $str_aux = $imagePreview_small . $imagearray[$i]['image'];
                                         ?>
-                                <img class="edit_place_img_small" src="<?= $str_aux ?>">
+                            <div class="img_edit_local_container">
+                                <i class="fas fa-times delete_image_local"data-hash="<?=$imagearray[$i]['image']?>"></i>
+                                <img class="edit_place_img_small" src="<?= $str_aux?>">
+                            </div>
                             <?php } 
                             }
                             ?>
                     </div>
-                    <div>
-
-                    </div>
+    
                     <label class="button" for="imageFile_add_place">Select foto</label>
                     <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile[]" multiple multiple data-hasFile=<?= $hasFile ?>>
                 </section>
@@ -134,9 +144,12 @@ function draw_form($place = null, $edit_menu = false) {
                 </article>
             </fieldset>
 
+            <p id="place-form-error" class="error-message"></p>
+
             <div id="edit_place_submit">
                 <input class="button" type="submit" value="Confirm">
             </div>
+
 
         </form>
 

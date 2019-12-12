@@ -6,7 +6,7 @@ include_once('../templates/tpl_house_form.php');
 
 if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
     $user_info = getUserInformation($_SESSION['userID']);
-    $jsFiles = ['../js/main.js', '../js/place_edit.js','../js/place_form.js'];
+    $jsFiles = ['../js/main.js', '../js/place_edit.js'];
 } else {
     die(header('Location: ../pages/initial_page.php'));
 }
