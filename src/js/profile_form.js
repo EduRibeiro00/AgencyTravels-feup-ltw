@@ -39,6 +39,5 @@ reader.addEventListener('load', function(event) {
 let removeButton = document.getElementById('remove-button');
 removeButton.addEventListener('click', function() {
     profileFormImage.src = "../assets/images/users/medium/noImage.png";
-    imageInput.value = '';
     imageInput.setAttribute('data-hasFile', "no");
 });
