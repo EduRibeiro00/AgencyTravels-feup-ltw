@@ -312,4 +312,17 @@ function getPlaceID($title,$address,$ownerID){
     return $stmt->fetch();
 }
 
+function newReservation($touristID, $startDate, $endDate, $price, $placeID){
+    $db = Database::instance()->db();
+    try {
+        $stmt = $db->prepare('INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES(?, ?, ?, ?, ?)');
+        $stmt->execute(array($startDate, $endDate, $price, $placeID, $touristID));
+    }
+    catch (PDOException $e) {
+        return $e->getMessage();
+    }
+    return true;
+}
+
+
 ?>

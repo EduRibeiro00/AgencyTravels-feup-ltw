@@ -58,6 +58,7 @@ let reservationCal = new Lightpick({
 
 });
 
+let placeID = new URL(window.location.href).searchParams.get("place_id")
 
 function getPriceAsync() {
 	let request = new XMLHttpRequest();
@@ -87,7 +88,6 @@ function getPriceAsync() {
     
     });
     
-	let placeID = document.querySelector('#fr_card input[name="placeID"]').value
 	let checkin = document.getElementById('fr_checkin').value
 	let checkout = document.getElementById('fr_checkout').value
 
@@ -161,17 +161,26 @@ window.onload = function () {
 }
 
 let frForm = document.querySelector('#fr_card form')
+let confirmForm = document.getElementById('fr-confirmation')
 let frPopup = document.getElementById('fr-popup')
-let frMessage = document.getElementById('fr-message')
+let cancelBt = document.getElementById('cancel-button')
+let confirmBt = document.getElementById('confirm-button')
+
+let confirmCheckin = document.getElementById('confirm_checkin')
+let confirmCheckout = document.getElementById('confirm_checkout')
+let confirmPrice = document.getElementById('confirm_price')
+
+cancelBt.addEventListener('click', function(){
+	frPopup.style.display = "none"
+})
 
 frForm.addEventListener('submit', function(event) {
 	event.preventDefault();
 	frPopup.style.display = "block";
+	let frMessage = document.getElementById("fr-message")
+	if(frMessage != null) frMessage.outerHTML = ""
+
 	
-
-	frMessage.textContent = "";
-	frMessage.style.display = "none";
-
 
 	let request = new XMLHttpRequest();
 
@@ -179,52 +188,101 @@ frForm.addEventListener('submit', function(event) {
 	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 
 	request.addEventListener('load', function() {
-		let message = JSON.parse(this.responseText).message;
-		console.log(message)
-		// TODO: botoes
-		switch(message) {
-            case 'user not logged in':
-				frMessage.textContent = 'ERROR: User is not logged in';
-                frMessage.style.display = "block";
+		let response = JSON.parse(this.responseText);
+		switch(response.message) {
+			case 'user not logged in':
+				confirmBt.parentNode.insertBefore(errorMessage('User is not logged in'), confirmBt.nextSibling)
+				confirmBt.style.display = "none";
 				break;
 			case 'incomplete data':
-				frMessage.textContent = 'ERROR: Data Received was incomplete';
-                frMessage.style.display = "block";
+				confirmBt.parentNode.insertBefore(errorMessage('Data Received was incomplete'), confirmBt.nextSibling)
+				confirmBt.style.display = "none";
 				break;
 			case 'reservation overlap':
-				frMessage.textContent = 'ERROR: Your Reservation Overlaps one existent Reservation';
-                frMessage.style.display = "block";
+				confirmBt.parentNode.insertBefore(errorMessage('Your Reservation Overlaps one existent Reservation'), confirmBt.nextSibling)
+				confirmBt.style.display = "none";
 				break;
 			case 'inexsitent availability':
-				frMessage.textContent = 'ERROR: Days in Range without Availability';
-                frMessage.style.display = "block";
+				confirmBt.parentNode.insertBefore(errorMessage('Days in Range without Availability'), confirmBt.nextSibling)
+				confirmBt.style.display = "none";
 				break;
 			case 'overlap own reservation':
-				frMessage.textContent = 'You already have one Reservation in the date range. Are you sure you want to continue?';
-                frMessage.style.display = "block";
+				confirmBt.parentNode.insertBefore(confirmMessage('You already have one Reservation in the date range', response.price), confirmBt.nextSibling)
+				confirmBt.style.display = "inline-block";
 				break;
 			case 'own place':
-				frMessage.textContent = 'This is your own Place. Are you sure you want to continue?';
-                frMessage.style.display = "block";
+				confirmBt.parentNode.insertBefore(confirmMessage('This is your own Place', response.price), confirmBt.nextSibling)
+				confirmBt.style.display = "inline-block";
 				break;
-            default:
+			default:
+				confirmBt.parentNode.insertBefore(confirmMessage('', response.price), confirmBt.nextSibling)
+				confirmBt.style.display = "inline-block"
 				break;
 		}
 	});
 
-	let hiddenInput = frForm.children[0]
-	if(hiddenInput == null){
-		frPopup.style.display = "none";
-		return;
-	}
+    let frCheckin = document.getElementById('fr_checkin').value
+	let frCheckout = document.getElementById('fr_checkout').value
 
-    let frCheckin = document.getElementById('fr_checkin').value;
-	let frCheckout = document.getElementById('fr_checkout').value;
+	confirmCheckin.value = frCheckin
+	confirmCheckout.value = frCheckout
 
-    request.send(encodeForAjax({placeID: hiddenInput.value, checkin: frCheckin, checkout: frCheckout}));
+    request.send(encodeForAjax({placeID: placeID, checkin: frCheckin, checkout: frCheckout}))
 });
+
+confirmForm.addEventListener('submit', function(event) {
+	event.preventDefault();
+
+	let request = new XMLHttpRequest();
+
+	request.open("POST", "../api/api_add_reservation.php", true)
+	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+
+	request.addEventListener('load', function() {
+		let message = JSON.parse(this.responseText).message;
+
+		switch(message) {
+			case 'user not logged in':
+			
+				break;
+			case 'incomplete data':
+
+				break;
+			case 'invalid dates':
+
+				break;
+			case 'reservation successfull':
+
+				break;
+			default:
+				// TODO: ver mensagens de erro do insert
+				console.log(message)
+				break;
+		}
+	});
+
+    request.send(encodeForAjax({placeID: placeID, checkin: confirmCheckin.value, checkout: confirmCheckout.value}));
+})
 
 window.addEventListener('click', function(event){
 	if (event.target == frPopup)
 		frPopup.style.display = "none";
 });
+
+function errorMessage(message){
+	let article = document.createElement("article");
+	article.innerHTML = `<p>ERROR: ${message}</p>`;
+	article.setAttribute('id', 'fr-message');
+	return article;
+}
+
+function confirmMessage(firstLine, price){
+	let article = document.createElement("article");
+	article.innerHTML = `
+			<p>${firstLine}</p>
+			<p>Are you sure you want to continue?</p>
+			<p>${firstLine}</p>
+			`;
+	article.setAttribute('id', 'fr-message');
+	return article;
+}
