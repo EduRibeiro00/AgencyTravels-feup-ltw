@@ -9,8 +9,6 @@ if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
     die(header('Location: ../pages/initial_page.php'));
 }
 
-include_once('../templates/tpl_common.php');
-include_once('../templates/tpl_house_form.php');
 
 $userID = $_SESSION['userID'];
 $placeId = $_GET['placeID'];
@@ -26,11 +24,14 @@ foreach ($array_places as $place) {
         break;
     }
 }
+
 if ($couter_matchs == -1) {
-    // TODO// AFTER LOGIN IMPLEMENTED CONTINUE
-    var_dump($array_places);
+    // TODO: AFTER LOGIN IMPLEMENTED CONTINUE
     die(header("Location: ../pages/initial_page.php"));
 }
+
+include_once('../templates/tpl_common.php');
+include_once('../templates/tpl_house_form.php');
 
 draw_head($jsFiles);
 draw_navbar($user_info, false); ?>
