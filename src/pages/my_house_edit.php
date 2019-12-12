@@ -16,16 +16,16 @@ $placeId = $_GET['placeID'];
 
 $array_places = getUserPlaces($userID);
 
-$couter_matchs = -1;
+$counter_matchs = -1;
 //Verifies if that house belongs to the current owner login
 foreach ($array_places as $place) {
     if ($place['placeID'] == $placeId) {
-        $couter_matchs = 1;
+        $counter_matchs = 1;
         break;
     }
 }
 
-if ($couter_matchs == -1) {
+if ($counter_matchs == -1) {
     // TODO: AFTER LOGIN IMPLEMENTED CONTINUE
     die(header("Location: ../pages/initial_page.php"));
 }
