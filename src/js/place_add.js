@@ -58,8 +58,8 @@ imageInput.addEventListener('change', function (event) {
 		if(number_images<6){
 			files_array.push(f.name);
 			number_images++;
+			reader_inside.readAsDataURL(f);
 		}
-		reader_inside.readAsDataURL(f);
 
 
 		reader_inside.addEventListener('load', function (event) {

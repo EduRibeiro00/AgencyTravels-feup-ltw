@@ -93,9 +93,9 @@ imageInput.addEventListener('change', function (event) {
 		if ((number_images + number_images_local - array_photos_to_remove.length) < 6) {
 			files_array.push(f.name);
 			number_images++;
+			reader_inside.readAsDataURL(f);
 		}
 
-		reader_inside.readAsDataURL(f);
 		//WHEN THE READASDATAURL IS DONE
 		reader_inside.addEventListener('load', function (event) {
 
@@ -104,7 +104,7 @@ imageInput.addEventListener('change', function (event) {
 			//CALL THE FUNCTION TO GENERATE AN ELEMENT OF THAT TYPE
 			let child_element = generateImgDivContainer(event.target.result);
 			image_block_preview.appendChild(child_element);
-
+			
 			let remove_button = child_element.getElementsByClassName("delete_image_preview");
 
 			remove_button[0].addEventListener('click', function (event) {
@@ -116,7 +116,7 @@ imageInput.addEventListener('change', function (event) {
 				if (pos_delete_array > img_array.length) {
 					console.error('DONT TRY TO VIOLATE THE JS ITS USELESS MATE');
 					//FORCE A MINIMUM OF 1 IMAGE
-				} else if ((number_images + number_images_local - array_photos_to_remove.length) > 1) {
+				} else if ((number_images + number_images_local - array_photos_to_remove.length) > 0) {
 					//REMOVE FROM GUI
 					img_array[pos_delete_array].remove();
 					//REMOVE JS DATA
