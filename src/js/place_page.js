@@ -113,24 +113,7 @@ function priceDay(date){
 	req.send(encodeForAjax({placeID: placeID, date: date.format('YYYY-MM-DD')}))
 }
 
-//Sticky sideBar_Fast reservation
-window.onload = function () {
-	let navbar = document.getElementById('navbar')
-	let fastRes = document.getElementById('fr_card')
-	let checkinFR = document.getElementById('fr_checkin')
-	
-	fastRes.style.top = navbar.offsetHeight + "px"
-
-	let fr = document.getElementById('fr_card')
-	window.addEventListener('scroll', function(){
-		if(window.pageYOffset == fr.offsetTop - navbar.offsetHeight)
-			reservationCal.setPositionProp('fixed', checkinFR.offsetHeight + checkinFR.offsetTop + navbar.offsetHeight);
-		else
-			reservationCal.setPositionProp('', fr.offsetTop + checkinFR.offsetHeight + checkinFR.offsetTop);
-
-	})
-	
-
+function updateDisableDates(){
 	let request = new XMLHttpRequest();
 
 	request.open("POST", "../api/api_place_info.php", true)
@@ -139,6 +122,7 @@ window.onload = function () {
 	request.addEventListener('load', function() {
 		// TODO: ver erros
 		let message = JSON.parse(this.responseText).message
+		console.log(message)
 		inlineCal.setMinDate(message.startDate)
 		inlineCal.setMaxDate(message.endDate)
 
@@ -159,6 +143,26 @@ window.onload = function () {
 	let url = new URL(window.location.href)
 	let placeID = url.searchParams.get("place_id")
 	request.send(encodeForAjax({placeID: placeID}))
+}
+
+//Sticky sideBar_Fast reservation
+window.onload = function () {
+	let navbar = document.getElementById('navbar')
+	let fastRes = document.getElementById('fr_card')
+	let checkinFR = document.getElementById('fr_checkin')
+	
+	fastRes.style.top = navbar.offsetHeight + "px"
+
+	let fr = document.getElementById('fr_card')
+	window.addEventListener('scroll', function(){
+		if(window.pageYOffset == fr.offsetTop - navbar.offsetHeight)
+			reservationCal.setPositionProp('fixed', checkinFR.offsetHeight + checkinFR.offsetTop + navbar.offsetHeight);
+		else
+			reservationCal.setPositionProp('', fr.offsetTop + checkinFR.offsetHeight + checkinFR.offsetTop);
+
+	})
+	
+	updateDisableDates()	
 }
 
 let frForm = document.querySelector('#fr_card form')
@@ -251,7 +255,7 @@ confirmForm.addEventListener('submit', function(event) {
 
 	request.addEventListener('load', function() {
 		let message = JSON.parse(this.responseText).message
-		
+
 		switch(message) {
 			case 'user not logged in':
 				showDialog("ERROR: User is not logged in")
@@ -264,7 +268,8 @@ confirmForm.addEventListener('submit', function(event) {
 				break;
 			case 'reservation successfull':				
 				showDialog("Reservation Successful")
-				frForm.reset()
+				reservationCal.reset()
+				updateDisableDates()
 				break;
 			default:
 				showDialog("ERROR: " + message)
