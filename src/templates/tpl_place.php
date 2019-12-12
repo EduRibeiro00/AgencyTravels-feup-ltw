@@ -101,8 +101,6 @@ function draw_confirmation_form() { ?>
 	<div id="fr-popup" class="pop-up">
 		<form id="fr-confirmation" class="animate">
 			<i class="close-popup fas fa-times"></i>
-			<input type="hidden" id="confirm_checkin">
-			<input type="hidden" id="confirm_checkout">
 			<div class="row">
 				<button id="confirm-button" class="button" type="submit">Confirm</button>
 				<button id="cancel-button" class="button" type="reset">Cancel</button>

@@ -10,7 +10,8 @@ function encodeForAjax(data) {
 
 //// Sticky nav bar
 let navbar = document.getElementById("navbar")
-
+let topDialog = document.getElementById("top-dialog")
+topDialog.style.top = navbar.offsetHeight + "px"
 window.addEventListener('scroll', function() {
 	// TODO: ver o 20 hardcoded
 	if((window.pageYOffset - 20) > navbar.offsetTop)
@@ -18,6 +19,19 @@ window.addEventListener('scroll', function() {
 	else
 		navbar.classList.remove("sticky")
 })
+
+// -------------------
+
+function showDialog(message){
+	topDialog.style.display = "flex"
+	let messageDialog = document.querySelector("#top-dialog p")
+	messageDialog.textContent = message
+
+	setTimeout(function(){
+		messageDialog.textContent = ""
+		topDialog.style.display = "none"
+	}, 2000)
+}
 
 // -------------------
 
@@ -93,7 +107,10 @@ searchSymbol.addEventListener("click", function() {
 let crosses = document.getElementsByClassName('close-popup')
 for(let x = 0; x < crosses.length; x++){
     crosses[x].addEventListener('click', function() {
-		this.parentElement.parentElement.style.display = "none"
+		if(this.parentElement.parentElement.className == "pop-up")
+			this.parentElement.parentElement.style.display = "none"	
+		else
+			this.parentElement.style.display = "none"
 	});
 }
 

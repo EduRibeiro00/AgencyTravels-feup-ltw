@@ -751,6 +751,26 @@ footer a {
     position: absolute;
 }
 
+
+/**
+ * ------------ Dialog Box ------------
+ */
+#top-dialog {
+	z-index: 399;
+	display: none;
+	position: fixed;
+	width: 100%;
+	min-height: 4em;
+	padding: 0;
+	justify-content: center;
+	text-align: center;
+	background-color: var(--background_color);
+	-webkit-box-shadow: 0px 10px 16px -6px rgba(0,0,0,0.4);
+	-moz-box-shadow: 0px 10px 16px -6px rgba(0,0,0,0.4);
+	box-shadow: 0px 10px 16px -6px rgba(0,0,0,0.4);
+}
+  
+
 /**
  * ------------ Login Form ------------
  */

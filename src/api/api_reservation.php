@@ -24,6 +24,9 @@
 		case -2:
 			echo json_encode(array('message' => 'inexsitent availability'));
 			return;
+		case -3:
+			echo json_encode(array('message' => 'incomplete data'));
+			return;
 	}
 
 	if(userHasReservationsInRange($_SESSION['userID'], $checkin, $checkout)){

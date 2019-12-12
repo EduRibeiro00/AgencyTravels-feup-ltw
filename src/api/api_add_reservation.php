@@ -30,7 +30,8 @@
 	if($returnValue === true) {
 		echo json_encode(array('message' => 'reservation successfull'));
 		return;
-	}	
+	}
 
-	echo json_encode(array('message' => $array[count($array) - 1]));
+	$array = explode(" ", $returnValue);
+	echo json_encode(array('message' => $returnValue));
 ?>

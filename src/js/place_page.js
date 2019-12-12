@@ -167,15 +167,18 @@ let frPopup = document.getElementById('fr-popup')
 let cancelBt = document.getElementById('cancel-button')
 let confirmBt = document.getElementById('confirm-button')
 
-let confirmCheckin = document.getElementById('confirm_checkin')
-let confirmCheckout = document.getElementById('confirm_checkout')
-let confirmPrice = document.getElementById('confirm_price')
 let rowBt = document.querySelector('#fr-confirmation .row')
 
 
 cancelBt.addEventListener('click', function(){
 	frPopup.style.display = "none"
 })
+
+confirmBt.addEventListener('click', function(){
+	frPopup.style.display = "none"
+})
+
+let frCheckin, frCheckout;
 
 frForm.addEventListener('submit', function(event) {
 	event.preventDefault();
@@ -184,11 +187,8 @@ frForm.addEventListener('submit', function(event) {
 	if(frMessage != null) frMessage.outerHTML = ""
 
 
-    let frCheckin = document.getElementById('fr_checkin').value
-	let frCheckout = document.getElementById('fr_checkout').value
-
-	confirmCheckin.value = frCheckin
-	confirmCheckout.value = frCheckout
+    frCheckin = document.getElementById('fr_checkin').value
+	frCheckout = document.getElementById('fr_checkout').value
 
 	let date1 = new Date(frCheckin)
 	let date2 = new Date(frCheckout)
@@ -202,6 +202,7 @@ frForm.addEventListener('submit', function(event) {
 
 	request.addEventListener('load', function() {
 		let response = JSON.parse(this.responseText);
+
 		switch(response.message) {
 			case 'user not logged in':
 				rowBt.parentNode.insertBefore(errorMessage('User is not logged in'), rowBt)
@@ -227,9 +228,12 @@ frForm.addEventListener('submit', function(event) {
 				rowBt.parentNode.insertBefore(confirmMessage('This is your own Place', response.price, diffDays), rowBt)
 				confirmBt.style.display = "inline-block";
 				break;
-			default:
-				rowBt.parentNode.insertBefore(confirmMessage('', response.price, diffDays), confirmBt)
+			case 'valid reservation':
+				rowBt.parentNode.insertBefore(confirmMessage('', response.price, diffDays), rowBt)
 				confirmBt.style.display = "inline-block"
+				break;
+			default:
+				
 				break;
 		}
 	});
@@ -246,26 +250,29 @@ confirmForm.addEventListener('submit', function(event) {
 	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 
 	request.addEventListener('load', function() {
-		let message = JSON.parse(this.responseText).message;
-
+		let message = JSON.parse(this.responseText).message
+		
 		switch(message) {
 			case 'user not logged in':
-			case 'incomplete data':
-			case 'invalid dates':
-				location.reload(true)
+				showDialog("ERROR: User is not logged in")
 				break;
-			case 'reservation successfull':
-				
+			case 'incomplete data':
+				showDialog("ERROR: Incomplete Data Submission")
+				break;
+			case 'invalid dates':
+				showDialog("ERROR: Invalid Dates")
+				break;
+			case 'reservation successfull':				
+				showDialog("Reservation Successful")
+				frForm.reset()
 				break;
 			default:
-				// TODO: ver mensagens de erro do insert
-				location.reload(true)
-				console.log(message)
+				showDialog("ERROR: " + message)
 				break;
 		}
 	});
 
-    request.send(encodeForAjax({placeID: placeID, checkin: confirmCheckin.value, checkout: confirmCheckout.value}));
+    request.send(encodeForAjax({placeID: placeID, checkin: frCheckin, checkout: frCheckout}));
 })
 
 window.addEventListener('click', function(event){

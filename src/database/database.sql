@@ -440,8 +440,8 @@ BEFORE INSERT ON Reservation
 WHEN (EXISTS (SELECT *
                 From Reservation
                 WHERE ((placeID = new.placeID) AND
-                (new.startDate <= endDate
-                AND new.endDate >= startDate))))
+                (new.startDate < endDate
+                AND new.endDate > startDate))))
 BEGIN
     SELECT RAISE(rollback,'Error in reservation insert - invalid date');
 END;
