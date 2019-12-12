@@ -26,16 +26,15 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $title = $_POST['title'];
     $desc = $_POST['description'];
     $address = $_POST['address'];
-    $city = $_POST['city'];
-    $country = $_POST['country'];
     $numRooms = $_POST['numRooms'];
     $numBathrooms = $_POST['numBathrooms'];
+    $locationID = $_POST['location'];
     //IMAGES UPLOADED
     //
     $capacity = $_POST['capacity'];
     $ownerID = $_SESSION['userID'];
 
-    $array_fileNames=buildArrayWithFilesToAdd();
+    $array_fileNames = buildArrayWithFilesToAdd();
 
     $num_photos_to_initial = getNumberOfImagesForPlace($placeID)['nImages'];
 
@@ -95,10 +94,10 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
         //TEST IF THE EDIT FORM MANTAINS 1 PHOTO AFTER ALL THE OPERATIONS.
         if (($num_photos_to_initial + $num_images_uploaded_valid - $num_photos_to_remove) < 1) {
             $message = 'A place Must Have at least one image';
-        }else if(($num_photos_to_initial + $num_images_uploaded_valid - $num_photos_to_remove) >6){
+        } else if (($num_photos_to_initial + $num_images_uploaded_valid - $num_photos_to_remove) > 6) {
             //TEST IF THE NUMBER OF PHOTOS IS >6
             $message = 'A place Must have a maximum six images';
-        }else {
+        } else {
             if (strcmp($message, true_message) === 0) {
                 //Validate Inputs
                 $inputs_are_valid = true;
@@ -114,13 +113,6 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
 
                     $inputs_are_valid = false;
                 }
-                if (is_numeric($city)) {
-
-                    $inputs_are_valid = false;
-                }
-                if (is_numeric($country)) {
-                    $inputs_are_valid = false;
-                }
                 if (!is_numeric($numRooms)) {
                     $inputs_are_valid = false;
                 }
@@ -130,6 +122,9 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                 }
 
                 if (!is_numeric($capacity))
+                    $inputs_are_valid = false;
+
+                if (!is_numeric($locationID))
                     $inputs_are_valid = false;
 
                 if ($inputs_are_valid) {

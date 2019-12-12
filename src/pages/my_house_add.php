@@ -18,11 +18,12 @@ $userID = $_SESSION['userID'];
 
 draw_head($jsFiles);
 draw_navbar($user_info, false);
+$all_locations = getAllLocations();
 
 ?>
 <div id="my_house_edit_container">
 
-    <?php draw_form(null,false); ?>
+    <?php draw_form(null,false,$all_locations); ?>
 
 </div>
 

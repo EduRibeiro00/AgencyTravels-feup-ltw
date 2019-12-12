@@ -270,7 +270,7 @@ function getFromDayForwardAvailabilities($placeID, $day) {
 	$stmt->execute(array($placeID, $day));
 	return $stmt->fetchAll();
 }
-
+//TODO:UPDATE THE HOUSE LOCATION
 function updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $numRooms, $numBathrooms, $capacity){
     $db = Database::instance()->db();
     try {

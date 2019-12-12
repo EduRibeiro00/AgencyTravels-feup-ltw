@@ -1,17 +1,15 @@
-<?php 
+<?php
 include_once('../database/db_user.php');
 include_once('../database/db_places.php');
 
-function draw_form($place = null, $edit_menu = false) {
+function draw_form($place = null, $edit_menu = false, $all_locations)
+{
     $userID = $_SESSION['userID'];
 
     if ($edit_menu == true) {
-        $city = getPlace($place['placeID']);
 
         $title = $place['title'];
         $address = $place['address'];
-        $city_str = $city['city'];
-        $country = $city['country'];
         $numRooms = $place['numRooms'];
         $numBathrooms = $place['numBathrooms'];
         $capacity = $place['capacity'];
@@ -29,8 +27,6 @@ function draw_form($place = null, $edit_menu = false) {
     } else {
         $title = '';
         $address = '';
-        $city_str = '';
-        $country = '';
         $numRooms = '';
         $numBathrooms = '';
         $capacity = '';
@@ -43,36 +39,36 @@ function draw_form($place = null, $edit_menu = false) {
     $hasFile = $edit_menu
 
     ?>
-<!-- TODO: O MANEL MANDOU POR UM TODO PARA VER OS BUTOES -->
+    <!-- TODO: O MANEL MANDOU POR UM TODO PARA VER OS BUTOES -->
     <section id="place_edit_form">
 
         <form>
 
             <?php if ($place != null) { ?>
-                <input type="hidden" name="placeID" value=<?= $place['placeID'] ?>>
+                <input type="hidden" name="placeID" value=<?= $place['placeID'] ?>required>
             <?php } ?>
 
             <?php if ($userID != null) { ?>
-                <input type="hidden" name="userID" value=<?= $userID ?>>
+                <input type="hidden" name="userID" value=<?= $userID ?> required>
             <?php } ?>
 
             <fieldset>
                 <legend>Description</legend>
-                <label>Title: <input type="text" name="title" size="40" value="<?= $title ?>"> </label>
+                <label>Title: <input type="text" name="title" size="40" value="<?= $title ?>" required> </label>
             </fieldset>
 
             <fieldset>
 
                 <legend>Pictures</legend>
 
-                
+
                 <section id="img-upload" class="row">
-                <!--First we render the preview Images THIS SECTION IS USED BY JS DOM-->    
-                <div id="house_form_img_preview">
-                
-                </div>
-                
-                <!--then we render the local Images-->    
+                    <!--First we render the preview Images THIS SECTION IS USED BY JS DOM-->
+                    <div id="house_form_img_preview">
+
+                    </div>
+
+                    <!--then we render the local Images-->
 
                     <div id="house_form_img_local">
                         <?php
@@ -82,26 +78,26 @@ function draw_form($place = null, $edit_menu = false) {
 
                                 //LOAD THE MEDIUM SIZE IMAGE
                                 if ($i === 0) {
-                                    $str_aux = $imagePreview_medium.$imagearray[0]['image'];
-                            ?>  
-                                    <div class="img_edit_local_container">
-                                    <i class="fas fa-times delete_image_local" data-hash="<?=$imagearray[$i]['image']?>"></i>
-                                        <img class="edit_place_img_medium" src="<?=$str_aux?>">
-                                    </div>
+                                    $str_aux = $imagePreview_medium . $imagearray[0]['image'];
+                                    ?>
+                                <div class="img_edit_local_container">
+                                    <i class="fas fa-times delete_image_local" data-hash="<?= $imagearray[$i]['image'] ?>"></i>
+                                    <img class="edit_place_img_medium" src="<?= $str_aux ?>">
+                                </div>
 
                             <?php
                                     } else {
                                         $str_aux = $imagePreview_small . $imagearray[$i]['image'];
                                         ?>
-                            <div class="img_edit_local_container">
-                                <i class="fas fa-times delete_image_local"data-hash="<?=$imagearray[$i]['image']?>"></i>
-                                <img class="edit_place_img_small" src="<?= $str_aux?>">
-                            </div>
-                            <?php } 
+                                <div class="img_edit_local_container">
+                                    <i class="fas fa-times delete_image_local" data-hash="<?= $imagearray[$i]['image'] ?>"></i>
+                                    <img class="edit_place_img_small" src="<?= $str_aux ?>">
+                                </div>
+                        <?php }
                             }
                             ?>
                     </div>
-    
+
                     <label class="button" for="imageFile_add_place">Select foto</label>
                     <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile[]" multiple multiple data-hasFile=<?= $hasFile ?>>
                 </section>
@@ -117,7 +113,7 @@ function draw_form($place = null, $edit_menu = false) {
 
             <fieldset>
                 <legend>Description</legend>
-                <textarea name="description" rows="10" cols="100">
+                <textarea name="description" rows="10" cols="100" required>
             <?= $place['description']; ?>
             </textarea>
 
@@ -127,11 +123,17 @@ function draw_form($place = null, $edit_menu = false) {
             <fieldset>
                 <legend>Location</legend>
                 <article class="column edit-house-location">
-                    <label>Address: <input type="text" name="address" size="70" value="<?= $address ?>"> </label>
-                    <label>City: <input type="text" name="city" value="<?= $city_str ?>"> </label>
-                    <label>Country: <input type="text" name="country" value="<?= $country ?>"> </label>
-                </article>
 
+                    <label>Address: <input type="text" name="address" size="70" value="<?= $address ?>"> </label>
+                    <label for="location">Location:
+                        <select id="location" name="location" required>
+                            <?php foreach ($all_locations as $eachLocation) {
+                                    $locationString = $eachLocation['country'] . ' - ' . $eachLocation['city']; ?>
+                                <option value=<?= $eachLocation['locationID'] ?>><?= $locationString ?></option>
+                            <?php } ?>
+                        </select>
+                    </label>
+                </article>
 
             </fieldset>
 
