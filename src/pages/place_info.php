@@ -20,11 +20,11 @@
     
     if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
         $user_info = getUserInformation($_SESSION['userID']);
-        $jsFiles = ['../js/main.js', '../js/place_page.js','../js/price_reservation.js'];
+        $jsFiles = ['../js/main.js', '../js/place_page.js'];
     }
     else {
         $user_info = NULL;
-        $jsFiles = ['../js/main.js', '../js/place_page.js', '../js/login.js','../js/price_reservation.js'];
+        $jsFiles = ['../js/main.js', '../js/place_page.js', '../js/login.js'];
     }
 
     

@@ -26,7 +26,8 @@ body {
 
 h1, h2, h3, h4, h5, h6, a, p, label {
 	font-family: var(--default_text_font);
-	/* margin: 0; */
+	margin: 0;
+	margin-bottom: 0.2em;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -896,6 +897,10 @@ ul.row {
 	grid-area: button;
 }
 
+#fr_card .user_card{
+	border-top: 1px solid var(--border_color);
+}
+
  /****************  User Info Card ****************/
 
 .user_card{
@@ -904,8 +909,7 @@ ul.row {
     grid-template-rows: auto auto;
     grid-template-areas: "img username"
 						 "img other"; 
-	border-top: 1px solid var(--border_color);
-	padding: 1em 0;
+	padding-top: 1em;
 }
 
 .user_img{
@@ -925,6 +929,8 @@ ul.row {
 .user_contact {
 	grid-area: other;
 }
+
+ /****************  Review ****************/
 
 .review .overlay_anchor {
 	position:absolute;
@@ -958,12 +964,9 @@ ul.row {
     margin-left: 0;
 }
 
-#reviews .Comment_Author_Img{
-    height: 3em;
-    width: 3em;
-    float: left;
-    clear: right;
-
+.review footer{
+	color: var(--border_color);
+	font-size: 0.85em;
 }
 
 #availabilities input{
