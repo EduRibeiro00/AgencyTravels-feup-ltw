@@ -27,4 +27,9 @@
 	--calendar_selected: #268bd2;
 	--calendar_selected_trans1: rgba(38, 139, 210, 0.5);
 	--calendar_selected_trans2: rgba(38, 139, 210, 0.102);
+
+	--small-image-height:75px;
+    --small-image-width:75px;
+    --medium-image-height:160px;
+    --medium-image-width:280px;
 }
