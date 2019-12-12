@@ -71,7 +71,8 @@ function getPriceAsync() {
 		let priceEl = document.getElementById('fr-price')
 
 		switch(message) {        
-			case 'Invalid submission', -3:
+			case 'Invalid submission':
+			case -3:
 				// TODO: por algo mais bonito
 				priceEl.innerHTML = "Submission missing parameters"
 				break;
@@ -169,6 +170,8 @@ let confirmBt = document.getElementById('confirm-button')
 let confirmCheckin = document.getElementById('confirm_checkin')
 let confirmCheckout = document.getElementById('confirm_checkout')
 let confirmPrice = document.getElementById('confirm_price')
+let rowBt = document.querySelector('#fr-confirmation .row')
+
 
 cancelBt.addEventListener('click', function(){
 	frPopup.style.display = "none"
@@ -180,7 +183,17 @@ frForm.addEventListener('submit', function(event) {
 	let frMessage = document.getElementById("fr-message")
 	if(frMessage != null) frMessage.outerHTML = ""
 
-	
+
+    let frCheckin = document.getElementById('fr_checkin').value
+	let frCheckout = document.getElementById('fr_checkout').value
+
+	confirmCheckin.value = frCheckin
+	confirmCheckout.value = frCheckout
+
+	let date1 = new Date(frCheckin)
+	let date2 = new Date(frCheckout)
+	let diffTime = Math.abs(date2 - date1)
+	let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
 
 	let request = new XMLHttpRequest();
 
@@ -191,41 +204,35 @@ frForm.addEventListener('submit', function(event) {
 		let response = JSON.parse(this.responseText);
 		switch(response.message) {
 			case 'user not logged in':
-				confirmBt.parentNode.insertBefore(errorMessage('User is not logged in'), confirmBt.nextSibling)
+				rowBt.parentNode.insertBefore(errorMessage('User is not logged in'), rowBt)
 				confirmBt.style.display = "none";
 				break;
 			case 'incomplete data':
-				confirmBt.parentNode.insertBefore(errorMessage('Data Received was incomplete'), confirmBt.nextSibling)
+				rowBt.parentNode.insertBefore(errorMessage('Data Received was incomplete'), rowBt)
 				confirmBt.style.display = "none";
 				break;
 			case 'reservation overlap':
-				confirmBt.parentNode.insertBefore(errorMessage('Your Reservation Overlaps one existent Reservation'), confirmBt.nextSibling)
+				rowBt.parentNode.insertBefore(errorMessage('Your Reservation Overlaps one existent Reservation'), rowBt)
 				confirmBt.style.display = "none";
 				break;
 			case 'inexsitent availability':
-				confirmBt.parentNode.insertBefore(errorMessage('Days in Range without Availability'), confirmBt.nextSibling)
+				rowBt.parentNode.insertBefore(errorMessage('Days in Range without Availability'), rowBt)
 				confirmBt.style.display = "none";
 				break;
 			case 'overlap own reservation':
-				confirmBt.parentNode.insertBefore(confirmMessage('You already have one Reservation in the date range', response.price), confirmBt.nextSibling)
+				rowBt.parentNode.insertBefore(confirmMessage('You already have one Reservation in the date range', response.price, diffDays), rowBt)
 				confirmBt.style.display = "inline-block";
 				break;
 			case 'own place':
-				confirmBt.parentNode.insertBefore(confirmMessage('This is your own Place', response.price), confirmBt.nextSibling)
+				rowBt.parentNode.insertBefore(confirmMessage('This is your own Place', response.price, diffDays), rowBt)
 				confirmBt.style.display = "inline-block";
 				break;
 			default:
-				confirmBt.parentNode.insertBefore(confirmMessage('', response.price), confirmBt.nextSibling)
+				rowBt.parentNode.insertBefore(confirmMessage('', response.price, diffDays), confirmBt)
 				confirmBt.style.display = "inline-block"
 				break;
 		}
 	});
-
-    let frCheckin = document.getElementById('fr_checkin').value
-	let frCheckout = document.getElementById('fr_checkout').value
-
-	confirmCheckin.value = frCheckin
-	confirmCheckout.value = frCheckout
 
     request.send(encodeForAjax({placeID: placeID, checkin: frCheckin, checkout: frCheckout}))
 });
@@ -243,19 +250,16 @@ confirmForm.addEventListener('submit', function(event) {
 
 		switch(message) {
 			case 'user not logged in':
-			
-				break;
 			case 'incomplete data':
-
-				break;
 			case 'invalid dates':
-
+				location.reload(true)
 				break;
 			case 'reservation successfull':
-
+				
 				break;
 			default:
 				// TODO: ver mensagens de erro do insert
+				location.reload(true)
 				console.log(message)
 				break;
 		}
@@ -276,13 +280,14 @@ function errorMessage(message){
 	return article;
 }
 
-function confirmMessage(firstLine, price){
+function confirmMessage(firstLine, price, nights){
 	let article = document.createElement("article");
-	article.innerHTML = `
-			<p>${firstLine}</p>
-			<p>Are you sure you want to continue?</p>
-			<p>${firstLine}</p>
-			`;
+	let finalPrice = price * nights
+	article.innerHTML = `<p>${price}€/night <i class="fas fa-times"></i> ${nights} nights = <strong>${finalPrice}€</strong></p>`
+	if(firstLine !== '')
+		article.innerHTML += `<p>${firstLine}</p>`
+		
+	article.innerHTML += `<p>Are you sure you want to continue?</p>`;
 	article.setAttribute('id', 'fr-message');
 	return article;
 }

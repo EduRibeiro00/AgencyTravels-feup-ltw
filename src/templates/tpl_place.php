@@ -103,9 +103,10 @@ function draw_confirmation_form() { ?>
 			<i class="close-popup fas fa-times"></i>
 			<input type="hidden" id="confirm_checkin">
 			<input type="hidden" id="confirm_checkout">
-			<button id="confirm-button" class="button" type="submit">Confirm</button>
-			<button id="cancel-button" class="button" type="reset">Cancel</button>
-
+			<div class="row">
+				<button id="confirm-button" class="button" type="submit">Confirm</button>
+				<button id="cancel-button" class="button" type="reset">Cancel</button>
+			</div>
 		</form>
 	</div>
 <?php } ?>
