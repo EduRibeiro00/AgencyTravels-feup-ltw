@@ -332,14 +332,14 @@ INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES (
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-01", "2019-12-21", 699.8 , 2, 2);
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-23", "2019-12-27", 139.96 , 2, 4);
 
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-21", "2019-11-22", 43.34, 3, 1);
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-28", "2019-12-01", 141.67, 3, 7);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-11", "2019-12-14", 43.34, 3, 1);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-28", "2019-12-31", 141.67, 3, 7);
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-09", "2019-11-16", 475.93, 3, 5);
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-01-05", "2019-01-08", 158.67, 3, 6);
 
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-04", "2019-11-10", 222, 4, 4);
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-04", "2019-12-10", 252, 4, 3);
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-10-20", "2019-11-03", 518, 4, 1);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-20", "2020-01-03", 518, 4, 1);
 
 -- Review
 INSERT INTO Review (date, stars, reservationID) VALUES ("2019-11-25", 4, 1);

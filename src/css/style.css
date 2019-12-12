@@ -79,7 +79,7 @@ h1, h2, h3, h4, h5, h6, a, p, label {
 /* ----------- */
 
 /* circular-img: para usar em imagens que podem variar (profile pic, place images, etc) */
-.circular-img{
+.circular-img {
 	object-fit: cover;
 	border-radius: 50%;
 }
@@ -92,7 +92,6 @@ a.circ-img-link {
 #navbar .circular-img {
     width: 3.5em;
     height: 3.5em;
-    margin: 0 1em;
 }
 
 #topdests .circular-img, #trending .circular-img {
@@ -1048,8 +1047,8 @@ section#add-review-placeholder {
  * ------------ My houses and My reservations ------------
  */
 
-#new-place-button {
-    margin: 1em;
+#new-place-button, #place-reservs-button {
+    margin: 0.3em 1em;
     display: block;
 }
 
@@ -1074,20 +1073,53 @@ section#add-review-placeholder {
     width: 3em;
 }
 
-#my-user-info {
+#my-info {
     flex-grow: 1;
     justify-content: flex-start;
     border-bottom: 3px var(--main_color) solid;
     padding-bottom: 0.3em;
 }
 
-#my-user-info div:first-child {
+#my-info div:first-child {
     margin-left: 1em;
     flex-grow: 1;
 }
 
-#my-user-info a {
+#my-info a {
     margin-right: 1em;
+}
+
+/**
+ * ------------ Place Reservations ------------
+ */
+
+main#my-places-reservs > section {
+    margin: 2em;
+}
+
+#current-reservs > h4, #future-reservs > h4, #previous-reservs > h4 {
+    font-size: 1.5em;
+}
+
+/* TODO: ver melhor disposicao dos cards */
+article.place-reserv-card {
+    display: inline-block;
+    width: 40%;
+}
+
+.client-info .circ-img-link {
+    color: black;
+    padding: 0.5em;
+    transition: all 0.3s ease-in-out;
+}
+
+.client-info .circ-img-link img {
+    margin-right: 1em;
+}
+
+.client-info .circ-img-link:hover {
+    text-decoration: none;
+    background-color: var(--darker_bg_color);
 }
 
 
