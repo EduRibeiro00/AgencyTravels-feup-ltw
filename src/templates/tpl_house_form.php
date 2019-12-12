@@ -7,14 +7,13 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
     $userID = $_SESSION['userID'];
 
     if ($edit_menu == true) {
-
+        $placeID = $place['placeID'];
         $title = $place['title'];
         $address = $place['address'];
         $numRooms = $place['numRooms'];
         $numBathrooms = $place['numBathrooms'];
         $capacity = $place['capacity'];
-
-
+        $location = getPlaceLocation($placeID)['locationID'];
         $imagearray = getPlaceImages($place['placeID']);
         $imagearray_lenght = count($imagearray);
         $imagePreview_small = "../assets/images/places/small/";
@@ -31,25 +30,26 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
         $numBathrooms = '';
         $capacity = '';
         $imagearray_lenght = 0;
-
+        $location = '';
         $imagePreview_small = "../assets/images/places/small/";
         $imagePreview_medium = "../assets/images/places/medium/";
     }
     //So tera file se for o modo menu
-    $hasFile = $edit_menu
-
+    $hasFile = $edit_menu;
     ?>
+
+
     <!-- TODO: O MANEL MANDOU POR UM TODO PARA VER OS BUTOES -->
     <section id="place_edit_form">
 
         <form>
 
             <?php if ($place != null) { ?>
-                <input type="hidden" name="placeID" value=<?= $place['placeID'] ?>required>
+                <input type="hidden" name="placeID" value=<?= $place['placeID'] ?>>
             <?php } ?>
 
             <?php if ($userID != null) { ?>
-                <input type="hidden" name="userID" value=<?= $userID ?> required>
+                <input type="hidden" name="userID" value=<?= $userID ?>>
             <?php } ?>
 
             <fieldset>
@@ -128,8 +128,9 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
                     <label for="location">Location:
                         <select id="location" name="location" required>
                             <?php foreach ($all_locations as $eachLocation) {
+                                    $selected = $eachLocation['locationID'] == $location ? "selected" : "";
                                     $locationString = $eachLocation['country'] . ' - ' . $eachLocation['city']; ?>
-                                <option value=<?= $eachLocation['locationID'] ?>><?= $locationString ?></option>
+                                <option value=<?= $eachLocation['locationID'] ?> <?= $selected ?>><?= $locationString ?></option>
                             <?php } ?>
                         </select>
                     </label>

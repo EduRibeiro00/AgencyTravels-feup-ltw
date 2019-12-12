@@ -120,7 +120,6 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
 
                     $inputs_are_valid = false;
                 }
-
                 if (!is_numeric($capacity))
                     $inputs_are_valid = false;
 
@@ -128,7 +127,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                     $inputs_are_valid = false;
 
                 if ($inputs_are_valid) {
-                    if (updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $numRooms, $numBathrooms, $capacity) != true) {
+                    if (updatePlaceInfo($placeID, $title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity) != true) {
                         $message = 'Error Updating home';
                     } else {
                         if (strcmp($message, true_message) == 0) {

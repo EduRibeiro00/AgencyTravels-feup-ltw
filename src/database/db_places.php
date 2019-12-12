@@ -271,7 +271,7 @@ function getFromDayForwardAvailabilities($placeID, $day) {
 	return $stmt->fetchAll();
 }
 //TODO:UPDATE THE HOUSE LOCATION
-function updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $numRooms, $numBathrooms, $capacity){
+function updatePlaceInfo($placeID, $title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity){
     $db = Database::instance()->db();
     try {
         $stmt = $db->prepare('UPDATE Place
@@ -280,14 +280,14 @@ function updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $nu
                                   description = ?,
                                   capacity = ?,
                                   numRooms = ?,
-                                  numBathrooms = ? 
+                                  numBathrooms = ?, 
+                                  locationID= ?
                                WHERE placeID = ?
                                ' 
                             );
 
-     $stmt->execute(array($title, $address, $desc, $capacity, $numRooms, $numBathrooms, $placeID));
+     $stmt->execute(array($title, $address, $desc, $capacity, $numRooms, $numBathrooms,$locationID, $placeID));
     }
-
     catch (PDOException $e) {
         return $e->getMessage();
     }
@@ -358,6 +358,16 @@ function getRepliesForReviewAfterID($reviewID, $lastReplyID) {
 						  ');
     $stmt->execute(array($reviewID, $lastReplyID));
     return $stmt->fetchAll();
+}
+
+function getPlaceLocation($place_id){
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT locationID
+                          FROM Location NATURAL JOIN Place
+                          WHERE placeID= ?
+						  ');
+    $stmt->execute(array($place_id));
+    return $stmt->fetch();
 }
 
 ?>
