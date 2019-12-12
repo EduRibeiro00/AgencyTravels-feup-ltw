@@ -14,6 +14,7 @@ function draw_head($jsArray, $class = null) { ?>
 		<!-- TODO: ver se isto sempre -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 		<script src="../calendar/js/lightpick.js"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAHsMn2FG2f4HPYefGkvE9K7PXZ6opNS0&callback=initMap"type="text/javascript"></script>
 		<?php foreach($jsArray as $jsFile) { ?>
 			<script src=<?=$jsFile?> defer></script>
 		<?php } ?>
