@@ -95,9 +95,10 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
         //TEST IF THE EDIT FORM MANTAINS 1 PHOTO AFTER ALL THE OPERATIONS.
         if (($num_photos_to_initial + $num_images_uploaded_valid - $num_photos_to_remove) < 1) {
             $message = 'A place Must Have at least one image';
-            //$message=$num_photos_to_initial.$num_images_uploaded_valid.$num_photos_to_remove;
-            $message=$array_fileNames;
-        } else {
+        }else if(($num_photos_to_initial + $num_images_uploaded_valid - $num_photos_to_remove) >6){
+            //TEST IF THE NUMBER OF PHOTOS IS >6
+            $message = 'A place Must have a maximum six images';
+        }else {
             if (strcmp($message, true_message) === 0) {
                 //Validate Inputs
                 $inputs_are_valid = true;
@@ -158,5 +159,4 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
         }
     }
 }
-$message=$array_fileNames;
 echo json_encode(array('message' => $message));

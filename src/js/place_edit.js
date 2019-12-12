@@ -42,7 +42,7 @@ let image_delete_preview = document.querySelector('#img-delete_place_add');
 let img_id = 0;
 let number_images = 0;
 //THE NUMBER OF IMAGES LOCAL IS THE SAME AS THE NAME OF ORIGINAL DELETE CROSSES
-const number_images_local = allLocalImageCross.length;
+let number_images_local = allLocalImageCross.length;
 let img_array = new Array();
 let files_array = new Array();
 
@@ -73,144 +73,157 @@ for (let i = 0; i < allLocalImageCross.length; i++) {
 	});
 }
 
-//WHEN AN INPUT IS LOADED IT FIRE THIS EVENT
-imageInput.addEventListener('change', function (event) {
+if (imageInput != null) {
 
-	//UPDATE THE FIRST LOCAL PHOTO TO SMALL
-	let localImages = document.querySelector('#house_form_img_local img');
+	//WHEN AN INPUT IS LOADED IT FIRE THIS EVENT
+	imageInput.addEventListener('change', function (event) {
 
-	if (localImages != null) {
-		localImages.className = "edit_place_img_small";
-	}
-
-	//FOR ALL FILES UPLOADED
-	for (let i = 0; i < event.target.files.length; i++) {
-		//IF WE REMOVE THE ERROR IS RELEATED WITH THE MULTIPLE FILES UPLOAD. BUSY SERVICE
-		let reader_inside = new FileReader();
-		let f = event.target.files[i];
-
-		//Add files to the files array
-		if ((number_images + number_images_local - array_photos_to_remove.length) < 6) {
-			files_array.push(f.name);
-			number_images++;
-			reader_inside.readAsDataURL(f);
+		//UPDATE THE FIRST LOCAL PHOTO TO SMALL
+		let localImages = document.querySelector('#house_form_img_local img');
+		
+		files_array = [];
+		number_images = 0;
+		img_id = 0;
+		
+		for (let i in img_array) {
+			img_array[i].remove();
+		}
+	
+		if (localImages != null) {
+			localImages.className = "edit_place_img_small";
 		}
 
-		//WHEN THE READASDATAURL IS DONE
-		reader_inside.addEventListener('load', function (event) {
+		//FOR ALL FILES UPLOADED
+		for (let i = 0; i < event.target.files.length; i++) {
+			//IF WE REMOVE THE ERROR IS RELEATED WITH THE MULTIPLE FILES UPLOAD. BUSY SERVICE
+			let reader_inside = new FileReader();
+			let f = event.target.files[i];
 
-			//WE ONLY ADD AN NEW IMAGE IF THE NUMBER OF ELEMENTS IS LESS THAN 6 AT THAT MOMENT
+			//Add files to the files array
+			if ((number_images + number_images_local - array_photos_to_remove.length) < 6) {
+				files_array.push(f.name);
+				number_images++;
+				reader_inside.readAsDataURL(f);
+			}
 
-			//CALL THE FUNCTION TO GENERATE AN ELEMENT OF THAT TYPE
-			let child_element = generateImgDivContainer(event.target.result);
-			image_block_preview.appendChild(child_element);
-			
-			let remove_button = child_element.getElementsByClassName("delete_image_preview");
+			//WHEN THE READASDATAURL IS DONE
+			reader_inside.addEventListener('load', function (event) {
 
-			remove_button[0].addEventListener('click', function (event) {
+				//WE ONLY ADD AN NEW IMAGE IF THE NUMBER OF ELEMENTS IS LESS THAN 6 AT THAT MOMENT
 
-				event.preventDefault();
+				//CALL THE FUNCTION TO GENERATE AN ELEMENT OF THAT TYPE
+				let child_element = generateImgDivContainer(event.target.result);
+				image_block_preview.appendChild(child_element);
 
-				let pos_delete_array = remove_button[0].getAttribute('identifier_local');
+				let remove_button = child_element.getElementsByClassName("delete_image_preview");
 
-				if (pos_delete_array > img_array.length) {
-					console.error('DONT TRY TO VIOLATE THE JS ITS USELESS MATE');
-					//FORCE A MINIMUM OF 1 IMAGE
-				} else if ((number_images + number_images_local - array_photos_to_remove.length) > 0) {
-					//REMOVE FROM GUI
-					img_array[pos_delete_array].remove();
-					//REMOVE JS DATA
-					delete img_array[pos_delete_array];
-					//REMOVES FILE FROM ARRAY FILES
-					delete files_array[pos_delete_array];
-					//
-					number_images--;
-				}
+				remove_button[0].addEventListener('click', function (event) {
 
-				// I M USING DELETE LEAVES HOLES AND LENGTH REPRESENTS THE LAST ELEMENT NOT THE NUMBER OF ELEMENTS IN JS THIS MUST BE DONE TO CHECK IF THERE ARE ELEMENTS
-				let is_empty = true;
-				//THE INDEX REPRESENT THE INDEX OF LAST ELEMENT. INCOMPATIBLE WITH REMOVE. REMOVE IS NOT AVOIDABLE HERE
-				for (let i = 0; i < img_array.length; i++) {
-					if (img_array[i] != null) {
-						is_empty = false;
+					event.preventDefault();
+
+					let pos_delete_array = remove_button[0].getAttribute('identifier_local');
+
+					if (pos_delete_array > img_array.length) {
+						console.error('DONT TRY TO VIOLATE THE JS ITS USELESS MATE');
+						//FORCE A MINIMUM OF 1 IMAGE
+					} else if ((number_images + number_images_local - array_photos_to_remove.length) > 0) {
+						//REMOVE FROM GUI
+						img_array[pos_delete_array].remove();
+						//REMOVE JS DATA
+						delete img_array[pos_delete_array];
+						//REMOVES FILE FROM ARRAY FILES
+						delete files_array[pos_delete_array];
+						//
+						number_images--;
+					}
+
+					// I M USING DELETE LEAVES HOLES AND LENGTH REPRESENTS THE LAST ELEMENT NOT THE NUMBER OF ELEMENTS IN JS THIS MUST BE DONE TO CHECK IF THERE ARE ELEMENTS
+					let is_empty = true;
+					//THE INDEX REPRESENT THE INDEX OF LAST ELEMENT. INCOMPATIBLE WITH REMOVE. REMOVE IS NOT AVOIDABLE HERE
+					for (let i = 0; i < img_array.length; i++) {
+						if (img_array[i] != null) {
+							is_empty = false;
+						}
+					}
+					//IF THE INPUT BECOMES EMPTY RESET THE SIZE OF THE FIRST IMAGE
+					//!=NULL could be add form there are no local photos
+					if (is_empty == true && localImages != null) {
+						localImages.className = "edit_place_img_medium";
 					}
 				}
-				//IF THE INPUT BECOMES EMPTY RESET THE SIZE OF THE FIRST IMAGE
-				//!=NULL could be add form there are no local photos
-				if (is_empty == true && localImages != null) {
-					localImages.className = "edit_place_img_medium";
-				}
+				)
+
+			});
+		}
+	});
+}
+
+
+
+if (profileForm != null) {
+
+	profileForm.addEventListener('submit', function (event) {
+
+		event.preventDefault();
+
+		let request = new XMLHttpRequest();
+
+		request.open("POST", "../api/api_place_edit.php", true)
+
+		request.addEventListener('load', function () {
+			console.log(this.responseText);
+			let message = JSON.parse(this.responseText).message;
+
+			switch (message) {
+				case 'true':
+					history.back();
+					break;
+				case 'user not logged in':
+					history.back();
+					console.error('YOU ARE NOT LOGGED IN');
+					break;
+				case 'not house owner':
+					history.back();
+					console.error('YOU DONT HAVE PERMISSIONS');
+					break;
+				case 'image not from that place':
+					history.back();
+					console.warn('There is a problem with your image');
+					break;
+				case 'invalid image':
+					console.warn('There is a problem with your image');
+					errorMessage.textContent = "There is a problem with your image";
+					errorMessage.style.display = "block";
+					break;
+				case 'Parameters not validated':
+					errorMessage.textContent = "There is a problem with your inputs";
+					errorMessage.style.display = "block";
+					break;
+				case 'Invalid IMAGE uploaded':
+					console.warn('There is a problem with your image');
+					errorMessage.textContent = "There is a problem with your image";
+					errorMessage.style.display = "block";
+					break;
+				case 'Error removing the photo':
+					console.warn('There is a problem with your image');
+					break;
+				default:
+					history.back();
+					break;
 			}
-			)
 
 		});
-	}
-});
+		let formData = new FormData(profileForm);
+		formData.append('imagesToRemoveArray', array_photos_to_remove);
+		formData.append('File0', files_array[0]);
+		formData.append('File1', files_array[1]);
+		formData.append('File2', files_array[2]);
+		formData.append('File3', files_array[3]);
+		formData.append('File4', files_array[4]);
+		formData.append('File5', files_array[5]);
 
-
-
-
-profileForm.addEventListener('submit', function (event) {
-
-	event.preventDefault();
-
-	let request = new XMLHttpRequest();
-
-	request.open("POST", "../api/api_place_edit.php", true)
-
-	request.addEventListener('load', function () {
-		console.log(this.responseText);
-		let message = JSON.parse(this.responseText).message;
-
-		switch (message) {
-			case 'true':
-				history.back();
-				break;
-			case 'user not logged in':
-				history.back();
-				console.error('YOU ARE NOT LOGGED IN');
-				break;
-			case 'not house owner':
-				history.back();
-				console.error('YOU DONT HAVE PERMISSIONS');
-				break;
-			case 'image not from that place':
-				history.back();
-				console.warn('There is a problem with your image');
-				break;
-			case 'invalid image':
-				console.warn('There is a problem with your image');
-				errorMessage.textContent = "There is a problem with your image";
-				errorMessage.style.display = "block";
-				break;
-			case 'Parameters not validated':
-				errorMessage.textContent = "There is a problem with your inputs";
-				errorMessage.style.display = "block";
-				break;
-			case 'Invalid IMAGE uploaded':
-				console.warn('There is a problem with your image');
-				errorMessage.textContent = "There is a problem with your image";
-				errorMessage.style.display = "block";
-				break;
-			case 'Error removing the photo':
-				console.warn('There is a problem with your image');
-				break;
-			default:
-				history.back();
-				break;
-		}
-
+		request.send(formData);
 	});
-	let formData = new FormData(profileForm);
-	formData.append('imagesToRemoveArray', array_photos_to_remove);
-	formData.append('File0', files_array[0]);
-	formData.append('File1', files_array[1]);
-	formData.append('File2', files_array[2]);
-	formData.append('File3', files_array[3]);
-	formData.append('File4', files_array[4]);
-	formData.append('File5', files_array[5]);
 
-	request.send(formData);
-});
-
-// -----------
+	// -----------
+}

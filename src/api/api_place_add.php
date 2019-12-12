@@ -52,7 +52,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     }
 
     //TEST THE NUMBER O FILES UPLOADED IS NOT EMPTY AND IF NOT MORE THAN 6 (5+1- STARTS AT 0)
-    if ($num_images_uploaded_valid < 1 || $num_images_uploaded_valid > 5) {
+    if ($num_images_uploaded_valid < 1 || $num_images_uploaded_valid > 6) {
         $message = 'You cannot create an house with that number of pictures';
     } else {
 
