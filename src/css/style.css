@@ -349,17 +349,21 @@ ol li span:before {
 
 main#main-page .place-listing {
 	grid-area: randlocationplaces;
-	padding: 1em;
 }
 
 .place-listing {
     border: 1px solid black;
     margin: 0 2em;
+    padding: 1em;
 }
 
 .place-listing img {
 	height: 14em;
 	width: auto;
+}
+
+.place-listing h3 {
+    margin-top: 0.2em;
 }
 
 .places_list {
@@ -385,7 +389,8 @@ main#main-page .place-listing {
 }
 
 .place_info h4, .place_info p {
-    margin: auto 0.2em;
+    margin: 0.2em;
+    color: var(--light_text_color);
 }
 
 .more {
@@ -853,6 +858,7 @@ footer a {
 /* 
  *--------- Place Info ---------
  */
+
 /* TODO: por inputs bonitos */
 #place_page{
 	/* TODO: ver */
@@ -1063,6 +1069,11 @@ section#add-review-placeholder {
 /**
  * ------------ My houses and My reservations ------------
  */
+
+#my-container > header h3, #my-places-reservs > header h3 {
+    margin: 1em;
+    font-size: 2.5em;
+}
 
 #new-place-button, #place-reservs-button {
     margin: 0.3em 1em;

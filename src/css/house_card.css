@@ -4,16 +4,16 @@
  * ------------ House Card ------------
  */
 
- .card {
+.card {
 	border-bottom: 1px var(--border_color) solid;
     color: var(--main_color);
-    min-width: 45em;
+    min-width: 50em;
 }
 
 .card > a {
     padding: 1em 0;
     font-size: 1em;
-    width: 45em;
+    width: 50em;
 }
 
 .card > a:hover {
