@@ -170,17 +170,9 @@ body > nav {
 	z-index: 400;
     display: flex;
     justify-content: flex-start;
-    align-items: center;
-}
-
-.sticky {
-	position: fixed;
+	align-items: center;
+	position: sticky;
 	top: 0;
-    width: 100%;
-}
-
-.sticky + * {
-    padding-top: 5em;
 }
 
 #profilepagelink {

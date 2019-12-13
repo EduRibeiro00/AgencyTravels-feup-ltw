@@ -8,17 +8,9 @@ function encodeForAjax(data) {
 
 // -------------------
 
-//// Sticky nav bar
 let navbar = document.getElementById("navbar")
 let topDialog = document.getElementById("top-dialog")
 topDialog.style.top = navbar.offsetHeight + "px"
-window.addEventListener('scroll', function() {
-	// TODO: ver o 20 hardcoded
-	if((window.pageYOffset - 20) > navbar.offsetTop)
-		navbar.classList.add("sticky")
-	else
-		navbar.classList.remove("sticky")
-})
 
 // -------------------
 
