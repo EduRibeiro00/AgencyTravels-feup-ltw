@@ -56,7 +56,7 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
     <header>
         <h3><?=count($house_comments)?> Reviews</h3>
 		<?php draw_star_rating($house_rating)?>
-		<p><?=$house_rating?>/5.0</p>
+		<p><?=number_format($house_rating, 1);?>/5.0</p>
     </header>
     <?php  
         foreach($house_comments as $comment)

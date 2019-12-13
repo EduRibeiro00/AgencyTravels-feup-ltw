@@ -44,13 +44,13 @@ function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePri
 
 function draw_place_details($house_numRooms, $house_capacity, $house_numBathrooms) { ?>
 	<ul class="row">
-		<li class="button">
+		<li class="button-appearance">
 			<i class="fas fa-bed"></i> Rooms <?=$house_numRooms?>
 		</li>
-		<li class="button">
+		<li class="button-appearance">
 			<i class="fas fa-user"></i> Capacity <?=$house_capacity?>
 		</li>
-		<li class="button">
+		<li class="button-appearance">
 			<i class="fas fa-toilet"></i> Bathrooms <?=$house_numBathrooms?>
 		</li>
 	</ul>
@@ -91,7 +91,7 @@ function draw_my_place_sidebar($housePrice,$house_rating, $houseOwner, $placeID,
 				<p><strong id="fr-price"><?=$housePrice?>€</strong> per night</p>
 				<?php draw_star_rating($house_rating) ?>
 				<a href='#reviews'>(<?=$numVotes?> Reviews)</a>
-				<p><?=$house_rating?>/5.0</p>
+				<p><?=number_format($house_rating, 1);?>/5.0</p>
 			</section>
 
 			<form>
