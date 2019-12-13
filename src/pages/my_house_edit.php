@@ -36,16 +36,6 @@ include_once('../templates/tpl_house_form.php');
 draw_head($jsFiles);
 draw_navbar($user_info, false); 
 $all_locations = getAllLocations();
-?>
 
-<div id="my_house_edit_container">
-
-    <h2>My House Edit</h2>
-
-    <?php draw_form($place, true,$all_locations); ?>
-
-</div>
-
-<?php
+draw_form($place, true,$all_locations);
 draw_footer();
-?>

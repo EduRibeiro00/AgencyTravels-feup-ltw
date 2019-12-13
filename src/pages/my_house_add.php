@@ -20,13 +20,8 @@ draw_head($jsFiles);
 draw_navbar($user_info, false);
 $all_locations = getAllLocations();
 
-?>
-<div id="my_house_edit_container">
+draw_form(null,false,$all_locations);
 
-    <?php draw_form(null,false,$all_locations); ?>
-
-</div>
-
-<?php
 draw_footer();
+
 ?>

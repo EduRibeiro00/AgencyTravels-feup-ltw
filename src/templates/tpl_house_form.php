@@ -37,7 +37,7 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
     //So tera file se for o modo menu
     $hasFile = $edit_menu;
     ?>
-
+<div id="my_house_edit_container">
 
     <!-- TODO: O MANEL MANDOU POR UM TODO PARA VER OS BUTOES -->
     <section id="place_edit_form">
@@ -158,4 +158,6 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
 
 
     </section>
+
+</div>
 <?php } ?>
