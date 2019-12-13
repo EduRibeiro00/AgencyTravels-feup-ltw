@@ -210,7 +210,7 @@ nav input[type="text"] {
 nav #nav-search-place {
     border: none;
     color: var(--light_text_color);
-    background-color: var(--main_color);
+    background-color: transparent;
 }
 
 nav input[type="text"]::placeholder{
@@ -479,6 +479,7 @@ main#profile-page .place-listing {
 }
 
 .place-comments {
+    padding: 0 1em;
     grid-area: placecomments;
     margin: 1em;
     margin-bottom: 0;
@@ -486,7 +487,11 @@ main#profile-page .place-listing {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: left;
+}
+
+.place-comments h3 {
+    align-self: center;
 }
 
 
@@ -910,6 +915,10 @@ ul.row {
 	padding: 1em;
 }
 
+#place_page h2 {
+    margin-bottom: 0;
+}
+
 #place_page section.column > *{
 	border-bottom: 3px solid var(--main_color);
 }
@@ -978,7 +987,8 @@ ul.row {
 }
 
 .user_username {
-	grid-area: username;
+    grid-area: username;
+    color: black;
 }
 
 .user_contact {

@@ -9,7 +9,7 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
           <a class="overlay_anchor" href="../pages/place_info.php?place_id=<?=$comment['placeID']?>"></a>
         <?php } ?>
 		<header>
-			<?php draw_user_card($comment, 'rating') ?>
+			<?php draw_user_card($comment, 'rating'); ?>
 		</header>
 		<p><?=$comment["comment"]?></p>
 		<footer>
@@ -56,7 +56,7 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
     <header>
         <h3><?=count($house_comments)?> Reviews</h3>
 		<?php draw_star_rating($house_rating)?>
-		<p><?=number_format($house_rating, 1);?>/5.0</p>
+		<p><?=number_format($house_rating, 1); ?>/5.0</p>
     </header>
     <?php  
         foreach($house_comments as $comment)

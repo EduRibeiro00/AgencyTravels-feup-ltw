@@ -69,8 +69,8 @@ function draw_place_location($house_address_full, $house_gpsCoords) { ?>
         <h3>Location</h3>
         <img style="height: auto; width:80%" id=Google_Maps_Img src="http://gnomo.fe.up.pt/~up201704618/Screenshot_2019-11-20%20Oporto4all%20-%20Trindade,%20Porto,%20Portugal.png">
         <footer>
-            <p>Address: <?= $house_address_full ?></p>
-            <p>GPS Coords: <?= $house_gpsCoords ?></p>
+            <p><strong>Address:</strong> <?= $house_address_full ?></p>
+            <p><strong>GPS Coords:</strong> <?= $house_gpsCoords ?></p>
         </footer>
     </article>
 <?php } 
@@ -143,17 +143,12 @@ function draw_my_place_location($house_address_full, $house_gpsCoords) { ?>
 <?php }
 
 
-// TODO: css para isto
 function draw_add_review($reservationID, $placeID) { ?>
     <section id="add-review-placeholder">
         <article class="review" data-reviewID="">
-            <header>
-                <a href="">
-        		    <img class="Comment_Author_Img circular-img" src="">   
-                </a>
-                <p></p> 
-        		<?php draw_star_rating(0)?>
-            </header>
+			<header>
+				<?php draw_user_card($comment, 'rating'); ?>
+			</header>
             <p></p>
             <footer>
                 <p></p>
