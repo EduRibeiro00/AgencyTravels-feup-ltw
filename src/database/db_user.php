@@ -48,6 +48,21 @@
         return $all_places;
     }
 
+    
+    function getReservationsForOwner($ownerID) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT *
+                              FROM Reservation NATURAL JOIN Place JOIN User ON User.userID = Reservation.touristID JOIN Image ON User.userID = Image.userID
+                              WHERE ownerID = ?
+                              ORDER BY startDate ASC, endDate ASC'
+                            );
+        $stmt->execute(array($ownerID));
+        $all_places = $stmt->fetchAll();
+        for($i = 0; $i < count($all_places); $i++) {
+            $all_places[$i]['placeImages'] = getPlaceImages($all_places[$i]['placeID']);
+        }
+        return $all_places;
+    }
 	function userHasReservationsInRange($userID, $checkin, $checkout) {
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT 1
@@ -59,6 +74,7 @@
         return $stmt->fetchAll();
 	}
 	
+
 
     function getUserReservationsForPlace($userID, $placeID) {
         $db = Database::instance()->db();

@@ -267,7 +267,7 @@ INSERT INTO Place (title, address, description, capacity, numRooms, numBathrooms
 
 -- Image
 INSERT INTO Image(image, userID, placeID) VALUES ("14b3a43790f206aff9d6aefe11c1b05c1c55ddacfd7f1df321cf22f3da1055c8.png", 1, null);
-INSERT INTO Image(image, userID, placeID) VALUES ("97c5f50dc74ef7b62f986cb977b3ee216cc60d96fb2ebba565557401e0cf47ab.png", 2, null);
+INSERT INTO Image(image, userID, placeID) VALUES ("a33c6f9de76c79d0943dc27aff29f54dea89be700489fe6374cca7cbe03dc7f9.png", 2, null);
 INSERT INTO Image(image, userID, placeID) VALUES ("0f5ca98631a06547629225d4c77030408728b90fa29de1e592ec0f7d7c29ce82.png", 4, null);
 INSERT INTO Image(image, userID, placeID) VALUES ("3f10e3e9b4e52f8422728abeb3b37c8a3d5b9e01a8426a90d95510a93bc869dc.png", 5, null);
 INSERT INTO Image(image, userID, placeID) VALUES ("f4cced5a7ecd93fca8bf68c8f0e3ca72572fa0f7afaffc0c1dfb02c69f291d7e.png", 6, null);
@@ -332,14 +332,14 @@ INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES (
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-01", "2019-12-21", 699.8 , 2, 2);
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-23", "2019-12-27", 139.96 , 2, 4);
 
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-21", "2019-11-22", 43.34, 3, 1);
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-28", "2019-12-01", 141.67, 3, 7);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-11", "2019-12-14", 43.34, 3, 1);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-28", "2019-12-31", 141.67, 3, 7);
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-09", "2019-11-16", 475.93, 3, 5);
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-01-05", "2019-01-08", 158.67, 3, 6);
 
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-11-04", "2019-11-10", 222, 4, 4);
 INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-04", "2019-12-10", 252, 4, 3);
-INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-10-20", "2019-11-03", 518, 4, 1);
+INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES ("2019-12-20", "2020-01-03", 518, 4, 1);
 
 -- Review
 INSERT INTO Review (date, stars, reservationID) VALUES ("2019-11-25", 4, 1);

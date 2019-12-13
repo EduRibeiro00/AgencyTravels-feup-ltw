@@ -11,23 +11,30 @@ function draw_my_houses_body($houseOwnerInfo, $myHouses, $numReservs) { ?>
 <?php }
 
 function draw_my_houses_header($houseOwnerInfo, $numReservs) { ?>
-    <h3>My Houses</h3>
-    <section id="my-header" class="row">
-        <div id="my-user-info" class="row">
-            <div class="row">
-                <a class="circ-img-link" href="../pages/profile_page.php?userID=<?=$houseOwnerInfo['userID']?>">
-                    <img class="circular-img" src="../assets/images/users/small/<?=$houseOwnerInfo['image']?>">
-                </a>
-                <p><?=$houseOwnerInfo['name']?></p>
+    <header>
+        <h3>My Houses</h3>
+        <section id="my-header" class="row">
+            <div id="my-info" class="row">
+                <div class="row">
+                    <a class="circ-img-link" href="../pages/profile_page.php?userID=<?=$houseOwnerInfo['userID']?>">
+                        <img class="circular-img" src="../assets/images/users/small/<?=$houseOwnerInfo['image']?>">
+                    </a>
+                    <p><?=$houseOwnerInfo['name']?></p>
+                </div>
+                <p>Number of Reservations: <?=$numReservs?></p>
             </div>
-            <p>Number of Reservations: <?=$numReservs?></p>
-        </div>
-        <?php if(isset($_SESSION['userID']) && $_SESSION['userID'] == $houseOwnerInfo['userID']) { ?>
-            <a id="new-place-button" class="button" href="my_house_add.php?userID=<?=$houseOwnerInfo['userID']?>">
-                <i class="fas fa-plus"></i>
-                Add New Place
-            </a>
-        <?php } ?>
+            <?php if(isset($_SESSION['userID']) && $_SESSION['userID'] == $houseOwnerInfo['userID']) { ?>
+                <aside id="my-header-buttons" class="column">
+                    <a id="new-place-button" class="button" href="../pages/my_house_add.php?userID=<?=$houseOwnerInfo['userID']?>">
+                        <i class="fas fa-plus"></i>
+                        Add New Place
+                    </a>
 
-    </section>
+                    <a id="place-reservs-button" class="button" href="../pages/places_reservs.php">
+                        Check Reservations
+                    </a>
+                </aside>
+            <?php } ?>
+        </section>
+    </header>
  <?php } ?>
