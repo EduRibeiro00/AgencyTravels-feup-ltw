@@ -122,7 +122,6 @@ function updateDisableDates(){
 	request.addEventListener('load', function() {
 		// TODO: ver erros
 		let message = JSON.parse(this.responseText).message
-		console.log(message)
 		inlineCal.setMinDate(message.startDate)
 		inlineCal.setMaxDate(message.endDate)
 

@@ -24,7 +24,7 @@ body {
 	width: 100%;
 }
 
-h1, h2, h3, h4, h5, h6, a, p, label {
+h1, h2, h3, h4, h5, h6, a, p, label, li {
 	font-family: var(--default_text_font);
 	margin: 0;
 	margin-bottom: 0.2em;
@@ -1118,6 +1118,7 @@ ul.row {
 #my_house_edit_container{
     margin:2em;
 }
+
 #my_house_edit_container h2 {
     color:var(--main_color);
     font-size: 2.4em;
@@ -1174,21 +1175,21 @@ ul.row {
 #my_house_edit_container label input{
     margin-left: 0.3em;
 }
+
 .edit_place_img_small{
     position: relative;
     max-height: 10em;
     max-width: 50em;
 }
+
 .delete_preview_photo{
     position: absolute;
-
 }
 
 #image_delete_place_add{
     margin-left: 0;
 }
 
-  
 
 /**
  * ------------ Responsive ------------
