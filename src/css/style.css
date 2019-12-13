@@ -1,5 +1,7 @@
 @import "./constants.css";
 @import "./carousel.css";
+@import "./house_card.css";
+
 
 
 /* TODO: uniformizar botoes */
@@ -19,11 +21,23 @@ body {
     padding: 0;
 
     min-height: 100%;
-    width: 100%;
+	width: 100%;
 }
 
-h1, h2, h3, h4, h5, h6, a, p, label {
-    font-family: var(--default_text_font);
+h1, h2, h3, h4, h5, h6, a, p, label, li {
+	font-family: var(--default_text_font);
+	margin: 0;
+	margin-bottom: 0.2em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: var(--main_color);
+	margin: 0;
+	padding: 1em 0;
+}
+
+strong {
+	font-size: 110%;
 }
 
 /* circular cropper: apenas para usar em imagens fixas como o logotipo e o github */
@@ -153,7 +167,7 @@ body > nav {
 }
 
 #navbar {
-	z-index: 501;
+	z-index: 400;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -284,9 +298,8 @@ main#main-page {
                          "randlocationplaces randlocationplaces"; 
 }
 
-main h3 {
+#main-page h3 {
     font-size: 2em;
-    margin: .5em;
 }
 
 main a {
@@ -344,7 +357,8 @@ ol li span:before {
 }
 
 main#main-page .place-listing {
-    grid-area: randlocationplaces;
+	grid-area: randlocationplaces;
+	padding: 1em;
 }
 
 .place-listing {
@@ -388,16 +402,22 @@ main#main-page .place-listing {
     margin: 1em auto;
 }
 
-.button {
-    background-color: var(--main_color);
+.button{
+	background-color: var(--main_color);
     color: var(--light_text_color);
     padding: 0.3em 2em;
     border: 1px solid var(--border_color);
     border-radius: 1em;
-    transition: opacity .3s ease-in-out;
 }
 
-.button:hover {
+/* TODO: idealmente depois tirar o label */
+label.button,
+a.button,
+button.button {
+    transition: opacity .3s ease-in-out;
+}
+a.button:hover,
+button.button:hover {
     text-decoration: none;
 	opacity: 0.8;
 	cursor: pointer;
@@ -493,6 +513,8 @@ main#profile-page .place-listing {
     flex-direction: column;
 }
 
+/* TODO: ver depois isto direito */
+#img-upload > .button,
 #profile-form label, #profile-form #form-gender {
     font-size: 1.2em;
     color: var(--main_color);
@@ -516,7 +538,7 @@ main#profile-page .place-listing {
     height: 12em;
 }
 
-#img-upload > label.button {
+#img-upload > .button {
     color: var(--light_text_color);
     font-weight: normal;
     margin-right: 1em;
@@ -530,7 +552,7 @@ main#profile-page .place-listing {
     display: inline-block;
 }
 
-#profile-form input[type="submit"] {
+#profile-form button {
     text-align: center;
     margin: 1em auto;
 }
@@ -541,80 +563,6 @@ main#profile-page .place-listing {
 
 #new-password {
     margin-right: 3em;
-}
-
-
-/**
- * ------------ House Card ------------
- */
-
-.card {
-	border-bottom: 1px var(--border_color) solid;
-    color: var(--main_color);
-    min-width: 45em;
-}
-
-.card > a {
-    padding: 1em 0;
-    font-size: 1em;
-    width: 45em;
-}
-
-.card > a:hover {
-    background: var(--darker_bg_color);
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.card .info {
-    margin: 0 1em;
-    flex-grow: 1;
-}
-
-/* TODO: depois apagar pq será carroussel */
-.hcard-img {
-	width: 16em;
-	height: 11.5em;
-	object-position: center;
-}
-
-.card .info h4{
-	margin: 0.3em 0;
-}
-
-.card .info span{   
-	padding: 0.3em 1em;
-	border: var(--border_color) 1px solid;
-    border-radius: 1em;
-    margin-right: 1em;
-	background: var(--main_color);
-	color: var(--light_text_color);
-}
-
-.card-options {
-    justify-content: space-evenly;
-    flex-grow: 1;
-    margin: 0 1em;
-}
-
-.card-options > * {
-    text-align: center;
-}
-
-.card footer {
-	align-items: flex-end;
-	flex-grow: 1;
-	justify-content: space-between;
-}
-
-.card footer .card-rating {
-    margin: 1em;
-}
-
-.reserv-dates {
-    margin: 0 1em;
-    color: black;
-    justify-content: space-evenly;
 }
 
 /*
@@ -743,6 +691,7 @@ section#map img {
 	grid-area: facilities;
 }
 
+#filters button,
 #filters input[type="submit"]{
 	grid-area: submit;
 	font-size: 1em;
@@ -753,31 +702,6 @@ section#map img {
 /*
  * ------------ Search Location Hint ------------
  */
-
- #search-hints{
-	background: var(--background_color);
-	color: var(--main_color);
-	position: absolute;        
-	z-index: 325;
-	top: 3.5em;
-	left: 15em;
-	font-weight: 500;
-	font-size: 0.9em;
-}
-
-/* Formatting result items */
-#search-hints p{
-	margin: 0;
-	padding: 0.4em 0.5em;
-	border: 1px solid var(--border_color);
-	border-top: none;
-	cursor: pointer;
-}
-
-#search-hints p:hover{
-	background:var(--darker_bg_color);
-	font-weight: 600;
-}
 
 
 /**
@@ -827,20 +751,61 @@ footer a {
     position: absolute;
 }
 
+
+/**
+ * ------------ Dialog Box ------------
+ */
+#top-dialog {
+	z-index: 399;
+	display: none;
+	position: fixed;
+	width: 100%;
+	min-height: 4em;
+	padding: 0;
+	justify-content: center;
+	text-align: center;
+	background-color: var(--background_color);
+	-webkit-box-shadow: 0px 10px 16px -6px rgba(0,0,0,0.4);
+	-moz-box-shadow: 0px 10px 16px -6px rgba(0,0,0,0.4);
+	box-shadow: 0px 10px 16px -6px rgba(0,0,0,0.4);
+}
+  
+
 /**
  * ------------ Login Form ------------
  */
 
- #login-form{
+#login-form,
+#fr-confirmation{
 	background-color: var(--darker_bg_color);
 	color: var(--main_color);
 	position: relative;
+	/* TODO: fazer sem % */
 	margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
 	border: 1px solid var(--border_color);
 	padding: 1em;
 	width: 25%;
 	min-width: 25em;
- }
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);	
+}
+
+#fr-confirmation{
+	/* TODO: fazer sem % */
+	margin: 20% auto; /* 5% from the top, 15% from the bottom and centered */
+}
+#fr-confirmation .row{
+	justify-content: space-around;
+}
+
+#fr-message {
+	text-align: center;
+	padding: 1em;
+	color: var(--border_color);
+}
+
+#fr-message p{
+	margin: 0.5em;
+}
 
 #login-form > div {
 	margin: 0 auto;
@@ -855,21 +820,21 @@ footer a {
 	margin: 1em auto;
 }
 
-.fa-times:hover{
+.close-popup:hover{
 	color: var(--main_color);
 	cursor: pointer;
 }
-.fa-times{
+.close-popup{
 	position: absolute;
 	top: 1em;
 	right: 2em;
 	color: var(--border_color);
 }
 
-#pop-up {
+.pop-up {
 	display: none;
 	position: fixed;
-	z-index: 350;
+	z-index: 500;
 	left: 0;
 	top: 0;
 	width: 100%;
@@ -878,14 +843,31 @@ footer a {
 	background-color: rgba(0,0,0,0.4);
 }
 
+/* Add Zoom Animation */
+.animate {
+	-webkit-animation: animatezoom 0.6s;
+	animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+	from {-webkit-transform: scale(0)} 
+	to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+	from {transform: scale(0)} 
+	to {transform: scale(1)}
+}
+
 /* 
  *--------- Place Info ---------
  */
+/* TODO: por inputs bonitos */
 #place_page{
 	/* TODO: ver */
 	color: black;
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto min-content;
     grid-template-rows:auto auto;
     grid-template-areas:"Column Aside"
                         "Similar Similar";                        
@@ -903,34 +885,11 @@ footer a {
 	position: sticky;
 }
 
-#House_Info{
-    border-bottom: 2px;
-    border-bottom-color: var(--main_color);
-    border-bottom-style: solid;
-}
-#House_Info p{
-    text-align: justify;
-}
-
-#House_Info header{
-    font-size: 2rem;
-    padding-bottom: 0.1em;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: var(--main_color);
-    
-}
-
-#Pictographic_Info{
-    list-style-type: none;
-    padding-bottom: 1em;
-    border-bottom-style: solid;
-    border-bottom-width: 3px;
-    border-bottom-color: var(--main_color);
-    padding-left: 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+ul.row {
+	list-style-type: none;
+	justify-content: space-around;
+	padding: 1em 0;
+	margin: 0;
 }
 
 #Pictographic_Info li{
@@ -950,74 +909,140 @@ footer a {
     height: 1em; 
 }
 
-#Owner_info{
-    margin-top: 1em;
+ /****************  Place Page ****************/
+
+#place_page {
+	max-width: 100em;
+	margin: 0 auto;
+	padding: 1em;
 }
 
-#Owner_info span {
-    display: inline-block;
-    height: 3em;
-    padding-top: 1em;
-    padding-left: 0.5em;
-    
-}
-#Book_Submit_Button{
-    margin-top:1em;
-    margin-left: 6em;
-}
-#fr_card img{
-    width: 3em;
-    height: 3em;
-    float: left;
-    margin-left: 0px;
+#place_page section.column > *{
+	border-bottom: 3px solid var(--main_color);
 }
 
-#Google_Maps_Widget_Container{
-    border-bottom-style: solid;
-    border-bottom-width: 3px;
-    border-bottom-color: var(--main_color);
-
-}
-#Google_Maps_Img{
-    height: 80%;
-    width: 80%;
+#place_page section.column > article:last-of-type{
+	border-bottom: none;
+	margin-bottom: 1em;
 }
 
-#Reviews_Container{
-    margin-left: 6rem;
-    margin-right: 1rem;    
+/****************  Fast Reservation Form ****************/
+
+#fr_card{
+	margin: 1em;
+	padding: 1em;
+	width: 22em;
+	background-color: var(--background_color);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+#fr_card form{
+	margin: 1em 0;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	grid-template-rows: auto auto;
+	grid-column-gap: 1em;
+	grid-row-gap: 1em;
+    grid-template-areas: "checkin checkout"
+						 "button button"; 
+}
+
+#fr_checkin{
+	grid-area: checkin;
+}
+
+#fr_checkout{
+	grid-area: checkout;
+}
+
+#fr_card form button{
+	grid-area: button;
+}
+
+#fr_card .user_card{
+	border-top: 1px solid var(--border_color);
+}
+
+ /****************  User Info Card ****************/
+
+.user_card{
+	display: grid;
+	grid-template-columns: min-content auto;
+    grid-template-rows: auto auto;
+    grid-template-areas: "img username"
+						 "img other"; 
+	padding-top: 1em;
+}
+
+.user_img{
+	grid-area: img;
+	margin-right: 1em;
+}
+
+.user_img img{
+	width: 3em;
+    height: auto;
+}
+
+.user_username {
+	grid-area: username;
+}
+
+.user_contact {
+	grid-area: other;
+}
+
+ /****************  Review ****************/
+
+.review .overlay_anchor {
+	position:absolute;
+	left:0;
+	top:0;
+	bottom:0;
+	right:0;
+}
+
+.review header{
+	position:relative;
+	pointer-events: none;
+	z-index: 1;
+}
+
+.review header a{
+	pointer-events: all;
+  	position:relative;
 }
 
 .review{
-    border-bottom-style: solid; 
-    border-bottom-width: 3px;
-    border-bottom-color: var(--main_color);
+	border-bottom: solid 2px var(--border_color_transp);
+	position: relative;
 }
+
+.review:last-of-type{
+    border-bottom: none;
+}
+
 .review .circular-cropper{
-    margin-left: 0px;
+    margin-left: 0;
 }
 
-#reviews .Comment_Author_Img{
-    height: 3em;
-    width: 3em;
-    float: left;
-    clear: right;
-
-}
-
-
-/* TODO: limpar forma como h4 e padding top é definido */
-#availabilities{
-    border-bottom-style: solid; 
-    border-bottom-width: 3px;
-	border-bottom-color: var(--main_color);
+.review footer{
+	color: var(--border_color);
+	font-size: 0.85em;
 }
 
 #availabilities input{
 	display: none;
 }
 
+#availabilities .lightpick--inlined{
+	margin: 0 auto;
+	width: min-content;
+	display: block;
+}
+
 #Similar_Offers_Container{
+	border-top: 3px solid var(--main_color);
     grid-area:Similar;
     display: flex;
     justify-content: space-around;
@@ -1098,6 +1123,7 @@ section#add-review-placeholder {
 #my_house_edit_container{
     margin:2em;
 }
+
 #my_house_edit_container h2 {
     color:var(--main_color);
     font-size: 2.4em;
@@ -1165,6 +1191,11 @@ section#add-review-placeholder {
 .img_add_preview_container{
     position: relative;
 }
+
+.delete_preview_photo{
+    position: absolute;
+}
+
 #image_delete_place_add{
     margin-left: 0;
 }

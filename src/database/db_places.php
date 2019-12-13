@@ -173,11 +173,11 @@ function getRandomCity() {
 
 function getAveragePrice($placeID) {
     $db = Database::instance()->db();
-    $stmt = $db->prepare('SELECT round(avg(pricePerNight)) as avg_price
+    $stmt = $db->prepare('SELECT IFNULL(round(avg(pricePerNight)), 0) as avg_price
                           FROM Availability
-                          WHERE placeID = ?');
-	$stmt->execute(array($placeID));
-	return $stmt->fetch();
+                          WHERE placeID = ? AND date(endDate) >= date(?)');
+	$stmt->execute(array($placeID, date('Y-m-d')));
+	return $stmt->fetch()['avg_price'];
 }
 
 function getPrice($placeID, $date) {
@@ -328,6 +328,19 @@ function getPlaceID($title,$address,$ownerID){
     $stmt->execute(array($title, $address, $ownerID));
     return $stmt->fetch();
 }
+
+function newReservation($touristID, $startDate, $endDate, $price, $placeID){
+    $db = Database::instance()->db();
+    try {
+        $stmt = $db->prepare('INSERT INTO Reservation (startDate, endDate, price, placeID, touristID) VALUES(?, ?, ?, ?, ?)');
+        $stmt->execute(array($startDate, $endDate, $price, $placeID, $touristID));
+    }
+    catch (PDOException $e) {
+        return $e->getMessage();
+    }
+    return true;
+}
+
 
 function getPlaceNewRating($placeID) {
     $db = Database::instance()->db();

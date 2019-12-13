@@ -1,33 +1,22 @@
 <?php
 include_once('../templates/tpl_common.php');
+include_once('../templates/tpl_cards.php');
 include_once('../database/db_user.php');
 
 function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
     <article class="review" data-reviewID="<?=$comment['reviewID']?>">
-        <?php if($linkToPlace) { ?>
-          <a href="../pages/place_info.php?place_id=<?=$comment['placeID']?>">
+		<?php if($linkToPlace) { ?>
+          <a class="overlay_anchor" href="../pages/place_info.php?place_id=<?=$comment['placeID']?>"></a>
         <?php } ?>
-            <header>
-                <?php if(!$linkToPlace) { ?>
-                    <a href="../pages/profile_page.php?userID=<?=$comment['userID']?>">
-                <?php } ?>
-    	    	        <img class="Comment_Author_Img circular-img" src="../assets/images/users/small/<?=$comment['image']?>">
-                <?php if(!$linkToPlace) { ?>    
-                    </a>
-                <?php } ?>
-                <p><?=$comment["username"]?></p> 
-    	    	<?php draw_star_rating($comment["stars"])?>
-            </header>
-            <p><?=$comment["comment"]?></p>
-            <footer>
-                <p>Published: <?=$comment["date"]?></p>
-            </footer>
-        <?php if($linkToPlace) { ?>
-            </a>
-        <?php }
+		<header>
+			<?php draw_user_card($comment, 'rating') ?>
+		</header>
+		<p><?=$comment["comment"]?></p>
+		<footer>
+			<p>Published: <?=$comment["date"]?></p>
+		</footer>
 
-
-            if($commentReplies) {  ?>
+           <?php if($commentReplies) {  ?>
                 <section class="comment-replies">
                     <?php foreach($comment['replies'] as $reply) { ?>
                         <article class="reply" data-replyID="<?=$reply['replyID']?>">
@@ -65,8 +54,9 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
 <?php function draw_all_comments($house_rating, $house_comments) { ?>
     <article id="reviews">
     <header>
-        <p>Reviews</p>
-        <?php draw_star_rating($house_rating); ?>
+        <h3><?=count($house_comments)?> Reviews</h3>
+		<?php draw_star_rating($house_rating)?>
+		<p><?=$house_rating?>/5.0</p>
     </header>
     <?php  
         foreach($house_comments as $comment)

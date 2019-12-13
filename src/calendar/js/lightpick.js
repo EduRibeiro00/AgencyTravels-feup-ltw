@@ -1439,26 +1439,22 @@
 		if(!self._opts.priceTooltip)
 			return
 
-		
 		var tooltip = self.el.querySelector('.lightpick__tooltip');
 
-		var hasParentEl = self.el.classList.contains('lightpick--inlined'),
-		pickerBouding = hasParentEl
-			? self.el.parentNode.getBoundingClientRect()
-			: self.el.getBoundingClientRect(),
-			_left, _top;
-		
+		let pickerBouding = self.el.getBoundingClientRect(), _left, _top;
+		   
 		tooltip.style.visibility = 'visible';
 		tooltip.textContent = price;
-
-		var tooltipBounding = tooltip.getBoundingClientRect();
+  
 		if(self._opts.inline){
 			let dayBounding = self.el.querySelector('.is-start-date').getBoundingClientRect();
-			// TODO: ainda n está perfeito
-			_left = dayBounding.left - pickerBouding.left - dayBounding.width - tooltipBounding.width / 4;
-			_top = dayBounding.top - dayBounding.height * 2 - pickerBouding.top - tooltipBounding.height
+			_left = dayBounding.left - pickerBouding.left + dayBounding.width / 2,
+			_top = dayBounding.top - pickerBouding.top;
 		}
-
+		  var tooltipBounding = tooltip.getBoundingClientRect();
+			_top -= tooltipBounding.height;
+			_left -= tooltipBounding.width / 2;
+			
 		setTimeout(function() {
 			tooltip.style.top = _top + 'px';
 			tooltip.style.left = _left + 'px';

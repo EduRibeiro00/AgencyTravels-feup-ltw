@@ -83,9 +83,9 @@ function draw_navbar($user_info, $hints, $class = null) { ?>
 			<a id="signuplink" href="../pages/signup.php">Signup</a>
 		<?php } ?>
 	  </nav>
-		<?php if($user_info == NULL) {
-						draw_login_form();
-		 } ?>
+		<?php 
+		draw_dialog();
+		if($user_info == NULL) draw_login_form(); ?>
 <?php } ?>
 
 <?php function draw_star_rating($rating) { ?>
@@ -105,5 +105,12 @@ function draw_navbar($user_info, $hints, $class = null) { ?>
 				<i class="fas fa-star"></i>
 			</div>
 		</div>
+	</div>
+<?php } 
+
+function draw_dialog(){ ?>
+	<div id="top-dialog" class="column">
+		<i id="login-form-cross"class="close-popup fas fa-times"></i>
+		<p></p>
 	</div>
 <?php } ?>

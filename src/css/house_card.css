@@ -1,0 +1,74 @@
+@import "./constants.css";
+
+/**
+ * ------------ House Card ------------
+ */
+
+ .card {
+	border-bottom: 1px var(--border_color) solid;
+    color: var(--main_color);
+    min-width: 45em;
+}
+
+.card > a {
+    padding: 1em 0;
+    font-size: 1em;
+    width: 45em;
+}
+
+.card > a:hover {
+    background: var(--darker_bg_color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.card .info {
+    margin: 0 1em;
+    flex-grow: 1;
+}
+
+/* TODO: depois apagar pq será carroussel */
+.hcard-img {
+	width: 16em;
+	height: 11.5em;
+	object-position: center;
+}
+
+.card .info h4{
+	margin: 0.3em 0;
+}
+
+/* .card .info span{   
+	padding: 0.3em 1em;
+	border: var(--border_color) 1px solid;
+    border-radius: 1em;
+    margin-right: 1em;
+	background: var(--main_color);
+	color: var(--light_text_color);
+} */
+
+.card-options {
+    justify-content: space-evenly;
+    flex-grow: 1;
+    margin: 0 1em;
+}
+
+.card-options > * {
+    text-align: center;
+}
+
+.card footer {
+	align-items: flex-end;
+	flex-grow: 1;
+	justify-content: space-between;
+}
+
+.card footer .card-rating {
+    margin: 1em;
+}
+
+.reserv-dates {
+    margin: 0 1em;
+    color: black;
+    justify-content: space-evenly;
+}

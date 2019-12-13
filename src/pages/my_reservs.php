@@ -16,7 +16,7 @@
 
     $myReservations = getUserReservations($userID);
     for($i = 0; $i < count($myReservations); $i++) {
-        $myReservations[$i]['price'] = getAveragePrice($myReservations[$i]['placeID'])['avg_price'];
+        $myReservations[$i]['price'] = getAveragePrice($myReservations[$i]['placeID']);
         $myReservations[$i]['nVotes'] = getPlaceNumVotes($myReservations[$i]['placeID']);
     }
 

@@ -84,24 +84,24 @@ for(let x = 0; x < radios.length; x++){
 }
 
 
-function parseSearchData(data){
-	let adults = data.get('nAdults') ? data.get('nAdults') : 1
-	let children = data.get('nChildren') ? data.get('nChildren') : 0
+// function parseSearchData(data){
+// 	let adults = data.get('nAdults') ? data.get('nAdults') : 1
+// 	let children = data.get('nChildren') ? data.get('nChildren') : 0
 	
-	let parsedData = {
-		'location': data.get('location'),
-		'checkin': data.get('checkin'),
-		'checkout': data.get('checkout'),
-		'nPeople': parseInt(adults) + parseInt(children),
-		'minPrice': data.get('minPrice') ? data.get('minPrice') : 0,
-		'maxPrice': data.get('maxPrice') ? data.get('maxPrice') : 1000,
-		'nRooms': data.get('nRooms') ? data.get('nRooms') : 0,
-		'nBathrooms': data.get('nBathrooms') ? data.get('nBathrooms') : 0,
-		'rating': data.get('rating') ? data.get('rating')[0] : 0
-	};
+// 	let parsedData = {
+// 		'location': data.get('location'),
+// 		'checkin': data.get('checkin'),
+// 		'checkout': data.get('checkout'),
+// 		'nPeople': parseInt(adults) + parseInt(children),
+// 		'minPrice': data.get('minPrice') ? data.get('minPrice') : 0,
+// 		'maxPrice': data.get('maxPrice') ? data.get('maxPrice') : 1000,
+// 		'nRooms': data.get('nRooms') ? data.get('nRooms') : 0,
+// 		'nBathrooms': data.get('nBathrooms') ? data.get('nBathrooms') : 0,
+// 		'rating': data.get('rating') ? data.get('rating')[0] : 0
+// 	};
 	
-	return parsedData
-}
+// 	return parsedData
+// }
 
 //////// Filters
 /*let form = document.getElementById('search_form')

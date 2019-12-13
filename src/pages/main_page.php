@@ -20,7 +20,7 @@
   $randcity = getRandomCity();
   $randplaces = getRandomPlacesFromCity($randcity['locationID'], 3);
   foreach($randplaces as $k => $place) {
-    $randplaces[$k]['avg_price'] = getAveragePrice($place['placeID'])['avg_price'];
+    $randplaces[$k]['avg_price'] = getAveragePrice($place['placeID']);
   }
 
   if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
