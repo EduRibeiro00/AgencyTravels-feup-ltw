@@ -205,9 +205,12 @@ a {
 nav input[type="text"] {
 	color: var(--light_text_color);
 	padding: 1em;
-	border: none;
-	background-color: var(--main_color);
 	font-weight: 500;
+}
+
+nav #nav-search-place {
+    border: none;
+    background-color: var(--main_color);
 }
 
 nav input[type="text"]::placeholder{
