@@ -26,14 +26,14 @@ body {
 
 h1, h2, h3, h4, h5, h6, a, p, label, li {
 	font-family: var(--default_text_font);
-	margin: 0;
-	margin-bottom: 0.2em;
+	/* margin: 0; */
+	/* margin-bottom: 0.2em; */
 }
 
 h1, h2, h3, h4, h5, h6 {
 	color: var(--main_color);
-	margin: 0;
-	padding: 1em 0;
+	/* margin: 0; */
+	/* padding: 1em 0; */
 }
 
 strong {
