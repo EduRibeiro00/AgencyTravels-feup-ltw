@@ -26,14 +26,10 @@ body {
 
 h1, h2, h3, h4, h5, h6, a, p, label, li {
 	font-family: var(--default_text_font);
-	/* margin: 0; */
-	/* margin-bottom: 0.2em; */
 }
 
 h1, h2, h3, h4, h5, h6 {
 	color: var(--main_color);
-	/* margin: 0; */
-	/* padding: 1em 0; */
 }
 
 strong {
@@ -166,7 +162,7 @@ body > nav {
 }
 
 #navbar {
-	z-index: 400;
+	z-index: 50;
     display: flex;
     justify-content: flex-start;
 	align-items: center;
@@ -203,13 +199,13 @@ a {
 }
 
 nav input[type="text"] {
-	color: var(--light_text_color);
 	padding: 1em;
 	font-weight: 500;
 }
 
 nav #nav-search-place {
     border: none;
+    color: var(--light_text_color);
     background-color: var(--main_color);
 }
 
@@ -599,7 +595,7 @@ section#map img {
 	background: var(--background_color);
 	color: var(--main_color);
 	position: absolute;        
-	z-index: 325;
+	z-index: 70;
 	top: 3.5em;
 	left: 15em;
 	font-weight: 500;
@@ -633,7 +629,7 @@ section#map img {
 	background: var(--darker_bg_color);
 	color: var(--main_color);
 	border: var(--footer_color) 4px solid;
-	z-index: 200;
+	z-index: 65;
 
 }
 
@@ -755,7 +751,7 @@ footer a {
  * ------------ Dialog Box ------------
  */
 #top-dialog {
-	z-index: 399;
+	z-index: 80;
 	display: none;
 	position: fixed;
 	width: 100%;

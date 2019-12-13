@@ -12,7 +12,7 @@
 
 #slideshow h3 {
     color: var(--light_text_color);
-    z-index: 100;
+    z-index: 10;
     font-size: 1em;
     position: absolute;
     bottom: 15%;
@@ -80,7 +80,7 @@ ul.slides input {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 99;
+    z-index: 9;
     font-size: 8em;
     line-height: 5em;
     color: #fff;
@@ -120,7 +120,7 @@ ul.slides input {
     left: 0;
     right: 0;
     bottom: 1.5em;
-    z-index: 99;
+    z-index: 9;
     text-align: center;
 }
 

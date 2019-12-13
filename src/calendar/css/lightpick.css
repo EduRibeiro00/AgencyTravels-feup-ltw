@@ -2,7 +2,7 @@
 
 .lightpick {
     position: absolute;
-    z-index: 350;
+    z-index: 60;
     padding: 4px;
     border-radius: 4px;
     background-color: var(--background_color);
