@@ -133,11 +133,13 @@ function replyFormFunction(event) {
                     newReplyContainer.classList.add('reply');
                     newReplyContainer.setAttribute('data-replyID', newReply.replyID);
 
-                    newReplyContainer.innerHTML = '<header>' +
+                    newReplyContainer.innerHTML = '<header class="row">' +
                                                     '<a href="../pages/profile_page.php?userID=' + newReply.userID + '">' +
                                                         '<img class="reply-author-img circular-img" src="../assets/images/users/small/' + newReply.image + '">' + 
                                                     '</a>' + 
-                                                    '<p>' + newReply.username + '</p>' +
+                                                    '<a href="../pages/profile_page.php?userID=' + newReply.userID + '">' +
+                                                        '<p>' + newReply.username + '</p>' +
+                                                    '</a>' +
                                                   '</header>' +
                                                   '<p>' + newReply.comment + '</p>' + 
                                                   '<footer>' +

@@ -20,11 +20,13 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
                 <section class="comment-replies">
                     <?php foreach($comment['replies'] as $reply) { ?>
                         <article class="reply" data-replyID="<?=$reply['replyID']?>">
-                            <header>
+                            <header class="row">
                                 <a href="../pages/profile_page.php?userID=<?=$reply['userID']?>">
                                     <img class="reply-author-img circular-img" src="../assets/images/users/small/<?=$reply['image']?>">
                                 </a>
-                                <p><?=$reply["username"]?></p>
+                                <a href="../pages/profile_page.php?userID=<?=$reply['userID']?>">
+                                    <p><?=$reply["username"]?></p>
+                                </a>
                             </header>
                             <p><?=$reply["comment"]?></p>
                             <footer>
