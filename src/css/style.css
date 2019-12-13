@@ -36,6 +36,10 @@ strong {
 	font-size: 110%;
 }
 
+textarea {
+    resize: none;
+}
+
 /* circular cropper: apenas para usar em imagens fixas como o logotipo e o github */
 .circular-cropper {
     position: relative;
@@ -550,10 +554,6 @@ main#profile-page .place-listing {
 #profile-form button {
     text-align: center;
     margin: 1em auto;
-}
-
-#profile-form textarea {
-    resize: none;
 }
 
 #new-password {
