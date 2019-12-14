@@ -84,28 +84,31 @@ function get_long(stringWithCoords) {
 }
 
 function initGoogleMapsServices() {
-
+    
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: starting_lat, lng: starting_lng },
         zoom: starting_zoom
     });
     geocoder = new google.maps.Geocoder();
-
+    
     if (map == null || geocoder == null) {
         return false;
     }
-
+    
+    if(GPSCoordsDom.value!=''){
+        addMarker(GPSCoordsDom.value);
+    }
     return true;
-
 }
+//NOTE THE DIFFERENCE TO THE HOUSE LIST. IN HOUSE LIST WE RECEIVE AN ARRAY WITH INFORMATION HERE ITS JUST A STRING
 //COORDINATES COME IN FORMAT STRING LAT , LNG
-function addMarker(array_with_geocoordinates) {
+function addMarker(string_with_geocoordinates) {
 
     let lat;
     let long;
 
-    lat = Number(get_lat(array_with_geocoordinates[0]));
-    long = Number(get_long(array_with_geocoordinates[0]));
+    lat = Number(get_lat(string_with_geocoordinates));
+    long = Number(get_long(string_with_geocoordinates));
 
     let marker = new google.maps.Marker({
         position: { lat: lat, lng: long },
