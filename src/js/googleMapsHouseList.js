@@ -180,6 +180,10 @@ function installMarkerHandler(marker) {
         let classNameOriginal = arrayWithHouseCards[index_marker].className;
         let classNameChange = classNameOriginal + ' ' + hoverClassName;
         arrayWithHouseCards[index_marker].className = classNameChange;
+        arrayWithHouseCards[index_marker].scrollIntoView();
+        //Fator corretor. Havia um problema com o navbar. HardCoded.
+        let CurrentScroll=window.scrollY; 
+        scroll(0,CurrentScroll-100);
 
     });
 
