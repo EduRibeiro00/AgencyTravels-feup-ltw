@@ -130,9 +130,11 @@ function updateDisableDates(){
 
 		let disableDates = []
 		if(message.invalidDates != null){
-			message.invalidDates.forEach(iD => {
-				disableDates.push([iD['startDate'], iD['endDate']])
-			})
+
+			for(let i = 0; i < message.invalidDates.length; i++) {
+				let iD = message.invalidDates[i];
+				disableDates.push([iD['startDate'], iD['endDate']]);
+			}
 
 			inlineCal.setDisableDates(disableDates)
 			reservationCal.setDisableDates(disableDates)
