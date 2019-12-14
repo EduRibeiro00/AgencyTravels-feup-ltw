@@ -39,9 +39,9 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
                 <?php if(isset($_SESSION['userID']) && $_SESSION['userID'] != "") { ?>
                     <section class="add-reply-section">
                         <p>Add a reply:</p>
-                        <form class="reply-form">
+                        <form class="reply-form row">
                             <label for="reply-desc">Comment:
-                                <textarea rows="10" cols="50" name="reply-desc"></textarea>
+                                <textarea rows="5" cols="50" name="reply-desc"></textarea>
                             </label>
                             <input class="button" type="submit" value="Submit">
                         </form>

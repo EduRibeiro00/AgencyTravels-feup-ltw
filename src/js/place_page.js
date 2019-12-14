@@ -293,7 +293,7 @@ function errorMessage(message){
 
 function confirmMessage(firstLine, price, nights){
 	let article = document.createElement("article");
-	let finalPrice = price * nights
+	let finalPrice = Math.round(price * nights * 100) / 100;
 	article.innerHTML = `<p>${price}€/night <i class="fas fa-times"></i> ${nights} nights = <strong>${finalPrice}€</strong></p>`
 	if(firstLine !== '')
 		article.innerHTML += `<p>${firstLine}</p>`

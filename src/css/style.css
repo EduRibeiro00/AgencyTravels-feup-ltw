@@ -24,7 +24,7 @@ body {
     width: 100%;
 }
 
-h1, h2, h3, h4, h5, h6, a, p, label, li {
+* {
 	font-family: var(--default_text_font);
 }
 
@@ -38,6 +38,7 @@ strong {
 
 textarea {
     resize: none;
+    vertical-align: middle;
 }
 
 /* circular cropper: apenas para usar em imagens fixas como o logotipo e o github */
@@ -1044,6 +1045,23 @@ ul.row {
 
 .reply header img {
     margin-right: 0.5em;
+}
+
+.reply-form, #review-form {
+    align-items: center;
+}
+
+.reply-form > *, #review-form > * {
+    margin: 0 0.5em;
+    font-size: 1em;
+}
+
+.add-reply-section {
+    margin: 2em 0;
+}
+
+#add-review-section {
+    padding-bottom: 2em;
 }
 
 #availabilities input{

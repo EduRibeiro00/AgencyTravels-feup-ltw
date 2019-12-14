@@ -160,9 +160,9 @@ function draw_add_review($reservationID, $placeID) { ?>
             <?php if(isset($_SESSION['userID']) && $_SESSION['userID'] != "") { ?>
                     <section class="add-reply-section">
                         <p>Add a reply:</p>
-                        <form class="reply-form">
+                        <form class="reply-form row">
                             <label for="reply-desc">Comment:
-                                <textarea rows="10" cols="50" name="reply-desc"></textarea>
+                                <textarea rows="5" cols="50" name="reply-desc"></textarea>
                             </label>
                             <input class="button" type="submit" value="Submit">
                         </form>
@@ -175,14 +175,14 @@ function draw_add_review($reservationID, $placeID) { ?>
     <section id="add-review-section">
         <h4>Thank you for staying in this place! We hope you enjoyed your stay.</h4>
         <p>Leave a review...</p>
-        <form id="review-form">
+        <form id="review-form" class="row">
             <input type="hidden" name="reservationID" value=<?=$reservationID?>>
             <input type="hidden" name="placeID" value=<?=$placeID?>>
             <label for="review-stars">Stars:
                 <input type="number" name="review-stars" min="1" max="5" step="1" required>
             </label>
             <label for="review-desc">Comment:
-                <textarea rows="10" cols="50" name="review-desc"></textarea>
+                <textarea rows="5" cols="50" name="review-desc"></textarea>
             </label>
             <input class="button" type="submit" value="Submit">
         </form>
