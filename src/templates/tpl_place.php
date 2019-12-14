@@ -5,6 +5,7 @@ include_once('../templates/tpl_availability.php');
 include_once('../templates/tpl_comment.php');
 include_once('../templates/tpl_similar_offer.php');
 include_once('../includes/reservation_utils.php');
+include_once('../includes/google_maps.php');
 
 function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePrice) { ?>
 	<main id="place_page">
@@ -97,11 +98,11 @@ function draw_my_place_location($house_address_full, $house_gpsCoords) { ?>
     <article id="Google_Maps_Widget_Container">
         <header>Location</header>
         <section id="Google_Maps_Widget">
-            <img id=Google_Maps_Img src="http://gnomo.fe.up.pt/~up201704618/Screenshot_2019-11-20%20Oporto4all%20-%20Trindade,%20Porto,%20Portugal.png">
+            <?php initGoogleMaps(false,true); ?>
         </section>
         <footer>
             <p>Address:<?= $house_address_full ?></p>
-            <p>GPS_Coords:<?= $house_gpsCoords ?></p>
+            <p id="PlaceGPSCoords">GPS_Coords:<?= $house_gpsCoords ?></p>
         </footer>
     </article>
 <?php }
