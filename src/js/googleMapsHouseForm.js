@@ -70,8 +70,6 @@ function handlerChangeAddress(event) {
 
 }
 
-window.addEventListener('load', initGoogleMapsServices);
-
 function get_lat(stringWithCoords) {
     let pos_separator = stringWithCoords.indexOf(',');
     //POS BEFORE THE COMMA---> TOSLICE

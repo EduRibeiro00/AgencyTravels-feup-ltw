@@ -45,11 +45,13 @@ let locationDomElement = document.getElementById('location_place_holder');
 let location_raw_str = locationDomElement.getAttribute('data-location');
 let city = getCityFromRaw(location_raw_str);
 let country = getCountryFromRaw(location_raw_str);
+//MUST BE GLOBAL
+let arrayWithHouseCards = document.querySelectorAll('article.row');
+let array_aux = new Array();
 
 
 //const iconImageURL=
 
-window.addEventListener('load', initGoogleMapsServices);
 
 function setHTTPRequestToRetrievePlaceCoords() {
 
@@ -59,6 +61,7 @@ function setHTTPRequestToRetrievePlaceCoords() {
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 
     request.addEventListener('load', function () {
+        gpsCoordsArray = [];
 
         let message = JSON.parse(this.responseText).message;
 
@@ -86,20 +89,23 @@ function setHTTPRequestToRetrievePlaceCoords() {
     return true;
 }
 
-//MUST BE GLOBAL
-let arrayWithHouseCards = document.querySelectorAll('article.row');
-let array_aux = new Array();
 
 function installHoverEventListeners() {
 
     for (let i = 0; i < arrayWithHouseCards.length; i++) {
         array_aux.push(arrayWithHouseCards[i]);
         arrayWithHouseCards[i].addEventListener('mouseover', function (event) {
+            cleanAllOtherShadowEffects();
             //Find the position in the index
             let pos = array_aux.indexOf(event.currentTarget);
             //SET THE FOCUS TO THE LAST HOUSE IN THE LIST
             let latLng = new google.maps.LatLng(markersArray[pos].getPosition().lat(), markersArray[pos].getPosition().lng());
             map.setCenter(latLng);
+            map.setZoom(16);
+        });
+        //RESET THE ZOOM WHEN MOUSE IF OFF THE CARD
+        arrayWithHouseCards[i].addEventListener('mouseout', function () {
+            map.setZoom(12);
         });
     }
 
@@ -128,9 +134,6 @@ function initGoogleMapsServices() {
     installHoverEventListeners();
 
     if (result == true) {
-
-
-
         return true;
     }
 
@@ -153,9 +156,40 @@ function addMarker(array_with_geocoordinates) {
         });
 
         markersArray.push(marker);
+
+        installMarkerHandler(marker);
     }
     //SET THE FOCUS TO THE LAST HOUSE IN THE LIST
     let latLng = new google.maps.LatLng(markersArray[markersArray.length - 1].getPosition().lat(), markersArray[markersArray.length - 1].getPosition().lng());
     map.setCenter(latLng);
+}
+
+
+function installMarkerHandler(marker) {
+
+    const hoverClassName = 'mapEffect';
+
+    google.maps.event.addListener(marker, 'click', function (event) {
+        // do something with this marker ...
+
+        cleanAllOtherShadowEffects();
+        let index_marker = markersArray.indexOf(marker);
+        let latLng = new google.maps.LatLng(markersArray[index_marker].getPosition().lat(), markersArray[index_marker].getPosition().lng());
+        map.setCenter(latLng);
+
+        let classNameOriginal = arrayWithHouseCards[index_marker].className;
+        let classNameChange = classNameOriginal + ' ' + hoverClassName;
+        arrayWithHouseCards[index_marker].className = classNameChange;
+
+    });
+
+}
+//CLEAN ALL THE PREVIOUS SHADDOW EFFECTS
+function cleanAllOtherShadowEffects() {
+
+    const classNameOriginal = 'row card';
+    for (let i = 0; i < markersArray.length; i++) {
+        arrayWithHouseCards[i].className = classNameOriginal;
+    }
 }
 

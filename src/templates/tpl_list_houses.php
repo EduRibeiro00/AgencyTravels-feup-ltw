@@ -88,7 +88,7 @@ function list_houses($places, $drawingOption, $userID, $drawMap = false) { ?>
 
 		<!-- TODO: implementar maps com google maps API em JS -->
 		<?php if(!empty($places) && $drawMap) { 
-			initGoogleMaps(true,false);
+			initGoogleMaps();
 		?>
 		<?php } ?>
 

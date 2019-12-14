@@ -43,7 +43,7 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
 <div id="my_house_edit_container">
 
     <!-- TODO: O MANEL MANDOU POR UM TODO PARA VER OS BUTOES -->
- <?php initGoogleMaps(false,false); ?>
+ <?php initGoogleMaps(); ?>
 
     <section id="place_edit_form">
 

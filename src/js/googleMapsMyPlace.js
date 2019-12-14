@@ -18,9 +18,6 @@ let addressField = document.getElementById('form_place_address');
 let LocationInfo = document.getElementById('location');
 let GPSCoordsDom = document.getElementById('PlaceGPSCoords');
 
-
-window.addEventListener('load', initGoogleMapsServices);
-
 function get_lat(stringWithCoords) {
     let pos_separator = stringWithCoords.indexOf(',');
     //POS BEFORE THE COMMA---> TOSLICE
