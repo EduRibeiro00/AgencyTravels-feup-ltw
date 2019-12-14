@@ -58,7 +58,7 @@ function setHTTPRequestToRetrievePlaceCoords() {
     request.open("POST", "../api/api_get_places_location.php", true)
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 
-    request.addEventListener('load', function(){
+    request.addEventListener('load', function () {
 
         let message = JSON.parse(this.responseText).message;
 
@@ -86,6 +86,25 @@ function setHTTPRequestToRetrievePlaceCoords() {
     return true;
 }
 
+//MUST BE GLOBAL
+let arrayWithHouseCards = document.querySelectorAll('article.row');
+let array_aux = new Array();
+
+function installHoverEventListeners() {
+
+    for (let i = 0; i < arrayWithHouseCards.length; i++) {
+        array_aux.push(arrayWithHouseCards[i]);
+        arrayWithHouseCards[i].addEventListener('mouseover', function (event) {
+            //Find the position in the index
+            let pos = array_aux.indexOf(event.currentTarget);
+            //SET THE FOCUS TO THE LAST HOUSE IN THE LIST
+            let latLng = new google.maps.LatLng(markersArray[pos].getPosition().lat(), markersArray[pos].getPosition().lng());
+            map.setCenter(latLng);
+        });
+    }
+
+}
+
 function get_lat(stringWithCoords) {
     let pos_separator = stringWithCoords.indexOf(',');
     //POS BEFORE THE COMMA---> TOSLICE
@@ -102,14 +121,16 @@ function get_long(stringWithCoords) {
     return long;
 }
 
+
 function initGoogleMapsServices() {
 
-    let result = setHTTPRequestToRetrievePlaceCoords()
+    let result = setHTTPRequestToRetrievePlaceCoords();
+    installHoverEventListeners();
 
     if (result == true) {
 
 
-    
+
         return true;
     }
 
@@ -127,35 +148,14 @@ function addMarker(array_with_geocoordinates) {
         long = Number(get_long(array_with_geocoordinates[i]));
 
         let marker = new google.maps.Marker({
-            position: {lat: lat,lng: long },
+            position: { lat: lat, lng: long },
             map: map
         });
 
         markersArray.push(marker);
     }
     //SET THE FOCUS TO THE LAST HOUSE IN THE LIST
-    let latLng = new google.maps.LatLng(markersArray[markersArray.length-1].getPosition().lat(), markersArray[markersArray.length-1].getPosition().lng());
+    let latLng = new google.maps.LatLng(markersArray[markersArray.length - 1].getPosition().lat(), markersArray[markersArray.length - 1].getPosition().lng());
     map.setCenter(latLng);
-}
-
-function codeAddress() {
-    let address = document.getElementById('address').value;
-
-    geocoder.geocode({ 'address': address }, function (results, status) {
-
-
-        if (status == 'OK') {
-            //ADD A MARKER WHEN I GEOCODE
-            map.setCenter(results[0].geometry.location);
-
-            let marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location
-            }
-            );
-        } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-        }
-    });
 }
 
