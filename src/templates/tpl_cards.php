@@ -32,19 +32,20 @@ function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 			</div>
 		</a>
 
-<?php 	if($drawingOption == 'My_Houses' && isset($_SESSION['userID']) && $_SESSION['userID'] == $userID) { ?>
+<?php 	if($drawingOption == 'My_Houses' && isset($_SESSION['userID']) && $_SESSION['userID'] == $userID) {  ?>
 			<section class="column card-options">
 				<a class="button" href="my_house_edit.php?placeID=<?=$place['placeID']?>"> 
 					Edit
+				</a>
+
+				<a class="button add-avail" href="#" data-id="<?=$place['placeID']?>">
+					Availabilites
 				</a>
 			
 				<a class="button remove-button" href="#" data-id="<?=$place['placeID']?>">
 					Remove
 				</a>
 
-				<a class="button add-av-button" href="#" data-id="<?=$place['placeID']?>">
-					Add availability
-				</a>
 			</section>
    <?php } 
 		 else if($drawingOption == "My_Reservs" && isset($_SESSION['userID']) && $_SESSION['userID'] == $userID) { ?>

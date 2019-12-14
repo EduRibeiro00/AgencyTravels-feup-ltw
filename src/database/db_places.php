@@ -234,6 +234,16 @@ function getOverlapReservations($placeID, $checkin, $checkout) {
 	return $stmt->fetch();
 }
 
+function getOverlapAvailability($placeID, $startDate, $endDate) {
+	$db = Database::instance()->db();
+	// TODO: atenção aos sinais
+	$stmt = $db->prepare('SELECT 1
+						  FROM Reservation Natural Join Place
+						  WHERE placeID = ? and date(?) < date(endDate) AND date(?) > date(startDate)');
+	$stmt->execute(array($placeID, $startDate, $endDate));
+	return $stmt->fetch();
+}
+
 function getHouseComments($place_id) {
     $db = Database::instance()->db();
     $stmt = $db->prepare('SELECT comment, Review.stars as stars, User.username as username, User.userID as userID, image, Review.date as date, Place.placeID as placeID, reviewID
@@ -341,6 +351,17 @@ function newReservation($touristID, $startDate, $endDate, $price, $placeID){
     return true;
 }
 
+function newAvailability($placeID, $startDate, $endDate, $price){
+    $db = Database::instance()->db();
+    try {
+        $stmt = $db->prepare('INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES (?, ?, ?, ?)');
+        $stmt->execute(array($startDate, $endDate, $price, $placeID));
+    }
+    catch (PDOException $e) {
+        return $e->getMessage();
+    }
+    return true;
+}
 
 function getPlaceNewRating($placeID) {
     $db = Database::instance()->db();

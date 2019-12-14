@@ -44,6 +44,35 @@ function getPriceInDate($placeID, $checkin, $checkout){
 	return -3;
 }
 
+function validateDate($date, $format = 'Y-m-d') {
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) === $date;
+}
+
+function getAvailabilites($placeID){
+	// return $placeID;
+	$availabilties = getFromDayForwardAvailabilities($placeID, date("Y-m-d"));
+	// return $availabilties;
+
+	usort($availabilties, 'compareDates'); 
+	$x = -1;
+	foreach ($availabilties as $key => $availability) {
+		if($availability['startDate'] == $resultAv[$x]['endDate'])
+			$resultAv[$x]['endDate'] = $availability['endDate'];
+		else
+			$resultAv[++$x] = ['startDate'=>$availability['startDate'],'endDate'=>$availability['endDate']];
+	}
+
+	foreach ($resultAv as $key => &$availability) {
+		$availability['startDate'] = date('Y-m-d',strtotime("{$availability['startDate']} +1 day"));
+		$availability['endDate'] = date('Y-m-d',strtotime("{$availability['endDate']} -1 day"));
+		if(strtotime($availability['startDate']) > strtotime($availability['endDate']))
+			unset($resultAv[$key]);
+	}
+
+	return $resultAv;
+}
+
 // user can cancel reservation up to 3 days before
 function canCancelReservation($reservationStartDate) {
 	$currentDate = date('Y-m-d');
