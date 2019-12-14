@@ -73,6 +73,8 @@ confirmForm.addEventListener('submit', function(event) {
                         footer.style.right = "0";
                     }
 
+                    showDialog("Place successfully removed");
+
                     break;
 
                 case 'no':
