@@ -34,6 +34,7 @@ let availabilityCal = new Lightpick({
 // -------------
 
 let availPlaceID; 
+let priceInput = document.getElementById('av_price')
 
 // -------------
 
@@ -46,6 +47,7 @@ for(let i = 0; i < avaButtons.length; i++) {
 
     avaButton.addEventListener('click', function(event) {
 		availabilityCal.reset()
+		priceInput.value = ""
 		event.preventDefault();
 		availPopup.style.display = 'block'
 		availPlaceID = avaButton.getAttribute('data-id');
@@ -66,8 +68,6 @@ availForm.addEventListener('submit', function(event) {
 
 	request.addEventListener('load', function() {
 		let message = JSON.parse(this.responseText)
-		console.log(message)
-
 
 		switch(message.message) {
 			case 'user not logged in':
@@ -104,8 +104,7 @@ availForm.addEventListener('submit', function(event) {
 		}
 	});
 
-	let price = document.getElementById('av_price').value
-	request.send(encodeForAjax({placeID: availPlaceID, avBegin: av_begin.value, avEnd: av_end.value, price: price}));
+	request.send(encodeForAjax({placeID: availPlaceID, avBegin: av_begin.value, avEnd: av_end.value, price: priceInput.value}));
 })
 
 

@@ -33,9 +33,6 @@ window.addEventListener('load', function() {
 	let body = document.body;
 	let bodyHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
 
-	console.log(bodyHeight);
-	console.log(screen.height);
-
 	if(bodyHeight < screen.height) {
 		let footer = document.querySelector('body > footer');
 		footer.style.position = "fixed";
