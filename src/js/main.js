@@ -29,12 +29,8 @@ function showDialog(message){
 
 //// Footer
 window.addEventListener('load', function() {
-	let html = document.documentElement;
 	let body = document.body;
-	let bodyHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-
-	console.log(bodyHeight);
-	console.log(screen.height);
+	let bodyHeight = body.scrollHeight;
 
 	if(bodyHeight < screen.height) {
 		let footer = document.querySelector('body > footer');
