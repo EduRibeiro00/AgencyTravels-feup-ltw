@@ -5,69 +5,82 @@
 
 
 function encodeForAjax(data) {
-	return Object.keys(data).map(function(k){
-	  return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-	}).join('&')
+    return Object.keys(data).map(function (k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+    }).join('&')
 }
 
-function getCountryFromRaw(string_raw){
-    
-    let indexSeparator=string_raw.indexOf('-');
+function getCountryFromRaw(string_raw) {
+
+    let indexSeparator = string_raw.indexOf('-');
     indexSeparator--;
-    let str_country=string_raw.slice(0,indexSeparator);
+    let str_country = string_raw.slice(0, indexSeparator);
     //REMOVE WHITESPACE
     return str_country.trim();
 }
 
-function getCityFromRaw(string_raw){
-    
-    let indexSeparator=string_raw.indexOf('-');
+function getCityFromRaw(string_raw) {
+
+    let indexSeparator = string_raw.indexOf('-');
     indexSeparator++;
-    let str_city=string_raw.substr(indexSeparator);
+    let str_city = string_raw.substr(indexSeparator);
     //REMOVE WHITESPACE
     return str_city.trim();
 }
+let starting_lat = 41.1579438;
+let starting_lng = -8.6291053;
+let starting_zoom = 12;
+let markersArray = new Array();
+let gpsCoordsArray = new Array();
 
 let map;
 let geocoder;
-let markersArray = new Array();
-let gpsCoords=new Array();
 
 
-let locationDomElement=document.getElementById('location_place_holder');
-let location_raw_str=locationDomElement.getAttribute('data-location');
-let city=getCityFromRaw(location_raw_str);
-let country=getCountryFromRaw(location_raw_str);
+let locationDomElement = document.getElementById('location_place_holder');
+let location_raw_str = locationDomElement.getAttribute('data-location');
+let city = getCityFromRaw(location_raw_str);
+let country = getCountryFromRaw(location_raw_str);
+
+
 
 
 
 //DEFAULT IS PORTO CENTER.
-const starting_lat = 41.1579438;
-const starting_lng = -8.6291053;
-const starting_zoom = 12;
 //const iconImageURL=
 
 window.addEventListener('load', initGoogleMapsServices);
 
-function setHTTPRequestToRetrievePlaceCoords(){
-    
+function setHTTPRequestToRetrievePlaceCoords() {
+
     let request = new XMLHttpRequest();
 
-	request.open("POST", "../api/api_get_places_location.php", true)
-	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    request.open("POST", "../api/api_get_places_location.php", true)
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 
-	request.addEventListener('load', function() {
+    request.addEventListener('load', function(){
         let message = JSON.parse(this.responseText).message;
-        
-        for(let i=0;i<message.length;i++){
+
+        for (let i = 0; i < message.length; i++) {
             //EACH POSTION OF THIS ARRAY ARE PAIRS LAT LNG
-            gpsCoords.push(message[i].gpsCoords);
+            gpsCoordsArray.push(message[i].gpsCoords);
         }
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: starting_lat, lng: starting_lng },
+            zoom: starting_zoom
+        });
+        geocoder = new google.maps.Geocoder();
+
+        if (map == null || geocoder == null) {
+            return false;
+        }
+
+        addMarker(gpsCoordsArray);
         //TODO:PARSE THE COORDS ARRAY
 
     });
     //NO NEED TO SEND ENCONDED FOR THE AJAX EMPTY REQUEST
-    request.send(encodeForAjax({city: city, country: country}));
+    request.send(encodeForAjax({ city: city, country: country }));
 
     return true;
 }
@@ -90,9 +103,14 @@ function get_long(stringWithCoords) {
 
 function initGoogleMapsServices() {
 
-    if (setHTTPRequestToRetrievePlaceCoords() == true) {
-        console.log(gpsCoords);
+    
+
+    let result = setHTTPRequestToRetrievePlaceCoords()
+
+    if (result == true) {
         /*
+        let map;
+        let geocoder;
         map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: starting_lat, lng: starting_lng },
             zoom: starting_zoom
@@ -102,9 +120,12 @@ function initGoogleMapsServices() {
         if (map == null || geocoder == null) {
             return false;
         }
-        */
-        return true;
+
+        addMarker(gpsCoordsArray);
+*/
     }
+    return true;
+
 }
 //COORDINATES COME IN FORMAT STRING LAT , LNG
 function addMarker(array_with_geocoordinates) {
@@ -113,14 +134,12 @@ function addMarker(array_with_geocoordinates) {
         let lat;
         let long;
 
-        lat = get_lat(array_with_geocoordinates[i]);
-        long = get_long(array_with_geocoordinates[i]);
-
-        let coords = { lat: lat, long: long };
+        lat = Number(get_lat(array_with_geocoordinates[i]));
+        long = Number(get_long(array_with_geocoordinates[i]));
 
         let marker = new google.maps.Marker({
-            position: coords,
-            map: map,
+            position: {lat: lat,lng: long },
+            map: map
         });
 
         markersArray.push(marker);

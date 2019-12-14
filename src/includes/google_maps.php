@@ -10,7 +10,7 @@ function initGoogleMaps(){?>
 
     </div>
     
-    <script src='googleMaps.js' defer></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0_ruPYuzA1ntPaautYqVqtjOT96oNLSE&callback=initMap" async defer></script>
+    <script src='../js/googleMaps.js' defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0_ruPYuzA1ntPaautYqVqtjOT96oNLSE&callback=initGoogleMapsServices" async defer></script>
 
 <?php } ?>
