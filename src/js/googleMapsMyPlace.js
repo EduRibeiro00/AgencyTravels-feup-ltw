@@ -1,5 +1,25 @@
 
 'use strict'
+function initGoogleMapsServices() {
+
+    let raw_paragraph_string = GPSCoordsDom.innerHTML;
+    let string_parsed = parseRawParagraphWithCoordinates(raw_paragraph_string);
+    starting_lat = Number(get_lat(string_parsed));
+    starting_lng = Number(get_long(string_parsed));
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: starting_lat, lng: starting_lng },
+        zoom: starting_zoom
+    });
+
+    addMarker(string_parsed);
+
+    if (map == null || geocoder == null) {
+        return false;
+    }
+    //IF ITS EDIT MENU. THEN WE SHOULD FOCUS THE MAP ON THIS PLACE. NOTICE ADD MARKER ALSO FOCUES THE MAP ON THE PLACE
+    return true;
+}
 
 //EVENT LISTENER TO CLICK THE MAP AND SET A MARKER: https://www.youtube.com/watch?v=Zxf1mnP5zcw min 26.31.
 
@@ -34,36 +54,16 @@ function get_long(stringWithCoords) {
     return long;
 }
 
-function parseRawParagraphWithCoordinates(string_raw){
+function parseRawParagraphWithCoordinates(string_raw) {
 
-    let index_start_numbers=string_raw.indexOf(':');
+    let index_start_numbers = string_raw.indexOf(':');
     let str_return;
     //To increment
     index_start_numbers++
-    str_return=string_raw.substr(index_start_numbers);
+    str_return = string_raw.substr(index_start_numbers);
     return str_return;
 }
 
-function initGoogleMapsServices() {
-
-    let raw_paragraph_string=GPSCoordsDom.innerHTML;
-    let string_parsed=parseRawParagraphWithCoordinates(raw_paragraph_string);
-    starting_lat=Number(get_lat(string_parsed));
-    starting_lng=Number(get_long(string_parsed));
-
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: starting_lat, lng: starting_lng },
-        zoom: starting_zoom
-    });
-
-    addMarker(string_parsed);
-
-    if (map == null || geocoder == null) {
-        return false;
-    }
-    //IF ITS EDIT MENU. THEN WE SHOULD FOCUS THE MAP ON THIS PLACE. NOTICE ADD MARKER ALSO FOCUES THE MAP ON THE PLACE
-    return true;
-}
 
 
 //NOTE THE DIFFERENCE TO THE HOUSE LIST. IN HOUSE LIST WE RECEIVE AN ARRAY WITH INFORMATION HERE ITS JUST A STRING

@@ -4,6 +4,18 @@
 //EVENT LISTENER TO CLICK THE MAP AND SET A MARKER: https://www.youtube.com/watch?v=Zxf1mnP5zcw min 26.31.
 
 
+function initGoogleMapsServices() {
+
+    let result = setHTTPRequestToRetrievePlaceCoords();
+    installHoverEventListeners();
+
+    if (result == true) {
+        return true;
+    }
+
+    return false;
+
+}
 function encodeForAjax(data) {
     return Object.keys(data).map(function (k) {
         return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
@@ -128,18 +140,6 @@ function get_long(stringWithCoords) {
 }
 
 
-function initGoogleMapsServices() {
-
-    let result = setHTTPRequestToRetrievePlaceCoords();
-    installHoverEventListeners();
-
-    if (result == true) {
-        return true;
-    }
-
-    return false;
-
-}
 //COORDINATES COME IN FORMAT STRING LAT , LNG
 function addMarker(array_with_geocoordinates) {
 
@@ -181,11 +181,11 @@ function installMarkerHandler(marker) {
         arrayWithHouseCards[index_marker].className = classNameChange;
         arrayWithHouseCards[index_marker].scrollIntoView();
         //Fator corretor. Havia um problema com o navbar. HardCoded.
-        let CurrentScroll=window.scrollY; 
+        let CurrentScroll = window.scrollY;
         navbar
-        let offset=document.getElementById('navbar').offsetHeight;
+        let offset = document.getElementById('navbar').offsetHeight;
 
-        scroll(0,CurrentScroll-offset-10);
+        scroll(0, CurrentScroll - offset - 10);
     });
 
 }

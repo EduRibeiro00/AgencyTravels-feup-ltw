@@ -1,6 +1,23 @@
 
 'use strict'
 
+function initGoogleMapsServices() {
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: starting_lat, lng: starting_lng },
+        zoom: starting_zoom
+    });
+    geocoder = new google.maps.Geocoder();
+
+    if (map == null || geocoder == null) {
+        return false;
+    }
+    //IF ITS EDIT MENU. THEN WE SHOULD FOCUS THE MAP ON THIS PLACE. NOTICE ADD MARKER ALSO FOCUES THE MAP ON THE PLACE
+    if (GPSCoordsDom.value != '') {
+        addMarker(GPSCoordsDom.value);
+    }
+    return true;
+}
 //EVENT LISTENER TO CLICK THE MAP AND SET A MARKER: https://www.youtube.com/watch?v=Zxf1mnP5zcw min 26.31.
 
 //DEFAULT IS PORTO CENTER.
@@ -86,23 +103,6 @@ function get_long(stringWithCoords) {
     return long;
 }
 
-function initGoogleMapsServices() {
-
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: starting_lat, lng: starting_lng },
-        zoom: starting_zoom
-    });
-    geocoder = new google.maps.Geocoder();
-
-    if (map == null || geocoder == null) {
-        return false;
-    }
-    //IF ITS EDIT MENU. THEN WE SHOULD FOCUS THE MAP ON THIS PLACE. NOTICE ADD MARKER ALSO FOCUES THE MAP ON THE PLACE
-    if (GPSCoordsDom.value != '') {
-        addMarker(GPSCoordsDom.value);
-    }
-    return true;
-}
 //NOTE THE DIFFERENCE TO THE HOUSE LIST. IN HOUSE LIST WE RECEIVE AN ARRAY WITH INFORMATION HERE ITS JUST A STRING
 //COORDINATES COME IN FORMAT STRING LAT , LNG
 function addMarker(string_with_geocoordinates) {
@@ -132,7 +132,7 @@ function codeAddress(address, callback) {
         let return_code;
         let lat;
         let lng;
-        
+
         //MUST BE ONLY ONE MARKER ACTIVE IN THIS PAGES. Remove on update address. ALSO used in the add menu, when we update each time the place    
         removeOtherMarkers();
 
