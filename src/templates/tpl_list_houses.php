@@ -57,6 +57,8 @@ function list_houses($places, $drawingOption, $userID, $drawMap = false) { ?>
 	<main id="list_places" class="row">
 		<section id="house_results">
 			<?php 
+			if($drawingOption == 'My_Houses')
+				draw_availability_form();
 			if(empty($places)) { ?>
 				<em>No houses available</em>
 			<?php } else
@@ -74,4 +76,25 @@ function list_houses($places, $drawingOption, $userID, $drawMap = false) { ?>
 		<?php } ?>
 
 	</main>
+<?php } 
+
+// TODO: mudar de sítio
+function draw_availability_form() { ?>
+	<div id="avail-popup" class="pop-up">
+		<form class="animate column">
+			<i class="close-popup fas fa-times"></i>
+			<h3>Choose Availabilities</h3>
+
+			<label for="price">Price</label>
+			<input id="av_price" type="number" placeholder="Price per Night" name="price" required>
+			<label for="av_begin">Availability</label>
+			<div class="row">
+				<input id="av_begin" type="text" autocomplete="off" placeholder="From..." name="av_begin" required>
+				<input id="av_end" type="text" autocomplete="off" placeholder="To..." name="av_end" required>
+			</div>
+			<p id="av-error"></p>
+
+			<button id="av-conf-button" class="button" type="submit">Add Availabilities</button>
+		</form>
+	</div>
 <?php } ?>

@@ -95,8 +95,8 @@ function draw_my_place_sidebar($housePrice,$house_rating, $houseOwner, $placeID,
 			</section>
 
 			<form>
-				<input id="fr_checkin" type="text" name="check_in_date" autocomplete="off" placeholder="Check In..." required>
-				<input id="fr_checkout" type="text" name="check_out_date" autocomplete="off" placeholder="Check Out..." required>
+				<input id="fr_checkin" type="text" autocomplete="off" placeholder="Check In..." required>
+				<input id="fr_checkout" type="text" autocomplete="off" placeholder="Check Out..." required>
 
 				<button class="button" type="submit">Reserve</button>
 			</form>

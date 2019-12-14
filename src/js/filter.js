@@ -13,7 +13,8 @@ let checkout = document.getElementById('checkout')
 
 new Lightpick({
 	field			: checkin,
-    secondField		: checkout,
+	secondField		: checkout,
+	lang			: 'en-US',
 	// format			: 'DD/MM/YYYY',
 	dropdowns		: {
 			years: {

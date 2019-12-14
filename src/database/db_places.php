@@ -341,6 +341,17 @@ function newReservation($touristID, $startDate, $endDate, $price, $placeID){
     return true;
 }
 
+function newAvailability($placeID, $startDate, $endDate, $price){
+    $db = Database::instance()->db();
+    try {
+        $stmt = $db->prepare('INSERT INTO Availability (startDate, endDate, pricePerNight, placeID) VALUES (?, ?, ?, ?)');
+        $stmt->execute(array($startDate, $endDate, $price, $placeID));
+    }
+    catch (PDOException $e) {
+        return $e->getMessage();
+    }
+    return true;
+}
 
 function getPlaceNewRating($placeID) {
     $db = Database::instance()->db();

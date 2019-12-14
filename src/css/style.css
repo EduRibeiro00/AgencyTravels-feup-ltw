@@ -767,8 +767,19 @@ footer a {
  * ------------ Login Form ------------
  */
 
-#login-form,
-#fr-confirmation{
+ .pop-up {
+	display: none;
+	position: fixed;
+	z-index: 500;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0,0,0,0.4);
+}
+
+.pop-up form{
 	background-color: var(--darker_bg_color);
 	color: var(--main_color);
 	position: relative;
@@ -776,9 +787,20 @@ footer a {
 	margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
 	border: 1px solid var(--border_color);
 	padding: 1em;
-	width: 25%;
-	min-width: 25em;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);	
+	padding-top: 2em; 
+	width: 32em;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+	text-align: center;
+}
+
+.pop-up button {
+	margin: 1em auto;
+}
+
+.pop-up label {
+	text-align: start;
+	margin: 1em 0;
+	font-weight: 600;
 }
 
 #fr-confirmation{
@@ -791,7 +813,6 @@ footer a {
 
 #fr-message {
 	text-align: center;
-	padding: 1em;
 	color: var(--border_color);
 }
 
@@ -799,17 +820,20 @@ footer a {
 	margin: 0.5em;
 }
 
+#login-form {
+	text-align: start;
+}
+
 #login-form > div {
 	margin: 0 auto;
 }
 
-#login-form > label {
-	margin: 1em 0;
-	font-weight: 600;
-}
-
 #login-form > button {
 	margin: 1em auto;
+}
+
+#avail-popup input{
+	flex-grow: 1;
 }
 
 .close-popup:hover{
@@ -823,17 +847,6 @@ footer a {
 	color: var(--border_color);
 }
 
-.pop-up {
-	display: none;
-	position: fixed;
-	z-index: 500;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: rgba(0,0,0,0.4);
-}
 
 /* Add Zoom Animation */
 .animate {

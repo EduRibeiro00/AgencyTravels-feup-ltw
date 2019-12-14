@@ -32,6 +32,5 @@
 		return;
 	}
 
-	$array = explode(" ", $returnValue);
 	echo json_encode(array('message' => $returnValue));
 ?>
