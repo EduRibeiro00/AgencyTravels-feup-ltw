@@ -146,7 +146,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                             }
                             //IN ORDER TO AVOID AN ERROR OF PHOTOSTOREMOVE BEING NULL. NOT CRITICAL
                             if ($num_photos_to_remove > 0) {
-                                if (deletePlaceSelectedPhotos($placeID, $photosToRemove, $num_photos_to_remove) != true) {
+                                if (deletePlaceSelectedPhotos($placeID, $photosToRemove) != true) {
                                     $message = 'Error removing the photo';
                                 }
                             }
