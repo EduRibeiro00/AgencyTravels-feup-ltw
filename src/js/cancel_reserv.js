@@ -27,7 +27,6 @@ for(let i = 0; i < cancelButtons.length; i++) {
                     houseCard.remove();
                     
                     // adjust footer
-                    let html = document.documentElement;
                     let body = document.body;
                     let bodyHeight = body.scrollHeight;
                 

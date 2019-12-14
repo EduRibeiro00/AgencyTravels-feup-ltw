@@ -4,6 +4,7 @@
     
     if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
         $user_info = getUserInformation($_SESSION['userID']);
+        $userID = $_SESSION['userID'];
         $jsFiles = ['../js/main.js', '../js/cancel_reserv.js'];
     }
     else {
@@ -14,7 +15,7 @@
     include_once('../templates/tpl_places_reservs.php');
     include_once('../database/db_places.php');
 
-    $place_reservations = getReservationsForOwner($_SESSION['userID']);
+    $place_reservations = getReservationsForOwner($userID);
     draw_head($jsFiles);
     draw_navbar($user_info, false);
     draw_places_reservs_body($place_reservations, $user_info); 

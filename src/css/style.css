@@ -811,20 +811,20 @@ footer a {
 	font-weight: 600;
 }
 
-#fr-confirmation{
+#cf-confirmation{
 	/* TODO: fazer sem % */
 	margin: 20% auto; /* 5% from the top, 15% from the bottom and centered */
 }
-#fr-confirmation .row{
+#cf-confirmation .row{
 	justify-content: space-around;
 }
 
-#fr-message {
+#cf-message {
 	text-align: center;
 	color: var(--border_color);
 }
 
-#fr-message p{
+#cf-message p{
 	margin: 0.5em;
 }
 
