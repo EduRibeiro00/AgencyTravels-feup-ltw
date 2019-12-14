@@ -3,6 +3,14 @@
 
 //EVENT LISTENER TO CLICK THE MAP AND SET A MARKER: https://www.youtube.com/watch?v=Zxf1mnP5zcw min 26.31.
 
+//DEFAULT IS PORTO CENTER.
+//const iconImageURL=
+let starting_lat = 41.1579438;
+let starting_lng = -8.6291053;
+let starting_zoom = 12;
+let map;
+let geocoder;
+let markersArray = new Array();
 
 function encodeForAjax(data) {
     return Object.keys(data).map(function (k) {
@@ -27,12 +35,14 @@ function getCityFromRaw(string_raw) {
     //REMOVE WHITESPACE
     return str_city.trim();
 }
-let starting_lat = 41.1579438;
-let starting_lng = -8.6291053;
-let starting_zoom = 12;
-let map;
-let geocoder;
-let markersArray = new Array();
+
+function removeOtherMarkers() {
+
+    for (let i = 0; i < markersArray.length; i++) {
+        markersArray[i].setMap(null);
+    }
+    markersArray = [];
+}
 
 
 //THEN RETREVIE THE INFORMATION FROM THE LOCATION DROPDOWN
@@ -52,18 +62,13 @@ function handlerChangeAddress(event) {
 
     let stringParsedForGoogleMaps = event.target.value + ',' + city + ',' + country;
     //CALLBACK??? IT WORKS :) 
-    codeAddress(stringParsedForGoogleMaps, function(coords){
-        coordinates=coords;
-        GPSCoordsDom.value=coordinates;
-        
+    codeAddress(stringParsedForGoogleMaps, function (coords) {
+        coordinates = coords;
+        GPSCoordsDom.value = coordinates;
+
     });
 
 }
-
-
-
-//DEFAULT IS PORTO CENTER.
-//const iconImageURL=
 
 window.addEventListener('load', initGoogleMapsServices);
 
@@ -84,18 +89,18 @@ function get_long(stringWithCoords) {
 }
 
 function initGoogleMapsServices() {
-    
+
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: starting_lat, lng: starting_lng },
         zoom: starting_zoom
     });
     geocoder = new google.maps.Geocoder();
-    
+
     if (map == null || geocoder == null) {
         return false;
     }
-    
-    if(GPSCoordsDom.value!=''){
+    //IF ITS EDIT MENU. THEN WE SHOULD FOCUS THE MAP ON THIS PLACE. NOTICE ADD MARKER ALSO FOCUES THE MAP ON THE PLACE
+    if (GPSCoordsDom.value != '') {
         addMarker(GPSCoordsDom.value);
     }
     return true;
@@ -115,18 +120,24 @@ function addMarker(string_with_geocoordinates) {
         map: map
     });
 
+    markersArray.push(marker);
+
     //SET THE FOCUS TO THE LAST HOUSE IN THE LIST
     let latLng = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
     map.setCenter(latLng);
 }
 
 function codeAddress(address, callback) {
-    
+
     geocoder.geocode({ 'address': address }, function (results, status) {
-        
+
         let return_code;
         let lat;
         let lng;
+        
+        //MUST BE ONLY ONE MARKER ACTIVE IN THIS PAGES. Remove on update address. ALSO used in the add menu, when we update each time the place    
+        removeOtherMarkers();
+
         if (status == 'OK') {
             //ADD A MARKER WHEN I GEOCODE
             map.setCenter(results[0].geometry.location);
@@ -134,6 +145,7 @@ function codeAddress(address, callback) {
                 map: map,
                 position: results[0].geometry.location
             });
+            markersArray.push(marker);
             let myLatLng = marker.getPosition();
             lat = myLatLng.lat();
             lng = myLatLng.lng();
@@ -145,7 +157,7 @@ function codeAddress(address, callback) {
         }
     });
 
- return true;
+    return true;
 }
 
 
