@@ -234,6 +234,16 @@ function getOverlapReservations($placeID, $checkin, $checkout) {
 	return $stmt->fetch();
 }
 
+function getOverlapAvailability($placeID, $startDate, $endDate) {
+	$db = Database::instance()->db();
+	// TODO: atenção aos sinais
+	$stmt = $db->prepare('SELECT 1
+						  FROM Reservation Natural Join Place
+						  WHERE placeID = ? and date(?) < date(endDate) AND date(?) > date(startDate)');
+	$stmt->execute(array($placeID, $startDate, $endDate));
+	return $stmt->fetch();
+}
+
 function getHouseComments($place_id) {
     $db = Database::instance()->db();
     $stmt = $db->prepare('SELECT comment, Review.stars as stars, User.username as username, User.userID as userID, image, Review.date as date, Place.placeID as placeID, reviewID

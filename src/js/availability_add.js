@@ -49,6 +49,7 @@ for(let i = 0; i < avaButtons.length; i++) {
 		event.preventDefault();
 		availPopup.style.display = 'block'
 		availPlaceID = avaButton.getAttribute('data-id');
+		updateAvailabilityDisable(availPlaceID)
     });
 }
 
@@ -83,20 +84,22 @@ availForm.addEventListener('submit', function(event) {
 				showDialog("ERROR: That was not your house")
 				break;
 			case 'invalid price':
-
+				pError.textContent = "ERROR: Price must be a number"
 				break;
 			case 'invalid date':
-				pError.textContent = "Invalid date Range"
+				pError.textContent = "ERROR: Invalid date Range"
+				break;
+			case 'overlap availability':
+				pError.textContent = "ERROR: Overlapping Availabilities"
 				break;
 			case 'availability successfull':				
 				showDialog("Availability Added With Success")
 				availPopup.style.display = 'none'
-				// updateDisableDates()
 				break;
-				// TODO: fazer cada erro
+				// TODO: fazer cada erro??
 			default:
-				//pError.textContent = "ERROR: " + message.message
-				pError.textContent = "ERROR: Overlapping Availabilities"
+				pError.textContent = "ERROR: " + message.message
+				// pError.textContent = "ERROR: Overlapping Availabilities"
 				break;
 		}
 	});
@@ -106,31 +109,47 @@ availForm.addEventListener('submit', function(event) {
 })
 
 
-/*
-function getAvailabilitiesDates(placeID){
+
+function updateAvailabilityDisable(availPlaceID){
 	let request = new XMLHttpRequest();
 
-	request.open("POST", "../api/api_place_info.php", true)
+	request.open("POST", "../api/api_update_availability.php", true)
 	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 
 	request.addEventListener('load', function() {
-		// TODO: ver erros
 		let message = JSON.parse(this.responseText).message
-		availabilityCal.setMinDate(new Date())
+		// console.log(message)
 
-		let disableDates = []
-		if(message.invalidDates != null){
-			message.invalidDates.forEach(iD => {
-				disableDates.push([iD['startDate'], iD['endDate']])
-			})
-
-			availabilityCal.setDisableDates(disableDates)
+		switch(message) {
+			case 'user not logged in':
+				availPopup.style.display = 'none'
+				header('Location: ../pages/initial_page.php')
+				showDialog("ERROR: You are Not Logged In")
+				break;
+			case 'incomplete data':
+				header('Location: ../pages/initial_page.php')
+				showDialog("ERROR: Place ID not defined")
+				break;
+			case 'not owner':
+				availPopup.style.display = 'none'
+				header('Location: ../pages/my_houses.php?userID=' + message.userID)
+				showDialog("ERROR: That was not your house")
+				break;
+			default:
+				let disableDates = []
+				if(message != null){
+					message.forEach(iD => {
+						disableDates.push([iD['startDate'], iD['endDate']])
+					})
+					availabilityCal.setDisableDates(disableDates)
+				}
+				break;
 		}
 
 	});
 
-	request.send(encodeForAjax({placeID: placeID}))
-}*/
+	request.send(encodeForAjax({placeID: availPlaceID}))
+}
 
 // ----------------
 

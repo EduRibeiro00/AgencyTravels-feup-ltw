@@ -50,17 +50,27 @@ function validateDate($date, $format = 'Y-m-d') {
 }
 
 function getAvailabilites($placeID){
-	$availabilties = getFromDayForwardAvailabilities($placeID, date('Y-m-d'));
+	// return $placeID;
+	$availabilties = getFromDayForwardAvailabilities($placeID, date("Y-m-d"));
+	// return $availabilties;
+
 	usort($availabilties, 'compareDates'); 
 	$x = -1;
-	foreach ($availabilities as $key => $availability) {
+	foreach ($availabilties as $key => $availability) {
 		if($availability['startDate'] == $resultAv[$x]['endDate'])
 			$resultAv[$x]['endDate'] = $availability['endDate'];
 		else
 			$resultAv[++$x] = ['startDate'=>$availability['startDate'],'endDate'=>$availability['endDate']];
 	}
 
-	return $availabilities;
+	foreach ($resultAv as $key => &$availability) {
+		$availability['startDate'] = date('Y-m-d',strtotime("{$availability['startDate']} +1 day"));
+		$availability['endDate'] = date('Y-m-d',strtotime("{$availability['endDate']} -1 day"));
+		if(strtotime($availability['startDate']) > strtotime($availability['endDate']))
+			unset($resultAv[$key]);
+	}
+
+	return $resultAv;
 }
 
 // user can cancel reservation up to 3 days before

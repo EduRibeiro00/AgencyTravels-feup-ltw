@@ -34,6 +34,11 @@
 		return;
 	}
 
+	if(!empty(getOverlapAvailability($placeID, $avBegin, $avEnd))){
+		echo json_encode(array('message' => 'overlap availability'));
+		return;
+	}
+	
 	// TODO: verificação de startDate and endDate??
 	$returnValue = newAvailability($placeID, $avBegin, $avEnd, $price);
 
