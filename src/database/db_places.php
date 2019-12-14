@@ -320,12 +320,11 @@ function newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms
     }
 
     catch (PDOException $e) {
-        return $e->getMessage();
-    }
-
-    //TODO:UPDATE LOCATION NOT IMPLEMENTED
-
-    return true;
+		// return $e->getMessage();
+		return false;
+	}
+	
+    return $db->lastInsertId('Place');
 }
 
 function getPlaceID($title,$address,$ownerID){

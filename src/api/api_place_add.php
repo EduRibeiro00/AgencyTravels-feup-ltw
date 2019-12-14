@@ -112,10 +112,11 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                 if (!is_numeric($locationID)) {
                     $message = 'Location ID NULL';
                 } else {
-
-                    if (newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID) == true) {
+					// TODO: fazer maneira menos enrabada
+					$placeID = newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID);
+                    if ($placeID != false) {
                         //GET THE NEW PLACE ID
-                        $placeID = getPlaceID($title, $address, $ownerID)['placeID'];
+                        //$placeID =  //getPlaceID($title, $address, $ownerID)['placeID'];
 
                         for ($i = 0; $i < $num_images_uploaded_valid; $i++) {
                             if (uploadPlaceImage($placeID, $images_uploaded_valid[$i]) != true) {
@@ -124,7 +125,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                             }
                         }
                     } else {
-                        $message = 'Error while inserting a new place';
+                        $message = $placeID;
                     }
                 }
             } else {
