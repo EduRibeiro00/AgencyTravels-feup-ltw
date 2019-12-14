@@ -4,8 +4,11 @@ include_once('../database/db_user.php');
 include_once('../database/db_places.php');
 include_once('../includes/reservation_utils.php');
 include_once('../templates/tpl_cards.php');
+include_once('../templates/tpl_common.php');
 
-function draw_places_reservs_body($place_reservations, $user_info) { ?>
+function draw_places_reservs_body($place_reservations, $user_info) { 
+    draw_confirmation_form();
+    ?>
     <main id="my-places-reservs">
     <?php draw_places_reservs_header($user_info);
           list_place_reservs($place_reservations); ?>
