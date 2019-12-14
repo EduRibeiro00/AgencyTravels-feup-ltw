@@ -41,6 +41,10 @@ textarea {
     vertical-align: middle;
 }
 
+input, textarea, select {
+    font-size: 0.8em;
+}
+
 /* circular cropper: apenas para usar em imagens fixas como o logotipo e o github */
 .circular-cropper {
     position: relative;
@@ -633,7 +637,6 @@ section#map img {
 	color: var(--main_color);
 	border: var(--footer_color) 4px solid;
 	z-index: 65;
-
 }
 
 #filters > fieldset {
@@ -690,7 +693,7 @@ section#map img {
 }
 
 #filters button,
-#filters input[type="submit"]{
+#filters input[type="submit"] {
 	grid-area: submit;
 	font-size: 1em;
 	max-width: 8em;
@@ -1161,14 +1164,23 @@ main#my-places-reservs > section {
     margin: 2em;
 }
 
-#current-reservs > h4, #future-reservs > h4, #previous-reservs > h4 {
+#place-reservs-listing > h4 {
     font-size: 1.5em;
+    margin-bottom: 0;
 }
 
-/* TODO: ver melhor disposicao dos cards */
+#current-reservs, #future-reservs, #previous-reservs {
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
 article.place-reserv-card {
-    display: inline-block;
-    width: 40%;
+    color: black;
+    max-width: 22em;
+    min-width: 10em;
+    background-color: var(--darker_bg_color);
+    padding: 1em;
+    margin: 1em;
 }
 
 .client-info .circ-img-link {
@@ -1183,9 +1195,31 @@ article.place-reserv-card {
 
 .client-info .circ-img-link:hover {
     text-decoration: none;
-    background-color: var(--darker_bg_color);
+    background-color: var(--transition_color);
 }
 
+.place-reserv-dates {
+    justify-content: space-around;
+}
+
+.place-reserv-card .cancel-button {
+    width: fit-content;
+    margin: 1em auto;
+}
+
+.reserv-price {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.reserv-place-info {
+    flex-grow: 1;
+}
+
+.reserv-place-info p:first-child {
+    font-weight: bold;
+    font-size: 1.2em;
+}
 
 /**
  * ------------ House Form ------------

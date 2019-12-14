@@ -95,3 +95,39 @@ function draw_user_card($user, $drawingOption = null) { ?>
 	</section>
 
 <?php } ?>
+
+<?php function place_reservs_card($place_reservation) { ?>
+    <article class="place-reserv-card column">
+            <section class="client-info row">
+                <a class="circ-img-link" href="../pages/profile_page.php?userID=<?=$place_reservation['userID']?>">
+                    <img class="circular-img" src="../assets/images/users/small/<?=$place_reservation['image']?>">
+                    <p><?=$place_reservation['username']?></p>
+                </a>
+            </section>
+            <section class="reserv-place-info">
+                <p>Reservation for:</p>
+                <p><?=$place_reservation['title']?></p>
+                <p><?=$place_reservation['address']?></p>
+            </section>
+            <section class="reserv-price">
+                <p>Total price: <?=number_format($place_reservation['price'], 2);?> €</p>
+            </section>
+            <section class="row place-reserv-dates">
+		    		<div>
+		    			<p>Reservation from:</p>
+		    			<p><?=$place_reservation['startDate']?></p>
+		     		</div>
+		    		<div>
+		    		 	<p>Until:</p>
+		    			<p><?=$place_reservation['endDate']?></p>
+		     		</div>
+            </section>
+            <section class="column card-options">
+                <?php if(canCancelReservation($place_reservation['startDate'])) { ?>
+                        <a class="button cancel-button" href="#" data-id="<?=$place_reservation['reservationID']?>"> 
+                            Cancel
+                        </a>
+                <?php } ?>
+            </section>
+    </article> 
+<?php } ?>
