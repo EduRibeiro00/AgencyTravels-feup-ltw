@@ -171,7 +171,6 @@ function installMarkerHandler(marker) {
 
     google.maps.event.addListener(marker, 'click', function (event) {
         // do something with this marker ...
-
         cleanAllOtherShadowEffects();
         let index_marker = markersArray.indexOf(marker);
         let latLng = new google.maps.LatLng(markersArray[index_marker].getPosition().lat(), markersArray[index_marker].getPosition().lng());
@@ -183,8 +182,10 @@ function installMarkerHandler(marker) {
         arrayWithHouseCards[index_marker].scrollIntoView();
         //Fator corretor. Havia um problema com o navbar. HardCoded.
         let CurrentScroll=window.scrollY; 
-        scroll(0,CurrentScroll-100);
+        navbar
+        let offset=document.getElementById('navbar').offsetHeight;
 
+        scroll(0,CurrentScroll-offset-10);
     });
 
 }
