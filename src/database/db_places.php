@@ -271,7 +271,7 @@ function getFromDayForwardAvailabilities($placeID, $day) {
 	return $stmt->fetchAll();
 }
 //TODO:UPDATE THE HOUSE LOCATION
-function updatePlaceInfo($placeID, $title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity){
+function updatePlaceInfo($placeID, $title, $desc, $address,$GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity){
     $db = Database::instance()->db();
     try {
         $stmt = $db->prepare('UPDATE Place
@@ -281,12 +281,13 @@ function updatePlaceInfo($placeID, $title, $desc, $address, $locationID, $numRoo
                                   capacity = ?,
                                   numRooms = ?,
                                   numBathrooms = ?, 
+                                  gpsCoords=?,
                                   locationID= ?
                                WHERE placeID = ?
                                ' 
                             );
 
-     $stmt->execute(array($title, $address, $desc, $capacity, $numRooms, $numBathrooms,$locationID, $placeID));
+     $stmt->execute(array($title, $address, $desc, $capacity, $numRooms, $numBathrooms,$GPSCoords,$locationID, $placeID));
     }
     catch (PDOException $e) {
         return $e->getMessage();
@@ -297,16 +298,16 @@ function updatePlaceInfo($placeID, $title, $desc, $address, $locationID, $numRoo
     return true;
 }
 
-function newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity,$ownerID){
+function newPlace($title, $desc, $address,$GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity,$ownerID){
     $db = Database::instance()->db();
     
     try {
         
         $stmt = $db->prepare('INSERT INTO Place(title,rating,address,description,capacity,numRooms,numBathrooms,gpsCoords,locationID,ownerID)
-                            VALUES (?,0,?,?,?,?,?,0,?,?)' 
+                            VALUES (?,0,?,?,?,?,?,?,?,?)' 
                             );
 
-        $stmt->execute(array($title, $address, $desc, $capacity, $numRooms, $numBathrooms,$locationID, $ownerID));
+        $stmt->execute(array($title, $address, $desc, $capacity, $numRooms, $numBathrooms,$GPSCoords,$locationID, $ownerID));
     }
 
     catch (PDOException $e) {

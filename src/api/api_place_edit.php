@@ -29,6 +29,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $numRooms = $_POST['numRooms'];
     $numBathrooms = $_POST['numBathrooms'];
     $locationID = $_POST['location'];
+    $GPSCoords = $_POST['gpsCoords'];
     //IMAGES UPLOADED
     //
     $capacity = $_POST['capacity'];
@@ -125,9 +126,14 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
 
                 if (!is_numeric($locationID))
                     $inputs_are_valid = false;
+                /*PARSE THE GPS COORDS WE WILL NEED TO EXPLODE THE STRING. THEY ARE INSERTED AS A STRING TO THE DATABASE
+
+                if (!is_numeric($GPSCoords))
+                    $inputs_are_valid = false;
+                */
 
                 if ($inputs_are_valid) {
-                    if (updatePlaceInfo($placeID, $title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity) != true) {
+                    if (updatePlaceInfo($placeID, $title, $desc, $address,$GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity) != true) {
                         $message = 'Error Updating home';
                     } else {
                         if (strcmp($message, true_message) == 0) {

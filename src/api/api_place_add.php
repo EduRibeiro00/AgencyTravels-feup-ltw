@@ -20,6 +20,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $numBathrooms = $_POST['numBathrooms'];
     $capacity = $_POST['capacity'];
     $locationID = $_POST['location'];
+    $GPSCoords=$_POST['gpsCoords'];
 
     //Retrevie the 6 possible file to add
     $array_fileNames = buildArrayWithFilesToAdd();
@@ -84,10 +85,14 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                 $inputs_are_valid = false;
             if (!is_numeric($locationID))
                 $inputs_are_valid = false;
+            /*PARSE THE GPS COORDS WE WILL NEED TO EXPLODE THE STRING. THEY ARE INSERTED AS A STRING TO THE DATABASE
 
+            if (!is_numeric($GPSCoords))
+                $inputs_are_valid = false;
+            */
             if ($inputs_are_valid) {
 
-                if (newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID) == true) {
+                if (newPlace($title, $desc, $address,$GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID) == true) {
                     //GET THE NEW PLACE ID
                     $placeID = getPlaceID($title, $address, $ownerID)['placeID'];
 
