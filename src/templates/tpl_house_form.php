@@ -1,6 +1,7 @@
 <?php
 include_once('../database/db_user.php');
 include_once('../database/db_places.php');
+include_once('../includes/google_maps.php');
 
 function draw_form($place = null, $edit_menu = false, $all_locations)
 {
@@ -13,6 +14,7 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
         $numRooms = $place['numRooms'];
         $numBathrooms = $place['numBathrooms'];
         $capacity = $place['capacity'];
+        $gpsCoords=$place['gpsCoords'];;
         $location = getPlaceLocation($placeID)['locationID'];
         $imagearray = getPlaceImages($place['placeID']);
         $imagearray_lenght = count($imagearray);
@@ -31,6 +33,7 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
         $capacity = '';
         $imagearray_lenght = 0;
         $location = '';
+        $gpsCoords='';
         $imagePreview_small = "../assets/images/places/small/";
         $imagePreview_medium = "../assets/images/places/medium/";
     }
@@ -40,6 +43,8 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
 <div id="my_house_edit_container">
 
     <!-- TODO: O MANEL MANDOU POR UM TODO PARA VER OS BUTOES -->
+ <?php initGoogleMaps(false); ?>
+
     <section id="place_edit_form">
 
         <form>
@@ -124,7 +129,7 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
                 <legend>Location</legend>
                 <article class="column edit-house-location">
 
-                    <label>Address: <input type="text" name="address" size="70" value="<?= $address ?>"> </label>
+                    <label>Address: <input  id="form_place_address" type="text" name="address" size="70" value="<?= $address ?>"> </label>
                     <label for="location">Location:
                         <select id="location" name="location" required>
                             <?php foreach ($all_locations as $eachLocation) {
@@ -134,6 +139,7 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
                             <?php } ?>
                         </select>
                     </label>
+                    <label>GPS Coords: <input  id="form_place_GPS" type="text" name="gpsCoords" size="70" value="<?= $gpsCoords?>" readonly> </label>
                 </article>
 
             </fieldset>

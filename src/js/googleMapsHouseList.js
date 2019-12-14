@@ -27,6 +27,7 @@ function getCityFromRaw(string_raw) {
     //REMOVE WHITESPACE
     return str_city.trim();
 }
+//DEFAULT IS PORTO CENTER.
 let starting_lat = 41.1579438;
 let starting_lng = -8.6291053;
 let starting_zoom = 12;
@@ -38,15 +39,14 @@ let geocoder;
 
 
 let locationDomElement = document.getElementById('location_place_holder');
+
+//FOR EDIT AND ADD MENU THERE ISNT THIS PLACE HOLDER
+
 let location_raw_str = locationDomElement.getAttribute('data-location');
 let city = getCityFromRaw(location_raw_str);
 let country = getCountryFromRaw(location_raw_str);
 
 
-
-
-
-//DEFAULT IS PORTO CENTER.
 //const iconImageURL=
 
 window.addEventListener('load', initGoogleMapsServices);
@@ -59,6 +59,7 @@ function setHTTPRequestToRetrievePlaceCoords() {
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 
     request.addEventListener('load', function(){
+
         let message = JSON.parse(this.responseText).message;
 
         for (let i = 0; i < message.length; i++) {
@@ -103,28 +104,16 @@ function get_long(stringWithCoords) {
 
 function initGoogleMapsServices() {
 
-    
-
     let result = setHTTPRequestToRetrievePlaceCoords()
 
     if (result == true) {
-        /*
-        let map;
-        let geocoder;
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: starting_lat, lng: starting_lng },
-            zoom: starting_zoom
-        });
-        geocoder = new google.maps.Geocoder();
 
-        if (map == null || geocoder == null) {
-            return false;
-        }
 
-        addMarker(gpsCoordsArray);
-*/
+    
+        return true;
     }
-    return true;
+
+    return false;
 
 }
 //COORDINATES COME IN FORMAT STRING LAT , LNG
@@ -144,6 +133,9 @@ function addMarker(array_with_geocoordinates) {
 
         markersArray.push(marker);
     }
+    //SET THE FOCUS TO THE LAST HOUSE IN THE LIST
+    let latLng = new google.maps.LatLng(markersArray[markersArray.length-1].getPosition().lat(), markersArray[markersArray.length-1].getPosition().lng());
+    map.setCenter(latLng);
 }
 
 function codeAddress() {
