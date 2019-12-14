@@ -86,7 +86,7 @@ function draw_availability_form() { ?>
 			<h3>Choose Availabilities</h3>
 
 			<label for="price">Price</label>
-			<input id="av_price" type="number" placeholder="Price per Night" name="price" required>
+			<input id="av_price" step="0.01" type="number" placeholder="Price per Night" name="price" required>
 			<label for="av_begin">Availability</label>
 			<div class="row">
 				<input id="av_begin" type="text" autocomplete="off" placeholder="From..." name="av_begin" required>

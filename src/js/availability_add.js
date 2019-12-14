@@ -122,24 +122,23 @@ function updateAvailabilityDisable(availPlaceID){
 		switch(message) {
 			case 'user not logged in':
 				availPopup.style.display = 'none'
-				header('Location: ../pages/initial_page.php')
 				showDialog("ERROR: You are Not Logged In")
 				break;
 			case 'incomplete data':
-				header('Location: ../pages/initial_page.php')
 				showDialog("ERROR: Place ID not defined")
 				break;
 			case 'not owner':
 				availPopup.style.display = 'none'
-				header('Location: ../pages/my_houses.php?userID=' + message.userID)
 				showDialog("ERROR: That was not your house")
 				break;
 			default:
 				let disableDates = []
 				if(message != null){
-					message.forEach(iD => {
-						disableDates.push([iD['startDate'], iD['endDate']])
-					})
+					for(let i = 0; i < message.length; i++) {
+						let iD = message[i];
+						disableDates.push([iD['startDate'], iD['endDate']]);
+					}
+
 					availabilityCal.setDisableDates(disableDates)
 				}
 				break;
