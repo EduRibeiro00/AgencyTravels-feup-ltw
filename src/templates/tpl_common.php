@@ -114,3 +114,15 @@ function draw_dialog(){ ?>
 		<p></p>
 	</div>
 <?php } ?>
+
+<?php function draw_confirmation_form() { ?>
+	<div id="cf-popup" class="pop-up">
+		<form id="cf-confirmation" class="animate">
+			<i class="close-popup fas fa-times"></i>
+			<div class="row">
+				<button id="cf-confirm-button" class="button" type="submit">Confirm</button>
+				<button id="cf-cancel-button" class="button" type="reset">Cancel</button>
+			</div>
+		</form>
+	</div>
+<?php } ?>

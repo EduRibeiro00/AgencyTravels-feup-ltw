@@ -187,16 +187,4 @@ function draw_add_review($reservationID, $placeID) { ?>
             <input class="button" type="submit" value="Submit">
         </form>
     </section>
-<?php }
-
-function draw_confirmation_form() { ?>
-	<div id="fr-popup" class="pop-up">
-		<form id="fr-confirmation" class="animate">
-			<i class="close-popup fas fa-times"></i>
-			<div class="row">
-				<button id="confirm-button" class="button" type="submit">Confirm</button>
-				<button id="cancel-button" class="button" type="reset">Cancel</button>
-			</div>
-		</form>
-	</div>
 <?php } ?>

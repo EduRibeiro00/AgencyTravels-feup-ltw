@@ -2,8 +2,11 @@
 include_once('../templates/tpl_list_houses.php');
 include_once('../database/db_user.php');
 include_once('../database/db_places.php');
+include_once('../templates/tpl_common.php');
 
-function draw_my_houses_body($houseOwnerInfo, $myHouses, $numReservs) { ?>
+function draw_my_houses_body($houseOwnerInfo, $myHouses, $numReservs) { 
+    draw_confirmation_form();
+    ?>
     <main id="my-container">
     <?php draw_my_houses_header($houseOwnerInfo, $numReservs);
           list_houses($myHouses, "My_Houses", $houseOwnerInfo['userID']); ?>

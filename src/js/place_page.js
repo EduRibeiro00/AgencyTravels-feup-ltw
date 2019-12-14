@@ -167,12 +167,12 @@ window.onload = function () {
 }
 
 let frForm = document.querySelector('#fr_card form')
-let confirmForm = document.getElementById('fr-confirmation')
-let frPopup = document.getElementById('fr-popup')
-let cancelBt = document.getElementById('cancel-button')
-let confirmBt = document.getElementById('confirm-button')
+let confirmForm = document.getElementById('cf-confirmation')
+let frPopup = document.getElementById('cf-popup')
+let cancelBt = document.getElementById('cf-cancel-button')
+let confirmBt = document.getElementById('cf-confirm-button')
 
-let rowBt = document.querySelector('#fr-confirmation .row')
+let rowBt = document.querySelector('#cf-confirmation .row')
 
 
 cancelBt.addEventListener('click', function(){
@@ -188,7 +188,7 @@ let frCheckin, frCheckout;
 frForm.addEventListener('submit', function(event) {
 	event.preventDefault();
 	frPopup.style.display = "block";
-	let frMessage = document.getElementById("fr-message")
+	let frMessage = document.getElementById("cf-message")
 	if(frMessage != null) frMessage.outerHTML = ""
 
 
@@ -289,7 +289,7 @@ window.addEventListener('click', function(event){
 function errorMessage(message){
 	let article = document.createElement("article");
 	article.innerHTML = `<p>ERROR: ${message}</p>`;
-	article.setAttribute('id', 'fr-message');
+	article.setAttribute('id', 'cf-message');
 	return article;
 }
 
@@ -301,6 +301,6 @@ function confirmMessage(firstLine, price, nights){
 		article.innerHTML += `<p>${firstLine}</p>`
 		
 	article.innerHTML += `<p>Are you sure you want to continue?</p>`;
-	article.setAttribute('id', 'fr-message');
+	article.setAttribute('id', 'cf-message');
 	return article;
 }

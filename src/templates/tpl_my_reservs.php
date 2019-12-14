@@ -2,8 +2,11 @@
 include_once('../templates/tpl_list_houses.php');
 include_once('../database/db_user.php');
 include_once('../database/db_places.php');
+include_once('../templates/tpl_common.php');
 
-function draw_my_reservs_body($user_info, $myReservations) { ?>
+function draw_my_reservs_body($user_info, $myReservations) { 
+    draw_confirmation_form();
+    ?>
     <main id="my-container">
     <?php draw_my_reservs_header($user_info);
           list_houses($myReservations, "My_Reservs", $user_info['userID']); ?>
