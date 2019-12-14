@@ -9,12 +9,12 @@
     $userID = $_GET['userID'];
     $profile_user_info = getUserInformation($userID);
     if($profile_user_info === false) {
-        die(header('Location: ../pages/initial_page.php'));
+        die(header('Location: ../pages/initial_page.php','../js/googleMapsProfile.js'));
     }
     
     if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
         $user_info = getUserInformation($_SESSION['userID']);
-        $jsFiles = ['../js/main.js'];
+        $jsFiles = ['../js/main.js','../js/googleMapsProfile.js'];
     }
     else {
         $user_info = NULL;
