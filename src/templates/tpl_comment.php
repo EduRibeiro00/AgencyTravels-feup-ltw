@@ -9,7 +9,7 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
           <a class="overlay_anchor" href="../pages/place_info.php?place_id=<?=$comment['placeID']?>"></a>
         <?php } ?>
 		<header>
-			<?php draw_user_card($comment, 'rating') ?>
+			<?php draw_user_card($comment, 'rating'); ?>
 		</header>
 		<p><?=$comment["comment"]?></p>
 		<footer>
@@ -20,11 +20,13 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
                 <section class="comment-replies">
                     <?php foreach($comment['replies'] as $reply) { ?>
                         <article class="reply" data-replyID="<?=$reply['replyID']?>">
-                            <header>
+                            <header class="row">
                                 <a href="../pages/profile_page.php?userID=<?=$reply['userID']?>">
                                     <img class="reply-author-img circular-img" src="../assets/images/users/small/<?=$reply['image']?>">
                                 </a>
-                                <p><?=$reply["username"]?></p>
+                                <a href="../pages/profile_page.php?userID=<?=$reply['userID']?>">
+                                    <p><?=$reply["username"]?></p>
+                                </a>
                             </header>
                             <p><?=$reply["comment"]?></p>
                             <footer>
@@ -37,9 +39,9 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
                 <?php if(isset($_SESSION['userID']) && $_SESSION['userID'] != "") { ?>
                     <section class="add-reply-section">
                         <p>Add a reply:</p>
-                        <form class="reply-form">
+                        <form class="reply-form row">
                             <label for="reply-desc">Comment:
-                                <textarea rows="10" cols="50" name="reply-desc"></textarea>
+                                <textarea rows="5" cols="50" name="reply-desc"></textarea>
                             </label>
                             <input class="button" type="submit" value="Submit">
                         </form>
@@ -56,7 +58,7 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
     <header>
         <h3><?=count($house_comments)?> Reviews</h3>
 		<?php draw_star_rating($house_rating)?>
-		<p><?=number_format($house_rating, 1);?>/5.0</p>
+		<p><?=number_format($house_rating, 1); ?>/5.0</p>
     </header>
     <?php  
         foreach($house_comments as $comment)

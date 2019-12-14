@@ -29,7 +29,7 @@ for(let i = 0; i < removeButtons.length; i++) {
                     // adjust footer
                     let html = document.documentElement;
                     let body = document.body;
-                    let bodyHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight) + 50;
+                    let bodyHeight = body.scrollHeight;
                 
                     if(bodyHeight < screen.height) {
                         let footer = document.querySelector('body > footer');

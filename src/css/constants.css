@@ -13,6 +13,8 @@
 	--border_color: #868686;
 	--border_color_transp: #8686863b;
 
+	--transition_color: #a39ea0;
+
 	--default_text_font: "Trebuchet MS", Helvetica, sans-serif;
     
 	/* TODO: passar para javascript para n ser hardcoded */

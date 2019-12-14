@@ -69,8 +69,8 @@ function draw_place_location($house_address_full, $house_gpsCoords) { ?>
         <h3>Location</h3>
         <img style="height: auto; width:80%" id=Google_Maps_Img src="http://gnomo.fe.up.pt/~up201704618/Screenshot_2019-11-20%20Oporto4all%20-%20Trindade,%20Porto,%20Portugal.png">
         <footer>
-            <p>Address: <?= $house_address_full ?></p>
-            <p>GPS Coords: <?= $house_gpsCoords ?></p>
+            <p><strong>Address:</strong> <?= $house_address_full ?></p>
+            <p><strong>GPS Coords:</strong> <?= $house_gpsCoords ?></p>
         </footer>
     </article>
 <?php } 
@@ -143,17 +143,12 @@ function draw_my_place_location($house_address_full, $house_gpsCoords) { ?>
 <?php }
 
 
-// TODO: css para isto
 function draw_add_review($reservationID, $placeID) { ?>
     <section id="add-review-placeholder">
         <article class="review" data-reviewID="">
-            <header>
-                <a href="">
-        		    <img class="Comment_Author_Img circular-img" src="">   
-                </a>
-                <p></p> 
-        		<?php draw_star_rating(0)?>
-            </header>
+			<header>
+				<?php draw_user_card($comment, 'rating'); ?>
+			</header>
             <p></p>
             <footer>
                 <p></p>
@@ -165,9 +160,9 @@ function draw_add_review($reservationID, $placeID) { ?>
             <?php if(isset($_SESSION['userID']) && $_SESSION['userID'] != "") { ?>
                     <section class="add-reply-section">
                         <p>Add a reply:</p>
-                        <form class="reply-form">
+                        <form class="reply-form row">
                             <label for="reply-desc">Comment:
-                                <textarea rows="10" cols="50" name="reply-desc"></textarea>
+                                <textarea rows="5" cols="50" name="reply-desc"></textarea>
                             </label>
                             <input class="button" type="submit" value="Submit">
                         </form>
@@ -180,14 +175,14 @@ function draw_add_review($reservationID, $placeID) { ?>
     <section id="add-review-section">
         <h4>Thank you for staying in this place! We hope you enjoyed your stay.</h4>
         <p>Leave a review...</p>
-        <form id="review-form">
+        <form id="review-form" class="row">
             <input type="hidden" name="reservationID" value=<?=$reservationID?>>
             <input type="hidden" name="placeID" value=<?=$placeID?>>
             <label for="review-stars">Stars:
                 <input type="number" name="review-stars" min="1" max="5" step="1" required>
             </label>
             <label for="review-desc">Comment:
-                <textarea rows="10" cols="50" name="review-desc"></textarea>
+                <textarea rows="5" cols="50" name="review-desc"></textarea>
             </label>
             <input class="button" type="submit" value="Submit">
         </form>

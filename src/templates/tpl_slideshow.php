@@ -14,9 +14,10 @@
           for($i = 1; (($i <= count($slideshowimgs)) && ($i <= 6)); $i++) {
             $next_image = ($i == count($slideshowimgs) || $i == 6) ? 1 : ($i + 1);
             $prev_image = ($i == 1) ? count($slideshowimgs) : ($i - 1);
+            $checked = $i == 1 ? "checked" : "";
           ?>
 
-            <input type="radio" name="radio-buttons" id="img-<?=$i?>" checked />
+            <input type="radio" name="radio-buttons" id="img-<?=$i?>" <?=$checked?> />
             <li class="slide-container">
                 <div class="slide-image">
                     <img src="../assets/images/places/big/<?=$slideshowimgs[$i - 1]['image']?>">

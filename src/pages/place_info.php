@@ -3,7 +3,6 @@
 	include_once('../database/db_user.php');
 	include_once('../database/db_places.php');
     
-    
 	if(!isset($_GET['place_id'])) {
         die(header('Location: ../pages/initial_page.php'));
     }
@@ -17,7 +16,7 @@
     
     if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
         $user_info = getUserInformation($_SESSION['userID']);
-        $jsFiles = ['../js/main.js', '../js/place_page.js'];
+        $jsFiles = ['../js/main.js', '../js/place_page.js', '../js/comments.js'];
     }
     else {
         $user_info = NULL;

@@ -38,14 +38,15 @@ if(reviewForm != null) {
                     let newReviewContainer = reviewPlaceholder.cloneNode(true);
                     newReviewContainer.setAttribute('data-reviewID', newReview.reviewID);
                         
-                    let imageLink = newReviewContainer.querySelector('header a');
+                    let imageLink = newReviewContainer.querySelector('.user_card .user_img');
                     imageLink.setAttribute('href', '../pages/profile_page.php?userID=' + newReview.userID);
 
-                    let image = newReviewContainer.querySelector('header a img');
+                    let image = newReviewContainer.querySelector('.user_card a img');
                     image.setAttribute('src', '../assets/images/users/small/' + newReview.image);
 
-                    let usernameP = newReviewContainer.querySelector('header p');
-                    usernameP.innerHTML = newReview.username;
+                    let usernameLink = newReviewContainer.querySelector('.user_card .user_username');
+                    usernameLink.setAttribute('href', '../pages/profile_page.php?userID=' + newReview.userID);
+                    usernameLink.innerHTML = newReview.username;
 
                     let starsDiv = newReviewContainer.querySelector('div.front-stars');
                     starsDiv.style.width = newReview.stars * 20.0 + '%';
@@ -132,11 +133,13 @@ function replyFormFunction(event) {
                     newReplyContainer.classList.add('reply');
                     newReplyContainer.setAttribute('data-replyID', newReply.replyID);
 
-                    newReplyContainer.innerHTML = '<header>' +
+                    newReplyContainer.innerHTML = '<header class="row">' +
                                                     '<a href="../pages/profile_page.php?userID=' + newReply.userID + '">' +
                                                         '<img class="reply-author-img circular-img" src="../assets/images/users/small/' + newReply.image + '">' + 
                                                     '</a>' + 
-                                                    '<p>' + newReply.username + '</p>' +
+                                                    '<a href="../pages/profile_page.php?userID=' + newReply.userID + '">' +
+                                                        '<p>' + newReply.username + '</p>' +
+                                                    '</a>' +
                                                   '</header>' +
                                                   '<p>' + newReply.comment + '</p>' + 
                                                   '<footer>' +

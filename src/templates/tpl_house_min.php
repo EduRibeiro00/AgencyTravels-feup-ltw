@@ -3,7 +3,7 @@
         <a href="place_info.php?place_id=<?=$place['placeID']?>">
             <div class="place_info">
               <h4><?=$place['title']?></h4>
-              <p><?=$place['avg_price']?>€/noite</p>
+              <p><?=number_format($place['avg_price'], 2);?>€/night</p>
             </div>
 			<img src="../assets/images/places/medium/<?=$place['images'][0]['image']?>">
 		</a>
