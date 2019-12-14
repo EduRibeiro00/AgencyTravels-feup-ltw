@@ -3,6 +3,7 @@ include_once('../templates/tpl_house_card.php');
 include_once('../includes/reservation_utils.php');
 include_once('../database/db_places.php');
 
+
 function getPlaces(){
 	$location = $_GET['location'];
 	$prov = explode(" - ", $location);
@@ -72,6 +73,7 @@ function getPlaces(){
 
 function list_houses($places, $drawingOption, $userID, $drawMap = false) { ?>
 	<main id="list_places" class="row">
+		<div id="location_place_holder" style="display:none;" data-location="<?=$_GET['location']?>"></div>
 		<section id="house_results">
 			<?php 
 			if(empty($places)) { ?>

@@ -1,6 +1,14 @@
 @import "./constants.css";
 @import "./carousel.css";
 
+/*
+#map{
+
+    height:400px !important;
+    width: 100% !important;
+}
+*/
+
 
 /* TODO: uniformizar botoes */
 *,
@@ -1188,6 +1196,9 @@ section#add-review-placeholder {
     right: 1.5em;
     color: red;
 }
+
+
+/*GOOGLE MAP*/
 
   
 

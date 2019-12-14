@@ -370,4 +370,14 @@ function getPlaceLocation($place_id){
     return $stmt->fetch();
 }
 
+function getAllCoordinatesLocation($country,$city){
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT gpsCoords
+                          FROM Place NATURAL JOIN Location
+                          WHERE country LIKE ? AND city LIKE ?
+						  ');
+    $stmt->execute(array($country,$city));
+    return $stmt->fetchAll();
+}
+
 ?>
