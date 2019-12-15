@@ -139,7 +139,7 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
                             <?php } ?>
                         </select>
                     </label>
-                    <label>GPS Coords: <input  id="form_place_GPS" type="text" name="gpsCoords" size="70" value="<?= $gpsCoords?>" readonly> </label>
+                    <input id="form_place_GPS" type="text" name="gpsCoords" size="70" value="<?= $gpsCoords?>" readonly>
                 </article>
 
             </fieldset>
