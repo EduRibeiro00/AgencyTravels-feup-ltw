@@ -214,6 +214,10 @@ profileForm.addEventListener('submit', function (event) {
 			case 'Error removing the photo':
 				console.warn('There is a problem with your image');
 				break;
+			case 'Duplicate Images':
+				showDialog('Duplicates But inserted');
+				window.setTimeout(function () { history.back(); }, 3000)
+				break;
 			default:
 				history.back();
 				break;
