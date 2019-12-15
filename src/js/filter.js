@@ -15,7 +15,7 @@ new Lightpick({
 	field			: checkin,
 	secondField		: checkout,
 	lang			: 'en-US',
-	// format			: 'DD/MM/YYYY',
+	format			: 'YYYY-MM-DD',
 	dropdowns		: {
 			years: {
 				min: 2019,

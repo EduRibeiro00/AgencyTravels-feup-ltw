@@ -5,6 +5,7 @@ include_once('../templates/tpl_comment.php');
 include_once('../templates/tpl_similar_offer.php');
 include_once('../includes/reservation_utils.php');
 include_once('../includes/google_maps.php');
+include_once('../includes/input_validation.php');
 include_once('../templates/tpl_cards.php');
 
 
@@ -26,7 +27,7 @@ function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePri
 		  	//House Rating is the avg rating of the house
 			draw_all_comments($place['rating'], $houseComments);
 
-            if(isset($_SESSION['userID']) && $_SESSION['userID'] != "") {
+            if(isset($_SESSION['userID']) && validateIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) {
                 $reservationID = canUserReviewPlace($_SESSION['userID'], $place['placeID']);
                 if($reservationID !== false) {
                     draw_add_review($reservationID, $place['placeID']);
@@ -158,7 +159,7 @@ function draw_add_review($reservationID, $placeID) { ?>
             <section class="comment-replies">
             </section>
 
-            <?php if(isset($_SESSION['userID']) && $_SESSION['userID'] != "") { ?>
+            <?php if(isset($_SESSION['userID']) && validateIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) { ?>
                     <section class="add-reply-section">
                         <p>Add a reply:</p>
                         <form class="reply-form row">

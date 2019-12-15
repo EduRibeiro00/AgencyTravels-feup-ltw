@@ -2,6 +2,7 @@
 include_once('../templates/tpl_common.php');
 include_once('../templates/tpl_cards.php');
 include_once('../database/db_user.php');
+include_once('../includes/input_validation.php');
 
 function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
     <article class="review" data-reviewID="<?=$comment['reviewID']?>">
@@ -36,12 +37,12 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
                     <?php } ?>
                 </section>
 
-                <?php if(isset($_SESSION['userID']) && $_SESSION['userID'] != "") { ?>
+                <?php if(isset($_SESSION['userID']) && validateIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) { ?>
                     <section class="add-reply-section">
                         <p>Add a reply:</p>
                         <form class="reply-form row">
                             <label for="reply-desc">Comment:
-                                <textarea rows="5" cols="50" name="reply-desc"></textarea>
+                                <textarea rows="5" cols="50" name="reply-desc" required></textarea>
                             </label>
                             <input class="button" type="submit" value="Submit">
                         </form>

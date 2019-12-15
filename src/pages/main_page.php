@@ -1,5 +1,6 @@
 <?php
   include_once('../includes/session_include.php');
+  include_once('../includes/input_validation.php');
   include_once('../templates/tpl_common.php');
   include_once('../templates/tpl_main_page.php');
   include_once('../templates/tpl_slideshow.php');
@@ -23,7 +24,7 @@
     $randplaces[$k]['avg_price'] = getAveragePrice($place['placeID']);
   }
 
-  if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
+  if(isset($_SESSION['userID']) && validateIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) {
     $user_info = getUserInformation($_SESSION['userID']);
     $jsFiles = ['../js/main.js'];
   }

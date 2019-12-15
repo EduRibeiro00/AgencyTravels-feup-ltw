@@ -1,8 +1,9 @@
 <?php
     include_once('../includes/session_include.php');
     include_once('../database/db_user.php');
-    
-    if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
+    include_once('../includes/input_validation.php');
+
+    if(isset($_SESSION['userID']) && validateIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) {
         $user_info = getUserInformation($_SESSION['userID']);
         $jsFiles = ['../js/main.js', '../js/profile_form.js', '../js/profile_edit.js'];
     }

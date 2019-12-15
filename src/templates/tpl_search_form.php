@@ -6,9 +6,9 @@ function draw_search_form() { ?>
 		<fieldset id="dates_field">
 			<h4>Dates</h4>
 			<label for="checkin">Check In</label>
-			<input type="text" autocomplete="off" id="checkin" name="checkin">
+			<input type="text" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" autocomplete="off" id="checkin" name="checkin">
 			<label for="checkout">Check Out</label>
-			<input type="text" autocomplete="off" id="checkout" name="checkout">
+			<input type="text" autocomplete="off" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" id="checkout" name="checkout">
 		</fieldset>
 		<fieldset id="guests_field">
 			<h4>Guests</h4>

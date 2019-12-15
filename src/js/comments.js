@@ -74,7 +74,6 @@ if(reviewForm != null) {
                 break;
 
             case 'no':
-                // console.log("Error on adding the new review");
                 break;
 
             default:
@@ -152,7 +151,6 @@ function replyFormFunction(event) {
                 break;
 
             case 'no':
-                // console.log("Error on adding the new review");
                 break;
 
             default:

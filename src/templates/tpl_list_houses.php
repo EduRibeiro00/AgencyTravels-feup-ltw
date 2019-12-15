@@ -3,19 +3,32 @@ include_once('../templates/tpl_cards.php');
 include_once('../includes/reservation_utils.php');
 include_once('../database/db_places.php');
 include_once('../includes/google_maps.php');
+include_once('../includes/input_validation.php');
 
 
 function getPlaces(){
 	$location = $_GET['location'];
+	if($location != null && !validateLocationValue($location)) {
+		return false;
+	}
+
 	$prov = explode(" - ", $location);
 	$foundLoc = ($prov[0] != null && $prov[1] != null);
 
 	$checkin = $_GET['checkin'];
 	$checkout = $_GET['checkout'];
 
+	if(($checkin != null && !validateDateValue($checkin)) || ($checkout != null && !validateDateValue($checkout))) {
+		return false;
+	}
+
 	$minPrice = $_GET['minPrice'] ? $_GET['minPrice'] : 0;		// check
 	$maxPrice = $_GET['maxPrice'] ? $_GET['maxPrice'] : 1000;	// check
 	
+	if(!validateIntValue($minPrice) || !validateIntValue($maxPrice)) {
+		return false;
+	}
+
 	// TODO: mudar para ou e se tiver apenas 1 -> somar um dia / subtrair um dia à outra
 	$foundDates = ($checkin != null && $checkout != null);
 	if($foundDates){
@@ -30,6 +43,7 @@ function getPlaces(){
 	$children = $_GET['nChildren'] ? $_GET['nChildren'] : 0;	// check
 	$rating = $_GET['rating'] ? $_GET['rating'][0] : 0;			// check
 
+	
 
 	$nRooms = $_GET['nRooms'] ? $_GET['nRooms'] : 0;			// check
 	$nBathrooms = $_GET['nBathrooms'] ? $_GET['nBathrooms'] : 0;// check

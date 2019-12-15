@@ -21,12 +21,19 @@ function validateUsernameValue($value) {
 
 // checks if a value is a valid password or not (those chars, plus it needs to be at least 7 chars)
 function validatePasswordValue($value) {
-    return preg_match('/^[A-Za-z0-9?+*_!#$%&-]{7,}$/', $value);
+    return preg_match('/^[A-Za-z0-9?+*_!#$%& -]{7,}$/', $value);
 }
 
-// checks if a value is a valid description or not
-function validateDescriptionValue($value) {
-    return preg_match('/^[A-Za-z0-9?+*_!#$%&-]*$/', $value);
+// TESTAR 
+// checks if a value is a valid description, review, reply, etc or not
+function validateTextValue($value) {
+    return preg_match('/^[A-Za-z0-9?+*_!#$%&\s-]*$/', $value);
+}
+
+
+// checks if a value is a valid location input
+function validateLocationValue($value) {
+    return preg_match('/^[A-Za-z -]*$/', $value);
 }
 
 // checks if a value is a valid email

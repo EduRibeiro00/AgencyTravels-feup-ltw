@@ -58,7 +58,7 @@ function draw_navbar($user_info, $hints, $class = null) { ?>
 			</a>
 		</div>
       <form id="search_form" action="../pages/list_places.php" method="get">
-				<i class="fas fa-search"></i><input id="nav-search-place" type="text" name="location" autocomplete="off" placeholder="Search for places in...">
+				<i class="fas fa-search"></i><input id="nav-search-place" type="text" name="location" pattern="[a-zA-Z -]*" autocomplete="off" placeholder="Search for places in...">
 				<section id="search-hints"></section>
 				<?php 
 					if($hints) {

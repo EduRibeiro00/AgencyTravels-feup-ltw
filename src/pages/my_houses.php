@@ -1,8 +1,9 @@
 <?php     
     include_once('../includes/session_include.php');
     include_once('../database/db_user.php');
+    include_once('../includes/input_validation.php');
 
-    if(!isset($_GET['userID'])) {
+    if(!(isset($_GET['userID']) && validateIntValue($_GET['userID']))) {
         die(header('Location: ../pages/initial_page.php'));
     }
     
@@ -12,7 +13,7 @@
         die(header('Location: ../pages/initial_page.php'));
     }
     
-    if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
+    if(isset($_SESSION['userID']) && validateIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) {
         $user_info = getUserInformation($_SESSION['userID']);
         $userID = $_SESSION['userID'];
         $jsFiles = ['../js/main.js', '../js/delete_place.js', '../js/availability_add.js'];

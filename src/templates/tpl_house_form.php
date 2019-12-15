@@ -3,8 +3,8 @@ include_once('../database/db_user.php');
 include_once('../database/db_places.php');
 include_once('../includes/google_maps.php');
 
-function draw_form($place = null, $edit_menu = false, $all_locations)
-{
+function draw_form($place = null, $edit_menu = false, $all_locations) {
+    
     $userID = $_SESSION['userID'];
 
     if ($edit_menu == true) {
