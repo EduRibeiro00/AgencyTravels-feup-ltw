@@ -2,7 +2,7 @@
 include_once('../includes/session_include.php');
 include_once('../database/db_user.php');
 
-if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
+if (isset($_SESSION['userID']) && $_SESSION['userID'] != '' && isset($_GET['placeID'])) {
     $user_info = getUserInformation($_SESSION['userID']);
     $jsFiles = ['../js/main.js', '../js/place_edit.js'];
 } else {
