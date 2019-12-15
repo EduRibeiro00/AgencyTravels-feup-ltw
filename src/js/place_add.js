@@ -166,6 +166,9 @@ profileForm.addEventListener('submit', function (event) {
 
 	});
 
+	if (imagesInput.length == 0)
+		newAddImgInput()
+
 	let formData = new FormData(profileForm);
 	formData.append('File0', files_array[0]);
 	formData.append('File1', files_array[1]);
@@ -173,9 +176,6 @@ profileForm.addEventListener('submit', function (event) {
 	formData.append('File3', files_array[3]);
 	formData.append('File4', files_array[4]);
 	formData.append('File5', files_array[5]);
-
-	if(imagesInput.length == 0)
-		newAddImgInput()
 
 
 	request.send(formData);

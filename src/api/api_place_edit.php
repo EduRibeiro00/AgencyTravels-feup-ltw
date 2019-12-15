@@ -21,7 +21,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
 } else {
 
     $message = true_message;
-    $Duplicates=false;
+    $Duplicates = false;
     $placeID = $_POST['placeID'];
     $title = $_POST['title'];
     $desc = $_POST['description'];
@@ -35,7 +35,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $capacity = $_POST['capacity'];
     $ownerID = $_SESSION['userID'];
 
-    $array_fileNames=buildArrayWithFilesToAdd();
+    $array_fileNames = buildArrayWithFilesToAdd();
 
     $num_photos_to_initial = getNumberOfImagesForPlace($placeID)['nImages'];
 
@@ -67,38 +67,47 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
         }
     }
 
-    $images = $_FILES['imagePlaceFile'];
+    if (isset($_FILES['imagePlaceFile'])) {
+        $images = $_FILES['imagePlaceFile'];
+        $NewImagesExist = true;
+    } else {
+        $NewImagesExist = false;
+    }
+
     //CREATE AN ARRAY TO STORE ALL THE VALID IMAGES UPLOADED
     $images_uploaded_valid = array();
     $num_images_uploaded_valid = 0;
 
     //TESTS IF THERE IS ANY ERROR SO FAR
     if (strcmp($message, true_message) === 0) {
+        
+        if ($NewImagesExist == true) {
 
-        //CHECK IF ALL PHOTOS UPLOADED ARE VALID
-        $total = count($images['tmp_name']);
+            //CHECK IF ALL PHOTOS UPLOADED ARE VALID
+            $total = count($images['tmp_name']);
 
-        for ($i = 0; $i < $total; $i++) {
+            for ($i = 0; $i < $total; $i++) {
 
-            if ($images['tmp_name'][$i] != "") {
+                if ($images['tmp_name'][$i] != "") {
 
-                if (check_File_Integrity($images['name'][$i], $array_fileNames,$Duplicates) == true) {
-                    if (!checkIfImageIsValid($images['tmp_name'][$i])) {
-                        $message = 'invalid image';
-                        break;
+                    if (check_File_Integrity($images['name'][$i], $array_fileNames, $Duplicates) == true) {
+                        if (!checkIfImageIsValid($images['tmp_name'][$i])) {
+                            $message = 'invalid image';
+                            break;
+                        }
+                        $images_uploaded_valid[$num_images_uploaded_valid] = $images['tmp_name'][$i];
+                        $num_images_uploaded_valid++;
                     }
-                    $images_uploaded_valid[$num_images_uploaded_valid] = $images['tmp_name'][$i];
-                    $num_images_uploaded_valid++;
                 }
             }
         }
         //TEST IF THE EDIT FORM MANTAINS 1 PHOTO AFTER ALL THE OPERATIONS.
         if (($num_photos_to_initial + $num_images_uploaded_valid - $num_photos_to_remove) < 1) {
             $message = 'A place Must Have at least one image';
-        }else if(($num_photos_to_initial + $num_images_uploaded_valid - $num_photos_to_remove) >6){
+        } else if (($num_photos_to_initial + $num_images_uploaded_valid - $num_photos_to_remove) > 6) {
             //TEST IF THE NUMBER OF PHOTOS IS >6
             $message = 'A place Must have a maximum six images';
-        }else {
+        } else {
             if (strcmp($message, true_message) === 0) {
                 //Validate Inputs
                 $inputs_are_valid = true;
@@ -159,8 +168,8 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
         }
     }
 
-    if($Duplicates==true){
-        $message='Duplicate Images';
+    if ($Duplicates == true) {
+        $message = 'Duplicate Images';
     }
 }
 echo json_encode(array('message' => $message));

@@ -220,6 +220,10 @@ profileForm.addEventListener('submit', function (event) {
 		}
 
 	});
+	
+	if (imagesEditInput.length == 0)
+		newAddImgInput()
+
 	let formData = new FormData(profileForm);
 	formData.append('imagesToRemoveArray', array_photos_to_remove);
 	formData.append('File0', files_array[0]);
@@ -229,9 +233,6 @@ profileForm.addEventListener('submit', function (event) {
 	formData.append('File4', files_array[4]);
 	formData.append('File5', files_array[5]);
 
-
-	if(imagesInput.length == 0)
-		newAddImgInput()
 
 	request.send(formData);
 });
