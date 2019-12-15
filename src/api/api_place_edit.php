@@ -80,7 +80,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
 
     //TESTS IF THERE IS ANY ERROR SO FAR
     if (strcmp($message, true_message) === 0) {
-        
+
         if ($NewImagesExist == true) {
 
             //CHECK IF ALL PHOTOS UPLOADED ARE VALID

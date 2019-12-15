@@ -27,15 +27,14 @@ function draw_form($place = null, $edit_menu = false) {
 
 
     } else {
-		$title = 'Ola';
-        $address = 'Casa na zona';
-        $city_str = 'Porto';
-        $country = 'Portugal';
-        $numRooms = '1';
-        $numBathrooms = '2';
-        $capacity = '3';
+		$title = '';
+        $address = '';
+        $city_str = '';
+        $country = '';
+        $numRooms = '';
+        $numBathrooms = '';
+        $capacity = '';
         $imagearray_lenght = 0;
-
         $imagePreview_small = "../assets/images/places/small/";
         $imagePreview_medium = "../assets/images/places/medium/";
     }

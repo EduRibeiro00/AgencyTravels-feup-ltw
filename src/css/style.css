@@ -1282,10 +1282,12 @@ article.place-reserv-card {
 #my_house_edit_container .edit-house-location,#my_house_edit_container .edit-house-caracteristics{
     justify-content: space-evenly;
 }
-
+/*FIX THE ISSUE ON ADD BUTTON ON THE FORM DISAPPEARING*/
+#place_edit_form{
+    margin-bottom: 10em;
+}
 #edit_place_submit{
     text-align: center;
-    margin-bottom: 2em;
 }
 
 #my_house_edit_container img{
@@ -1308,7 +1310,6 @@ article.place-reserv-card {
 .img_add_preview_container{
     position: relative;
 }
-
 .delete_preview_photo{
     position: absolute;
 }
