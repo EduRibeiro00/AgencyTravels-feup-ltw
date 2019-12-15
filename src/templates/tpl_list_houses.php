@@ -43,10 +43,17 @@ function getPlaces(){
 	$children = $_GET['nChildren'] ? $_GET['nChildren'] : 0;	// check
 	$rating = $_GET['rating'] ? $_GET['rating'][0] : 0;			// check
 
-	
+	if(!validateIntValue($adults) || !validateIntValue($children) || !validateIntValue($rating)) {
+		return false;
+	}
 
-	$nRooms = $_GET['nRooms'] ? $_GET['nRooms'] : 0;			// check
-	$nBathrooms = $_GET['nBathrooms'] ? $_GET['nBathrooms'] : 0;// check
+	$nRooms = $_GET['nRooms'] ? $_GET['nRooms'] : 0;				// check
+	$nBathrooms = $_GET['nBathrooms'] ? $_GET['nBathrooms'] : 0;	// check
+
+	if(!validateIntValue($nRooms) || !validateIntValue($nBathrooms)) {
+		return false;
+	}
+
 	$nPeople = $adults + $children;
 	if($foundLoc)
 		$places = getFilteredPlacesLoc($nPeople, $rating, $nRooms, $nBathrooms, $prov[1], $prov[0]);
@@ -78,19 +85,20 @@ function list_houses($places, $drawingOption, $userID, $drawMap = false) { ?>
 				draw_availability_form();
 			if(empty($places)) { ?>
 				<em>No houses available</em>
-			<?php } else
+			<?php } else if($places === false) { ?>
+				<em>The inputs inserted are invalid. Please try again.</em>
+			<?php } else {
 				foreach ($places as $place){
 					draw_horizontal_card($place, $drawingOption, $userID);
 				}
+			}
 			?>
 		</section>
 
 		<!-- TODO: implementar maps com google maps API em JS -->
 		<?php if(!empty($places) && $drawMap) { 
 			initGoogleMaps();
-		?>
-		<?php } ?>
-
+		 } ?>
 	</main>
 <?php } 
 
