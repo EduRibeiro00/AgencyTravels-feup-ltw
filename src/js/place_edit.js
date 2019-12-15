@@ -124,9 +124,7 @@ function editImagesOfPlace(event) {
 
 				let pos_delete_array = remove_button[0].getAttribute('identifier_local');
 
-				let arrayDomElements = document.querySelectorAll('.img_add_preview_container i');
-				updateIdentifierLocal(arrayDomElements);
-
+				
 				if (pos_delete_array > img_array.length) {
 					console.error('DONT TRY TO VIOLATE THE JS ITS USELESS MATE');
 					//FORCE A MINIMUM OF 1 IMAGE
@@ -135,7 +133,7 @@ function editImagesOfPlace(event) {
 					img_array[pos_delete_array].remove();
 					//REMOVE JS DATA
 					delete img_array[pos_delete_array];
-
+					
 					img_array = deleteFromArray(img_array);
 					//REMOVES FILE FROM ARRAY FILES
 					delete files_array[pos_delete_array];
@@ -144,7 +142,7 @@ function editImagesOfPlace(event) {
 					number_images--;
 					imgId--;
 				}
-
+				
 				// I M USING DELETE LEAVES HOLES AND LENGTH REPRESENTS THE LAST ELEMENT NOT THE NUMBER OF ELEMENTS IN JS THIS MUST BE DONE TO CHECK IF THERE ARE ELEMENTS
 				let is_empty = true;
 				//THE INDEX REPRESENT THE INDEX OF LAST ELEMENT. INCOMPATIBLE WITH REMOVE. REMOVE IS NOT AVOIDABLE HERE
@@ -158,7 +156,9 @@ function editImagesOfPlace(event) {
 				if (is_empty == true && localImages != null) {
 					localImages.className = "edit_place_img_medium";
 				}
-
+				
+				let arrayDomElements = document.querySelectorAll('.img_add_preview_container i');
+				updateIdentifierLocal(arrayDomElements);
 			}
 			)
 

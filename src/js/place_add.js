@@ -82,9 +82,7 @@ function addImagesToPlace(event) {
 
 				let pos_delete_array = remove_button[0].getAttribute('identifier_local');
 
-				let arrayDomElements = document.querySelectorAll('.img_add_preview_container i');
-				updateIdentifierLocal(arrayDomElements);
-
+				
 				if (pos_delete_array > img_array.length) {
 					console.error('DONT TRY TO VIOLATE THE JS ITS USELESS MATE');
 					//FORCE A MINIMUM OF 1 IMAGE
@@ -93,17 +91,17 @@ function addImagesToPlace(event) {
 					img_array[pos_delete_array].remove();
 					//REMOVE JS DATA
 					delete img_array[pos_delete_array];
-
+					
 					img_array = deleteFromArray(img_array);
 					//REMOVES FILE FROM ARRAY FILES
 					delete files_array[pos_delete_array];
-
+					
 					files_array = deleteFromArray(files_array);
 					//
 					number_images--;
 					imgId--;
 				}
-
+				
 				let is_empty = true;
 				//THE INDEX REPRESENT THE INDEX OF LAST ELEMENT. INCOMPATIBLE WITH REMOVE. REMOVE IS NOT AVOIDABLE HERE
 				for (let i = 0; i < img_array.length; i++) {
@@ -118,7 +116,9 @@ function addImagesToPlace(event) {
 				}
 			}
 			)
-
+			
+			let arrayDomElements = document.querySelectorAll('.img_add_preview_container i');
+			updateIdentifierLocal(arrayDomElements);
 		});
 	}
 }
