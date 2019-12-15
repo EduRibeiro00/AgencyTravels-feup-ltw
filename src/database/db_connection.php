@@ -10,6 +10,9 @@
         throw new Exception("Failed to open database");
       $this->db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
       $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+      // activate use of foreign key constraints
+      $this->db->exec('PRAGMA foreign_keys = ON');
     }
     
     public function db() {
