@@ -107,7 +107,9 @@ function addImagesToPlace(event) {
 	}
 }
 
-labelInput.addEventListener('click', function () {
+labelInput.addEventListener('click', newAddImgInput)
+
+function newAddImgInput() {
 	// TODO falta data-hasFile=<?= $hasFile ?>
 	// <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile[]" multiple >
 	labelInput.htmlFor = "imageFile_add_place" + (imagesInput.length + 1)
@@ -123,7 +125,7 @@ labelInput.addEventListener('click', function () {
 	input.addEventListener('change', addImagesToPlace)
 	imagesInput.push(input)
 
-})
+}
 
 
 // remove image button
@@ -171,6 +173,10 @@ profileForm.addEventListener('submit', function (event) {
 	formData.append('File3', files_array[3]);
 	formData.append('File4', files_array[4]);
 	formData.append('File5', files_array[5]);
+
+	if(imagesInput.length == 0)
+		newAddImgInput()
+
 
 	request.send(formData);
 });

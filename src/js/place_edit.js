@@ -149,7 +149,9 @@ function editImagesOfPlace(event) {
 }
 
 //WHEN AN INPUT IS LOADED IT FIRE THIS EVENT
-labelEditInput.addEventListener('click', function () {
+labelEditInput.addEventListener('click', newAddImgInput)
+
+function newAddImgInput() {
 	// TODO falta data-hasFile=<?= $hasFile ?>
 	// <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile[]" multiple >
 	labelEditInput.htmlFor = "imageFile_add_place" + (imagesEditInput.length + 1)
@@ -165,7 +167,7 @@ labelEditInput.addEventListener('click', function () {
 	input.addEventListener('change', editImagesOfPlace)
 	imagesEditInput.push(input)
 
-})
+}
 
 profileForm.addEventListener('submit', function (event) {
 
@@ -226,6 +228,10 @@ profileForm.addEventListener('submit', function (event) {
 	formData.append('File3', files_array[3]);
 	formData.append('File4', files_array[4]);
 	formData.append('File5', files_array[5]);
+
+
+	if(imagesInput.length == 0)
+		newAddImgInput()
 
 	request.send(formData);
 });
