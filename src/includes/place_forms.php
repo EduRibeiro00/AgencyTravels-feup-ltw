@@ -31,7 +31,7 @@ function buildArrayWithFilesToAdd(){
     return $array_fileNames;
 }
 
-function check_File_Integrity($imageName, &$array_fileNames)
+function check_File_Integrity($imageName, &$array_fileNames,&$Duplicates)
 {
     $arraySize=count($array_fileNames);
 
@@ -42,6 +42,7 @@ function check_File_Integrity($imageName, &$array_fileNames)
             if(strcmp($array_fileNames[$i],$imageName)==0){
                 //Remove duplicates
                 $array_fileNames[$i]='';
+                $Duplicates=true;
             }
         }
         

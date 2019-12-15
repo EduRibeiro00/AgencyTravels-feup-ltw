@@ -193,6 +193,11 @@ profileForm.addEventListener('submit', function (event) {
 			case 'true':
 				history.back();
 				break;
+			
+			case 'Duplicate Images':
+				showDialog('Duplicates But inserted');
+				window.setTimeout(function() {history.back();}, 3000)		
+				break;
 
 			default:
 				errorMessage.textContent = "Error adding.";

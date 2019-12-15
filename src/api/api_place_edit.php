@@ -21,7 +21,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
 } else {
 
     $message = true_message;
-
+    $Duplicates=false;
     $placeID = $_POST['placeID'];
     $title = $_POST['title'];
     $desc = $_POST['description'];
@@ -82,7 +82,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
 
             if ($images['tmp_name'][$i] != "") {
 
-                if (check_File_Integrity($images['name'][$i], $array_fileNames) == true) {
+                if (check_File_Integrity($images['name'][$i], $array_fileNames,$Duplicates) == true) {
                     if (!checkIfImageIsValid($images['tmp_name'][$i])) {
                         $message = 'invalid image';
                         break;
@@ -157,6 +157,10 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                 }
             }
         }
+    }
+
+    if($Duplicates==true){
+        $message='Duplicate Images';
     }
 }
 echo json_encode(array('message' => $message));
