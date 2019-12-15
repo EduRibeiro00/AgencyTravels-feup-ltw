@@ -6,25 +6,39 @@ function encodeForAjax(data) {
 	}).join('&')
 }
 
+function deleteFromArray(array) {
+
+	let array_aux = new Array();
+
+	for (let i in array) {
+		array_aux.push(array[i]);
+	}
+
+	return array_aux;
+}
+
+let img_array = new Array();
+let files_array = new Array();
+let imgId = 0;
+
 //function to create the element+ container when we add a new image. Auxiliaary function
 function generateImgDivContainer(imgSrc) {
 	let div_container = document.createElement("div");
 	let image_to_append = document.createElement("img");
 	let remove_cross = document.createElement("i");
 	//GOING TO IDENTIFY THE IMG POS ON THE ARRAY TO ALLOW DELETE FUNCTIONALITY
-	remove_cross.setAttribute('identifier_local', img_id);
+	remove_cross.setAttribute('identifier_local', imgId);
 	image_to_append.className = "edit_place_img_medium";
 	div_container.className = "img_add_preview_container"
 	remove_cross.className = "fas fa-times delete_image_preview"
-
-	img_array[img_id] = div_container;
-	img_id++;
+	img_array[imgId] = div_container;
 	image_to_append.src = imgSrc;
-
+	imgId++;
 	div_container.appendChild(image_to_append);
 	div_container.appendChild(remove_cross);
 	return div_container;
 }
+
 
 // -------------
 
@@ -41,12 +55,9 @@ let imagesEditInput = [];
 //In order to be possible to append childs
 let image_delete_preview = document.querySelector('#img-delete_place_add');
 
-let img_id = 0;
 let number_images = 0;
 //THE NUMBER OF IMAGES LOCAL IS THE SAME AS THE NAME OF ORIGINAL DELETE CROSSES
 let number_images_local = allLocalImageCross.length;
-let img_array = new Array();
-let files_array = new Array();
 
 //Establish event listener to all "local"(preexistent)delete buttons
 for (let i = 0; i < allLocalImageCross.length; i++) {
@@ -76,7 +87,6 @@ for (let i = 0; i < allLocalImageCross.length; i++) {
 }
 
 function editImagesOfPlace(event) {
-
 	//UPDATE THE FIRST LOCAL PHOTO TO SMALL
 	let localImages = document.getElementById('house_form_img_local img');
 
@@ -114,6 +124,9 @@ function editImagesOfPlace(event) {
 
 				let pos_delete_array = remove_button[0].getAttribute('identifier_local');
 
+				let arrayDomElements = document.querySelectorAll('.img_add_preview_container i');
+				updateIdentifierLocal(arrayDomElements);
+
 				if (pos_delete_array > img_array.length) {
 					console.error('DONT TRY TO VIOLATE THE JS ITS USELESS MATE');
 					//FORCE A MINIMUM OF 1 IMAGE
@@ -122,10 +135,14 @@ function editImagesOfPlace(event) {
 					img_array[pos_delete_array].remove();
 					//REMOVE JS DATA
 					delete img_array[pos_delete_array];
+
+					img_array = deleteFromArray(img_array);
 					//REMOVES FILE FROM ARRAY FILES
 					delete files_array[pos_delete_array];
+					files_array = deleteFromArray(files_array);
 					//
 					number_images--;
+					imgId--;
 				}
 
 				// I M USING DELETE LEAVES HOLES AND LENGTH REPRESENTS THE LAST ELEMENT NOT THE NUMBER OF ELEMENTS IN JS THIS MUST BE DONE TO CHECK IF THERE ARE ELEMENTS
@@ -141,10 +158,18 @@ function editImagesOfPlace(event) {
 				if (is_empty == true && localImages != null) {
 					localImages.className = "edit_place_img_medium";
 				}
+
 			}
 			)
 
 		});
+	}
+}
+
+
+function updateIdentifierLocal(array) {
+	for (let i = 0; i < imgId; i++) {
+		array[i].setAttribute('identifier_local', i);
 	}
 }
 
@@ -168,6 +193,7 @@ function newAddImgInput() {
 	imagesEditInput.push(input)
 
 }
+let button_Submit = document.getElementById('edit_place_submit');
 
 profileForm.addEventListener('submit', function (event) {
 
@@ -201,22 +227,26 @@ profileForm.addEventListener('submit', function (event) {
 				console.warn('There is a problem with your image');
 				errorMessage.textContent = "There is a problem with your image";
 				errorMessage.style.display = "block";
+				button_Submit.style.visibility="visible";
 				break;
 			case 'Parameters not validated':
 				errorMessage.textContent = "There is a problem with your inputs";
 				errorMessage.style.display = "block";
+				button_Submit.style.visibility="visible";
 				break;
 			case 'Invalid IMAGE uploaded':
 				console.warn('There is a problem with your image');
 				errorMessage.textContent = "There is a problem with your image";
 				errorMessage.style.display = "block";
+				button_Submit.style.visibility="visible";
 				break;
 			case 'Error removing the photo':
 				console.warn('There is a problem with your image');
+				button_Submit.style.visibility="visible";
 				break;
 			case 'Duplicate Images':
 				showDialog('Duplicates But inserted');
-				window.setTimeout(function () { history.back(); }, 3000)
+				window.setTimeout(function () { history.back(); }, 3000);
 				break;
 			default:
 				history.back();
@@ -224,11 +254,13 @@ profileForm.addEventListener('submit', function (event) {
 		}
 
 	});
-	
+
 	if (imagesEditInput.length == 0)
 		newAddImgInput()
 
 	let formData = new FormData(profileForm);
+
+	button_Submit.style.visibility="hidden";
 	formData.append('imagesToRemoveArray', array_photos_to_remove);
 	formData.append('File0', files_array[0]);
 	formData.append('File1', files_array[1]);

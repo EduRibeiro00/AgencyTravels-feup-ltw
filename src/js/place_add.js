@@ -8,6 +8,16 @@ function encodeForAjax(data) {
 	}).join('&')
 }
 
+function deleteFromArray(array) {
+
+	let array_aux = new Array();
+
+	for (let i in array) {
+		array_aux.push(array[i]);
+	}
+
+	return array_aux;
+}
 
 let profileForm = document.querySelector('#place_edit_form form');
 let errorMessage = document.getElementById('place-form-error');
@@ -20,26 +30,23 @@ let imagesInput = [];
 //In order to be possible to append childs
 let image_delete_preview = document.getElementById('img-delete_place_add');
 
-let img_id = 0;
 let number_images = 0;
 let img_array = new Array();
 let files_array = new Array();
-
+let imgId = 0;
 
 function generateImgDivContainer(imgSrc) {
 	let div_container = document.createElement("div");
 	let image_to_append = document.createElement("img");
 	let remove_cross = document.createElement("i");
 	//GOING TO IDENTIFY THE IMG POS ON THE ARRAY TO ALLOW DELETE FUNCTIONALITY
-	remove_cross.setAttribute('identifier_local', img_id);
+	remove_cross.setAttribute('identifier_local', imgId);
 	image_to_append.className = "edit_place_img_medium";
 	div_container.className = "img_add_preview_container"
 	remove_cross.className = "fas fa-times delete_image_preview"
-
-	img_array[img_id] = div_container;
-	img_id++;
+	img_array[imgId] = div_container;
 	image_to_append.src = imgSrc;
-
+	imgId++;
 	div_container.appendChild(image_to_append);
 	div_container.appendChild(remove_cross);
 	return div_container;
@@ -47,6 +54,8 @@ function generateImgDivContainer(imgSrc) {
 
 // TODO: ver nome
 function addImagesToPlace(event) {
+	//UPDATE THE FIRST LOCAL PHOTO TO SMALL
+	let localImages = document.getElementById('house_form_img_local img');
 
 	for (let i = 0; i < event.target.files.length; i++) {
 		let reader_inside = new FileReader();
@@ -54,12 +63,11 @@ function addImagesToPlace(event) {
 		//Add files to the files array
 
 		if (number_images < 6) {
-			//image_block_preview = [];
+			//image_block_preview = [];	
 			files_array.push(f.name);
 			number_images++;
 			reader_inside.readAsDataURL(f);
 		}
-
 
 		reader_inside.addEventListener('load', function (event) {
 
@@ -74,6 +82,9 @@ function addImagesToPlace(event) {
 
 				let pos_delete_array = remove_button[0].getAttribute('identifier_local');
 
+				let arrayDomElements = document.querySelectorAll('.img_add_preview_container i');
+				updateIdentifierLocal(arrayDomElements);
+
 				if (pos_delete_array > img_array.length) {
 					console.error('DONT TRY TO VIOLATE THE JS ITS USELESS MATE');
 					//FORCE A MINIMUM OF 1 IMAGE
@@ -82,10 +93,15 @@ function addImagesToPlace(event) {
 					img_array[pos_delete_array].remove();
 					//REMOVE JS DATA
 					delete img_array[pos_delete_array];
+
+					img_array = deleteFromArray(img_array);
 					//REMOVES FILE FROM ARRAY FILES
 					delete files_array[pos_delete_array];
+
+					files_array = deleteFromArray(files_array);
 					//
 					number_images--;
+					imgId--;
 				}
 
 				let is_empty = true;
@@ -104,6 +120,12 @@ function addImagesToPlace(event) {
 			)
 
 		});
+	}
+}
+
+function updateIdentifierLocal(array) {
+	for (let i = 0; i < imgId; i++) {
+		array[i].setAttribute('identifier_local', i);
 	}
 }
 
@@ -133,6 +155,7 @@ function newAddImgInput() {
 // -------------
 
 
+let button_Submit = document.getElementById('edit_place_submit');
 
 profileForm.addEventListener('submit', function (event) {
 
@@ -160,6 +183,7 @@ profileForm.addEventListener('submit', function (event) {
 			default:
 				errorMessage.textContent = "Error adding.";
 				errorMessage.style.display = "block";
+				button_Submit.style.visibility="visible";
 
 				break;
 		}
@@ -170,6 +194,9 @@ profileForm.addEventListener('submit', function (event) {
 		newAddImgInput()
 
 	let formData = new FormData(profileForm);
+
+
+	button_Submit.style.visibility="hidden";
 	formData.append('File0', files_array[0]);
 	formData.append('File1', files_array[1]);
 	formData.append('File2', files_array[2]);
