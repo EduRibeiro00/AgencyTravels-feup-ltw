@@ -77,10 +77,8 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                 $inputs_are_valid = false;
             }
             if (!is_numeric($numBathrooms)) {
-
                 $inputs_are_valid = false;
             }
-
             if (!is_numeric($capacity))
                 $inputs_are_valid = false;
             if (!is_numeric($locationID))
