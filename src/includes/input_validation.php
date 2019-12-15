@@ -41,4 +41,23 @@ function validateEmailValue($value) {
     return filter_var($value, FILTER_VALIDATE_EMAIL) !== false;
 }
 
+function validateGPSCoords($GPSCoordsStr){
+    $array_explode=explode(",",$GPSCoordsStr);
+
+    if($array_explode==false||empty($array_explode)){
+        return false;
+    }
+    //GPS COORDS ARE JUST LAT AND LNG
+    if(count(($array_explode))>2){
+        return false;
+    }
+
+    if(!is_numeric($array_explode[0])||!is_numeric($array_explode[1])){
+        return false;
+    }
+
+    return true;
+}
+
+
 ?>

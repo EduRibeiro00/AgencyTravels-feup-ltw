@@ -4,10 +4,12 @@ include_once('../database/db_places.php');
 include_once('../database/db_location.php');
 include_once('../includes/img_upload.php');
 include_once('../includes/place_forms.php');
+include_once('../includes/input_validation.php');
 
 const true_message = 'true';
 
-if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
+
+if ((!isset($_SESSION['userID']) && !validateIntValue($_SESSION['userID'])) || $_SESSION['userID'] == '') {
     $message = 'user not logged in';
 } else {
     $message = true_message;
@@ -63,31 +65,41 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
             $inputs_are_valid = true;
 
             //TODO: TO RETURN A PERSONALIZED MESSAGE
-            if (is_numeric($title)) {
+            if (is_numeric($title)|| !validateTextValue($title)) {
+                $message='Title not valid';
                 $inputs_are_valid = false;
             }
-            if (is_numeric($desc)) {
+            if (is_numeric($desc)|| !validateTextValue($desc)) {
+                $message='Description not valid';
                 $inputs_are_valid = false;
             }
-            if (is_numeric($address)) {
+            if (is_numeric($address)||!validateLocationValue($address)) {
+                $message='Address not valid';
+                $inputs_are_valid = false;
+            }
+            if (!is_numeric($numRooms)||!validateIntValue($numRooms)) {
+                $message='Number of rooms is not valid';
+                $inputs_are_valid = false;
+            }
+            if (!is_numeric($numBathrooms)||!validateIntValue($numBathrooms)) {
+                $message='Number of Bathrooms is not valid';
+                $inputs_are_valid = false;
+            }
+            if (!is_numeric($capacity)||!validateIntValue($capacity)){
+                $message='Capacity is not valid';
+                $inputs_are_valid = false;
+            }
+            if (!is_numeric($locationID)||!validateIntValue($locationID)){
+                $message=false;
+                $inputs_are_valid = false;
+            }
+            /*PARSE THE GPS COORDS WE WILL NEED TO EXPLODE THE STRING. THEY ARE INSERTED AS A STRING TO THE DATABASE*/
 
+            if(validateGPSCoords($GPSCoords)==false){
+                $message= 'GPS Coords of that Address invalid';
                 $inputs_are_valid = false;
             }
-            if (!is_numeric($numRooms)) {
-                $inputs_are_valid = false;
-            }
-            if (!is_numeric($numBathrooms)) {
-                $inputs_are_valid = false;
-            }
-            if (!is_numeric($capacity))
-                $inputs_are_valid = false;
-            if (!is_numeric($locationID))
-                $inputs_are_valid = false;
-            /*PARSE THE GPS COORDS WE WILL NEED TO EXPLODE THE STRING. THEY ARE INSERTED AS A STRING TO THE DATABASE
-
-            if (!is_numeric($GPSCoords))
-                $inputs_are_valid = false;
-            */
+            
             if ($inputs_are_valid) {
 
                 if (newPlace($title, $desc, $address,$GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID) == true) {
@@ -109,4 +121,5 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
         }
     }
 }
+
 echo json_encode(array('message' => $message));
