@@ -33,8 +33,10 @@ let array_photos_to_remove = new Array();
 let allLocalImageCross = document.querySelectorAll(".delete_image_local");
 let errorMessage = document.getElementById('place-form-error');
 let profileFormImage = document.getElementById('img-to-upload');
-let image_block_preview = document.querySelector('#house_form_img_preview');
-let imageInput = document.querySelector('input#imageFile_add_place');
+let image_block_preview = document.getElementById('house_form_img_preview');
+
+let labelEditInput = document.getElementById('add_images');
+let imagesEditInput = [];
 //Going to update the sizeof the medium photo
 //In order to be possible to append childs
 let image_delete_preview = document.querySelector('#img-delete_place_add');
@@ -73,21 +75,10 @@ for (let i = 0; i < allLocalImageCross.length; i++) {
 	});
 }
 
-
-
-//WHEN AN INPUT IS LOADED IT FIRE THIS EVENT
-imageInput.addEventListener('change', function (event) {
+function editImagesOfPlace(event) {
 
 	//UPDATE THE FIRST LOCAL PHOTO TO SMALL
-	let localImages = document.querySelector('#house_form_img_local img');
-
-	files_array = [];
-	number_images = 0;
-	img_id = 0;
-
-	for (let i in img_array) {
-		img_array[i].remove();
-	}
+	let localImages = document.getElementById('house_form_img_local img');
 
 	if (localImages != null) {
 		localImages.className = "edit_place_img_small";
@@ -155,12 +146,26 @@ imageInput.addEventListener('change', function (event) {
 
 		});
 	}
-});
+}
 
+//WHEN AN INPUT IS LOADED IT FIRE THIS EVENT
+labelEditInput.addEventListener('click', function () {
+	// TODO falta data-hasFile=<?= $hasFile ?>
+	// <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile[]" multiple >
+	labelEditInput.htmlFor = "imageFile_add_place" + (imagesEditInput.length + 1)
+	let input = document.createElement('input');
+	input.id = labelEditInput.htmlFor
+	input.type = "file"
+	input.classList.add('button')
+	input.accept = "image/*"
+	input.name = "imagePlaceFile[]"
+	input.multiple = true
 
+	labelEditInput.parentNode.insertBefore(input, labelEditInput.nextSibling);
+	input.addEventListener('change', editImagesOfPlace)
+	imagesEditInput.push(input)
 
-
-
+})
 
 profileForm.addEventListener('submit', function (event) {
 
@@ -207,10 +212,6 @@ profileForm.addEventListener('submit', function (event) {
 			case 'Error removing the photo':
 				console.warn('There is a problem with your image');
 				break;
-			case 'Duplicate Images':
-				showDialog('Duplicates But inserted');
-				window.setTimeout(function () { history.back(); }, 3000)
-				break;
 			default:
 				history.back();
 				break;
@@ -229,4 +230,4 @@ profileForm.addEventListener('submit', function (event) {
 	request.send(formData);
 });
 
-	// -----------
+// -----------

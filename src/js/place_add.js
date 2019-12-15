@@ -1,5 +1,6 @@
 'use strict'
 
+//MUST BE EXACLTLY THE SAME ON PLACE EDIT
 
 function encodeForAjax(data) {
 	return Object.keys(data).map(function (k) {
@@ -7,16 +8,17 @@ function encodeForAjax(data) {
 	}).join('&')
 }
 
-//MUST BE EXACLTLY THE SAME ON PLACE EDIT
 
+let profileForm = document.querySelector('#place_edit_form form');
+let errorMessage = document.getElementById('place-form-error');
 let profileFormImage = document.getElementById('img-to-upload');
-let image_block_preview = document.querySelector('#house_form_img_preview');
-let imageInput = document.querySelector('input#imageFile_add_place');
-let imageInput2 = document.querySelector('input#imageFile_add_place2');
+let image_block_preview = document.getElementById('house_form_img_preview');
+let labelInput = document.getElementById('add_images');
+let imagesInput = [];
 
 //Going to update the sizeof the medium photo
 //In order to be possible to append childs
-let image_delete_preview = document.querySelector('#img-delete_place_add');
+let image_delete_preview = document.getElementById('img-delete_place_add');
 
 let img_id = 0;
 let number_images = 0;
@@ -43,70 +45,8 @@ function generateImgDivContainer(imgSrc) {
 	return div_container;
 }
 
-
-imageInput.addEventListener('change', function (event) {
-
-	for (let i = 0; i < event.target.files.length; i++) {
-		let reader_inside = new FileReader();
-		let f = event.target.files[i];
-		//Add files to the files array
-
-		if (number_images < 6) {
-			//image_block_preview = [];
-			files_array.push(f.name);
-			number_images++;
-			reader_inside.readAsDataURL(f);
-		}
-
-
-		reader_inside.addEventListener('load', function (event) {
-
-			let child_element = generateImgDivContainer(event.target.result);
-			image_block_preview.appendChild(child_element);
-
-			let remove_button = child_element.getElementsByClassName("delete_image_preview");
-
-			remove_button[0].addEventListener('click', function (event) {
-
-				event.preventDefault();
-
-				let pos_delete_array = remove_button[0].getAttribute('identifier_local');
-
-				if (pos_delete_array > img_array.length) {
-					console.error('DONT TRY TO VIOLATE THE JS ITS USELESS MATE');
-					//FORCE A MINIMUM OF 1 IMAGE
-				} else if (number_images > 1) {
-					//REMOVE FROM GUI
-					img_array[pos_delete_array].remove();
-					//REMOVE JS DATA
-					delete img_array[pos_delete_array];
-					//REMOVES FILE FROM ARRAY FILES
-					delete files_array[pos_delete_array];
-					//
-					number_images--;
-				}
-
-				let is_empty = true;
-				//THE INDEX REPRESENT THE INDEX OF LAST ELEMENT. INCOMPATIBLE WITH REMOVE. REMOVE IS NOT AVOIDABLE HERE
-				for (let i = 0; i < img_array.length; i++) {
-					if (img_array[i] != null) {
-						is_empty = false;
-					}
-				}
-				//IF THE INPUT BECOMES EMPTY RESET THE SIZE OF THE FIRST IMAGE
-				//!=NULL could be add form there are no local photos
-				if (is_empty == true && localImages != null) {
-					localImages.className = "edit_place_img_medium";
-				}
-			}
-			)
-
-		});
-	}
-});
-
-imageInput2.addEventListener('change', function (event) {
-
+// TODO: ver nome
+function addImagesToPlace(event) {
 
 	for (let i = 0; i < event.target.files.length; i++) {
 		let reader_inside = new FileReader();
@@ -165,15 +105,31 @@ imageInput2.addEventListener('change', function (event) {
 
 		});
 	}
-});
+}
+
+labelInput.addEventListener('click', function () {
+	// TODO falta data-hasFile=<?= $hasFile ?>
+	// <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile[]" multiple >
+	labelInput.htmlFor = "imageFile_add_place" + (imagesInput.length + 1)
+	let input = document.createElement('input');
+	input.id = labelInput.htmlFor
+	input.type = "file"
+	input.classList.add('button')
+	input.accept = "image/*"
+	input.name = "imagePlaceFile[]"
+	input.multiple = true
+
+	labelInput.parentNode.insertBefore(input, labelInput.nextSibling);
+	input.addEventListener('change', addImagesToPlace)
+	imagesInput.push(input)
+
+})
 
 
 // remove image button
 
 // -------------
 
-let profileForm = document.querySelector('#place_edit_form form');
-let errorMessage = document.getElementById('place-form-error');
 
 
 profileForm.addEventListener('submit', function (event) {
@@ -193,10 +149,10 @@ profileForm.addEventListener('submit', function (event) {
 			case 'true':
 				history.back();
 				break;
-			
+
 			case 'Duplicate Images':
 				showDialog('Duplicates But inserted');
-				window.setTimeout(function() {history.back();}, 3000)		
+				window.setTimeout(function () { history.back(); }, 3000)
 				break;
 
 			default:
@@ -217,8 +173,6 @@ profileForm.addEventListener('submit', function (event) {
 	formData.append('File5', files_array[5]);
 
 	request.send(formData);
-
-
 });
 
 	// -----------
