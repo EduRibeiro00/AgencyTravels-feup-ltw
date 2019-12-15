@@ -12,6 +12,8 @@ function encodeForAjax(data) {
 let profileFormImage = document.getElementById('img-to-upload');
 let image_block_preview = document.querySelector('#house_form_img_preview');
 let imageInput = document.querySelector('input#imageFile_add_place');
+let imageInput2 = document.querySelector('input#imageFile_add_place2');
+
 //Going to update the sizeof the medium photo
 //In order to be possible to append childs
 let image_delete_preview = document.querySelector('#img-delete_place_add');
@@ -44,13 +46,67 @@ function generateImgDivContainer(imgSrc) {
 
 imageInput.addEventListener('change', function (event) {
 
-	number_images=0;
-	img_id=0;
-	files_array=[];
+	for (let i = 0; i < event.target.files.length; i++) {
+		let reader_inside = new FileReader();
+		let f = event.target.files[i];
+		//Add files to the files array
 
-	for (let i in img_array) {
-		img_array[i].remove();
+		if (number_images < 6) {
+			//image_block_preview = [];
+			files_array.push(f.name);
+			number_images++;
+			reader_inside.readAsDataURL(f);
+		}
+
+
+		reader_inside.addEventListener('load', function (event) {
+
+			let child_element = generateImgDivContainer(event.target.result);
+			image_block_preview.appendChild(child_element);
+
+			let remove_button = child_element.getElementsByClassName("delete_image_preview");
+
+			remove_button[0].addEventListener('click', function (event) {
+
+				event.preventDefault();
+
+				let pos_delete_array = remove_button[0].getAttribute('identifier_local');
+
+				if (pos_delete_array > img_array.length) {
+					console.error('DONT TRY TO VIOLATE THE JS ITS USELESS MATE');
+					//FORCE A MINIMUM OF 1 IMAGE
+				} else if (number_images > 1) {
+					//REMOVE FROM GUI
+					img_array[pos_delete_array].remove();
+					//REMOVE JS DATA
+					delete img_array[pos_delete_array];
+					//REMOVES FILE FROM ARRAY FILES
+					delete files_array[pos_delete_array];
+					//
+					number_images--;
+				}
+
+				let is_empty = true;
+				//THE INDEX REPRESENT THE INDEX OF LAST ELEMENT. INCOMPATIBLE WITH REMOVE. REMOVE IS NOT AVOIDABLE HERE
+				for (let i = 0; i < img_array.length; i++) {
+					if (img_array[i] != null) {
+						is_empty = false;
+					}
+				}
+				//IF THE INPUT BECOMES EMPTY RESET THE SIZE OF THE FIRST IMAGE
+				//!=NULL could be add form there are no local photos
+				if (is_empty == true && localImages != null) {
+					localImages.className = "edit_place_img_medium";
+				}
+			}
+			)
+
+		});
 	}
+});
+
+imageInput2.addEventListener('change', function (event) {
+
 
 	for (let i = 0; i < event.target.files.length; i++) {
 		let reader_inside = new FileReader();

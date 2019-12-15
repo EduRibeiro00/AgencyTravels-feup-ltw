@@ -104,6 +104,9 @@ function draw_form($place = null, $edit_menu = false) {
     
                     <label class="button" for="imageFile_add_place">Select foto</label>
                     <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile[]" multiple multiple data-hasFile=<?= $hasFile ?>>
+                    
+                    <label class="button" for="imageFile_add_place2">Select foto2</label>
+                    <input class="button" type="file" id="imageFile_add_place2" accept="image/*" name="imagePlaceFile[]" multiple multiple data-hasFile=<?= $hasFile ?>>
                 </section>
 
                 <section id="img-delete_place_add" class="row">

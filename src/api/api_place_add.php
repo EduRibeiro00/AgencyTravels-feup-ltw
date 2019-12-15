@@ -125,7 +125,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                             }
                         }
                     } else {
-                        $message = $placeID;
+                        $message = 'Fail create new place';
                     }
                 }
             } else {
