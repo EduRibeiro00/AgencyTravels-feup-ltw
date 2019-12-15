@@ -1,7 +1,7 @@
 <?php
     include_once('../includes/session_include.php');
 	include_once('../database/db_user.php');
-	include_once('../database/db_places.php');
+    include_once('../database/db_places.php');    
     
 	if(!isset($_GET['place_id'])) {
         die(header('Location: ../pages/initial_page.php'));
@@ -16,11 +16,11 @@
     
     if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
         $user_info = getUserInformation($_SESSION['userID']);
-        $jsFiles = ['../js/main.js', '../js/place_page.js', '../js/comments.js'];
+        $jsFiles = ['../js/main.js', '../js/place_page.js', '../js/comments.js', '../js/googleMapsMyPlace.js'];
     }
     else {
         $user_info = NULL;
-        $jsFiles = ['../js/main.js', '../js/place_page.js', '../js/login.js'];
+        $jsFiles = ['../js/main.js', '../js/place_page.js', '../js/login.js', '../js/googleMapsMyPlace.js'];
     }
     
     include_once('../templates/tpl_common.php');

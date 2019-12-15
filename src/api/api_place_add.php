@@ -16,11 +16,11 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $title = $_POST['title'];
     $desc = $_POST['description'];
     $address = $_POST['address'];
-    $city = $_POST['city'];
-    $country = $_POST['country'];
     $numRooms = $_POST['numRooms'];
     $numBathrooms = $_POST['numBathrooms'];
     $capacity = $_POST['capacity'];
+    $locationID = $_POST['location'];
+    $GPSCoords=$_POST['gpsCoords'];
 
     //Retrevie the 6 possible file to add
     $array_fileNames = buildArrayWithFilesToAdd();
@@ -35,11 +35,11 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $total = count($images['tmp_name']);
 
     for ($i = 0; $i < $total; $i++) {
-        
+
         if ($images['tmp_name'][$i] != "") {
-            
+
             if (check_File_Integrity($images['name'][$i], $array_fileNames) == true) {
-                
+
                 if (!checkIfImageIsValid($images['tmp_name'][$i])) {
                     $message = 'invalid image';
                     break;
@@ -73,13 +73,6 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
 
                 $inputs_are_valid = false;
             }
-            if (is_numeric($city)) {
-
-                $inputs_are_valid = false;
-            }
-            if (is_numeric($country)) {
-                $inputs_are_valid = false;
-            }
             if (!is_numeric($numRooms)) {
                 $inputs_are_valid = false;
             }
@@ -90,42 +83,27 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
 
             if (!is_numeric($capacity))
                 $inputs_are_valid = false;
+            if (!is_numeric($locationID))
+                $inputs_are_valid = false;
+            /*PARSE THE GPS COORDS WE WILL NEED TO EXPLODE THE STRING. THEY ARE INSERTED AS A STRING TO THE DATABASE
 
+            if (!is_numeric($GPSCoords))
+                $inputs_are_valid = false;
+            */
             if ($inputs_are_valid) {
 
-                //WHEN WE INSERT A NEW PLACE WE MUST FIRST CHECK IF THERE IS ALREADY A LOCATION WITH THAT ID, IF NOT -> CREATE
-                $array_locations = locationGetID($city, $country);
+                if (newPlace($title, $desc, $address,$GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID) == true) {
+                    //GET THE NEW PLACE ID
+                    $placeID = getPlaceID($title, $address, $ownerID)['placeID'];
 
-                //IF LOCATION IS EMPTY, WE MUST CREATE THIS NEW LOCATION
-
-                if ($array_locations == false) {
-
-                    if (locationInsert($city, $country) != true) {
-                        $message = 'Error while inserting location new';
-                    }
-                    $locationID = locationGetID($city, $country)['locationID'];
-                } else {
-                    $locationID = $array_locations['locationID'];
-                }
-
-                //IF INSERTED NEW LOCATION OR NOT THE ID OF THAT LOCATION CANNOT BE NULL
-                if (!is_numeric($locationID)) {
-                    $message = 'Location ID NULL';
-                } else {
-
-                    if (newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID) == true) {
-                        //GET THE NEW PLACE ID
-                        $placeID = getPlaceID($title, $address, $ownerID)['placeID'];
-
-                        for ($i = 0; $i < $num_images_uploaded_valid; $i++) {
-                            if (uploadPlaceImage($placeID, $images_uploaded_valid[$i]) != true) {
-                                $message = 'Invalid IMAGE';
-                                break;
-                            }
+                    for ($i = 0; $i < $num_images_uploaded_valid; $i++) {
+                        if (uploadPlaceImage($placeID, $images_uploaded_valid[$i]) != true) {
+                            $message = 'Invalid IMAGE';
+                            break;
                         }
-                    } else {
-                        $message = 'Error while inserting a new place';
                     }
+                } else {
+                    $message = 'Error while inserting a new place';
                 }
             } else {
                 $message = 'Parameters not validated';

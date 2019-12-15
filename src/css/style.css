@@ -4,6 +4,22 @@
 
 
 
+#map{
+
+    height:400px !important;
+    width: 400px !important;
+}
+
+.mapEffect{
+    box-shadow: 10px 10px 5px green;
+}
+#form_place_GPS{
+    display: none;
+}
+
+
+
+
 /* TODO: uniformizar botoes */
 *,
 *:before,
@@ -1336,6 +1352,9 @@ article.place-reserv-card {
     right: 1.5em;
     color: red;
 }
+
+
+/*GOOGLE MAP*/
 
   
 
