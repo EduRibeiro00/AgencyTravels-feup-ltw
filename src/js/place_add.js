@@ -114,11 +114,11 @@ function addImagesToPlace(event) {
 				if (is_empty == true && localImages != null) {
 					localImages.className = "edit_place_img_medium";
 				}
+				let arrayDomElements = document.querySelectorAll('.img_add_preview_container i');
+				updateIdentifierLocal(arrayDomElements);
 			}
 			)
 			
-			let arrayDomElements = document.querySelectorAll('.img_add_preview_container i');
-			updateIdentifierLocal(arrayDomElements);
 		});
 	}
 }
