@@ -118,7 +118,7 @@ function addMarker(string_with_geocoordinates) {
     map.setCenter(latLng);
 }
 
-function codeAddress(address, callback) {
+function codeAddress(address) {
 
     geocoder.geocode({ 'address': address }, function (results, status) {
 
@@ -127,7 +127,6 @@ function codeAddress(address, callback) {
         let lng;
 
         //MUST BE ONLY ONE MARKER ACTIVE IN THIS PAGES. Remove on update address. ALSO used in the add menu, when we update each time the place    
-
         if (status == 'OK') {
             //ADD A MARKER WHEN I GEOCODE
             map.setCenter(results[0].geometry.location);
@@ -140,7 +139,6 @@ function codeAddress(address, callback) {
             lat = myLatLng.lat();
             lng = myLatLng.lng();
             return_code = String(lat) + ',' + String(lng);
-            callback(return_code);
         }
         else {
             alert('Geocode was not successful for the following reason: ' + status);

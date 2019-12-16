@@ -32,7 +32,7 @@ function validatePasswordValue($value) {
 
 // checks if a value is a valid description, review, reply, etc or not
 function validateTextValue($value) {
-    return preg_match('/^[A-Za-z0-9?+*_!#$%&\s-]*$/', $value);
+    return preg_match('/^[A-Za-z0-9?+*_!#$%,\/;.&\s-]*$/', $value);
 }
 
 
@@ -45,5 +45,24 @@ function validateLocationValue($value) {
 function validateEmailValue($value) {
     return filter_var($value, FILTER_VALIDATE_EMAIL) !== false;
 }
+
+function validateGPSCoords($GPSCoordsStr){
+    $array_explode=explode(",",$GPSCoordsStr);
+
+    if($array_explode==false||empty($array_explode)){
+        return false;
+    }
+    //GPS COORDS ARE JUST LAT AND LNG
+    if(count(($array_explode))>2){
+        return false;
+    }
+
+    if(!is_numeric($array_explode[0])||!is_numeric($array_explode[1])){
+        return false;
+    }
+
+    return true;
+}
+
 
 ?>

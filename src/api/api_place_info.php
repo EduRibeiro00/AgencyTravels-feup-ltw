@@ -1,17 +1,18 @@
 <?php
 // TODO: mudar nome e se calhar por tbm o api_price_reservation.php
-
+include_once('../includes/session_include.php');
 include_once('../database/db_places.php');
 include_once('../includes/reservation_utils.php');
+include_once('../includes/input_validation.php');
 
-	if(!isset($_POST['placeID']) || $_POST['placeID'] == '' ) {
+	if(!isset($_POST['placeID']) || $_POST['placeID'] == ''||!validateIntValue($_POST['placeID'])) {
 		echo json_encode(array('message' => 'Error in placeID'));
 		return;
 	}
 
 	$placeID = $_POST['placeID'];
 
-	if(isset($_POST['date'])) {
+	if(isset($_POST['date'])&&validateDateValue($_POST['date'])) {
 		$price = getPrice($placeID, $_POST['date'])['price'];
 		echo json_encode(array('price' => $price));
 		return;

@@ -1,5 +1,7 @@
 <?php
+include_once('../includes/session_include.php');
 include_once('../includes/reservation_utils.php');
+include_once('../includes/input_validation.php');
 
 
 if(!isset($_POST['placeID']) || !isset($_POST['checkin']) || !isset($_POST['checkout'])){
@@ -7,10 +9,26 @@ if(!isset($_POST['placeID']) || !isset($_POST['checkin']) || !isset($_POST['chec
 	return;
 }
 
+
 $placeID = $_POST['placeID'];
 $checkin = $_POST['checkin'];
 $checkout = $_POST['checkout'];
 
+if(!validateIntValue($placeID)){
+	$message = 'placeID not valid';
+    echo json_encode(array('message' => $message));
+    return;
+}
+if(!validateDateValue($checkin)){
+	$message = 'checkin Date not valid';
+    echo json_encode(array('message' => $message));
+    return;
+}
+if(!validateDateValue($checkout)){
+	$message = 'checkout Date not valid';
+    echo json_encode(array('message' => $message));
+    return;
+}
 
 $price = getPriceInDate($placeID, $checkin, $checkout);
 

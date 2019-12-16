@@ -1,8 +1,9 @@
 <?php
 	include_once('../includes/session_include.php');
 	include_once('../database/db_places.php');
+	include_once('../includes/input_validation.php');
 	
-	if(isset($_POST["val"])){	
+	if(isset($_POST["val"])&&validateTextValue($_POST["val"])){	
 		$locations = getLocations($_POST["val"]);
 
 		$hints = array();
