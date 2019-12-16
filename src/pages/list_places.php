@@ -14,9 +14,15 @@
 		$jsFiles = ['../js/main.js', '../js/login.js', '../js/filter.js','../js/googleMapsHouseList.js'];
 	}
 
+	$location=$_GET['location'];
+	if(!isset($location)||is_numeric($location)||!validateLocationValue($location)){
+		die(header('Location: ../pages/initial_page.php'));
+	}
+	
+
 	$places = getPlaces();
 	draw_head($jsFiles);
 	draw_navbar($user_info, true);
-	list_houses($places, 'Search', null, true);
+	list_houses($places, 'Search', null,$location, true);
 	draw_footer();
 ?>

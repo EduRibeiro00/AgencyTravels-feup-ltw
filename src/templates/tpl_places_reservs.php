@@ -21,10 +21,10 @@ function draw_places_reservs_header($user_info) { ?>
         <section id="my-header" class="row">
             <div id="my-info" class="row">
                 <div class="row">
-                    <a class="circ-img-link" href="../pages/profile_page.php?userID=<?=$user_info['userID']?>">
-                        <img class="circular-img" src="../assets/images/users/small/<?=$user_info['image']?>">
+                    <a class="circ-img-link" href="../pages/profile_page.php?userID=<?=htmlspecialchars($user_info['userID'])?>">
+                        <img class="circular-img" src="../assets/images/users/small/<?=htmlspecialchars($user_info['image'])?>">
                     </a>
-                    <p><?=$user_info['name']?></p>
+                    <p><?=htmlspecialchars($user_info['name'])?></p>
                 </div>
             </div>
         </section>
