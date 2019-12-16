@@ -78,7 +78,7 @@ confirmForm.addEventListener('submit', function(event) {
                 break;
 
             case 'no':
-                showDialog("Error on canceling the reservation");
+                showDialog("Error on canceling the reservation (invalid input or you may not have permission");
                 break;
 
             case "user not logged in":

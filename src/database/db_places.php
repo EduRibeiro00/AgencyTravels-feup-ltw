@@ -280,7 +280,8 @@ function getFromDayForwardAvailabilities($placeID, $day) {
 	$stmt->execute(array($placeID, $day));
 	return $stmt->fetchAll();
 }
-//TODO:UPDATE THE HOUSE LOCATION
+
+
 function updatePlaceInfo($placeID, $title, $desc, $address,$GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity){
     $db = Database::instance()->db();
     try {
@@ -302,9 +303,6 @@ function updatePlaceInfo($placeID, $title, $desc, $address,$GPSCoords, $location
     catch (PDOException $e) {
         return $e->getMessage();
     }
-
-    //TODO:UPDATE LOCATION NOT IMPLEMENTED
-
     return true;
 }
 

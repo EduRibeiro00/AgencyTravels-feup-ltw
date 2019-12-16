@@ -258,4 +258,11 @@
         return true;
     }
 
+    
+    function getReservationInfo($reservationID) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM Reservation WHERE reservationID = ?');
+        $stmt->execute(array($reservationID));
+        return $stmt->fetch();
+    }
 ?>
