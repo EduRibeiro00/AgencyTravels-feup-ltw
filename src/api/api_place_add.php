@@ -64,6 +64,16 @@ if ((!isset($_SESSION['userID']) && !validateIntValue($_SESSION['userID'])) || $
             //Validate Inputs
             $inputs_are_valid = true;
 
+            if(!is_numeric($ownerID)||!validateIntValue($ownerID)){
+                $message = 'ownerID not valid';
+                $inputs_are_valid = false;
+            }
+
+            if($ownerID!=$_SESSION['userID']){
+                $message = 'ownerID dont match';
+                $inputs_are_valid = false;
+            }
+
             if (is_numeric($title) || !validateTextValue($title)) {
                 $message = 'Title not valid';
                 $inputs_are_valid = false;

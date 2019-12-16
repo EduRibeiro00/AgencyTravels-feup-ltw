@@ -97,13 +97,13 @@ function draw_profile_form($all_locations, $title, $user_info = null) {
             <?php } ?>
             
             <label for="email">Email: 
-                <input type="email" id="email" name="email" required value="<?=$email?>">
+                <input type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required value="<?=$email?>">
             </label>
             <label for="bio">Bio: 
                 <textarea id="bio" rows="10" cols="50" name="bio"><?=$bio?></textarea>
             </label>
             <label for="birthDate">Birth Date: 
-                <input type="date" id="birthDate" name="birthDate" min="1910-01-01" required value="<?=$birthDate?>"> 
+                <input type="date" id="birthDate" name="birthDate" min="1910-01-01" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" required value="<?=$birthDate?>"> 
             </label>
 
             <div id="form-gender">

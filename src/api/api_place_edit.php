@@ -37,6 +37,13 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $capacity = $_POST['capacity'];
     $ownerID = $_SESSION['userID'];
 
+
+    if(!is_numeric($ownerID)&&!validateIntValue($ownerID)){
+        $message = 'ownerID not valid';
+        echo json_encode(array('message' => $message));
+        return;
+    }
+
     $array_fileNames = buildArrayWithFilesToAdd();
 
     $num_photos_to_initial = getNumberOfImagesForPlace($placeID)['nImages'];
@@ -105,6 +112,10 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                 //Validate Inputs
                 $inputs_are_valid = true;
 
+                if(!is_numeric($ownerID)||!validateIntValue($ownerID)){
+                    $message = 'ownerID not valid';
+                    $inputs_are_valid = false;
+                }
                 if (is_numeric($title) || !validateTextValue($title)) {
                     $message = 'Title not valid';
                     $inputs_are_valid = false;
