@@ -290,7 +290,7 @@ main {
 
 main#main-page {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-rows: auto 1fr;
     grid-template-areas: "topdests trending"
                          "randlocationplaces randlocationplaces"; 
@@ -373,17 +373,10 @@ main#main-page .place-listing {
     margin-top: 0.2em;
 }
 
-.places_list {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
 .place-listing article {
     text-align: center;
     font-size: 0.9em;
     position: relative;
-    display: inline-block;
 }
 
 .place_info {

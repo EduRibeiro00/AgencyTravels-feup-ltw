@@ -3,13 +3,13 @@ include_once('../templates/tpl_common.php');
 include_once('../database/db_places.php');
 include_once('../includes/reservation_utils.php');
 include_once('../templates/tpl_place.php');
+include_once('../templates/tpl_slideshow.php');
 
 function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 	<article class="row card">
-		<!-- TODO: mudar para carroussel (para ja apenas a utilizar a 1a imagem, mas $place ja as tem todas) -->
-		<a class="row" href="../pages/place_info.php?place_id=<?=$place['placeID']?>">
-			<img class="hcard-img" src="../assets/images/places/medium/<?=$place['images'][0]['image']?>">
-			<div class="column info">
+	<div class="row">
+		<?php draw_hcard_slideshow($place['images'], $place['placeID']); ?>
+		<a class="column info" href="../pages/place_info.php?place_id=<?=$place['placeID']?>">
 			<h4><?=$place['title']?></h4>
 			<?php draw_place_details($place['numRooms'], $place['capacity'], $place['numBathrooms']); ?>
 			<footer class="row">
@@ -29,8 +29,9 @@ function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 					<?php } ?>
 				</div>
 			</footer>
-			</div>
 		</a>
+		</div>
+
 
 <?php 	if($drawingOption == 'My_Houses' && isset($_SESSION['userID']) && $_SESSION['userID'] == $userID) {  ?>
 			<section class="column card-options">

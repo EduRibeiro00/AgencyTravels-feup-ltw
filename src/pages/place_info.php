@@ -40,7 +40,7 @@
     $houseOwnerInfo = getUserInformation($place['ownerID']);
 
    
-	draw_slideshow($place['images']);
+	draw_main_slideshow($place['images']);
 		
 	//Draw Section
 	draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePrice);
