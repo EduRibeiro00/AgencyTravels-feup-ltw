@@ -12,7 +12,7 @@
         $place = getPlace($placeID);
         if($place['ownerID'] != $_SESSION['userID']){
             $message = 'not owner';
-            echo json_encode(array('message' => $message, 'userID' => $_SESSION['userID']));
+            echo json_encode(array('message' => $message));
             return;
         }
 
