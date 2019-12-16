@@ -119,7 +119,7 @@ function addMarker(string_with_geocoordinates) {
     map.setCenter(latLng);
 }
 
-function codeAddress(address, callback) {
+function codeAddress(address) {
 
     geocoder.geocode({ 'address': address }, function (results, status) {
 
@@ -141,7 +141,6 @@ function codeAddress(address, callback) {
             lat = myLatLng.lat();
             lng = myLatLng.lng();
             return_code = String(lat) + ',' + String(lng);
-            callback(return_code);
         }
         else {
             alert('Geocode was not successful for the following reason: ' + status);
