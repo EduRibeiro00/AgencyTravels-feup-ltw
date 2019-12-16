@@ -64,12 +64,12 @@ if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && g
             //Validate Inputs
             $inputs_are_valid = true;
 
-            if(!is_numeric($ownerID)||!validatePosIntValue($ownerID)){
+            if(!is_numeric($ownerID) || !validatePosIntValue($ownerID)){
                 $message = 'ownerID not valid';
                 $inputs_are_valid = false;
             }
 
-            if($ownerID!=$_SESSION['userID']){
+            if($ownerID != $_SESSION['userID']){
                 $message = 'ownerID dont match';
                 $inputs_are_valid = false;
             }
@@ -130,7 +130,7 @@ if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && g
                     $message = 'Location ID NULL';
                 } else {
                     // TODO: fazer maneira menos enrabada
-                    $placeID = newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID);
+                    $placeID = newPlace($title, $desc, $address, $GPSCoords ,$locationID, $numRooms, $numBathrooms, $capacity, $ownerID);
                     if ($placeID != false) {
                         //GET THE NEW PLACE ID
                         //$placeID =  //getPlaceID($title, $address, $ownerID)['placeID'];

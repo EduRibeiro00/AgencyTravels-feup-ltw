@@ -31,16 +31,13 @@ if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && get
     echo json_encode(array('message' => $message));
     return;
   }
-  if (!validatePasswordValue($password)) {
-    $message = 'old password not valid';
-    echo json_encode(array('message' => $message));
-    return;
-  }
+
   if (!validateEmailValue($email)) {
     $message = 'email not valid';
     echo json_encode(array('message' => $message));
     return;
   }
+  
   if (!validateTextValue($bio)) {
     $message = 'bio not valid';
     echo json_encode(array('message' => $message));
