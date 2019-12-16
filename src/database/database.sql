@@ -208,13 +208,13 @@ INSERT INTO Location (country, city) VALUES ('Cambodia', 'Phnom Penh');
 INSERT INTO Location (country, city) VALUES ('USA', 'NY');
 
 -- Users
-INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("Ruben Almeida", "ruben", "1234567", "up201704618@fe.up.pt", "Um jovem chavale com calidades", "1999-08-25", "M", 3);
-INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("Eduardo Ribeiro", "eduribas", "1234567", "up201705421@fe.up.pt", "Um bom moço que oferece casa a garinas e avisa que tequilha faz mal", "1999-04-04", "M", 3);
-INSERT INTO User (name, username, password, email, birthDate, gender, locationID ) VALUES ("Manuel Coutinho", "mcgano", "1234567", "isso.agora@fe.up.pt", "1969-04-20", "O", 7);
-INSERT INTO User (name, username, password, email, birthDate, gender, locationID ) VALUES ("Cristiano Reinaldo", "cr72", "1234567", "melhor.do.mundo@gmail.com", "1985-02-05", "O", 2);
-INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("José Figueiras", "ny911", "1234567", "inocente@gmail.com", "Pessoal, eu não tive NADA a ver com o 11 de setembro. NADA!!", "2001-09-11", "M", 9);
-INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("Sócrates", "expm", "1234567", "inocente2@gmail.com", "Ex Primeiro Ministro, com grandes amigos", "2001-09-11", "M", 2);
-INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("Quota de Mulheres", "metoo", "1234567", "women.missing@gmail.com", "Entrei porque o site tinha quotas de sexo. Beijos a todos", "1987-03-08", "F", 2);
+INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("Ruben Almeida", "ruben", "$2y$12$IIH3zqZ/mF3NMYlqh19U/OFcjrJKi3J6b52h5G3JAYzIDD70R8Gku", "up201704618@fe.up.pt", "Um jovem chavale com calidades", "1999-08-25", "M", 3);
+INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("Eduardo Ribeiro", "eduribas", "$2y$12$XnFuUAGqwngLlToroRx6iOWRs08CH5JTWCwTGDGDoZeNNYSkiWj9a", "up201705421@fe.up.pt", "Um bom moço que oferece casa a garinas e avisa que tequilha faz mal", "1999-04-04", "M", 3);
+INSERT INTO User (name, username, password, email, birthDate, gender, locationID ) VALUES ("Manuel Coutinho", "mcgano", "$2y$12$IaJwKEGdVfMIow8Vw2qrQeygivnv2fsPlodDJK.YkubxCTihvaE/O", "isso.agora@fe.up.pt", "1969-04-20", "O", 7);
+INSERT INTO User (name, username, password, email, birthDate, gender, locationID ) VALUES ("Cristiano Reinaldo", "cr72", "$2y$12$CrdSjHsjpyQn8ER7vt.blOQ5Z/X/kiOJCeLmcxhIvZH7RByfEfVKO", "melhor.do.mundo@gmail.com", "1985-02-05", "O", 2);
+INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("José Figueiras", "ny911", "$2y$12$KPSKSZSkbCLnRJV.ZXrDA.IuOs0MaNqzQ/2A.SKbhHhf2iknO3zTe", "inocente@gmail.com", "Pessoal, eu não tive NADA a ver com o 11 de setembro. NADA!!", "2001-09-11", "M", 9);
+INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("Sócrates", "expm", "$2y$12$2c2uihOHF6q8mXupXt9ZEuD2r.eItEYv42x3eocjScPJ5mwIQkfD.", "inocente2@gmail.com", "Ex Primeiro Ministro, com grandes amigos", "2001-09-11", "M", 2);
+INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID ) VALUES ("Quota de Mulheres", "metoo", "$2y$12$WcOxkovEYDM4I6ga7UfaWuiqkZfv0jQHFcPVRUns14jhb15JMwjbO", "women.missing@gmail.com", "Entrei porque o site tinha quotas de sexo. Beijos a todos", "1987-03-08", "F", 2);
 
 INSERT INTO Place (title, address, description, capacity, numRooms, numBathrooms, gpsCoords, locationID, ownerID) VALUES(
 	"Apartamento em Santa Maria da Feira",

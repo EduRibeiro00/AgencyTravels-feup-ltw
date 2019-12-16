@@ -153,6 +153,7 @@
 
 
     function updateUserInfo($userID, $username, $name, $password, $email, $bio, $birthDate, $gender, $locationID) {
+        $options = ['cost' => 12];
         $db = Database::instance()->db();
         try {
             $stmt = $db->prepare('UPDATE User
@@ -166,7 +167,7 @@
                                       locationID = ?
                                    WHERE userID = ?' 
                                 );
-         $stmt->execute(array($name, $username, $password, $email, $bio, $birthDate, $gender, $locationID, $userID));
+         $stmt->execute(array($name, $username, password_hash($password, PASSWORD_DEFAULT, $options), $email, $bio, $birthDate, $gender, $locationID, $userID));
         }
         catch (PDOException $e) {
             return $e->getMessage();
@@ -177,12 +178,13 @@
 
 
     function insertUserInfo($username, $name, $password, $email, $bio, $birthDate, $gender, $locationID) {
+        $options = ['cost' => 12];
         $db = Database::instance()->db();
         try {
             $stmt = $db->prepare('INSERT INTO User (name, username, password, email, description, birthDate, gender, locationID)
                                       VALUES(?, ?, ?, ?, ?, ?, ?, ?)' 
                                 );
-            $stmt->execute(array($name, $username, $password, $email, $bio, $birthDate, $gender, $locationID));
+            $stmt->execute(array($name, $username, password_hash($password, PASSWORD_DEFAULT, $options), $email, $bio, $birthDate, $gender, $locationID));
         }
         catch (PDOException $e) {
             return $e->getMessage();
@@ -205,12 +207,18 @@
 
     function checkUserCredentials($username, $password) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT userID
+        $stmt = $db->prepare('SELECT userID, password
                               FROM User
-                              WHERE username = ? AND password = ?'
+                              WHERE username = ?'
                             );
-        $stmt->execute(array($username, $password));
-        return $stmt->fetch();
+        $stmt->execute(array($username));
+        $info = $stmt->fetch();
+        if(!($info !== false && password_verify($password, $info['password']))) {
+            return false;
+        }
+        else {
+            return $info;
+        }
     }
 
     function checkPasswordThroughID($userID) {
@@ -258,7 +266,7 @@
         return true;
     }
 
-    
+
     function getReservationInfo($reservationID) {
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT * FROM Reservation WHERE reservationID = ?');
