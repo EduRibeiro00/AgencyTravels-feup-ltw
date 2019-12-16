@@ -182,8 +182,7 @@ function installMarkerHandler(marker) {
         arrayWithHouseCards[index_marker].scrollIntoView();
         //Fator corretor. Havia um problema com o navbar. HardCoded.
         let CurrentScroll = window.scrollY;
-        navbar
-        let offset = document.getElementById('navbar').offsetHeight;
+        let offset = navbar.offsetHeight;
 
         scroll(0, CurrentScroll - offset - 10);
     });

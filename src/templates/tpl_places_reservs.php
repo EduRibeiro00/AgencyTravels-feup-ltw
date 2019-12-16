@@ -9,30 +9,26 @@ include_once('../templates/tpl_common.php');
 function draw_places_reservs_body($place_reservations, $user_info) { 
     draw_confirmation_form();
     ?>
-    <main id="my-places-reservs">
     <?php draw_places_reservs_header($user_info);
           list_place_reservs($place_reservations); ?>
-    </main>
 <?php }
 
 function draw_places_reservs_header($user_info) { ?>
-    <header>
-        <h3>All reservations for my places</h3>
-        <section id="my-header" class="row">
-            <div id="my-info" class="row">
-                <div class="row">
-                    <a class="circ-img-link" href="../pages/profile_page.php?userID=<?=$user_info['userID']?>">
-                        <img class="circular-img" src="../assets/images/users/small/<?=$user_info['image']?>">
-                    </a>
-                    <p><?=$user_info['name']?></p>
-                </div>
-            </div>
-        </section>
+	<header id="my-header">
+		<h3>All reservations for my places</h3>
+		<div class="row">
+			<a class="user_img" href="../pages/profile_page.php?userID=<?=$user_info['userID']?>">
+				<img class="circular-img" src="../assets/images/users/small/<?=$user_info['image']?>">
+			</a>
+			<a class="user_username" href="../pages/profile_page.php?userID=<?=$houseOwnerInfo['userID']?>">
+				<?=$user_info['name']?>
+			</a>
+		</div>
     </header>
 <?php } 
 
 function list_place_reservs($place_reservations) { ?>
-    <section id="place-reservs-listing">
+    <main id="place-reservs-listing">
         <?php
         if(empty($place_reservations)) { ?>
             <em>There are no reservations for your places</em>
@@ -63,7 +59,7 @@ function list_place_reservs($place_reservations) { ?>
                 } ?>
             </section> 
         <?php } ?>
-    </section>
+		</main>
 <?php } ?>
 
 

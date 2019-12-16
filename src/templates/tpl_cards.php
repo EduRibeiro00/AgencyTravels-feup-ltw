@@ -30,11 +30,11 @@ function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 				</div>
 			</footer>
 		</a>
-		</div>
+	</div>
 
 
 <?php 	if($drawingOption == 'My_Houses' && isset($_SESSION['userID']) && $_SESSION['userID'] == $userID) {  ?>
-			<section class="column card-options">
+			<section class="column">
 				<a class="button" href="my_house_edit.php?placeID=<?=$place['placeID']?>"> 
 					Edit
 				</a>
@@ -52,7 +52,7 @@ function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 		 else if($drawingOption == "My_Reservs" && isset($_SESSION['userID']) && $_SESSION['userID'] == $userID) { ?>
 			<section class="column reserv-dates">
 				<div>
-					<p>Reservation from:</p>
+					<p>From:</p>
 					<p><?=$place['startDate']?></p>
 		 		</div>
 				<div>
@@ -61,7 +61,7 @@ function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 		 		</div>
 		 	</section>
 
-			<section class="column card-options">
+			<section class="column">
 
 				<?php  
 					if(canCancelReservation($place['startDate'])) { ?>
@@ -116,7 +116,7 @@ function draw_user_card($user, $drawingOption = null) { ?>
             </section>
             <section class="row place-reserv-dates">
 		    		<div>
-		    			<p>Reservation from:</p>
+		    			<p>From:</p>
 		    			<p><?=$place_reservation['startDate']?></p>
 		     		</div>
 		    		<div>
@@ -124,7 +124,7 @@ function draw_user_card($user, $drawingOption = null) { ?>
 		    			<p><?=$place_reservation['endDate']?></p>
 		     		</div>
             </section>
-            <section class="column card-options">
+            <section class="column">
                 <?php if(canCancelReservation($place_reservation['startDate'])) { ?>
                         <a class="button cancel-button" href="#" data-id="<?=$place_reservation['reservationID']?>"> 
                             Cancel

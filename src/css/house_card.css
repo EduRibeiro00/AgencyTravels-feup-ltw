@@ -7,13 +7,12 @@
 .card {
 	border-bottom: 1px var(--border_color) solid;
     color: var(--main_color);
-    min-width: 50em;
 }
 
 .card > div {
     padding: 1em 0;
-    font-size: 1em;
-    width: 50em;
+	font-size: 1em;
+	width: 100%;
 }
 
 .card > div:hover {
@@ -43,25 +42,6 @@
  	object-position: center;
 }
 
-/* .card .info span{   
-	padding: 0.3em 1em;
-	border: var(--border_color) 1px solid;
-    border-radius: 1em;
-    margin-right: 1em;
-	background: var(--main_color);
-	color: var(--light_text_color);
-} */
-
-.card-options {
-    justify-content: space-evenly;
-    flex-grow: 1;
-    margin: 0 1em;
-}
-
-.card-options > * {
-    text-align: center;
-}
-
 .card footer {
 	align-items: flex-end;
 	flex-grow: 1;
@@ -72,8 +52,30 @@
     margin: 1em;
 }
 
+.card .column{
+	margin: 0 1em;
+}
+
 .reserv-dates {
     margin: 0 1em;
     color: black;
     justify-content: space-evenly;
+}
+
+.fa-bed:after{
+	font-family: var(--default_text_font);
+	font-weight: 500;
+	content: ' Rooms ';
+}
+
+.fa-user:after{
+	font-family: var(--default_text_font);
+	font-weight: 500;
+	content: ' Capacity ';
+}
+
+.fa-toilet:after{
+	font-family: var(--default_text_font);
+	font-weight: 500;
+	content: ' Bathroooms ';
 }

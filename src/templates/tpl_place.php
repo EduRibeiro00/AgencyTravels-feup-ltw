@@ -46,13 +46,13 @@ function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePri
 function draw_place_details($house_numRooms, $house_capacity, $house_numBathrooms) { ?>
 	<ul class="row">
 		<li class="button-appearance">
-			<i class="fas fa-bed"></i> Rooms <?=$house_numRooms?>
+			<i class="fas fa-bed"></i> <?=$house_numRooms?>
 		</li>
 		<li class="button-appearance">
-			<i class="fas fa-user"></i> Capacity <?=$house_capacity?>
+			<i class="fas fa-user"></i> <?=$house_capacity?>
 		</li>
 		<li class="button-appearance">
-			<i class="fas fa-toilet"></i> Bathrooms <?=$house_numBathrooms?>
+			<i class="fas fa-toilet"></i> <?=$house_numBathrooms?>
 		</li>
 	</ul>
 <?php }

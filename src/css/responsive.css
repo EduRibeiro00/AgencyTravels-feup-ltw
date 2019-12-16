@@ -17,6 +17,12 @@
 	.responsive{
 		display: flex !important;
 	}
+
+	#house_buttons{
+		display: flex;
+		flex-direction: column;
+	}
+
 }
 
 /* Navbar */
@@ -79,10 +85,24 @@
 	#follow .circular-cropper {
 		display: none;
 	}
+
+
+	/* House Card */
+	.fa-bed:after{
+		content: '';
+	}
+	
+	.fa-user:after{
+		content: '';
+	}
+	
+	.fa-toilet:after{
+		content: '';
+	}
 }
 
 /* 640 */
-@media (max-width: 40em){
+@media (max-width: 46em){
 
 	main{
 		background: green;
@@ -90,6 +110,9 @@
 
 	}
 
+	#my-header{
+		font-size: 1em;
+	}
 	#topdests ol, #trending ol {
 		display: grid;
 		grid-template-columns: auto;
@@ -104,6 +127,27 @@
 	#follow {
 		display: none;
 	}
+}
+
+@media (max-width: 38em){
+
+	main{
+		background: violet;
+	}
+
+	.card {
+		flex-direction: column;
+	}
+
+	.card > div{
+		flex-direction: column;
+	}
+
+	.card > section {
+		flex-direction: row;
+	}
+
+	
 }
 
 @media (max-width: 25em){
@@ -144,5 +188,14 @@
 
 	#navbar form{
 		margin: 0;
+	}
+
+	/* House Card */
+	.card > section {
+		flex-direction: column;
+	}
+
+	#my-header section{
+		flex-direction: column;
 	}
 }
