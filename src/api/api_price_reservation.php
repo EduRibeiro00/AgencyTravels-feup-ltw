@@ -14,7 +14,7 @@ $placeID = $_POST['placeID'];
 $checkin = $_POST['checkin'];
 $checkout = $_POST['checkout'];
 
-if(!validateIntValue($placeID)){
+if(!validatePosIntValue($placeID)){
 	$message = 'placeID not valid';
     echo json_encode(array('message' => $message));
     return;

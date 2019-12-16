@@ -4,7 +4,7 @@
 	include_once('../includes/reservation_utils.php');
 	include_once('../includes/input_validation.php');
 
-	if ((!isset($_SESSION['userID']) || !validateIntValue($_SESSION['userID'])) || $_SESSION['userID'] == '') {
+	if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false)) {
 		$message = 'user not logged in';
 		return;
 	}
@@ -14,7 +14,7 @@
 	$checkout = $_POST['checkout'];
 
 
-	if(!validateIntValue($placeID)){
+	if(!validatePosIntValue($placeID)){
 		$message='invalidPlaceID';
 		echo json_encode(array('message' => $message));        
         return;

@@ -18,7 +18,7 @@ function find_photo_in_database_array($photo_hash, $images_place_from_database)
     return false;
 }
 
-if ((!isset($_SESSION['userID']) || !validateIntValue($_SESSION['userID'])) || $_SESSION['userID'] == '') {
+if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false)) {
     $message = 'user not logged in';
 } else {
 
@@ -105,7 +105,7 @@ if ((!isset($_SESSION['userID']) || !validateIntValue($_SESSION['userID'])) || $
                 //Validate Inputs
                 $inputs_are_valid = true;
 
-                if(!is_numeric($ownerID)||!validateIntValue($ownerID)){
+                if(!is_numeric($ownerID)||!validatePosIntValue($ownerID)){
                     $message = 'ownerID not valid';
                     $inputs_are_valid = false;
                 }
@@ -121,19 +121,19 @@ if ((!isset($_SESSION['userID']) || !validateIntValue($_SESSION['userID'])) || $
                     $message = 'Address not valid';
                     $inputs_are_valid = false;
                 }
-                if (!is_numeric($numRooms) || !validateIntValue($numRooms)) {
+                if (!is_numeric($numRooms) || !validatePosIntValue($numRooms)) {
                     $message = 'Number of rooms is not valid';
                     $inputs_are_valid = false;
                 }
-                if (!is_numeric($numBathrooms) || !validateIntValue($numBathrooms)) {
+                if (!is_numeric($numBathrooms) || !validatePosIntValue($numBathrooms)) {
                     $message = 'Number of Bathrooms is not valid';
                     $inputs_are_valid = false;
                 }
-                if (!is_numeric($capacity) || !validateIntValue($capacity)) {
+                if (!is_numeric($capacity) || !validatePosIntValue($capacity)) {
                     $message = 'Capacity is not valid';
                     $inputs_are_valid = false;
                 }
-                if (!is_numeric($locationID) || !validateIntValue($locationID)) {
+                if (!is_numeric($locationID) || !validatePosIntValue($locationID)) {
                     $message = false;
                     $inputs_are_valid = false;
                 }

@@ -5,7 +5,7 @@ include_once('../database/db_user.php');
 include_once('../includes/input_validation.php');
 
 // verify if user is already logged in
-if ((!isset($_SESSION['userID']) || !validateIntValue($_SESSION['userID'])) || $_SESSION['userID'] == '') {
+if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false)) {
     $message = 'user not logged in';
 } else {
     $id = $_POST['userID'];
@@ -23,7 +23,7 @@ if ((!isset($_SESSION['userID']) || !validateIntValue($_SESSION['userID'])) || $
     $hasFile = $_POST['hasFile'];
 
 
-    if (!validateIntValue($id)) {
+    if (!validatePosIntValue($id)) {
         $message = 'userID not valid';
         echo json_encode(array('message' => $message));
         return;
@@ -74,7 +74,7 @@ if ((!isset($_SESSION['userID']) || !validateIntValue($_SESSION['userID'])) || $
         return;
     }
 
-    if (!validateIntValue($locationID)) {
+    if (!validatePosIntValue($locationID)) {
         $message = 'locationID not valid';
         echo json_encode(array('message' => $message));
         return;
