@@ -87,9 +87,9 @@ function getPlaces(){
 }
 				
 
-function list_houses($places, $drawingOption, $userID, $drawMap = false) { ?>
+function list_houses($places, $drawingOption, $userID,$location, $drawMap = false) { ?>
 	<main id="list_places" class="row">
-		<div id="location_place_holder" style="display:none;" data-location="<?=$_GET['location']?>"></div>
+		<div id="location_place_holder" style="display:none;" data-location="<?=htmlspecialchars($location)?>"></div>
 		<section id="house_results">
 			<?php 
 			if($drawingOption == 'My_Houses')

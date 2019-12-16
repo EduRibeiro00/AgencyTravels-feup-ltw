@@ -27,12 +27,12 @@
                 <?php } ?>
 
                 <section class="profile-info-fields">
-                    <p id="username"><strong>Username: </strong><?=$user_info['username']?></p>
-                    <p id="name"><strong>Name: </strong><?=$user_info['name']?></p>
-                    <p id="email"><strong>Email: </strong><?=$user_info['email']?></p>
-                    <p id="birthdate"><strong>Birth date: </strong><?=$user_info['birthDate']?></p>
-                    <p id="gender"><strong>Gender: </strong><?=$user_info['gender']?></p>
-                    <p id="location"><strong>Location: </strong><?=$user_info['city']?>, <?=$user_info['country']?></p>
+                    <p id="username"><strong>Username: </strong><?=htmlspecialchars($user_info['username'])?></p>
+                    <p id="name"><strong>Name: </strong><?=htmlspecialchars($user_info['name'])?></p>
+                    <p id="email"><strong>Email: </strong><?=htmlspecialchars($user_info['email'])?></p>
+                    <p id="birthdate"><strong>Birth date: </strong><?=htmlspecialchars($user_info['birthDate'])?></p>
+                    <p id="gender"><strong>Gender: </strong><?=htmlspecialchars($user_info['gender'])?></p>
+                    <p id="location"><strong>Location: </strong><?=htmlspecialchars($user_info['city'])?>, <?=htmlspecialchars($user_info['country'])?></p>
                 </section>
           </section>
 
@@ -42,7 +42,7 @@
                     <p><em>No description available</em></p>
                 <?php } 
                 else { ?>
-                    <p><?=$user_info['description']?></p>
+                    <p><?=htmlspecialchars($user_info['description'])?></p>
                 <?php }?>
 
                 <?php initGoogleMaps(); ?>
@@ -56,7 +56,7 @@
             ?>
 
             <section class="place-comments">
-                <h3>Some reviews of <?=$user_info['username']?>'s places</h3>
+                <h3>Some reviews of <?=htmlspecialchars($user_info['username'])?>'s places</h3>
                 
                 <?php if($user_place_comments == null || count($user_place_comments) == 0) { ?>
                     <p><em>No reviews available</em></p>
