@@ -75,21 +75,7 @@ profileForm.addEventListener('submit', function (event) {
 				break;
 
 			case 'username not valid':
-				errorMessage.textContent = "Username not valid";
-				errorMessage.style.display = "block";
-				break;
-			case 'old password not valid':
-				errorMessage.textContent = "Old password not valid";
-				errorMessage.style.display = "block";
-				break;
-
-			case 'new password not valid':
-				errorMessage.textContent = "new password not valid";
-				errorMessage.style.display = "block";
-				break;
-
-			case 'confirm new password not valid':
-				errorMessage.textContent = "confirm new password not valid";
+				errorMessage.textContent = "Username is not valid (only allowed letters, numbers, _ and -, min. 3 and max. 20 characters)";
 				errorMessage.style.display = "block";
 				break;
 

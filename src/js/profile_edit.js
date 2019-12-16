@@ -40,7 +40,7 @@ profileForm.addEventListener('submit', function (event) {
 				break;
 
 			case 'password not valid':
-				errorMessage.textContent = 'The password inserted is invalid.';
+				errorMessage.textContent = 'The password inserted is wrong.';
 				errorMessage.style.display = "block";
 				break;
 
@@ -68,6 +68,7 @@ profileForm.addEventListener('submit', function (event) {
 				errorMessage.textContent = "The username cannot have spaces.";
 				errorMessage.style.display = "block";
 				break;
+
 			case 'userID not valid':
 				errorMessage.textContent = "UserId not valid";
 				errorMessage.style.display = "block";
@@ -78,26 +79,12 @@ profileForm.addEventListener('submit', function (event) {
 				break;
 
 			case 'name not valid':
-				errorMessage.textContent = "UserId not valid";
+				errorMessage.textContent = "Name not valid";
 				errorMessage.style.display = "block";
 				break;
 
 			case 'username not valid':
-				errorMessage.textContent = "Username not valid";
-				errorMessage.style.display = "block";
-				break;
-			case 'old password not valid':
-				errorMessage.textContent = "Old password not valid";
-				errorMessage.style.display = "block";
-				break;
-
-			case 'new password not valid':
-				errorMessage.textContent = "new password not valid";
-				errorMessage.style.display = "block";
-				break;
-
-			case 'confirm new password not valid':
-				errorMessage.textContent = "confirm new password not valid";
+				errorMessage.textContent = "Username is not valid (only allowed letters, numbers, _ and -, min. 3 and max. 20 characters)";
 				errorMessage.style.display = "block";
 				break;
 

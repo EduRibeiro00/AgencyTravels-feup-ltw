@@ -4,7 +4,7 @@
     include_once('../includes/input_validation.php');
 
     if(!isset($_POST['username']) || !validateUsernameValue($_POST['username']) ||
-       !isset($_POST['password']) || !validatePasswordValue($_POST['password'])) {
+       !isset($_POST['password'])) {
             $message = 'values not defined';
             echo json_encode(array('message' => $message));
             return;

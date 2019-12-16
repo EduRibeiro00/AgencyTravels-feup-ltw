@@ -43,21 +43,7 @@ if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && g
         echo json_encode(array('message' => $message));
         return;
     }
-    if (!validatePasswordValue($password)) {
-        $message = 'old password not valid';
-        echo json_encode(array('message' => $message));
-        return;
-    }
-    if (!validatePasswordValue($newPassword)) {
-        $message = 'new password not valid';
-        echo json_encode(array('message' => $message));
-        return;
-    }
-    if (!validatePasswordValue($confNewPassord)) {
-        $message = 'confirm new password not valid';
-        echo json_encode(array('message' => $message));
-        return;
-    }
+
     if (!validateEmailValue($email)) {
         $message = 'email not valid';
         echo json_encode(array('message' => $message));
