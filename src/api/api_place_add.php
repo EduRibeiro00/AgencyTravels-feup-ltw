@@ -22,7 +22,7 @@ if ((!isset($_SESSION['userID']) && !validateIntValue($_SESSION['userID'])) || $
     $numBathrooms = $_POST['numBathrooms'];
     $capacity = $_POST['capacity'];
     $locationID = $_POST['location'];
-    $GPSCoords=$_POST['gpsCoords'];
+    $GPSCoords = $_POST['gpsCoords'];
 
     //Retrevie the 6 possible file to add
     $array_fileNames = buildArrayWithFilesToAdd();
@@ -65,44 +65,44 @@ if ((!isset($_SESSION['userID']) && !validateIntValue($_SESSION['userID'])) || $
             $inputs_are_valid = true;
 
             //TODO: TO RETURN A PERSONALIZED MESSAGE
-            if (is_numeric($title)|| !validateTextValue($title)) {
-                $message='Title not valid';
+            if (is_numeric($title) || !validateTextValue($title)) {
+                $message = 'Title not valid';
                 $inputs_are_valid = false;
             }
-            if (is_numeric($desc)|| !validateTextValue($desc)) {
-                $message='Description not valid';
+            if (is_numeric($desc) || !validateTextValue($desc)) {
+                $message = 'Description not valid';
                 $inputs_are_valid = false;
             }
-            if (is_numeric($address)||!validateLocationValue($address)) {
-                $message='Address not valid';
+            if (is_numeric($address) || !validateLocationValue($address)) {
+                $message = 'Address not valid';
                 $inputs_are_valid = false;
             }
-            if (!is_numeric($numRooms)||!validateIntValue($numRooms)) {
-                $message='Number of rooms is not valid';
+            if (!is_numeric($numRooms) || !validateIntValue($numRooms)) {
+                $message = 'Number of rooms is not valid';
                 $inputs_are_valid = false;
             }
-            if (!is_numeric($numBathrooms)||!validateIntValue($numBathrooms)) {
-                $message='Number of Bathrooms is not valid';
+            if (!is_numeric($numBathrooms) || !validateIntValue($numBathrooms)) {
+                $message = 'Number of Bathrooms is not valid';
                 $inputs_are_valid = false;
             }
-            if (!is_numeric($capacity)||!validateIntValue($capacity)){
-                $message='Capacity is not valid';
+            if (!is_numeric($capacity) || !validateIntValue($capacity)) {
+                $message = 'Capacity is not valid';
                 $inputs_are_valid = false;
             }
-            if (!is_numeric($locationID)||!validateIntValue($locationID)){
-                $message=false;
+            if (!is_numeric($locationID) || !validateIntValue($locationID)) {
+                $message = false;
                 $inputs_are_valid = false;
             }
             /*PARSE THE GPS COORDS WE WILL NEED TO EXPLODE THE STRING. THEY ARE INSERTED AS A STRING TO THE DATABASE*/
 
-            if(validateGPSCoords($GPSCoords)==false){
-                $message= 'GPS Coords of that Address invalid';
+            if (validateGPSCoords($GPSCoords) == false) {
+                $message = 'GPS Coords of that Address invalid';
                 $inputs_are_valid = false;
             }
-            
+
             if ($inputs_are_valid) {
 
-                if (newPlace($title, $desc, $address,$GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID) == true) {
+                if (newPlace($title, $desc, $address, $GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID) == true) {
                     //GET THE NEW PLACE ID
                     $placeID = getPlaceID($title, $address, $ownerID)['placeID'];
 
@@ -115,8 +115,6 @@ if ((!isset($_SESSION['userID']) && !validateIntValue($_SESSION['userID'])) || $
                 } else {
                     $message = 'Error while inserting a new place';
                 }
-            } else {
-                $message = 'Parameters not validated';
             }
         }
     }
