@@ -236,6 +236,16 @@ if (profileForm != null) {
 					errorMessage.textContent = 'GPS Coords of that Address invalid';
 					errorMessage.style.display = "block";
 					break;
+
+				case 'A place Must have a maximum six images':
+					errorMessage.textContent = 'Image Number';
+					errorMessage.style.display = "block";
+				break;
+				
+				case 'A place Must Have at least one image':
+					errorMessage.textContent = 'Image Number';
+					errorMessage.style.display = "block";
+				break;
 				
 				default:
 					history.back();

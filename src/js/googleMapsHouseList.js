@@ -73,6 +73,7 @@ function setHTTPRequestToRetrievePlaceCoords() {
 
         let message = JSON.parse(this.responseText).message;
         if(message == "no") {
+            showDialog('Error with the location map');
             return;
         }
 

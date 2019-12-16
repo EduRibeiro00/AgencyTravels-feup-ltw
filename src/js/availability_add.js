@@ -95,12 +95,18 @@ availForm.addEventListener('submit', function(event) {
 				pError.style.display = "block";
 				pError.textContent = "ERROR: Invalid date Range"
 				break;
+			case 'invalid inputs':
+				pError.style.display = "block";
+				pError.textContent = "ERROR: Error in the inputs"
+				break;
+				
 			case 'overlap availability':
 				pError.style.display = "block";
 				pError.textContent = "ERROR: Overlapping Availabilities"
 				break;
+			
 			case 'availability successfull':
-	      pError.style.display = "none";				
+	      		pError.style.display = "none";				
 				showDialog("Availability Added With Success")
 				availPopup.style.display = 'none'
 				break;

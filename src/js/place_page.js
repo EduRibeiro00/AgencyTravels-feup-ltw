@@ -234,6 +234,19 @@ frForm.addEventListener('submit', function(event) {
 				rowBt.parentNode.insertBefore(confirmMessage('', response.price, diffDays), rowBt)
 				confirmBt.style.display = "inline-block"
 				break;
+			case 'invalidPlaceID':
+				rowBt.parentNode.insertBefore(confirmMessage('', response.price, diffDays), rowBt)
+				confirmBt.style.display = "Error in PlaceID";
+				break;
+			case 'invalid CheckInDates':
+				rowBt.parentNode.insertBefore(confirmMessage('', response.price, diffDays), rowBt)
+				confirmBt.style.display = "Error in checkindate";
+				break;
+			case 'invalid CheckOutDate':
+				rowBt.parentNode.insertBefore(confirmMessage('', response.price, diffDays), rowBt)
+				confirmBt.style.display = "Error in checkoutdate";
+				break;
+
 			default:
 				
 				break;
