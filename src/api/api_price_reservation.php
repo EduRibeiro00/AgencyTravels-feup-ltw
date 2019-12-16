@@ -1,4 +1,5 @@
 <?php
+include_once('../includes/session_include.php');
 include_once('../includes/reservation_utils.php');
 
 

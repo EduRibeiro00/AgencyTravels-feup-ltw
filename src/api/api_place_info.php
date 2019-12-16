@@ -1,6 +1,6 @@
 <?php
 // TODO: mudar nome e se calhar por tbm o api_price_reservation.php
-
+include_once('../includes/session_include.php');
 include_once('../database/db_places.php');
 include_once('../includes/reservation_utils.php');
 
