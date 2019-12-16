@@ -198,26 +198,31 @@ let button_Submit = document.getElementById('edit_place_submit');
 profileForm.addEventListener('submit', function (event) {
 
 	event.preventDefault();
-
 	let request = new XMLHttpRequest();
+	request.open("POST", "../api/api_place_edit.php", true);
+
+	request.addEventListener('load', function () {
+		let message = JSON.parse(this.responseText).message;
+
+
 			switch (message) {
 				case 'true':
 					history.back();
 					break;
 				case 'user not logged in':
 					history.back();
-					console.error('YOU ARE NOT LOGGED IN');
+					showDialog('YOU ARE NOT LOGGED IN');
 					break;
 				case 'not house owner':
 					history.back();
-					console.error('YOU DONT HAVE PERMISSIONS');
+					showDialog('YOU DONT HAVE PERMISSIONS');
 					break;
 				case 'image not from that place':
 					history.back();
-					console.warn('There is a problem with your image');
+					showDialog('There is a problem with your image');
 					break;
 				case 'invalid image':
-					console.warn('There is a problem with your image');
+					showDialog('There is a problem with your image');
 					errorMessage.textContent = "There is a problem with your image";
 					errorMessage.style.display = "block";
 					break;
@@ -266,7 +271,12 @@ profileForm.addEventListener('submit', function (event) {
 				case 'A place Must have a maximum six images':
 					errorMessage.textContent = 'Image Number';
 					errorMessage.style.display = "block";
-				break;
+					break;
+				
+				case 'Duplicate Images':
+					showDialog('Duplicates But inserted');
+					window.setTimeout(function () { history.back(); }, 3000);
+					break;
 				
 				case 'A place Must Have at least one image':
 					errorMessage.textContent = 'Image Number';
@@ -277,59 +287,6 @@ profileForm.addEventListener('submit', function (event) {
 					history.back();
 					break;
 			}
-
-	request.open("POST", "../api/api_place_edit.php", true)
-
-	request.addEventListener('load', function () {
-		console.log(this.responseText);
-		let message = JSON.parse(this.responseText).message;
-
-		switch (message) {
-			case 'true':
-				history.back();
-				break;
-			case 'user not logged in':
-				history.back();
-				console.error('YOU ARE NOT LOGGED IN');
-				break;
-			case 'not house owner':
-				history.back();
-				console.error('YOU DONT HAVE PERMISSIONS');
-				break;
-			case 'image not from that place':
-				history.back();
-				console.warn('There is a problem with your image');
-				break;
-			case 'invalid image':
-				console.warn('There is a problem with your image');
-				errorMessage.textContent = "There is a problem with your image";
-				errorMessage.style.display = "block";
-				button_Submit.style.visibility="visible";
-				break;
-			case 'Parameters not validated':
-				errorMessage.textContent = "There is a problem with your inputs";
-				errorMessage.style.display = "block";
-				button_Submit.style.visibility="visible";
-				break;
-			case 'Invalid IMAGE uploaded':
-				console.warn('There is a problem with your image');
-				errorMessage.textContent = "There is a problem with your image";
-				errorMessage.style.display = "block";
-				button_Submit.style.visibility="visible";
-				break;
-			case 'Error removing the photo':
-				console.warn('There is a problem with your image');
-				button_Submit.style.visibility="visible";
-				break;
-			case 'Duplicate Images':
-				showDialog('Duplicates But inserted');
-				window.setTimeout(function () { history.back(); }, 3000);
-				break;
-			default:
-				history.back();
-				break;
-		}
-
 	});
 
 	if (imagesEditInput.length == 0)
