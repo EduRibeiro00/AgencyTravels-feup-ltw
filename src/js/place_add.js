@@ -44,9 +44,9 @@ function generateImgDivContainer(imgSrc) {
 
 imageInput.addEventListener('change', function (event) {
 
-	number_images=0;
-	img_id=0;
-	files_array=[];
+	number_images = 0;
+	img_id = 0;
+	files_array = [];
 
 	for (let i in img_array) {
 		img_array[i].remove();
@@ -137,6 +137,48 @@ profileForm.addEventListener('submit', function (event) {
 			case 'true':
 				history.back();
 				break;
+
+			case 'user not logged in':
+				history.back();
+				console.error('YOU ARE NOT LOGGED IN');
+				break;
+
+			case 'invalid image':
+				console.warn('There is a problem with your image');
+				errorMessage.textContent = "There is a problem with your image";
+				errorMessage.style.display = "block";
+				break;
+
+			case 'Number of photos invalid':
+				errorMessage.textContent = "Number of photos invalid";
+				errorMessage.style.display = "block";
+				break;
+
+			case 'Title not valid':
+				errorMessage.textContent = "Title not Valid";
+				errorMessage.style.display = "block";
+				break;
+			case 'Description not valid':
+				errorMessage.textContent = 'Description not valid';
+				break;
+			case 'Address not valid':
+				errorMessage.textContent = 'Address not valid';
+				errorMessage.style.display = "block";
+				break;
+			case 'Number of Bathrooms is not valid':
+				errorMessage.textContent = 'Number of Bathrooms is not valid';
+				errorMessage.style.display = "block";
+				break;
+			case 'Capacity is not valid':
+				errorMessage.textContent = "Capacity is not valid";
+				errorMessage.style.display = "block";
+				break;
+
+			case 'GPS Coords of that Address invalid':
+				errorMessage.textContent = 'GPS Coords of that Address invalid';
+				errorMessage.style.display = "block";
+				break;
+
 
 			default:
 				errorMessage.textContent = "Error adding.";

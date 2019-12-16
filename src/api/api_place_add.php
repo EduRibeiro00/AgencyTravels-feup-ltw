@@ -55,7 +55,7 @@ if ((!isset($_SESSION['userID']) && !validateIntValue($_SESSION['userID'])) || $
 
     //TEST THE NUMBER O FILES UPLOADED IS NOT EMPTY AND IF NOT MORE THAN 6 (5+1- STARTS AT 0)
     if ($num_images_uploaded_valid < 1 || $num_images_uploaded_valid > 6) {
-        $message = 'You cannot create an house with that number of pictures';
+        $message = 'Number of photos invalid';
     } else {
 
         //IF THE ERROR MESSAGE WAS NOT TRIGGERED, CONTINUE
@@ -107,7 +107,7 @@ if ((!isset($_SESSION['userID']) && !validateIntValue($_SESSION['userID'])) || $
 
                     for ($i = 0; $i < $num_images_uploaded_valid; $i++) {
                         if (uploadPlaceImage($placeID, $images_uploaded_valid[$i]) != true) {
-                            $message = 'Invalid IMAGE';
+                            $message = 'invalid image';
                             break;
                         }
                     }

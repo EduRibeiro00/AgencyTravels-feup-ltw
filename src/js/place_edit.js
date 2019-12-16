@@ -80,15 +80,15 @@ if (imageInput != null) {
 
 		//UPDATE THE FIRST LOCAL PHOTO TO SMALL
 		let localImages = document.querySelector('#house_form_img_local img');
-		
+
 		files_array = [];
 		number_images = 0;
 		img_id = 0;
-		
+
 		for (let i in img_array) {
 			img_array[i].remove();
 		}
-	
+
 		if (localImages != null) {
 			localImages.className = "edit_place_img_small";
 		}
@@ -206,7 +206,33 @@ if (profileForm != null) {
 					break;
 				case 'Error removing the photo':
 					console.warn('There is a problem with your image');
+					errorMessage.style.display = "block";
 					break;
+				case 'Title not valid':
+					errorMessage.textContent = "Title not Valid";
+					errorMessage.style.display = "block";
+					break;
+				case 'Description not valid':
+					errorMessage.textContent = 'Description not valid';
+					break;
+				case 'Address not valid':
+					errorMessage.textContent = 'Address not valid';
+					errorMessage.style.display = "block";
+					break;
+				case 'Number of Bathrooms is not valid':
+					errorMessage.textContent = 'Number of Bathrooms is not valid';
+					errorMessage.style.display = "block";
+					break;
+				case 'Capacity is not valid':
+					errorMessage.textContent = "Capacity is not valid";
+					errorMessage.style.display = "block";
+					break;
+
+				case 'GPS Coords of that Address invalid':
+					errorMessage.textContent = 'GPS Coords of that Address invalid';
+					errorMessage.style.display = "block";
+					break;
+				
 				default:
 					history.back();
 					break;
