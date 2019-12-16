@@ -127,7 +127,6 @@ profileForm.addEventListener('submit', function (event) {
 	request.open("POST", "../api/api_place_add.php", true)
 
 	request.addEventListener('load', function () {
-		console.log(this.responseText);
 		let message = JSON.parse(this.responseText).message;
 
 

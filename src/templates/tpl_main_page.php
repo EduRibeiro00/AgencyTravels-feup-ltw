@@ -35,7 +35,7 @@ function draw_mainpage_body($topdests, $trendingdests, $randcity, $randplaces) {
 
 <?php function draw_trending($trendingdests) { ?>
     <section id="trending">
-          <h3>Trending</h3>   <!-- passar no href o indice de cada cidade -->
+          <h3>Trending</h3>
             <ol>
                 <?php foreach($trendingdests as $trendingdest) ?>
                   <li>

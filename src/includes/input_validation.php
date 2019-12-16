@@ -24,9 +24,9 @@ function validateUsernameValue($value) {
     return preg_match("/^[A-Za-z0-9_-]{3,20}$/", $value);
 }
 
-// checks if a value is a valid password or not (those chars, plus it needs to be at least 7 chars)
+// checks if a value is a valid password or not
 function validatePasswordValue($value) {
-    return preg_match('/^[A-Za-z0-9?+*_!#$%& -]{7,}$/', $value);
+    return preg_match('/^[A-Za-z0-9?+*_!#$%& -]*$/', $value);
 }
 
 

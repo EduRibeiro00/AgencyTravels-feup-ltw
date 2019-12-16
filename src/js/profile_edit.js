@@ -21,7 +21,6 @@ profileForm.addEventListener('submit', function (event) {
 	request.open("POST", "../api/api_profile_edit.php", true)
 
 	request.addEventListener('load', function () {
-		console.log(this.responseText)
 		let message = JSON.parse(this.responseText).message;
 
 		switch (message) {

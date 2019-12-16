@@ -5,14 +5,15 @@ include_once('../database/db_places.php');
 include_once('../includes/reservation_utils.php');
 include_once('../includes/input_validation.php');
 
-	if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false)) {
-		echo json_encode(array('message' => 'Error in placeID'));
+	$placeID = $_POST['placeID'];
+
+	if(!validatePosIntValue($placeID)) {
+		$message = 'Error in placeID';
+		echo json_encode(array('message' => $message));
 		return;
 	}
 
-	$placeID = $_POST['placeID'];
-
-	if(isset($_POST['date'])&&validateDateValue($_POST['date'])) {
+	if(isset($_POST['date']) && validateDateValue($_POST['date'])) {
 		$price = getPrice($placeID, $_POST['date'])['price'];
 		echo json_encode(array('price' => $price));
 		return;
@@ -28,16 +29,20 @@ include_once('../includes/input_validation.php');
 
 	// Merge availabilities
 	$x = -1;
-	foreach ($availabilities as $key => $availability) {
+	for($i = 0; $i < count($availabilities); $i++) {
+		$availability = $availabilities[$i];
+
 		if($availability['startDate'] == $resultAv[$x]['endDate'])
 			$resultAv[$x]['endDate'] = $availability['endDate'];
 		else
-			$resultAv[++$x] = ['startDate'=>$availability['startDate'],'endDate'=>$availability['endDate']];
+			$resultAv[++$x] = ['startDate'=> $availability['startDate'],'endDate'=>$availability['endDate']];
 	}
 
 	// Merge reservations
 	$x = -1;
-	foreach ($reservations as $key => $reserva) {
+	for($i = 0; $i < count($reservations); $i++) {
+		$reserva = $reservations[$i];
+
 		if($reserva['startDate'] == $resultRes[$x]['endDate'])
 			$resultRes[$x]['endDate'] = $reserva['endDate'];
 		else
@@ -45,7 +50,9 @@ include_once('../includes/input_validation.php');
 	}
 
 	// Update begin and end dates
-	foreach ($resultRes as $key => &$reserva) {
+	for ($i = 0; $i < count($resultRes); $i++) {
+		$reserva = $resultRes[$i];
+
 		$reserva['startDate'] = date('Y-m-d',strtotime("{$reserva['startDate']} +1 day"));
 		$reserva['endDate'] = date('Y-m-d',strtotime("{$reserva['endDate']} -1 day"));
 		if(strtotime($reserva['startDate']) > strtotime($reserva['endDate']))

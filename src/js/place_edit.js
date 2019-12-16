@@ -171,7 +171,6 @@ if (profileForm != null) {
 		request.open("POST", "../api/api_place_edit.php", true)
 
 		request.addEventListener('load', function () {
-			console.log(this.responseText);
 			let message = JSON.parse(this.responseText).message;
 
 			switch (message) {
