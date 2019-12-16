@@ -616,7 +616,6 @@ section#map img {
 	position: absolute;        
 	z-index: 70;
 	top: 3.5em;
-	left: 15em;
 	font-weight: 500;
 	font-size: 0.9em;
 }
@@ -734,7 +733,6 @@ body > footer {
 
 #follow ul {
     margin: 0;
-    padding-left: 1em;
 }
 
 footer a {

@@ -75,6 +75,10 @@
 	#hamburger:checked + label::before {
 		content: "\f00d";
 	}
+
+	#follow .circular-cropper {
+		display: none;
+	}
 }
 
 /* 640 */
@@ -95,7 +99,11 @@
 	.place-listing article {
 		width: auto;
 		max-width: 25em;
-	}	
+	}
+
+	#follow {
+		display: none;
+	}
 }
 
 @media (max-width: 25em){

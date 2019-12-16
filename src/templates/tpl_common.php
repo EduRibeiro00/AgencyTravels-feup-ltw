@@ -36,11 +36,11 @@ function draw_head($jsArray, $class = null) { ?>
 			</a>
         <span id="cpline"> &copy; Agency Travels, LTW 2019. All rights reserved. </span>
         <div id="follow" class="row">
-			Follow us:
-				<div class="circular-cropper">
-					<img id="github" src="../assets/images/others/github-logo.png">
-				</div>		
-					<ul>
+			<div class="circular-cropper">
+				<img id="github" src="../assets/images/others/github-logo.png">
+			</div>
+			Follow us:			
+			<ul>
                 <li><a href="https://github.com/EduRibeiro00">Eduardo Ribeiro</a>
                 <li><a href="https://github.com/ManelCoutinho">Manuel Coutinho</a>
                 <li><a href="https://github.com/arubenruben">Ruben Almeida</a>
