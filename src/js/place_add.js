@@ -182,8 +182,7 @@ profileForm.addEventListener('submit', function (event) {
 				errorMessage.textContent = 'GPS Coords of that Address invalid';
 				errorMessage.style.display = "block";
 				break;
-
-
+			//When 'Error while inserting a new place'; goes here
 			default:
 				errorMessage.textContent = "Error adding.";
 				errorMessage.style.display = "block";
