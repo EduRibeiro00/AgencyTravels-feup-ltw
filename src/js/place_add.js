@@ -170,7 +170,7 @@ profileForm.addEventListener('submit', function (event) {
 
 		switch (message) {
 			case 'true':
-				showDialog('Inserted');
+				showDialog('Place added with sucess');
 				window.setTimeout(function () { history.back(); }, 3000);
 				break;
 

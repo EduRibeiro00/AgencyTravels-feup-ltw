@@ -207,7 +207,7 @@ profileForm.addEventListener('submit', function (event) {
 
 		switch (message) {
 			case 'true':
-				showDialog('Inserted');
+				showDialog('Place updated with success');
 				window.setTimeout(function () { history.back(); }, 3000);
 				break;
 			case 'user not logged in':
