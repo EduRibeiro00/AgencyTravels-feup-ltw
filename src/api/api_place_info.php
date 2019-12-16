@@ -21,6 +21,11 @@ include_once('../includes/input_validation.php');
 	else{
 
 	$availabilities = getFromDayForwardAvailabilities($placeID, date("Y-m-d"));
+	if($availabilities == null){
+		$finalRes = array('startDate' => date('Y-m-d',strtotime("{$reserva['startDate']} +1 day")), 'endDate' => date("Y-m-d"), 'invalidDates' => []);
+		echo json_encode(array('message' => $finalRes));
+		return;
+	}
 	$reservations = getFromDayForwardReservations($placeID, date("Y-m-d"));
 
 	usort($availabilities, 'compareDates');
