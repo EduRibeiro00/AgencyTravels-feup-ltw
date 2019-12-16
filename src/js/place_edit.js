@@ -124,7 +124,7 @@ function editImagesOfPlace(event) {
 
 				let pos_delete_array = remove_button[0].getAttribute('identifier_local');
 
-				
+
 				if (pos_delete_array > img_array.length) {
 					console.error('DONT TRY TO VIOLATE THE JS ITS USELESS MATE');
 					//FORCE A MINIMUM OF 1 IMAGE
@@ -133,7 +133,7 @@ function editImagesOfPlace(event) {
 					img_array[pos_delete_array].remove();
 					//REMOVE JS DATA
 					delete img_array[pos_delete_array];
-					
+
 					img_array = deleteFromArray(img_array);
 					//REMOVES FILE FROM ARRAY FILES
 					delete files_array[pos_delete_array];
@@ -142,7 +142,7 @@ function editImagesOfPlace(event) {
 					number_images--;
 					imgId--;
 				}
-				
+
 				// I M USING DELETE LEAVES HOLES AND LENGTH REPRESENTS THE LAST ELEMENT NOT THE NUMBER OF ELEMENTS IN JS THIS MUST BE DONE TO CHECK IF THERE ARE ELEMENTS
 				let is_empty = true;
 				//THE INDEX REPRESENT THE INDEX OF LAST ELEMENT. INCOMPATIBLE WITH REMOVE. REMOVE IS NOT AVOIDABLE HERE
@@ -156,7 +156,7 @@ function editImagesOfPlace(event) {
 				if (is_empty == true && localImages != null) {
 					localImages.className = "edit_place_img_medium";
 				}
-				
+
 				let arrayDomElements = document.querySelectorAll('.img_add_preview_container i');
 				updateIdentifierLocal(arrayDomElements);
 			}
@@ -205,88 +205,91 @@ profileForm.addEventListener('submit', function (event) {
 		let message = JSON.parse(this.responseText).message;
 
 
-			switch (message) {
-				case 'true':
-					history.back();
-					break;
-				case 'user not logged in':
-					history.back();
-					showDialog('YOU ARE NOT LOGGED IN');
-					break;
-				case 'not house owner':
-					history.back();
-					showDialog('YOU DONT HAVE PERMISSIONS');
-					break;
-				case 'image not from that place':
-					history.back();
-					showDialog('There is a problem with your image');
-					break;
-				case 'invalid image':
-					showDialog('There is a problem with your image');
-					errorMessage.textContent = "There is a problem with your image";
-					errorMessage.style.display = "block";
-					break;
-				case 'Parameters not validated':
-					errorMessage.textContent = "There is a problem with your inputs";
-					errorMessage.style.display = "block";
-					break;
-				case 'Invalid IMAGE uploaded':
-					console.warn('There is a problem with your image');
-					errorMessage.textContent = "There is a problem with your image";
-					errorMessage.style.display = "block";
-					break;
-				case 'Error removing the photo':
-					console.warn('There is a problem with your image');
-					errorMessage.style.display = "block";
-					break;
-				case 'Title not valid':
-					errorMessage.textContent = "Title not Valid";
-					errorMessage.style.display = "block";
-					break;
-				case 'Description not valid':
-					errorMessage.textContent = 'Description not valid';
-					break;
-				case 'Address not valid':
-					errorMessage.textContent = 'Address not valid';
-					errorMessage.style.display = "block";
-					break;
-				case 'Number of Bathrooms is not valid':
-					errorMessage.textContent = 'Number of Bathrooms is not valid';
-					errorMessage.style.display = "block";
-					break;
-				case 'Number of rooms is not valid':
-					errorMessage.textContent = 'Number of rooms is not valid';
-					errorMessage.style.display = "block";
-					break;
-				case 'Capacity is not valid':
-					errorMessage.textContent = "Capacity is not valid";
-					errorMessage.style.display = "block";
-					break;
-
-				case 'GPS Coords of that Address invalid':
-					errorMessage.textContent = 'GPS Coords of that Address invalid';
-					errorMessage.style.display = "block";
-					break;
-
-				case 'A place Must have a maximum six images':
-					errorMessage.textContent = 'Image Number';
-					errorMessage.style.display = "block";
-					break;
-				
-				case 'Duplicate Images':
-					showDialog('Duplicates But inserted');
-					window.setTimeout(function () { history.back(); }, 3000);
-					break;
-				
-				case 'A place Must Have at least one image':
-					errorMessage.textContent = 'Image Number';
-					errorMessage.style.display = "block";
+		switch (message) {
+			case 'true':
+				showDialog('Inserted');
+				window.setTimeout(function () { history.back(); }, 3000);
 				break;
-				
-				default:
-					history.back();
-					break;
-			}
+			case 'user not logged in':
+				showDialog('YOU ARE NOT LOGGED IN');
+				window.setTimeout(function () { history.back(); }, 3000);
+				break;
+			case 'not house owner':
+				history.back();
+				showDialog('YOU DONT HAVE PERMISSIONS');
+				break;
+			case 'image not from that place':
+				history.back();
+				showDialog('There is a problem with your image');
+				break;
+			case 'invalid image':
+				showDialog('There is a problem with your image');
+				errorMessage.textContent = "There is a problem with your image";
+				errorMessage.style.display = "block";
+				break;
+			case 'Parameters not validated':
+				errorMessage.textContent = "There is a problem with your inputs";
+				errorMessage.style.display = "block";
+				break;
+			case 'Invalid IMAGE uploaded':
+				showDialog('There is a problem with your image');
+				errorMessage.textContent = "There is a problem with your image";
+				errorMessage.style.display = "block";
+				break;
+			case 'Error removing the photo':
+				showDialog('There is a problem with your image');
+				errorMessage.style.display = "block";
+				break;
+			case 'Title not valid':
+				errorMessage.textContent = "Title not Valid";
+				errorMessage.style.display = "block";
+				break;
+			case 'Description not valid':
+				errorMessage.textContent = 'Description not valid';
+				errorMessage.style.display = "block";
+				break;
+			case 'Address not valid':
+				errorMessage.textContent = 'Address not valid';
+				errorMessage.style.display = "block";
+				break;
+			case 'Number of Bathrooms is not valid':
+				errorMessage.textContent = 'Number of Bathrooms is not valid';
+				errorMessage.style.display = "block";
+				break;
+			case 'Number of rooms is not valid':
+				errorMessage.textContent = 'Number of rooms is not valid';
+				errorMessage.style.display = "block";
+				break;
+			case 'Capacity is not valid':
+				errorMessage.textContent = "Capacity is not valid";
+				errorMessage.style.display = "block";
+				break;
+
+			case 'GPS Coords of that Address invalid':
+				errorMessage.textContent = 'GPS Coords of that Address invalid';
+				errorMessage.style.display = "block";
+				break;
+
+			case 'A place Must have a maximum six images':
+				errorMessage.textContent = 'Image Number';
+				errorMessage.style.display = "block";
+				break;
+
+			case 'Duplicate Images':
+				showDialog('Duplicates But inserted');
+				window.setTimeout(function () { history.back(); }, 3000);
+				break;
+
+			case 'A place Must Have at least one image':
+				errorMessage.textContent = 'Image Number';
+				errorMessage.style.display = "block";
+				break;
+
+			default:
+				showDialog('Unknown Error');
+				window.setTimeout(function () { history.back(); }, 3000);
+				break;
+		}
 	});
 
 	if (imagesEditInput.length == 0)
@@ -294,7 +297,7 @@ profileForm.addEventListener('submit', function (event) {
 
 	let formData = new FormData(profileForm);
 
-	button_Submit.style.visibility="hidden";
+	button_Submit.style.visibility = "hidden";
 	formData.append('imagesToRemoveArray', array_photos_to_remove);
 	formData.append('File0', files_array[0]);
 	formData.append('File1', files_array[1]);
