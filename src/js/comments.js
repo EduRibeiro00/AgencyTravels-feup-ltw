@@ -46,13 +46,13 @@ if(reviewForm != null) {
 
                     let usernameLink = newReviewContainer.querySelector('.user_card .user_username');
                     usernameLink.setAttribute('href', '../pages/profile_page.php?userID=' + newReview.userID);
-                    usernameLink.innerHTML = newReview.username;
+                    usernameLink.innerHTML = escapeHtml(newReview.username);
 
                     let starsDiv = newReviewContainer.querySelector('div.front-stars');
                     starsDiv.style.width = newReview.stars * 20.0 + '%';
 
                     let commentP = newReviewContainer.querySelector('header + p');
-                    commentP.innerHTML = newReview.comment;
+                    commentP.innerHTML = escapeHtml(newReview.comment);
 
                     let dateP = newReviewContainer.querySelector('footer p');
                     dateP.innerHTML = "Published: " + newReview.date;
@@ -146,7 +146,7 @@ function replyFormFunction(event) {
                                                         '<img class="reply-author-img circular-img" src="../assets/images/users/small/' + newReply.image + '">' + 
                                                     '</a>' + 
                                                     '<a href="../pages/profile_page.php?userID=' + newReply.userID + '">' +
-                                                        '<p>' + newReply.username + '</p>' +
+                                                        '<p>' + escapeHtml(newReply.username) + '</p>' +
                                                     '</a>' +
                                                   '</header>' +
                                                   '<p>' + escapeHtml(newReply.comment) + '</p>' + 

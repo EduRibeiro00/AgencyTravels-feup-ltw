@@ -114,9 +114,11 @@ function installHoverEventListeners() {
             //Find the position in the index
             let pos = array_aux.indexOf(event.currentTarget);
             //SET THE FOCUS TO THE LAST HOUSE IN THE LIST
-            let latLng = new google.maps.LatLng(markersArray[pos].getPosition().lat(), markersArray[pos].getPosition().lng());
-            map.setCenter(latLng);
-            map.setZoom(16);
+            if(markersArray[pos] !== undefined && markersArray[pos] != null) {
+                let latLng = new google.maps.LatLng(markersArray[pos].getPosition().lat(), markersArray[pos].getPosition().lng());
+                map.setCenter(latLng);
+                map.setZoom(16);
+            }
         });
         //RESET THE ZOOM WHEN MOUSE IF OFF THE CARD
         arrayWithHouseCards[i].addEventListener('mouseout', function () {
@@ -163,8 +165,10 @@ function addMarker(array_with_geocoordinates) {
         installMarkerHandler(marker);
     }
     //SET THE FOCUS TO THE LAST HOUSE IN THE LIST
-    let latLng = new google.maps.LatLng(markersArray[markersArray.length - 1].getPosition().lat(), markersArray[markersArray.length - 1].getPosition().lng());
-    map.setCenter(latLng);
+    if(markersArray[markersArray.length - 1] !== undefined && markersArray[markersArray.length - 1] != null) {
+        let latLng = new google.maps.LatLng(markersArray[markersArray.length - 1].getPosition().lat(), markersArray[markersArray.length - 1].getPosition().lng());
+        map.setCenter(latLng);
+    }
 }
 
 
