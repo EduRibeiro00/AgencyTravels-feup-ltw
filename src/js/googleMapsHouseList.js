@@ -76,6 +76,9 @@ function setHTTPRequestToRetrievePlaceCoords() {
         gpsCoordsArray = [];
 
         let message = JSON.parse(this.responseText).message;
+        if(message == "no") {
+            return;
+        }
 
         for (let i = 0; i < message.length; i++) {
             //EACH POSTION OF THIS ARRAY ARE PAIRS LAT LNG
@@ -93,8 +96,8 @@ function setHTTPRequestToRetrievePlaceCoords() {
 
         addMarker(gpsCoordsArray);
         //TODO:PARSE THE COORDS ARRAY
-
     });
+
     //NO NEED TO SEND ENCONDED FOR THE AJAX EMPTY REQUEST
     request.send(encodeForAjax({ city: city, country: country }));
 

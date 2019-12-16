@@ -29,7 +29,7 @@ function validatePasswordValue($value) {
     return preg_match('/^[A-Za-z0-9?+*_!#$%& -]{7,}$/', $value);
 }
 
-// TESTAR 
+
 // checks if a value is a valid description, review, reply, etc or not
 function validateTextValue($value) {
     return preg_match('/^[A-Za-z0-9?+*_!#$%&\s-]*$/', $value);

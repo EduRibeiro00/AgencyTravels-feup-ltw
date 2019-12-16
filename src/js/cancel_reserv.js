@@ -78,7 +78,11 @@ confirmForm.addEventListener('submit', function(event) {
                 break;
 
             case 'no':
-                // console.log("Error on canceling the reservation");
+                showDialog("Error on canceling the reservation");
+                break;
+
+            case "user not logged in":
+                showDialog("User is not logged in");
                 break;
 
             default:

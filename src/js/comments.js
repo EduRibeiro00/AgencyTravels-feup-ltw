@@ -74,6 +74,15 @@ if(reviewForm != null) {
                 break;
 
             case 'no':
+                showDialog("An error ocurred (some inputs may be invalid). Please try again later.");
+                break;
+
+            case 'cant review':
+                showDialog("The logged in user is not allowed to review this place.");
+                break;
+                
+            case 'not logged in':
+                showDialog("You are not logged in");
                 break;
 
             default:

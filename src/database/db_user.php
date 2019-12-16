@@ -115,18 +115,28 @@
     }
 
 
-    function checkIfUserHasReservation($userID, $reservationID) {
+    function checkIfUserCanCancelReservation($userID, $reservationID) {
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT *
                               FROM Reservation
                               WHERE reservationID = ? AND touristID = ?'
                             );
         $stmt->execute(array($reservationID, $userID));
-        if($stmt->fetch() === false) {
-            return false;
+        if($stmt->fetch() !== false) {
+            return true;
+        }
+        
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT *
+                              FROM Reservation NATURAL JOIN Place
+                              WHERE reservationID = ? AND ownerID = ?'
+                            );
+        $stmt->execute(array($reservationID, $userID));
+        if($stmt->fetch() !== false) {
+            return true;
         }
         else {
-            return true;
+            return false;
         }
     }
 

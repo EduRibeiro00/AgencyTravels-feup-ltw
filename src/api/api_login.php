@@ -1,10 +1,13 @@
 <?php
     include_once('../includes/session_include.php');
     include_once('../database/db_user.php');
+    include_once('../includes/input_validation.php');
 
-    if(!isset($_POST['username']) || $_POST['username'] == '' ||
-       !isset($_POST['password']) || $_POST['password'] == '') {
-            echo json_encode(array('message' => 'values not defined'));
+    if(!isset($_POST['username']) || !validateUsernameValue($_POST['username']) ||
+       !isset($_POST['password']) || !validatePasswordValue($_POST['password'])) {
+            $message = 'values not defined';
+            echo json_encode(array('message' => $message));
+            return;
        }
 
     $username = $_POST['username'];

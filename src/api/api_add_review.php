@@ -2,6 +2,8 @@
     include_once('../includes/session_include.php');
     include_once('../database/db_user.php');
     include_once('../database/db_places.php');
+    include_once('../includes/input_validation.php');
+    include_once('../includes/reservation_utils.php');
 
     $reservationID = $_POST['reservationID'];
     $stars = $_POST['stars'];
@@ -9,9 +11,15 @@
     $lastReviewID = $_POST['lastReviewID'];
     $placeID = $_POST['placeID'];
 
-    if(isset($_SESSION['userID']) && checkIfUserHasReservation($_SESSION['userID'], $reservationID)) {
+    if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) {
 
-        if(!addReview($reservationID, $stars, $comment)) {
+        if(!(validatePosIntValue($reservationID) && validatePosIntValue($placeID) && canUserReviewPlace($_SESSION['userID'], $placeID) !== false)) {
+            $message = 'cant review';
+            echo json_encode(array('message' => $message));
+            return;
+        }
+
+        if(!(validateAnyIntValue($lastReviewID) && validatePosIntValue($stars) && $stars >= 1 && $stars <= 5 && addReview($reservationID, $stars, $comment))) {
             $message = 'no';
             echo json_encode(array('message' => $message));
         }
@@ -23,7 +31,7 @@
         }
     }
     else {
-        $message = 'no';
+        $message = 'not logged in';
         echo json_encode(array('message' => $message));
     }
 ?>

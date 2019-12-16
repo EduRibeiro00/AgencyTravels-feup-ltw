@@ -53,7 +53,7 @@ loginForm.addEventListener('submit', function(event) {
 
 		switch(message) {
             case 'values not defined':
-                loginMessage.textContent = "Please write a username and a password.";
+                loginMessage.textContent = "Please write a valid username and password.";
                 loginMessage.style.display = "block";
                 break;
 

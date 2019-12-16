@@ -36,7 +36,6 @@
 	$finalPrice = $price * timeToDay(strtotime($checkout) - strtotime($checkin));
 	$returnValue = newReservation($_SESSION['userID'], $checkin, $checkout, $finalPrice, $placeID);
 
-
 	if($returnValue === true) {
 		$message = 'reservation successful';
 		echo json_encode(array('message' => $message));
