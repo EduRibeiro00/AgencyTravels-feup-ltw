@@ -9,7 +9,7 @@ include_once('../includes/input_validation.php');
 const true_message = 'true';
 
 
-if ((!isset($_SESSION['userID']) && !validateIntValue($_SESSION['userID'])) || $_SESSION['userID'] == '') {
+if ((!isset($_SESSION['userID']) || !validateIntValue($_SESSION['userID'])) || $_SESSION['userID'] == '') {
     $message = 'user not logged in';
 } else {
     $message = true_message;

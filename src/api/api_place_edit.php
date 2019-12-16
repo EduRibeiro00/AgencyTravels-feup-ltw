@@ -18,7 +18,7 @@ function find_photo_in_database_array($photo_hash, $images_place_from_database)
     return false;
 }
 
-if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
+if ((!isset($_SESSION['userID']) || !validateIntValue($_SESSION['userID'])) || $_SESSION['userID'] == '') {
     $message = 'user not logged in';
 } else {
 
@@ -36,13 +36,6 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     //
     $capacity = $_POST['capacity'];
     $ownerID = $_SESSION['userID'];
-
-
-    if(!is_numeric($ownerID)&&!validateIntValue($ownerID)){
-        $message = 'ownerID not valid';
-        echo json_encode(array('message' => $message));
-        return;
-    }
 
     $array_fileNames = buildArrayWithFilesToAdd();
 

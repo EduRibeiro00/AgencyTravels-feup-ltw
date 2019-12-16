@@ -12,7 +12,7 @@ include_once('../includes/input_validation.php');
 
 	$placeID = $_POST['placeID'];
 
-	if(isset($_POST['date'])) {
+	if(isset($_POST['date'])&&validateDateValue($_POST['date'])) {
 		$price = getPrice($placeID, $_POST['date'])['price'];
 		echo json_encode(array('price' => $price));
 		return;

@@ -25,7 +25,7 @@ if(!validateDateValue($checkin)){
     return;
 }
 if(!validateDateValue($checkout)){
-	$message = 'checkin Date not valid';
+	$message = 'checkout Date not valid';
     echo json_encode(array('message' => $message));
     return;
 }

@@ -5,7 +5,7 @@ include_once('../database/db_user.php');
 include_once('../includes/input_validation.php');
 
 // verify if user is already logged in
-if ((!isset($_SESSION['userID']) && !validateIntValue($_SESSION['userID'])) || $_SESSION['userID'] == '') {
+if ((!isset($_SESSION['userID']) || !validateIntValue($_SESSION['userID'])) || $_SESSION['userID'] == '') {
     $message = 'user not logged in';
 } else {
     $id = $_POST['userID'];

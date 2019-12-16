@@ -3,7 +3,7 @@
 	include_once('../database/db_user.php');
 	include_once('../includes/reservation_utils.php');
 
-	if ((!isset($_SESSION['userID']) && !validateIntValue($_SESSION['userID'])) || $_SESSION['userID'] == '') {
+	if ((!isset($_SESSION['userID']) || !validateIntValue($_SESSION['userID'])) || $_SESSION['userID'] == '') {
 		$message = 'user not logged in';
 		return;
 	}
@@ -33,7 +33,7 @@
 		echo json_encode(array('message' => 'incomplete data'));
 		return;
 	}
-	
+
 	$price = getPriceInDate($placeID, $checkin, $checkout);
 	switch ($price) {
 		case -1:
