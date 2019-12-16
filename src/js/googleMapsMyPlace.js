@@ -24,7 +24,6 @@ function initGoogleMapsServices() {
 //EVENT LISTENER TO CLICK THE MAP AND SET A MARKER: https://www.youtube.com/watch?v=Zxf1mnP5zcw min 26.31.
 
 //DEFAULT IS PORTO CENTER.
-//const iconImageURL=
 let starting_lat = 41.1579438;
 let starting_lng = -8.6291053;
 let starting_zoom = 12;

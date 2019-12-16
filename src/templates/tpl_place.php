@@ -116,13 +116,15 @@ function draw_my_place_icon_desc($house_name, $house_numRooms, $house_capacity, 
 
 function draw_place_location($house_address_full, $house_gpsCoords) { ?>
     <article id="Google_Maps_Widget_Container">
-        <header>Location</header>
+        <header>
+            <h3>Location</h3>    
+        </header>
         <section id="Google_Maps_Widget">
             <?php initGoogleMaps(); ?>
         </section>
         <footer>
-            <p><strong>Address:</strong> <?=htmlspecialchars($house_address_full)?></p>
-            <p id="PlaceGPSCoords"><strong>GPS Coords:</strong> <?=$house_gpsCoords?></p>
+            <p id="placeAddressP">Address: <?=htmlspecialchars($house_address_full)?></p>
+            <p id="PlaceGPSCoords">GPS Coords: <?=$house_gpsCoords?></p>
         </footer>
     </article>
 <?php }

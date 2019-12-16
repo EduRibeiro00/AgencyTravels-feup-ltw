@@ -87,9 +87,9 @@ function getPlaces(){
 }
 				
 
-function list_houses($places, $drawingOption, $userID,$location, $drawMap = false) { ?>
+function list_houses($places, $drawingOption, $userID, $location, $drawMap = false) { ?>
 	<main id="list_places" class="row">
-		<?php if(isset($location)){?>
+		<?php if(isset($location)){ ?>
 			<div id="location_place_holder" data-location="<?=htmlspecialchars($location)?>"></div>
 		<?php } ?>
 
