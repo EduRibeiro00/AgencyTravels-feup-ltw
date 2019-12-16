@@ -64,7 +64,6 @@ if ((!isset($_SESSION['userID']) && !validateIntValue($_SESSION['userID'])) || $
             //Validate Inputs
             $inputs_are_valid = true;
 
-            //TODO: TO RETURN A PERSONALIZED MESSAGE
             if (is_numeric($title) || !validateTextValue($title)) {
                 $message = 'Title not valid';
                 $inputs_are_valid = false;
