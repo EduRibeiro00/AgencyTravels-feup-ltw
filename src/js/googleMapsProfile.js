@@ -9,7 +9,6 @@ let location_raw_str = locationDomElement.innerText;
 
 function initGoogleMapsServices() {
     let parseStr=parseRawString(location_raw_str);
-    console.log(parseStr);
     let country=getCountryFromRaw(parseStr);
     let city=getCityFromRaw(parseStr);
     let addressStr=city+','+country;

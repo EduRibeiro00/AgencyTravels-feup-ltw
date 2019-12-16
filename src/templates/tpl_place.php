@@ -27,7 +27,7 @@ function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePri
 		  	//House Rating is the avg rating of the house
 			draw_all_comments($place['rating'], $houseComments);
 
-            if(isset($_SESSION['userID']) && validateIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) {
+            if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) {
                 $reservationID = canUserReviewPlace($_SESSION['userID'], $place['placeID']);
                 if($reservationID !== false) {
                     draw_add_review($reservationID, $place['placeID']);
@@ -97,8 +97,8 @@ function draw_my_place_sidebar($housePrice,$house_rating, $houseOwner, $placeID,
 			</section>
 
 			<form>
-				<input id="fr_checkin" type="text" autocomplete="off" placeholder="Check In..." required>
-				<input id="fr_checkout" type="text" autocomplete="off" placeholder="Check Out..." required>
+				<input id="fr_checkin" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" type="text" autocomplete="off" placeholder="Check In..." required>
+				<input id="fr_checkout" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" type="text" autocomplete="off" placeholder="Check Out..." required>
 
 				<button class="button" type="submit">Reserve</button>
 			</form>
@@ -159,7 +159,7 @@ function draw_add_review($reservationID, $placeID) { ?>
             <section class="comment-replies">
             </section>
 
-            <?php if(isset($_SESSION['userID']) && validateIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) { ?>
+            <?php if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) { ?>
                     <section class="add-reply-section">
                         <p>Add a reply:</p>
                         <form class="reply-form row">

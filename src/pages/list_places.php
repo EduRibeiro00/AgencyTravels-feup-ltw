@@ -5,7 +5,7 @@
 	include_once('../templates/tpl_list_houses.php');
 	include_once('../database/db_user.php');
 
-	if(isset($_SESSION['userID']) && validateIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) {
+	if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) {
 		$user_info = getUserInformation($_SESSION['userID']);
 		$jsFiles = ['../js/main.js', '../js/filter.js','../js/googleMapsHouseList.js'];
 	}

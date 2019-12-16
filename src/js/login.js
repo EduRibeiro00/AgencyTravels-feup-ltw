@@ -14,7 +14,7 @@ let popup = document.getElementById('login-popup');
 let login = document.getElementById('loginlink');
 let loginForm = document.getElementById('login-form');
 let loginMessage = document.getElementById('login-message');
-let loginCross = document.getElementById('login-form-cross');
+let loginCross = document.getElementById('login-form-cross-login');
 
 login.addEventListener('click', function(){
 	popup.style.display = "block";
@@ -28,6 +28,7 @@ window.addEventListener('click', function(event){
         loginMessage.style.display = "none";
     }
 });
+
 
 loginCross.addEventListener('click', function(event) {
     loginForm.reset();

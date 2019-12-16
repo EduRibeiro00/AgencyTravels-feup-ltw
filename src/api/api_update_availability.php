@@ -21,11 +21,8 @@
 		echo json_encode(array('message' => 'not owner', 'userID' => $_SESSION['userID']));
 		return;
 	}
-	// END: Até aqui
 
 	$availability = getAvailabilites($placeID);
 
-	//echo json_encode(array('message' => $availability));
 	echo json_encode(array('message' => $availability));
-	
 ?>

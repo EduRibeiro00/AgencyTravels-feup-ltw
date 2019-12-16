@@ -25,7 +25,7 @@ function getPlaces(){
 	$minPrice = $_GET['minPrice'] ? $_GET['minPrice'] : 0;		// check
 	$maxPrice = $_GET['maxPrice'] ? $_GET['maxPrice'] : 1000;	// check
 	
-	if(!validateIntValue($minPrice) || !validateIntValue($maxPrice)) {
+	if(!validatePosIntValue($minPrice) || !validatePosIntValue($maxPrice)) {
 		return false;
 	}
 
@@ -43,14 +43,14 @@ function getPlaces(){
 	$children = $_GET['nChildren'] ? $_GET['nChildren'] : 0;	// check
 	$rating = $_GET['rating'] ? $_GET['rating'][0] : 0;			// check
 
-	if(!validateIntValue($adults) || !validateIntValue($children) || !validateIntValue($rating)) {
+	if(!validatePosIntValue($adults) || !validatePosIntValue($children) || !validatePosIntValue($rating)) {
 		return false;
 	}
 
 	$nRooms = $_GET['nRooms'] ? $_GET['nRooms'] : 0;				// check
 	$nBathrooms = $_GET['nBathrooms'] ? $_GET['nBathrooms'] : 0;	// check
 
-	if(!validateIntValue($nRooms) || !validateIntValue($nBathrooms)) {
+	if(!validatePosIntValue($nRooms) || !validatePosIntValue($nBathrooms)) {
 		return false;
 	}
 
@@ -116,7 +116,7 @@ function draw_availability_form() { ?>
 				<input id="av_begin" type="text" autocomplete="off" placeholder="From..." name="av_begin" required>
 				<input id="av_end" type="text" autocomplete="off" placeholder="To..." name="av_end" required>
 			</div>
-			<p id="av-error"></p>
+			<p id="av-error" class="error-message"></p>
 
 			<button id="av-conf-button" class="button" type="submit">Add Availabilities</button>
 		</form>

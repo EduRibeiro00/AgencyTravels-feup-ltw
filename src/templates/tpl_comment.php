@@ -29,7 +29,7 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
                                     <p><?=$reply["username"]?></p>
                                 </a>
                             </header>
-                            <p><?=$reply["comment"]?></p>
+                            <p><?=htmlspecialchars($reply["comment"])?></p>
                             <footer>
                                 <p>Published: <?=$reply["date"]?></p>
                             </footer>
@@ -37,7 +37,7 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
                     <?php } ?>
                 </section>
 
-                <?php if(isset($_SESSION['userID']) && validateIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) { ?>
+                <?php if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) { ?>
                     <section class="add-reply-section">
                         <p>Add a reply:</p>
                         <form class="reply-form row">

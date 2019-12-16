@@ -7,7 +7,7 @@
 				<img id="logo-login" src="../assets/images/others/logo.jpg">
 			</div>
 
-			<i id="login-form-cross"class="close-popup fas fa-times"></i>
+			<i id="login-form-cross-login"class="close-popup fas fa-times"></i>
 
 			<p id="login-message" class="error-message"></p>
 

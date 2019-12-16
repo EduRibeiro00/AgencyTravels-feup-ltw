@@ -44,11 +44,6 @@ function getPriceInDate($placeID, $checkin, $checkout){
 	return -3;
 }
 
-function validateDate($date, $format = 'Y-m-d') {
-    $d = DateTime::createFromFormat($format, $date);
-    return $d && $d->format($format) === $date;
-}
-
 function getAvailabilites($placeID){
 	// return $placeID;
 	$availabilties = getFromDayForwardAvailabilities($placeID, date("Y-m-d"));

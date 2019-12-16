@@ -46,12 +46,15 @@ for(let i = 0; i < avaButtons.length; i++) {
     let avaButton = avaButtons[i];
 
     avaButton.addEventListener('click', function(event) {
-		availabilityCal.reset()
-		priceInput.value = ""
-		event.preventDefault();
-		availPopup.style.display = 'block'
-		availPlaceID = avaButton.getAttribute('data-id');
-		updateAvailabilityDisable(availPlaceID)
+			availabilityCal.reset()
+			priceInput.value = ""
+			let pError = document.getElementById('av-error')
+			pError.style.display = "none";
+  		pError.textContent = "";
+			event.preventDefault();
+			availPopup.style.display = 'block'
+			availPlaceID = avaButton.getAttribute('data-id');
+			updateAvailabilityDisable(availPlaceID)
     });
 }
 
@@ -62,6 +65,8 @@ availForm.addEventListener('submit', function(event) {
 
 	let request = new XMLHttpRequest();
 	let pError = document.getElementById('av-error')
+	pError.style.display = "none";
+  pError.textContent = "";
 
 	request.open("POST", "../api/api_add_availability.php", true)
 	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
@@ -72,34 +77,37 @@ availForm.addEventListener('submit', function(event) {
 		switch(message.message) {
 			case 'user not logged in':
 				availPopup.style.display = 'none'
-				header('Location: ../pages/initial_page.php')
 				showDialog("ERROR: You are Not Logged In")
 				break;
 			case 'incomplete data':
+			  pError.style.display = "block";
 				pError.textContent = "Data incomplete"
 				break;
 			case 'not owner':
 				availPopup.style.display = 'none'
-				header('Location: ../pages/my_houses.php?userID=' + message.userID)
 				showDialog("ERROR: That was not your house")
 				break;
 			case 'invalid price':
+			  pError.style.display = "block";
 				pError.textContent = "ERROR: Price must be a number"
 				break;
 			case 'invalid date':
+				pError.style.display = "block";
 				pError.textContent = "ERROR: Invalid date Range"
 				break;
 			case 'overlap availability':
+				pError.style.display = "block";
 				pError.textContent = "ERROR: Overlapping Availabilities"
 				break;
-			case 'availability successfull':				
+			case 'availability successfull':
+	      pError.style.display = "none";				
 				showDialog("Availability Added With Success")
 				availPopup.style.display = 'none'
 				break;
-				// TODO: fazer cada erro??
+			
 			default:
+			  pError.style.display = "block";
 				pError.textContent = "ERROR: " + message.message
-				// pError.textContent = "ERROR: Overlapping Availabilities"
 				break;
 		}
 	});
@@ -117,7 +125,6 @@ function updateAvailabilityDisable(availPlaceID){
 
 	request.addEventListener('load', function() {
 		let message = JSON.parse(this.responseText).message
-		// console.log(message)
 
 		switch(message) {
 			case 'user not logged in':

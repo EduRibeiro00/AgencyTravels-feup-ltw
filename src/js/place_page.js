@@ -8,9 +8,6 @@ function encodeForAjax(data) {
 
 // -------------
 
-
-// -------------
-
 let inlineCal = new Lightpick({
 	field			: document.getElementById('av_checkin'),
 	format			: 'YYYY-MM-DD',
@@ -267,7 +264,12 @@ confirmForm.addEventListener('submit', function(event) {
 			case 'invalid dates':
 				showDialog("ERROR: Invalid Dates")
 				break;
-			case 'reservation successfull':				
+
+			case 'invalid inputs':
+				showDialog("Some of the inputs were invalid. Please try again.")
+				break;
+
+			case 'reservation successful':				
 				showDialog("Reservation Successful")
 				reservationCal.reset()
 				updateDisableDates()

@@ -140,7 +140,7 @@ function replyFormFunction(event) {
                                                         '<p>' + newReply.username + '</p>' +
                                                     '</a>' +
                                                   '</header>' +
-                                                  '<p>' + newReply.comment + '</p>' + 
+                                                  '<p>' + escapeHtml(newReply.comment) + '</p>' + 
                                                   '<footer>' +
                                                     '<p>' + 'Published: ' + newReply.date + '</p>' +
                                                   '</footer>';
@@ -150,7 +150,12 @@ function replyFormFunction(event) {
 
                 break;
 
-            case 'no':
+            case 'error':
+                showDialog("An error occurred because some inputs are invalid. Please try again.")
+                break;
+
+            case 'not logged in':
+                showDialog("Login in order to reply to a comment");
                 break;
 
             default:
@@ -173,4 +178,21 @@ function replyFormFunction(event) {
         request.send(encodeForAjax({comment: comment, reviewID: reviewID, lastReplyID: lastReplyID}));
 
         event.target.querySelector('textarea[name="reply-desc"]').value = "";
+}
+
+// -------------------
+
+let entityMap = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': '&quot;',
+    "'": '&#39;',
+    "/": '&#x2F;'
+  };
+
+function escapeHtml(string) {
+    return String(string).replace(/[&<>"'\/]/g, function (s) {
+      return entityMap[s];
+    });
 }

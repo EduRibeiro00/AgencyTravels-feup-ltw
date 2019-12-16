@@ -1,9 +1,14 @@
 <?php
 
 // checks if value is a positive number or not
-function validateIntValue($value) {
+function validatePosIntValue($value) {
     return preg_match("/^[0-9]+$/", $value);
 } 
+
+// checks if value is a number or not
+function validateAnyIntValue($value) {
+    return preg_match("/^-?[0-9]+$/", $value);
+}
 
 // checks if value is a valid date or not
 function validateDateValue($value) {
