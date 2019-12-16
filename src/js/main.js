@@ -11,6 +11,16 @@ function encodeForAjax(data) {
 let navbar = document.getElementById("navbar")
 let topDialog = document.getElementById("top-dialog")
 topDialog.style.top = navbar.offsetHeight + "px"
+let links = document.querySelector('nav ul')
+let ham = document.getElementById("hamburger")
+ham.addEventListener('click', function() {
+	if(ham.checked == true){
+		links.classList.add('responsive')
+		links.style.top = navbar.offsetHeight + "px"
+	}
+	else
+		links.classList.remove('responsive')
+})
 
 // -------------------
 

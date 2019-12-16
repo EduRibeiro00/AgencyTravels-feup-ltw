@@ -151,6 +151,7 @@ a:hover {
 .row{
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 }
 
 .column{
@@ -194,14 +195,8 @@ body > nav {
 	top: 0;
 }
 
-#profilepagelink {
-    display: flex;
-    align-items: center;
-}
-
 #navbar form {
     flex-grow: 1;
-    margin: 0 1em;
 }
 
 a {
@@ -241,6 +236,18 @@ nav input[type="text"]::placeholder{
 .fa-search {
 	cursor: pointer;
 }
+
+#hamburger{
+	display: none;
+}
+
+nav ul.row{
+	padding: 0;
+	margin: 0 2%;
+	min-width: 29em;
+}
+
+
 
 /* TODO: se calhar forçar a profile pic a ser quadrada */ 
 
@@ -478,8 +485,6 @@ main#profile-page {
 
 .profile-info {
     grid-area: profileinfo;
-    display: flex;
-    align-items: center;
     position: relative;
 }
 
@@ -537,10 +542,6 @@ main#profile-page .place-listing {
     color: var(--main_color);
     margin: 1em 0;
     font-weight: bold;
-}
-
-#img-upload {
-    align-items: center;
 }
 
 #img-upload div {
@@ -724,13 +725,6 @@ body > footer {
     background-color: var(--footer_color);
     padding: var(--footer_padding);
     border-top: var(--footer_border) solid var(--main_color);
-    display: flex;
-    align-items: center;
-}
-
-#follow {
-    display: flex;
-    align-items: center;
 }
 
 #cpline {
@@ -1066,16 +1060,8 @@ ul.row {
 	font-size: 0.85em;
 }
 
-.reply header {
-    align-items: center;
-}
-
 .reply header img {
     margin-right: 0.5em;
-}
-
-.reply-form, #review-form {
-    align-items: center;
 }
 
 .reply-form > *, #review-form > * {
@@ -1144,7 +1130,6 @@ section#add-review-placeholder {
 }
 
 #my-header {
-    align-items: center;
     font-size: 1.5em;
     justify-content: space-between;
     max-width: 100%;

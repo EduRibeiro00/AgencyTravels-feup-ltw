@@ -9,7 +9,7 @@
                 <img src="../assets/images/places/big/<?=$city_image[0]['image']?>">
           </section>
 
-          <section class="profile-info">
+          <section class="profile-info row">
                 <div id="profile-image">
                     <img class="circular-img" src="../assets/images/users/medium/<?=$user_info['image']?>">
                 </div>

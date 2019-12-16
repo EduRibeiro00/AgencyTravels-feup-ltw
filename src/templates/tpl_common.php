@@ -28,14 +28,14 @@ function draw_head($jsArray, $class = null) { ?>
 <?php } ?>
 
 <?php function draw_footer() { ?>
-    <footer>
+    <footer class="row">
 			<a class="circ-img-link" href="main_page.php">
 				<div class="circular-cropper">
 						<img id="logo" src="../assets/images/others/logo.jpg">
 				</div>
 			</a>
         <span id="cpline"> &copy; Agency Travels, LTW 2019. All rights reserved. </span>
-        <div id="follow">
+        <div id="follow" class="row">
 			Follow us:
 				<div class="circular-cropper">
 					<img id="github" src="../assets/images/others/github-logo.png">
@@ -72,22 +72,27 @@ function draw_navbar($user_info, $hints, $class = null) { ?>
 					}
 				?>
       </form>
-		
+		<ul class="row">
 		<?php if(isset($user_info)) {
 			$name = explode(" ", $user_info['name'])[0]; ?>
 			
 			<a id="housespagelink" href="my_houses.php?userID=<?=$user_info['userID']?>">My Houses</a>
 			<a id="reservspagelink" href="my_reservs.php">My Reservations</a>
-			<a id="link-image" class="circ-img-link" href="profile_page.php?userID=<?=$user_info['userID']?>">
-				<img class="circular-img" id="profilepic" src="../assets/images/users/small/<?=$user_info['image']?>">	
-			</a>
-			<a id="link-name" href="profile_page.php?userID=<?=$user_info['userID']?>"><?=$name?></a>
+			<div class="row">
+				<a id="link-image" class="circ-img-link" href="profile_page.php?userID=<?=$user_info['userID']?>">
+					<img class="circular-img" id="profilepic" src="../assets/images/users/small/<?=$user_info['image']?>">	
+				</a>
+				<a id="link-name" href="profile_page.php?userID=<?=$user_info['userID']?>"><?=$name?></a>
+			</div>
 			<a id="logoutlink" href="../actions/action_logout.php">Logout</a>
 
 		<?php } else { ?>
 			<a id="loginlink">Login</a>
 			<a id="signuplink" href="../pages/signup.php">Signup</a>
 		<?php } ?>
+		</ul>
+		<input type="checkbox" id="hamburger"> 
+     	<label class="hamburger" for="hamburger"></label>
 	  </nav>
 		<?php 
 		draw_dialog();
