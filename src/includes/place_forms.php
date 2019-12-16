@@ -31,9 +31,31 @@ function buildArrayWithFilesToAdd(){
     return $array_fileNames;
 }
 
-function check_File_Integrity($imageName, $array_fileNames)
+function check_File_Integrity($imageName, &$array_fileNames,&$Duplicates)
 {
-    return in_array($imageName, $array_fileNames);
+    $arraySize=count($array_fileNames);
+
+    $firstTime=true;
+
+    if(in_array($imageName, $array_fileNames)==true){
+
+        for($i=0;$i<$arraySize;$i++){
+
+            if(strcmp($array_fileNames[$i],$imageName)==0){
+                //Remove duplicates
+                $array_fileNames[$i]='';
+                
+                if($firstTime==true){
+                    $firstTime=false;
+                }else{
+                    $Duplicates=true;
+                }
+            }
+        }
+        
+        return true;
+    }
+    return false;
 }
 
 //TODO: FUNCTION TO TEST THE INPUTS

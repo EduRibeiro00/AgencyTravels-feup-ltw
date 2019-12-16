@@ -151,9 +151,9 @@ function uploadPlaceImage($placeID, $image) {
 }
 
 
-function deletePlaceSelectedPhotos($placeID, $images, $images_array_len){
+function deletePlaceSelectedPhotos($placeID, $images){
   //TODO: Delete from the local FILES
-  for($i=0;$i<$images_array_len;$i++){
+  for($i=0;$i<count($images);$i++){
     
     if(removeImageFromPlace($placeID,$images[$i])==true){
       unlink("../assets/images/places/original/$images[$i]");
@@ -168,8 +168,10 @@ function deletePlaceSelectedPhotos($placeID, $images, $images_array_len){
 }
 
 function deletePlaceAllImages($placeID) {
-    $images = getPlaceImages($placeID);
+	$images = getPlaceImages($placeID);
+
     foreach($images as $image) {
+	  removeImageFromPlace($placeID,$image['image']);
       unlink("../assets/images/places/original/" . $image['image']);
       unlink("../assets/images/places/small/" . $image['image']);
       unlink("../assets/images/places/medium/" . $image['image']);

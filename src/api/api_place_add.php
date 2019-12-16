@@ -13,7 +13,7 @@ if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && g
     $message = 'user not logged in';
 } else {
     $message = true_message;
-
+    $Duplicates = false;
     $ownerID = $_POST['userID'];
     $title = $_POST['title'];
     $desc = $_POST['description'];
@@ -40,7 +40,7 @@ if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && g
 
         if ($images['tmp_name'][$i] != "") {
 
-            if (check_File_Integrity($images['name'][$i], $array_fileNames) == true) {
+            if (check_File_Integrity($images['name'][$i], $array_fileNames, $Duplicates) == true) {
 
                 if (!checkIfImageIsValid($images['tmp_name'][$i])) {
                     $message = 'invalid image';
@@ -124,8 +124,35 @@ if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && g
                 } else {
                     $message = 'Error while inserting a new place';
                 }
+
+                //IF INSERTED NEW LOCATION OR NOT THE ID OF THAT LOCATION CANNOT BE NULL
+                if (!is_numeric($locationID)) {
+                    $message = 'Location ID NULL';
+                } else {
+                    // TODO: fazer maneira menos enrabada
+                    $placeID = newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID);
+                    if ($placeID != false) {
+                        //GET THE NEW PLACE ID
+                        //$placeID =  //getPlaceID($title, $address, $ownerID)['placeID'];
+
+                        for ($i = 0; $i < $num_images_uploaded_valid; $i++) {
+                            if (uploadPlaceImage($placeID, $images_uploaded_valid[$i]) != true) {
+                                $message = 'Invalid IMAGE';
+                                break;
+                            }
+                        }
+                    } else {
+                        $message = 'Fail create new place';
+                    }
+                }
+            } else {
+                $message = 'Parameters not validated';
             }
         }
+    }
+
+    if ($Duplicates == true) {
+        $message = 'Duplicate Images';
     }
 }
 

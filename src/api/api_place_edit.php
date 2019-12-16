@@ -23,7 +23,7 @@ if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && g
 } else {
 
     $message = true_message;
-
+    $Duplicates = false;
     $placeID = $_POST['placeID'];
     $title = $_POST['title'];
     $desc = $_POST['description'];
@@ -69,7 +69,13 @@ if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && g
         }
     }
 
-    $images = $_FILES['imagePlaceFile'];
+    if (isset($_FILES['imagePlaceFile'])) {
+        $images = $_FILES['imagePlaceFile'];
+        $NewImagesExist = true;
+    } else {
+        $NewImagesExist = false;
+    }
+
     //CREATE AN ARRAY TO STORE ALL THE VALID IMAGES UPLOADED
     $images_uploaded_valid = array();
     $num_images_uploaded_valid = 0;
@@ -77,20 +83,23 @@ if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && g
     //TESTS IF THERE IS ANY ERROR SO FAR
     if (strcmp($message, true_message) === 0) {
 
-        //CHECK IF ALL PHOTOS UPLOADED ARE VALID
-        $total = count($images['tmp_name']);
+        if ($NewImagesExist == true) {
 
-        for ($i = 0; $i < $total; $i++) {
+            //CHECK IF ALL PHOTOS UPLOADED ARE VALID
+            $total = count($images['tmp_name']);
 
-            if ($images['tmp_name'][$i] != "") {
+            for ($i = 0; $i < $total; $i++) {
 
-                if (check_File_Integrity($images['name'][$i], $array_fileNames) == true) {
-                    if (!checkIfImageIsValid($images['tmp_name'][$i])) {
-                        $message = 'invalid image';
-                        break;
+                if ($images['tmp_name'][$i] != "") {
+
+                    if (check_File_Integrity($images['name'][$i], $array_fileNames, $Duplicates) == true) {
+                        if (!checkIfImageIsValid($images['tmp_name'][$i])) {
+                            $message = 'invalid image';
+                            break;
+                        }
+                        $images_uploaded_valid[$num_images_uploaded_valid] = $images['tmp_name'][$i];
+                        $num_images_uploaded_valid++;
                     }
-                    $images_uploaded_valid[$num_images_uploaded_valid] = $images['tmp_name'][$i];
-                    $num_images_uploaded_valid++;
                 }
             }
         }
@@ -158,7 +167,7 @@ if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && g
                             }
                             //IN ORDER TO AVOID AN ERROR OF PHOTOSTOREMOVE BEING NULL. NOT CRITICAL
                             if ($num_photos_to_remove > 0) {
-                                if (deletePlaceSelectedPhotos($placeID, $photosToRemove, $num_photos_to_remove) != true) {
+                                if (deletePlaceSelectedPhotos($placeID, $photosToRemove) != true) {
                                     $message = 'Error removing the photo';
                                 }
                             }
@@ -167,6 +176,10 @@ if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && g
                 }
             }
         }
+    }
+
+    if ($Duplicates == true) {
+        $message = 'Duplicate Images';
     }
 }
 echo json_encode(array('message' => $message));
