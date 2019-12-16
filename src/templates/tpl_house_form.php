@@ -134,8 +134,8 @@ function draw_form($place = null, $edit_menu = false, $all_locations) {
                         <select id="location" name="location" required>
                             <?php foreach ($all_locations as $eachLocation) {
                                     $selected = $eachLocation['locationID'] == $location ? "selected" : "";
-                                    $locationString = $eachLocation['country'] . ' - ' . $eachLocation['city']; ?>
-                                <option value=<?= $eachLocation['locationID'] ?> <?= $selected ?>><?=$locationString?></option>
+                                    $locationString = $eachLocation['country'] . ' - ' . $eachLocation['city'];?>
+                                <option value=<?=$eachLocation['locationID'] ?> <?= $selected ?>><?=$locationString?></option>
                             <?php } ?>
                         </select>
                     </label>
@@ -147,9 +147,9 @@ function draw_form($place = null, $edit_menu = false, $all_locations) {
             <fieldset>
                 <legend>House Caracteristics</legend>
                 <article class="column edit-house-caracteristics">
-                    <label>Number of Rooms:<input type="text" name="numRooms" value=" <?=$numRooms?>"></label>
-                    <label>Number of Bathrooms:<input type="text" name="numBathrooms" value=" <?=$numBathrooms?>"></label>
-                    <label>Capacity:<input type="text" name="capacity" value=" <?=$capacity?>"></label>
+                    <label>Number of Rooms:<input type="text" name="numRooms" value="<?=$numRooms?>"></label>
+                    <label>Number of Bathrooms:<input type="text" name="numBathrooms" value="<?=$numBathrooms?>"></label>
+                    <label>Capacity:<input type="text" name="capacity" value="<?=$capacity?>"></label>
                 </article>
             </fieldset>
 
