@@ -9,7 +9,7 @@ include_once('../includes/input_validation.php');
 const true_message = 'true';
 
 
-if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false)) {
+if (!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false)) {
     $message = 'user not logged in';
 } else {
     $message = true_message;
@@ -64,12 +64,12 @@ if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && g
             //Validate Inputs
             $inputs_are_valid = true;
 
-            if(!is_numeric($ownerID) || !validatePosIntValue($ownerID)){
+            if (!is_numeric($ownerID) || !validatePosIntValue($ownerID)) {
                 $message = 'ownerID not valid';
                 $inputs_are_valid = false;
             }
 
-            if($ownerID != $_SESSION['userID']){
+            if ($ownerID != $_SESSION['userID']) {
                 $message = 'ownerID dont match';
                 $inputs_are_valid = false;
             }
@@ -108,45 +108,20 @@ if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && g
                 $message = 'GPS Coords of that Address invalid';
                 $inputs_are_valid = false;
             }
+            //IF INSERTED NEW LOCATION OR NOT THE ID OF THAT LOCATION CANNOT BE NULL
 
-            if ($inputs_are_valid) {
-
-                if (newPlace($title, $desc, $address, $GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID) == true) {
-                    //GET THE NEW PLACE ID
-                    $placeID = getPlaceID($title, $address, $ownerID)['placeID'];
-
-                    for ($i = 0; $i < $num_images_uploaded_valid; $i++) {
-                        if (uploadPlaceImage($placeID, $images_uploaded_valid[$i]) != true) {
-                            $message = 'invalid image';
-                            break;
-                        }
-                    }
-                } else {
-                    $message = 'Error while inserting a new place';
-                }
-
-                //IF INSERTED NEW LOCATION OR NOT THE ID OF THAT LOCATION CANNOT BE NULL
-                if (!is_numeric($locationID)) {
-                    $message = 'Location ID NULL';
-                } else {
-                    // TODO: fazer maneira menos enrabada
-                    $placeID = newPlace($title, $desc, $address, $GPSCoords ,$locationID, $numRooms, $numBathrooms, $capacity, $ownerID);
-                    if ($placeID != false) {
-                        //GET THE NEW PLACE ID
-                        //$placeID =  //getPlaceID($title, $address, $ownerID)['placeID'];
-
-                        for ($i = 0; $i < $num_images_uploaded_valid; $i++) {
-                            if (uploadPlaceImage($placeID, $images_uploaded_valid[$i]) != true) {
-                                $message = 'Invalid IMAGE';
-                                break;
-                            }
-                        }
-                    } else {
-                        $message = 'Fail create new place';
+            $placeID = newPlace($title, $desc, $address, $GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID);
+            
+            if ($placeID != false) {
+                
+                for ($i = 0; $i < $num_images_uploaded_valid; $i++) {
+                    if (uploadPlaceImage($placeID, $images_uploaded_valid[$i]) != true) {
+                        $message = 'Invalid IMAGE';
+                        break;
                     }
                 }
-            } else {
-                $message = 'Parameters not validated';
+            }else{
+                $message = 'Fail create new place';
             }
         }
     }

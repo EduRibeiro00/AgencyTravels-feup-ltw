@@ -18,7 +18,7 @@ function find_photo_in_database_array($photo_hash, $images_place_from_database)
     return false;
 }
 
-if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false)) {
+if (!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false)) {
     $message = 'user not logged in';
 } else {
 
@@ -114,7 +114,7 @@ if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && g
                 //Validate Inputs
                 $inputs_are_valid = true;
 
-                if(!is_numeric($ownerID)||!validatePosIntValue($ownerID)){
+                if (!is_numeric($ownerID) || !validatePosIntValue($ownerID)) {
                     $message = 'ownerID not valid';
                     $inputs_are_valid = false;
                 }
