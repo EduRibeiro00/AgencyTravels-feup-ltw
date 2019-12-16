@@ -9,7 +9,7 @@ function draw_my_reservs_body($user_info, $myReservations) {
     ?>
     <main id="my-container">
     <?php draw_my_reservs_header($user_info);
-          list_houses($myReservations, "My_Reservs", $user_info['userID']); ?>
+          list_houses($myReservations, "My_Reservs", $user_info['userID'],null); ?>
     </main>
 <?php } 
 
