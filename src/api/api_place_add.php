@@ -110,18 +110,20 @@ if (!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && 
             }
             //IF INSERTED NEW LOCATION OR NOT THE ID OF THAT LOCATION CANNOT BE NULL
 
-            $placeID = newPlace($title, $desc, $address, $GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID);
-            
-            if ($placeID != false) {
+            if($inputs_are_valid) {
+                $placeID = newPlace($title, $desc, $address, $GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID);
                 
-                for ($i = 0; $i < $num_images_uploaded_valid; $i++) {
-                    if (uploadPlaceImage($placeID, $images_uploaded_valid[$i]) != true) {
-                        $message = 'Invalid IMAGE';
-                        break;
+                if ($placeID != false) {
+
+                    for ($i = 0; $i < $num_images_uploaded_valid; $i++) {
+                        if (uploadPlaceImage($placeID, $images_uploaded_valid[$i]) != true) {
+                            $message = 'Invalid IMAGE';
+                            break;
+                        }
                     }
+                } else {
+                    $message = 'Fail create new place';
                 }
-            }else{
-                $message = 'Fail create new place';
             }
         }
     }
