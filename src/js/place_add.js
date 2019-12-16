@@ -7,13 +7,11 @@ function encodeForAjax(data) {
 	}).join('&')
 }
 
-//MUST BE EXACLTLY THE SAME ON PLACE EDIT
-
 let profileFormImage = document.getElementById('img-to-upload');
 let image_block_preview = document.querySelector('#house_form_img_preview');
 let imageInput = document.querySelector('input#imageFile_add_place');
-//Going to update the sizeof the medium photo
-//In order to be possible to append childs
+
+
 let image_delete_preview = document.querySelector('#img-delete_place_add');
 
 let img_id = 0;

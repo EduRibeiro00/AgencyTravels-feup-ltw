@@ -61,10 +61,6 @@ let country = getCountryFromRaw(location_raw_str);
 let arrayWithHouseCards = document.querySelectorAll('article.row');
 let array_aux = new Array();
 
-
-//const iconImageURL=
-
-
 function setHTTPRequestToRetrievePlaceCoords() {
 
     let request = new XMLHttpRequest();
@@ -95,7 +91,6 @@ function setHTTPRequestToRetrievePlaceCoords() {
         }
 
         addMarker(gpsCoordsArray);
-        //TODO:PARSE THE COORDS ARRAY
     });
 
     //NO NEED TO SEND ENCONDED FOR THE AJAX EMPTY REQUEST
@@ -189,14 +184,14 @@ function installMarkerHandler(marker) {
         arrayWithHouseCards[index_marker].scrollIntoView();
         //Fator corretor. Havia um problema com o navbar. HardCoded.
         let CurrentScroll = window.scrollY;
-        navbar
         let offset = document.getElementById('navbar').offsetHeight;
 
         scroll(0, CurrentScroll - offset - 10);
     });
 
 }
-//CLEAN ALL THE PREVIOUS SHADDOW EFFECTS
+
+//CLEAN ALL THE PREVIOUS SHADOW EFFECTS
 function cleanAllOtherShadowEffects() {
 
     const classNameOriginal = 'row card';

@@ -92,7 +92,6 @@ imageInput.addEventListener('change', function (event) {
                 }
 
                 
-
                 //IF THE INPUT BECOMES EMPTY RESET THE SIZE OF THE FIRST IMAGE
                 //!=NULL could be add form there are no local photos
                 if(is_empty==true&&localImages!=null){
@@ -103,9 +102,3 @@ imageInput.addEventListener('change', function (event) {
         });
     }
 });
-
-
-// remove image button
-
-
-

@@ -45,7 +45,6 @@ window.addEventListener('load', function() {
 // -------------------
 
 //// Search and Suggestions
-// TODO: refactor disto [0]??
 let locInput = document.getElementsByName("location")[0]
 let resultDropdown = document.getElementById('search-hints')
 
@@ -61,6 +60,9 @@ locInput.addEventListener("keyup", function() {
 	request.addEventListener('load', function() {
 		let answer = JSON.parse(this.responseText)
 		let hints = answer.hints;
+
+		if(hints == "no")
+			return;
 
 		for(let idx in hints) {
 			let newHint = document.createElement('p');
@@ -82,9 +84,6 @@ function parsedLocationHint(locHint){
 	let res = locHint.split(" - ")
 	if(res.length != 2 || res[0] == null || res[1] == null) return ""
 	return "?location=" + res[0] + "+-+" + res[1]
-	// let res = locHint.split(" - ")
-	// if(res.length != 2 || res[0] == null || res[1] == null) return ""
-	// return "?country=" + res[0] + "&city=" + res[1]
 }
 
 let searchSymbol = document.querySelector(".fa-search")

@@ -103,8 +103,8 @@ function priceDay(date){
 	req.addEventListener('load', function() {
 		let message = JSON.parse(this.responseText).price
 		inlineCal.showPrice(message + "€")
-
 	});
+	
 	let url = new URL(window.location.href)
 	let placeID = url.searchParams.get("place_id")
 	req.send(encodeForAjax({placeID: placeID, date: date.format('YYYY-MM-DD')}))

@@ -23,18 +23,17 @@ function initGoogleMapsServices() {
         return false;
     }
     codeAddress(addressStr);
-
-    //codeAddress(parseStr)
     return true;
     
 }
+
 function encodeForAjax(data) {
     return Object.keys(data).map(function (k) {
         return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
     }).join('&')
 }
 
-//const iconImageURL=
+
 function parseRawString(rawStr){
     let strRet;
     let indexSeparator= rawStr.indexOf(':');
@@ -42,6 +41,7 @@ function parseRawString(rawStr){
     strRet=rawStr.substr(indexSeparator);
     return strRet;
 }
+
 function getCountryFromRaw(string_raw) {
     string_raw=string_raw.trim();
     let indexSeparator = string_raw.indexOf(',');
@@ -72,11 +72,7 @@ let map;
 let geocoder;
 
 
-
-
 //FOR EDIT AND ADD MENU THERE ISNT THIS PLACE HOLDER
-
-
 
 
 function get_lat(stringWithCoords) {

@@ -3,7 +3,7 @@
 	include_once('../database/db_places.php');
 	include_once('../includes/input_validation.php');
 	
-	if(isset($_POST["val"])&&validateTextValue($_POST["val"])){	
+	if(isset($_POST["val"])){	
 		$locations = getLocations($_POST["val"]);
 
 		$hints = array();
@@ -11,6 +11,10 @@
 		foreach($locations as $location)
 			array_push($hints, array('country' => $location["country"], 'city' => $location["city"]));
 
+		echo json_encode(array('hints' => $hints));
+	}
+	else {
+		$hints='no';
 		echo json_encode(array('hints' => $hints));
 	}
 
