@@ -1,5 +1,6 @@
 'use strict'
 
+//MUST BE EXACLTLY THE SAME ON PLACE EDIT
 
 function encodeForAjax(data) {
 	return Object.keys(data).map(function (k) {
@@ -7,14 +8,17 @@ function encodeForAjax(data) {
 	}).join('&')
 }
 
-//MUST BE EXACLTLY THE SAME ON PLACE EDIT
 
+let profileForm = document.querySelector('#place_edit_form form');
+let errorMessage = document.getElementById('place-form-error');
 let profileFormImage = document.getElementById('img-to-upload');
-let image_block_preview = document.querySelector('#house_form_img_preview');
-let imageInput = document.querySelector('input#imageFile_add_place');
+let image_block_preview = document.getElementById('house_form_img_preview');
+let labelInput = document.getElementById('add_images');
+let imagesInput = [];
+
 //Going to update the sizeof the medium photo
 //In order to be possible to append childs
-let image_delete_preview = document.querySelector('#img-delete_place_add');
+let image_delete_preview = document.getElementById('img-delete_place_add');
 
 let img_id = 0;
 let number_images = 0;
@@ -41,16 +45,8 @@ function generateImgDivContainer(imgSrc) {
 	return div_container;
 }
 
-
-imageInput.addEventListener('change', function (event) {
-
-	number_images=0;
-	img_id=0;
-	files_array=[];
-
-	for (let i in img_array) {
-		img_array[i].remove();
-	}
+// TODO: ver nome
+function addImagesToPlace(event) {
 
 	for (let i = 0; i < event.target.files.length; i++) {
 		let reader_inside = new FileReader();
@@ -109,15 +105,33 @@ imageInput.addEventListener('change', function (event) {
 
 		});
 	}
-});
+}
+
+labelInput.addEventListener('click', newAddImgInput)
+
+function newAddImgInput() {
+	// TODO falta data-hasFile=<?= $hasFile ?>
+	// <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile[]" multiple >
+	labelInput.htmlFor = "imageFile_add_place" + (imagesInput.length + 1)
+	let input = document.createElement('input');
+	input.id = labelInput.htmlFor
+	input.type = "file"
+	input.classList.add('button')
+	input.accept = "image/*"
+	input.name = "imagePlaceFile[]"
+	input.multiple = true
+
+	labelInput.parentNode.insertBefore(input, labelInput.nextSibling);
+	input.addEventListener('change', addImagesToPlace)
+	imagesInput.push(input)
+
+}
 
 
 // remove image button
 
 // -------------
 
-let profileForm = document.querySelector('#place_edit_form form');
-let errorMessage = document.getElementById('place-form-error');
 
 
 profileForm.addEventListener('submit', function (event) {
@@ -138,6 +152,11 @@ profileForm.addEventListener('submit', function (event) {
 				history.back();
 				break;
 
+			case 'Duplicate Images':
+				showDialog('Duplicates But inserted');
+				window.setTimeout(function () { history.back(); }, 3000)
+				break;
+
 			default:
 				errorMessage.textContent = "Error adding.";
 				errorMessage.style.display = "block";
@@ -155,9 +174,11 @@ profileForm.addEventListener('submit', function (event) {
 	formData.append('File4', files_array[4]);
 	formData.append('File5', files_array[5]);
 
+	if(imagesInput.length == 0)
+		newAddImgInput()
+
+
 	request.send(formData);
-
-
 });
 
 	// -----------

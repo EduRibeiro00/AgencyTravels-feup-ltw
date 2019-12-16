@@ -10,16 +10,22 @@
     min-width: 50em;
 }
 
-.card > a {
+.card > div {
     padding: 1em 0;
     font-size: 1em;
     width: 50em;
 }
 
-.card > a:hover {
+.card > div:hover {
     background: var(--darker_bg_color);
-    text-decoration: none;
     cursor: pointer;
+}
+
+.card a{
+	font-size: inherit;
+}
+.card a:hover{
+	text-decoration: none;
 }
 
 .card .info {
@@ -27,15 +33,14 @@
     flex-grow: 1;
 }
 
-/* TODO: depois apagar pq será carroussel */
-.hcard-img {
-	width: 16em;
-	height: 11.5em;
-	object-position: center;
-}
-
 .card .info h4{
 	margin: 0.3em 0;
+}
+
+.hcard-img {
+ 	width: 16em;
+ 	height: 11.5em;
+ 	object-position: center;
 }
 
 /* .card .info span{   

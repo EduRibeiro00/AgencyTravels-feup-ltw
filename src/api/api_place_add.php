@@ -11,7 +11,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $message = 'user not logged in';
 } else {
     $message = true_message;
-
+    $Duplicates=false;
     $ownerID = $_POST['userID'];
     $title = $_POST['title'];
     $desc = $_POST['description'];
@@ -109,6 +109,10 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                 $message = 'Parameters not validated';
             }
         }
+    }
+
+    if($Duplicates==true){
+        $message='Duplicate Images';
     }
 }
 echo json_encode(array('message' => $message));

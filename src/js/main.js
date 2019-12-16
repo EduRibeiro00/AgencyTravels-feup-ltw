@@ -39,6 +39,52 @@ window.addEventListener('load', function() {
 		footer.style.left = "0";
 		footer.style.right = "0";
 	}
+
+
+	// ------------ Slide shows
+	let slideshow = document.getElementById('slideshow')
+	if(slideshow != null){
+		new Splide( '#slideshow', {
+			type   : 'loop',
+			cover: true,
+			height: '40em',
+			width: '70%',
+			autoplay: true,
+			interval: 3000
+			// perPage: 1,
+		} ).mount();
+	}
+
+	let hcards = document.getElementsByClassName('hcard_slideshow');
+	if(hcards.length > 0)
+		for (let i = 0; i < hcards.length; i++) {
+			new Splide(hcards[i], {
+				type	: 'loop',
+				width	: '16em',
+			} ).mount();
+		}
+
+	let userPlaces = document.querySelectorAll('#profile-page .minplaces_slideshow');
+	if(userPlaces.length > 0)
+		for (let i = 0; i < userPlaces.length; i++) {
+			new Splide(userPlaces[i], {
+				width	: '100%',
+				perPage	: 2,
+				perMove : 2,
+				focus: 'center',
+			} ).mount();
+		}
+
+	let minplaces = document.querySelectorAll('#main-page .minplaces_slideshow');
+	if(minplaces.length > 0)
+		for (let i = 0; i < minplaces.length; i++) {
+			new Splide(minplaces[i], {
+				width	: '100%',
+				perPage	: 3,
+				perMove : 3,
+				focus: 'center',
+			} ).mount();
+		}
 });
 
 

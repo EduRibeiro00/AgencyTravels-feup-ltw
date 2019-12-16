@@ -1,44 +1,60 @@
-<?php function draw_slideshow($slideshowimgs, $title = null, $titleLink = null) { ?>
+<?php function draw_main_slideshow($slideshowimgs, $title = null, $titleLink = null) { ?>
     <section id="slideshow">
+		<div class="splide__track">
+			<?php if($title != null && $titleLink != null) { ?>
+				<h3><a href=<?=$titleLink?>><?=$title?></a></h3>
+			<?php } ?>
 
-      <div class="carousel">
+			<ul class="splide__list">
+				<?php for($i = 0; $i < count($slideshowimgs); $i++) { ?>
+					<li class="splide__slide">
+						<div class="splide__slide__container">
+							<img src="../assets/images/places/big/<?=$slideshowimgs[$i]['image']?>">
+						</div>
+					</li>
+				<?php } ?>
+			</ul>
+		</div>
+	</section>
+<?php } 
 
-        <?php if($title != null && $titleLink != null) { ?>
-          <h3><a href=<?=$titleLink?>><?=$title?></a></h3>
-        <?php } ?>
+function draw_hcard_slideshow($slideshowimgs, $placeID) { ?>
+    <section class="hcard_slideshow">
+		<div class="splide__track">
+			<ul class="splide__list">
+				<?php for($i = 0; $i < count($slideshowimgs); $i++) { ?>
+					<li class="splide__slide">
+						<div class="splide__slide__container">
+						<a href="../pages/place_info.php?place_id=<?=$placeID?>">
+							<img class="hcard-img" src="../assets/images/places/medium/<?=$slideshowimgs[$i]['image']?>">
+						</a>
+						</div>
+					</li>
+				<?php } ?>
+			</ul>
+		</div>
+	</section>
+<?php } 
 
-        <ul class="slides">
 
-        <?php
-          // max number of images in the slideshow is 6
-          for($i = 1; (($i <= count($slideshowimgs)) && ($i <= 6)); $i++) {
-            $next_image = ($i == count($slideshowimgs) || $i == 6) ? 1 : ($i + 1);
-            $prev_image = ($i == 1) ? count($slideshowimgs) : ($i - 1);
-            $checked = $i == 1 ? "checked" : "";
-          ?>
-
-            <input type="radio" name="radio-buttons" id="img-<?=$i?>" <?=$checked?> />
-            <li class="slide-container">
-                <div class="slide-image">
-                    <img src="../assets/images/places/big/<?=$slideshowimgs[$i - 1]['image']?>">
-                </div>
-                <div class="carousel-controls">
-                    <label for="img-<?=$prev_image?>" class="prev-slide">
-                        <span>&lsaquo;</span>
-                    </label>
-                    <label for="img-<?=$next_image?>" class="next-slide">
-                      <span>&rsaquo;</span>
-                    </label>
-                </div>
-            </li>
-        <?php } ?>
-        
-        <div class="carousel-dots">
-          <?php for($i = 1; (($i <= count($slideshowimgs)) && ($i <= 6)); $i++) { ?>
-            <label for="img-<?=$i?>" class="carousel-dot" id="img-dot-<?=$i?>"></label>
-          <?php } ?>
-        </div>
-        </ul>
-      </div>
-    </section>
+function draw_places_slideshow($places) { ?>
+    <section class="minplaces_slideshow">
+		<div class="splide__track">
+			<ul class="splide__list">
+				<?php for($i = 0; $i < count($places); $i++) { ?>
+					<li class="splide__slide">
+						<article class="splide__slide__container">
+							<a href="place_info.php?place_id=<?=$places[$i]['placeID']?>">
+								<div class="place_info">
+								<h4><?=$places[$i]['title']?></h4>
+								<p><?=number_format($places[$i]['avg_price'], 2);?>€/night</p>
+								</div>
+								<img src="../assets/images/places/medium/<?=$places[$i]['images'][0]['image']?>">
+							</a>
+						</article>
+					</li>
+				<?php } ?>
+			</ul>
+		</div>
+	</section>
 <?php } ?>

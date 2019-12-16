@@ -1,17 +1,7 @@
-<?php function draw_house_miniature($place) { ?>
-    <article>
-        <a href="place_info.php?place_id=<?=$place['placeID']?>">
-            <div class="place_info">
-              <h4><?=$place['title']?></h4>
-              <p><?=number_format($place['avg_price'], 2);?>€/night</p>
-            </div>
-			<img src="../assets/images/places/medium/<?=$place['images'][0]['image']?>">
-		</a>
-    </article>
-<?php } ?>
+<?php 
+include_once('../templates/tpl_slideshow.php');
 
-
-<?php function draw_place_listing($title, $places, $link) { ?>
+function draw_place_listing($title, $places, $link) { ?>
     <section class="place-listing">
         <h3><?=$title?></h3>
             
@@ -20,16 +10,9 @@
             if($places == null || count($places) == 0) { ?>
               <p><em>No places available</em></p>
            <?php }
-            else {
-              foreach($places as $place) {
-                draw_house_miniature($place);
-              }
-            } ?>
+			else
+				draw_places_slideshow($places);
+             ?>
         </div>
-        
-        <div class="more"> 
-          <a class="button" href=<?=$link?>>More</a>
-        </div>
-
     </section>
 <?php } ?>

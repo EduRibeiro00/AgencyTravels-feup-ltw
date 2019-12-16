@@ -21,7 +21,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
 } else {
 
     $message = true_message;
-
+    $Duplicates=false;
     $placeID = $_POST['placeID'];
     $title = $_POST['title'];
     $desc = $_POST['description'];
@@ -82,7 +82,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
 
             if ($images['tmp_name'][$i] != "") {
 
-                if (check_File_Integrity($images['name'][$i], $array_fileNames) == true) {
+                if (check_File_Integrity($images['name'][$i], $array_fileNames,$Duplicates) == true) {
                     if (!checkIfImageIsValid($images['tmp_name'][$i])) {
                         $message = 'invalid image';
                         break;
@@ -146,7 +146,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                             }
                             //IN ORDER TO AVOID AN ERROR OF PHOTOSTOREMOVE BEING NULL. NOT CRITICAL
                             if ($num_photos_to_remove > 0) {
-                                if (deletePlaceSelectedPhotos($placeID, $photosToRemove, $num_photos_to_remove) != true) {
+                                if (deletePlaceSelectedPhotos($placeID, $photosToRemove) != true) {
                                     $message = 'Error removing the photo';
                                 }
                             }
@@ -157,6 +157,10 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                 }
             }
         }
+    }
+
+    if($Duplicates==true){
+        $message='Duplicate Images';
     }
 }
 echo json_encode(array('message' => $message));
