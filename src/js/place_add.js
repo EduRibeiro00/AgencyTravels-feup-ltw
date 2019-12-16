@@ -82,7 +82,7 @@ function addImagesToPlace(event) {
 
 				let pos_delete_array = remove_button[0].getAttribute('identifier_local');
 
-				
+
 				if (pos_delete_array > img_array.length) {
 					console.error('DONT TRY TO VIOLATE THE JS ITS USELESS MATE');
 					//FORCE A MINIMUM OF 1 IMAGE
@@ -91,17 +91,17 @@ function addImagesToPlace(event) {
 					img_array[pos_delete_array].remove();
 					//REMOVE JS DATA
 					delete img_array[pos_delete_array];
-					
+
 					img_array = deleteFromArray(img_array);
 					//REMOVES FILE FROM ARRAY FILES
 					delete files_array[pos_delete_array];
-					
+
 					files_array = deleteFromArray(files_array);
 					//
 					number_images--;
 					imgId--;
 				}
-				
+
 				let is_empty = true;
 				//THE INDEX REPRESENT THE INDEX OF LAST ELEMENT. INCOMPATIBLE WITH REMOVE. REMOVE IS NOT AVOIDABLE HERE
 				for (let i = 0; i < img_array.length; i++) {
@@ -118,7 +118,7 @@ function addImagesToPlace(event) {
 				updateIdentifierLocal(arrayDomElements);
 			}
 			)
-			
+
 		});
 	}
 }
@@ -170,12 +170,13 @@ profileForm.addEventListener('submit', function (event) {
 
 		switch (message) {
 			case 'true':
-				history.back();
+				showDialog('Place added with sucess');
+				window.setTimeout(function () { history.back(); }, 3000);
 				break;
 
 			case 'user not logged in':
-				history.back();
-				console.error('YOU ARE NOT LOGGED IN');
+				showDialog('YOU ARE NOT LOGGED IN');
+				window.setTimeout(function () { history.back(); }, 3000);
 				break;
 
 			case 'invalid image':
@@ -217,7 +218,7 @@ profileForm.addEventListener('submit', function (event) {
 				errorMessage.textContent = 'GPS Coords of that Address invalid';
 				errorMessage.style.display = "block";
 				break;
-		
+
 			case 'Duplicate Images':
 				showDialog('Duplicates But inserted');
 				window.setTimeout(function () { history.back(); }, 3000)
@@ -226,8 +227,7 @@ profileForm.addEventListener('submit', function (event) {
 			default:
 				errorMessage.textContent = "Error adding.";
 				errorMessage.style.display = "block";
-				button_Submit.style.visibility="visible";
-
+				button_Submit.style.visibility = "visible";
 				break;
 		}
 
@@ -239,7 +239,7 @@ profileForm.addEventListener('submit', function (event) {
 	let formData = new FormData(profileForm);
 
 
-	button_Submit.style.visibility="hidden";
+	button_Submit.style.visibility = "hidden";
 	formData.append('File0', files_array[0]);
 	formData.append('File1', files_array[1]);
 	formData.append('File2', files_array[2]);
