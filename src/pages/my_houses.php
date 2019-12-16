@@ -17,7 +17,7 @@
         $userID = $_SESSION['userID'];
         $jsFiles = ['../js/main.js', '../js/delete_place.js', '../js/availability_add.js'];
     }
-    else{
+    else {
         $user_info = NULL;
         $jsFiles = ['../js/main.js', '../js/login.js'];
     }

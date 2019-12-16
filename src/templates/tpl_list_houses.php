@@ -2,6 +2,8 @@
 include_once('../templates/tpl_cards.php');
 include_once('../includes/reservation_utils.php');
 include_once('../database/db_places.php');
+include_once('../includes/google_maps.php');
+
 
 function getPlaces(){
 	$location = $_GET['location'];
@@ -55,6 +57,7 @@ function getPlaces(){
 
 function list_houses($places, $drawingOption, $userID, $drawMap = false) { ?>
 	<main id="list_places" class="row">
+		<div id="location_place_holder" style="display:none;" data-location="<?=$_GET['location']?>"></div>
 		<section id="house_results">
 			<?php 
 			if($drawingOption == 'My_Houses')
@@ -69,10 +72,9 @@ function list_houses($places, $drawingOption, $userID, $drawMap = false) { ?>
 		</section>
 
 		<!-- TODO: implementar maps com google maps API em JS -->
-		<?php if(!empty($places) && $drawMap) { ?>
-			<section id="map">
-				<img src="https://via.placeholder.com/1024?text=Maps+Placeholder">
-			</section>
+		<?php if(!empty($places) && $drawMap) { 
+			initGoogleMaps();
+		?>
 		<?php } ?>
 
 	</main>

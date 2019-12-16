@@ -1,6 +1,7 @@
 <?php
     include_once('../templates/tpl_house_min.php'); 
     include_once('../templates/tpl_comment.php');
+    include_once('../includes/google_maps.php');
 
     function draw_profile_info($user_info, $user_places, $city_image, $user_place_comments) { ?>
         <main id="profile-page">
@@ -43,6 +44,9 @@
                 else { ?>
                     <p><?=$user_info['description']?></p>
                 <?php }?>
+
+                <?php initGoogleMaps(); ?>
+                
             </section>  
 
             <?php

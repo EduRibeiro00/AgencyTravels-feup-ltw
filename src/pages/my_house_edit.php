@@ -2,9 +2,9 @@
 include_once('../includes/session_include.php');
 include_once('../database/db_user.php');
 
-if (isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
+if (isset($_SESSION['userID']) && $_SESSION['userID'] != '' && isset($_GET['placeID'])) {
     $user_info = getUserInformation($_SESSION['userID']);
-    $jsFiles = ['../js/main.js', '../js/place_edit.js'];
+    $jsFiles = ['../js/main.js', '../js/place_edit.js','../js/googleMapsHouseForm.js'];
 } else {
     die(header('Location: ../pages/initial_page.php'));
 }
@@ -16,16 +16,16 @@ $placeId = $_GET['placeID'];
 
 $array_places = getUserPlaces($userID);
 
-$couter_matchs = -1;
+$counter_matchs = -1;
 //Verifies if that house belongs to the current owner login
 foreach ($array_places as $place) {
     if ($place['placeID'] == $placeId) {
-        $couter_matchs = 1;
+        $counter_matchs = 1;
         break;
     }
 }
 
-if ($couter_matchs == -1) {
+if ($counter_matchs == -1) {
     // TODO: AFTER LOGIN IMPLEMENTED CONTINUE
     die(header("Location: ../pages/initial_page.php"));
 }
@@ -34,16 +34,8 @@ include_once('../templates/tpl_common.php');
 include_once('../templates/tpl_house_form.php');
 
 draw_head($jsFiles);
-draw_navbar($user_info, false); ?>
+draw_navbar($user_info, false); 
+$all_locations = getAllLocations();
 
-<div id="my_house_edit_container">
-
-    <h2>My House Edit</h2>
-
-    <?php draw_form($place, true); ?>
-
-</div>
-
-<?php
+draw_form($place, true,$all_locations);
 draw_footer();
-?>

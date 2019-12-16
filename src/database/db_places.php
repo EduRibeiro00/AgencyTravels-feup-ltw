@@ -280,8 +280,8 @@ function getFromDayForwardAvailabilities($placeID, $day) {
 	$stmt->execute(array($placeID, $day));
 	return $stmt->fetchAll();
 }
-
-function updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $numRooms, $numBathrooms, $capacity){
+//TODO:UPDATE THE HOUSE LOCATION
+function updatePlaceInfo($placeID, $title, $desc, $address,$GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity){
     $db = Database::instance()->db();
     try {
         $stmt = $db->prepare('UPDATE Place
@@ -290,14 +290,15 @@ function updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $nu
                                   description = ?,
                                   capacity = ?,
                                   numRooms = ?,
-                                  numBathrooms = ? 
+                                  numBathrooms = ?, 
+                                  gpsCoords=?,
+                                  locationID= ?
                                WHERE placeID = ?
                                ' 
                             );
 
-     $stmt->execute(array($title, $address, $desc, $capacity, $numRooms, $numBathrooms, $placeID));
+     $stmt->execute(array($title, $address, $desc, $capacity, $numRooms, $numBathrooms,$GPSCoords,$locationID, $placeID));
     }
-
     catch (PDOException $e) {
         return $e->getMessage();
     }
@@ -307,16 +308,16 @@ function updatePlaceInfo($placeID, $title, $desc, $address, $city, $country, $nu
     return true;
 }
 
-function newPlace($title, $desc, $address, $locationID, $numRooms, $numBathrooms, $capacity,$ownerID){
+function newPlace($title, $desc, $address,$GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity,$ownerID){
     $db = Database::instance()->db();
     
     try {
         
         $stmt = $db->prepare('INSERT INTO Place(title,rating,address,description,capacity,numRooms,numBathrooms,gpsCoords,locationID,ownerID)
-                            VALUES (?,0,?,?,?,?,?,0,?,?)' 
+                            VALUES (?,0,?,?,?,?,?,?,?,?)' 
                             );
 
-        $stmt->execute(array($title, $address, $desc, $capacity, $numRooms, $numBathrooms,$locationID, $ownerID));
+        $stmt->execute(array($title, $address, $desc, $capacity, $numRooms, $numBathrooms,$GPSCoords,$locationID, $ownerID));
     }
 
     catch (PDOException $e) {
@@ -390,6 +391,26 @@ function getRepliesForReviewAfterID($reviewID, $lastReplyID) {
                           WHERE reviewID = ? AND replyID > ?
 						  ');
     $stmt->execute(array($reviewID, $lastReplyID));
+    return $stmt->fetchAll();
+}
+
+function getPlaceLocation($place_id){
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT locationID
+                          FROM Location NATURAL JOIN Place
+                          WHERE placeID= ?
+						  ');
+    $stmt->execute(array($place_id));
+    return $stmt->fetch();
+}
+
+function getAllCoordinatesLocation($country,$city){
+    $db = Database::instance()->db();
+    $stmt = $db->prepare('SELECT gpsCoords
+                          FROM Place NATURAL JOIN Location
+                          WHERE country LIKE ? AND city LIKE ?
+						  ');
+    $stmt->execute(array($country,$city));
     return $stmt->fetchAll();
 }
 

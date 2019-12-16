@@ -28,11 +28,10 @@ function draw_my_houses_header($houseOwnerInfo, $numReservs) { ?>
             </div>
             <?php if(isset($_SESSION['userID']) && $_SESSION['userID'] == $houseOwnerInfo['userID']) { ?>
                 <aside id="my-header-buttons" class="column">
-                    <a id="new-place-button" class="button" href="../pages/my_house_add.php?userID=<?=$houseOwnerInfo['userID']?>">
+                    <a id="new-place-button" class="button" href="my_house_add.php">
                         <i class="fas fa-plus"></i>
                         Add New Place
                     </a>
-
                     <a id="place-reservs-button" class="button" href="../pages/places_reservs.php">
                         Check Reservations
                     </a>
@@ -40,4 +39,4 @@ function draw_my_houses_header($houseOwnerInfo, $numReservs) { ?>
             <?php } ?>
         </section>
     </header>
- <?php } ?>
+<?php } ?>

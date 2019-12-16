@@ -1,22 +1,21 @@
-<?php 
+<?php
 include_once('../database/db_user.php');
 include_once('../database/db_places.php');
+include_once('../includes/google_maps.php');
 
-function draw_form($place = null, $edit_menu = false) {
+function draw_form($place = null, $edit_menu = false, $all_locations)
+{
     $userID = $_SESSION['userID'];
 
     if ($edit_menu == true) {
-        $city = getPlace($place['placeID']);
-
+        $placeID = $place['placeID'];
         $title = $place['title'];
         $address = $place['address'];
-        $city_str = $city['city'];
-        $country = $city['country'];
         $numRooms = $place['numRooms'];
         $numBathrooms = $place['numBathrooms'];
         $capacity = $place['capacity'];
-
-
+        $gpsCoords=$place['gpsCoords'];;
+        $location = getPlaceLocation($placeID)['locationID'];
         $imagearray = getPlaceImages($place['placeID']);
         $imagearray_lenght = count($imagearray);
         $imagePreview_small = "../assets/images/places/small/";
@@ -27,23 +26,25 @@ function draw_form($place = null, $edit_menu = false) {
 
 
     } else {
-		$title = 'Ola';
-        $address = 'Casa na zona';
-        $city_str = 'Porto';
-        $country = 'Portugal';
-        $numRooms = '1';
-        $numBathrooms = '2';
-        $capacity = '3';
+        $title = '';
+        $address = '';
+        $numRooms = '';
+        $numBathrooms = '';
+        $capacity = '';
         $imagearray_lenght = 0;
-
+        $location = '';
+        $gpsCoords='';
         $imagePreview_small = "../assets/images/places/small/";
         $imagePreview_medium = "../assets/images/places/medium/";
     }
     //So tera file se for o modo menu
-    $hasFile = $edit_menu
-
+    $hasFile = $edit_menu;
     ?>
-<!-- TODO: O MANEL MANDOU POR UM TODO PARA VER OS BUTOES -->
+<div id="my_house_edit_container">
+
+    <!-- TODO: O MANEL MANDOU POR UM TODO PARA VER OS BUTOES -->
+ <?php initGoogleMaps(); ?>
+
     <section id="place_edit_form">
 
         <form>
@@ -58,21 +59,21 @@ function draw_form($place = null, $edit_menu = false) {
 
             <fieldset>
                 <legend>Description</legend>
-                <label>Title: <input type="text" name="title" size="40" value="<?= $title ?>"> </label>
+                <label>Title: <input type="text" name="title" size="40" value="<?= $title ?>" required> </label>
             </fieldset>
 
             <fieldset>
 
                 <legend>Pictures</legend>
 
-                
+
                 <section id="img-upload" class="row">
-                <!--First we render the preview Images THIS SECTION IS USED BY JS DOM-->    
-                <div id="house_form_img_preview">
-                
-                </div>
-                
-                <!--then we render the local Images-->    
+                    <!--First we render the preview Images THIS SECTION IS USED BY JS DOM-->
+                    <div id="house_form_img_preview">
+
+                    </div>
+
+                    <!--then we render the local Images-->
 
                     <div id="house_form_img_local">
                         <?php
@@ -82,33 +83,29 @@ function draw_form($place = null, $edit_menu = false) {
 
                                 //LOAD THE MEDIUM SIZE IMAGE
                                 if ($i === 0) {
-                                    $str_aux = $imagePreview_medium.$imagearray[0]['image'];
-                            ?>  
-                                    <div class="img_edit_local_container">
-                                    <i class="fas fa-times delete_image_local" data-hash="<?=$imagearray[$i]['image']?>"></i>
-                                        <img class="edit_place_img_medium" src="<?=$str_aux?>">
-                                    </div>
+                                    $str_aux = $imagePreview_medium . $imagearray[0]['image'];
+                                    ?>
+                                <div class="img_edit_local_container">
+                                    <i class="fas fa-times delete_image_local" data-hash="<?= $imagearray[$i]['image'] ?>"></i>
+                                    <img class="edit_place_img_medium" src="<?= $str_aux ?>">
+                                </div>
 
                             <?php
                                     } else {
                                         $str_aux = $imagePreview_small . $imagearray[$i]['image'];
                                         ?>
-                            <div class="img_edit_local_container">
-                                <i class="fas fa-times delete_image_local"data-hash="<?=$imagearray[$i]['image']?>"></i>
-                                <img class="edit_place_img_small" src="<?= $str_aux?>">
-                            </div>
-                            <?php } 
+                                <div class="img_edit_local_container">
+                                    <i class="fas fa-times delete_image_local" data-hash="<?= $imagearray[$i]['image'] ?>"></i>
+                                    <img class="edit_place_img_small" src="<?= $str_aux ?>">
+                                </div>
+                        <?php }
                             }
                             ?>
                     </div>
-    
-                    <!-- <label class="button" id="add_images" for="imageFile_add_place">Select foto</label>
-                    <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile[]" multiple data-hasFile=<?= $hasFile ?>> -->
-					<!-- TODO: ver depois name deste input -->
-					<!-- <label class="button" for="imageFile_add_place2">Select + foto</label>
-                    <input class="button" type="file" id="imageFile_add_place2" accept="image/*" name="imagePlaceFile[]" multiple data-hasFile=<?= $hasFile ?>> -->
-                	<label class="button" id="add_images">Select foto</label>
-				</section>
+
+                    <label class="button" for="imageFile_add_place">Select foto</label>
+                    <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile[]" multiple multiple data-hasFile=<?= $hasFile ?>>
+                </section>
 
                 <section id="img-delete_place_add" class="row">
 
@@ -121,7 +118,7 @@ function draw_form($place = null, $edit_menu = false) {
 
             <fieldset>
                 <legend>Description</legend>
-                <textarea name="description" rows="10" cols="100">
+                <textarea name="description" rows="10" cols="100" required>
             <?= $place['description']; ?>
             </textarea>
 
@@ -131,11 +128,19 @@ function draw_form($place = null, $edit_menu = false) {
             <fieldset>
                 <legend>Location</legend>
                 <article class="column edit-house-location">
-                    <label>Address: <input type="text" name="address" size="70" value="<?= $address ?>"> </label>
-                    <label>City: <input type="text" name="city" value="<?= $city_str ?>"> </label>
-                    <label>Country: <input type="text" name="country" value="<?= $country ?>"> </label>
-                </article>
 
+                    <label>Address: <input  id="form_place_address" type="text" name="address" size="70" value="<?= $address ?>"> </label>
+                    <label for="location">Location:
+                        <select id="location" name="location" required>
+                            <?php foreach ($all_locations as $eachLocation) {
+                                    $selected = $eachLocation['locationID'] == $location ? "selected" : "";
+                                    $locationString = $eachLocation['country'] . ' - ' . $eachLocation['city']; ?>
+                                <option value=<?= $eachLocation['locationID'] ?> <?= $selected ?>><?= $locationString ?></option>
+                            <?php } ?>
+                        </select>
+                    </label>
+                    <input id="form_place_GPS" type="text" name="gpsCoords" size="70" value="<?= $gpsCoords?>" readonly>
+                </article>
 
             </fieldset>
 
@@ -159,4 +164,6 @@ function draw_form($place = null, $edit_menu = false) {
 
 
     </section>
+
+</div>
 <?php } ?>
