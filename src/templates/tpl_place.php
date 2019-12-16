@@ -65,19 +65,6 @@ function draw_place_description($house_description) { ?>
     </article>
 <?php }
 
-//TODO:Implement Google MAPS
-function draw_place_location($house_address_full, $house_gpsCoords) { ?>
-    <article>
-        <h3>Location</h3>
-        <img style="height: auto; width:80%" id=Google_Maps_Img src="http://gnomo.fe.up.pt/~up201704618/Screenshot_2019-11-20%20Oporto4all%20-%20Trindade,%20Porto,%20Portugal.png">
-        <footer>
-            <p><strong>Address:</strong> <?= $house_address_full ?></p>
-            <p><strong>GPS Coords:</strong> <?= $house_gpsCoords ?></p>
-        </footer>
-    </article>
-<?php } 
-
-
 function draw_availability(){ ?>
     <article id="availabilities">
 		<h3>Availabilities</h3>
@@ -129,17 +116,15 @@ function draw_my_place_icon_desc($house_name, $house_numRooms, $house_capacity, 
     </article>
 <?php }
 
-
-// TODO:Implement Google MAPS
-function draw_my_place_location($house_address_full, $house_gpsCoords) { ?>
+function draw_place_location($house_address_full, $house_gpsCoords) { ?>
     <article id="Google_Maps_Widget_Container">
         <header>Location</header>
         <section id="Google_Maps_Widget">
-            <?php initGoogleMaps(false,true); ?>
+            <?php initGoogleMaps(); ?>
         </section>
         <footer>
             <p>Address:<?= $house_address_full ?></p>
-            <p id="PlaceGPSCoords">GPS_Coords:<?= $house_gpsCoords ?></p>
+            <p id="PlaceGPSCoords">GPS_Coords:<?=$house_gpsCoords ?></p>
         </footer>
     </article>
 <?php }
