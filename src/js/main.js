@@ -50,8 +50,16 @@ window.addEventListener('load', function() {
 			height: '40em',
 			width: '70%',
 			autoplay: true,
-			interval: 3000
-			// perPage: 1,
+			interval: 3000,
+			height: '50%',
+			breakpoints: {
+				960: {
+					width: '90%',
+				},
+				1240: {
+					width: '80%',
+				},			
+			},
 		} ).mount();
 	}
 
@@ -80,11 +88,25 @@ window.addEventListener('load', function() {
 	if(minplaces.length > 0)
 		for (let i = 0; i < minplaces.length; i++) {
 			new Splide(minplaces[i], {
-				width	: '100%',
+				// width	: '100%',
+				// gap		: '2em',
+				// padding	: '5em',
 				perPage	: 3,
 				perMove : 3,
 				focus: 'center',
 				pagination: false,
+				breakpoints: {
+					960: {
+						perMove: 1,
+						perPage: 1,
+						// height: '50%'
+					},
+					1240: {
+						perPage: 2,
+						perMove : 2,
+					},
+					
+				},
 			} ).mount();
 		}
 });

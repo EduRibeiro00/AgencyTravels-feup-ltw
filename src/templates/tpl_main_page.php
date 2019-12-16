@@ -37,14 +37,14 @@ function draw_mainpage_body($topdests, $trendingdests, $randcity, $randplaces) {
     <section id="trending">
           <h3>Trending</h3>   <!-- passar no href o indice de cada cidade -->
             <ol>
-                <?php foreach($trendingdests as $trendingdest) ?>
+                <?php foreach($trendingdests as $trendingdest) {?>
                   <li>
                     <a href=list_places.php?location=<?=$trendingdest['country']?>+-+<?=$trendingdest['city']?>>
                       <img class="circular-img" src="../assets/images/places/small/<?=$trendingdest['image']?>">
-                    <span><?=$trendingdest['city']?></span> <?=$trendingdest['numReservations']?> Reservations
+                    <span><?=$trendingdest['city']?></span> ↑ <?=$trendingdest['numReservations']?> 
                     </a>
                   </li>
-                <?php ?>
+				<?php }?>
             </ol>
         </section>
 <?php } ?>

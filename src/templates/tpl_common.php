@@ -6,6 +6,7 @@ function draw_head($jsArray, $class = null) { ?>
 		<title>Agency Travels</title>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="../css/responsive.css">
 		<!-- TODO: ver se isto sempre -->
 		<link rel="stylesheet" href="../calendar/css/lightpick.css">
 		<!-- TODO: ver se isto sempre -->

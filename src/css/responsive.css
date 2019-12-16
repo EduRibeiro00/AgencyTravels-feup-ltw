@@ -1,0 +1,68 @@
+@import "./constants.css";
+
+/* 1240 */
+@media (max-width: 75em) {
+	main{
+		background: red;
+	}
+	main#main-page {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		grid-template-rows: auto auto 1fr;
+		grid-template-areas: "topdests"
+							 "trending"
+							 "randlocationplaces"; 
+	}
+
+}
+
+
+/* 640 */
+@media (max-width: 40em){
+	body{
+		font-size: 0.8em;
+	}
+	main{
+		background: green;
+	}
+
+	#topdests ol, #trending ol {
+		display: grid;
+		grid-template-columns: auto;
+		grid-template-rows: auto auto auto auto;
+	}
+
+	.place-listing article {
+		width: auto;
+		max-width: 25em;
+	}	
+}
+
+/* 640 */
+@media (max-width: 25em){
+	main{
+		background: blue;
+	}
+
+	#topdests ol img, #trending ol img{
+		display: none;
+	}
+
+	#slideshow a:before {
+		content: "";
+	}
+
+	.place_info {
+		position: relative;
+		padding-top: 0.2em;
+		bottom: 0;
+		left: 0;
+		transform: none;
+	}
+
+	.place-listing img {
+		width: auto;
+		height: 70%;
+	}
+
+}

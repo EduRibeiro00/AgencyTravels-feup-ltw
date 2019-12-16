@@ -2,7 +2,7 @@
     <section id="slideshow">
 		<div class="splide__track">
 			<?php if($title != null && $titleLink != null) { ?>
-				<h3><a href=<?=$titleLink?>><?=$title?></a></h3>
+				<a class="button" href=<?=$titleLink?>><?=$title?></a>
 			<?php } ?>
 
 			<ul class="splide__list">
@@ -45,11 +45,11 @@ function draw_places_slideshow($places) { ?>
 					<li class="splide__slide">
 						<article class="splide__slide__container">
 							<a href="place_info.php?place_id=<?=$places[$i]['placeID']?>">
+								<img src="../assets/images/places/medium/<?=$places[$i]['images'][0]['image']?>">
 								<div class="place_info">
 								<h4><?=$places[$i]['title']?></h4>
 								<p><?=number_format($places[$i]['avg_price'], 2);?>€/night</p>
 								</div>
-								<img src="../assets/images/places/medium/<?=$places[$i]['images'][0]['image']?>">
 							</a>
 						</article>
 					</li>

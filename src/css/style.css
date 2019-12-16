@@ -210,7 +210,7 @@ a {
 }
 
 #navbar form, #navbar a {
-    margin: 0 2em;
+    margin: 0 2%;
 }
 
 #navbar a#link-image {
@@ -375,14 +375,19 @@ main#main-page .place-listing {
 }
 
 .place-listing {
-    border: 1px solid black;
+    border: 1px solid var(--border_color_transp);
     margin: 0 2em;
     padding: 1em;
 }
 
+.place-listing a:hover{
+	text-decoration: none;
+}
+
 .place-listing img {
-	height: 14em;
-	width: auto;
+	width: 100%;
+	/* object-position: center; */
+	object-fit: cover;
 }
 
 .place-listing h3 {
@@ -390,6 +395,9 @@ main#main-page .place-listing {
 }
 
 .place-listing article {
+	height: 14em;
+	width: 25em;
+	margin: 0 5em;
     text-align: center;
     font-size: 0.9em;
     position: relative;
@@ -407,11 +415,6 @@ main#main-page .place-listing {
 .place_info h4, .place_info p {
     margin: 0.2em;
     color: var(--light_text_color);
-}
-
-.more {
-    text-align: center;
-    margin: 1em auto;
 }
 
 .button, .button-appearance {
