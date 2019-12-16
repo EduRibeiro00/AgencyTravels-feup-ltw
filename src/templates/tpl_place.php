@@ -8,8 +8,6 @@ include_once('../includes/google_maps.php');
 include_once('../includes/input_validation.php');
 include_once('../templates/tpl_cards.php');
 
-
-
 function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePrice) { 
 	draw_confirmation_form();
 	?>
@@ -61,7 +59,7 @@ function draw_place_details($house_numRooms, $house_capacity, $house_numBathroom
 function draw_place_description($house_description) { ?>
     <article id="house_description">
 		<h3>Description</h3>
-        <p> <?= $house_description ?></p>
+        <p><?=htmlspecialchars($house_description)?></p>
     </article>
 <?php }
 
@@ -97,22 +95,22 @@ function draw_my_place_sidebar($housePrice,$house_rating, $houseOwner, $placeID,
 
 function draw_my_place_icon_desc($house_name, $house_numRooms, $house_capacity, $house_numBathrooms, $house_description) { ?>
     <article id="House_Info">
-        <header><?= $house_name ?></header>
+        <header><?=htmlspecialchars($house_name)?></header>
         <ul id="Pictographic_Info">
             <li>
                 <i class="fas fa-bed"></i>
-                Number of Rooms <?= $house_numRooms ?>
+                Number of Rooms <?=$house_numRooms?>
             </li>
             <li>
                 <i class="fas fa-user"></i>
-                Capacity <?= $house_capacity ?>
+                Capacity <?=$house_capacity?>
             </li>
             <li>
                 <i class="fas fa-toilet"></i>
-                Bathrooms <?= $house_numBathrooms ?>
+                Bathrooms <?=$house_numBathrooms?>
             </li>
         </ul>
-        <p id="House_Description"> <?= $house_description ?></p>
+        <p id="House_Description"> <?=htmlspecialchars($house_description)?></p>
     </article>
 <?php }
 
@@ -123,8 +121,8 @@ function draw_place_location($house_address_full, $house_gpsCoords) { ?>
             <?php initGoogleMaps(); ?>
         </section>
         <footer>
-            <p>Address:<?= $house_address_full ?></p>
-            <p id="PlaceGPSCoords">GPS_Coords:<?=$house_gpsCoords ?></p>
+            <p><strong>Address:</strong> <?=htmlspecialchars($house_address_full)?></p>
+            <p id="PlaceGPSCoords"><strong>GPS Coords:</strong> <?=$house_gpsCoords?></p>
         </footer>
     </article>
 <?php }

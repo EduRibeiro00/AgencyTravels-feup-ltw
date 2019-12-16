@@ -75,7 +75,7 @@ function draw_navbar($user_info, $hints, $class = null) { ?>
 			<a id="link-image" class="circ-img-link" href="profile_page.php?userID=<?=$user_info['userID']?>">
 				<img class="circular-img" id="profilepic" src="../assets/images/users/small/<?=$user_info['image']?>">	
 			</a>
-			<a id="link-name" href="profile_page.php?userID=<?=$user_info['userID']?>"><?=$name?></a>
+			<a id="link-name" href="profile_page.php?userID=<?=$user_info['userID']?>"><?=htmlspecialchars($name)?></a>
 			<a id="logoutlink" href="../actions/action_logout.php">Logout</a>
 
 		<?php } else { ?>

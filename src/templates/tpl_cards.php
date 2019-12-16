@@ -10,7 +10,7 @@ function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 		<a class="row" href="../pages/place_info.php?place_id=<?=$place['placeID']?>">
 			<img class="hcard-img" src="../assets/images/places/medium/<?=$place['images'][0]['image']?>">
 			<div class="column info">
-			<h4><?=$place['title']?></h4>
+			<h4><?=htmlspecialchars($place['title'])?></h4>
 			<?php draw_place_details($place['numRooms'], $place['capacity'], $place['numBathrooms']); ?>
 			<footer class="row">
 				<?php if(isset($place['price']) && $place['price'] != null) { ?>
@@ -87,10 +87,10 @@ function draw_user_card($user, $drawingOption = null) { ?>
 			<img class="circular-img" src="../assets/images/users/small/<?=$user['image']?>">
 		</a>
 		<a class="user_username" href="../pages/profile_page.php?userID=<?=$user['userID']?>">
-			<?=$user['username']?>
+			<?=htmlspecialchars($user['username'])?>
 		</a>
-		<?php if($drawingOption == 'email') {?>
-			<a class="user_contact" href="mailto: <?=$user['email']?>">Speak with the Owner</a>
+		<?php if($drawingOption == 'email') { ?>
+			<a class="user_contact" href="mailto: <?=htmlspecialchars($user['email'])?>">Speak with the Owner</a>
 		<?php } else if($drawingOption == 'rating') draw_star_rating($user['stars']) ?>
 
 	</section>
@@ -102,13 +102,13 @@ function draw_user_card($user, $drawingOption = null) { ?>
             <section class="client-info row">
                 <a class="circ-img-link" href="../pages/profile_page.php?userID=<?=$place_reservation['userID']?>">
                     <img class="circular-img" src="../assets/images/users/small/<?=$place_reservation['image']?>">
-                    <p><?=$place_reservation['username']?></p>
+                    <p><?=htmlspecialchars($place_reservation['username'])?></p>
                 </a>
             </section>
             <section class="reserv-place-info">
                 <p>Reservation for:</p>
-                <p><?=$place_reservation['title']?></p>
-                <p><?=$place_reservation['address']?></p>
+                <p><?=htmlspecialchars($place_reservation['title'])?></p>
+                <p><?=htmlspecialchars($place_reservation['address'])?></p>
             </section>
             <section class="reserv-price">
                 <p>Total price: <?=number_format($place_reservation['price'], 2);?> €</p>

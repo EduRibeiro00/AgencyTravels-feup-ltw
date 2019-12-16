@@ -2,7 +2,7 @@
     <article>
         <a href="place_info.php?place_id=<?=$place['placeID']?>">
             <div class="place_info">
-              <h4><?=$place['title']?></h4>
+              <h4><?=htmlspecialchars($place['title'])?></h4>
               <p><?=number_format($place['avg_price'], 2);?>€/night</p>
             </div>
 			<img src="../assets/images/places/medium/<?=$place['images'][0]['image']?>">
@@ -13,7 +13,7 @@
 
 <?php function draw_place_listing($title, $places, $link) { ?>
     <section class="place-listing">
-        <h3><?=$title?></h3>
+        <h3><?=htmlspecialchars($title)?></h3>
             
         <div class="places_list">
             <?php 

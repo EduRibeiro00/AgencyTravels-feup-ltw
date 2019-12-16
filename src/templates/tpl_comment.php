@@ -12,7 +12,7 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
 		<header>
 			<?php draw_user_card($comment, 'rating'); ?>
 		</header>
-		<p><?=$comment["comment"]?></p>
+		<p><?=htmlspecialchars($comment["comment"])?></p>
 		<footer>
 			<p>Published: <?=$comment["date"]?></p>
 		</footer>
@@ -26,7 +26,7 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
                                     <img class="reply-author-img circular-img" src="../assets/images/users/small/<?=$reply['image']?>">
                                 </a>
                                 <a href="../pages/profile_page.php?userID=<?=$reply['userID']?>">
-                                    <p><?=$reply["username"]?></p>
+                                    <p><?=htmlspecialchars($reply["username"])?></p>
                                 </a>
                             </header>
                             <p><?=htmlspecialchars($reply["comment"])?></p>

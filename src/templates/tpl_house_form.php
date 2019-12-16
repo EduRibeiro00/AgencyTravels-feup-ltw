@@ -22,10 +22,6 @@ function draw_form($place = null, $edit_menu = false, $all_locations) {
         $imagePreview_medium = "../assets/images/places/medium/";
         $description=$place['description'];
 
-
-        //GET ALL IMAGES
-
-
     } else {
         $title = '';
         $address = '';
@@ -48,9 +44,7 @@ function draw_form($place = null, $edit_menu = false, $all_locations) {
  <?php initGoogleMaps(); ?>
 
     <section id="place_edit_form">
-
         <form>
-
             <?php if ($place != null) { ?>
                 <input type="hidden" name="placeID" value=<?=$place['placeID']?>>
             <?php } ?>
@@ -61,22 +55,18 @@ function draw_form($place = null, $edit_menu = false, $all_locations) {
 
             <fieldset>
                 <legend>Description</legend>
-                <label>Title: <input type="text" name="title" size="40" value="<?=$title?>" required> </label>
+                <label>Title: <input type="text" name="title" size="40" value="<?=htmlspecialchars($title)?>" required> </label>
             </fieldset>
 
             <fieldset>
 
                 <legend>Pictures</legend>
-
-
                 <section id="img-upload" class="row">
                     <!--First we render the preview Images THIS SECTION IS USED BY JS DOM-->
                     <div id="house_form_img_preview">
-
                     </div>
 
                     <!--then we render the local Images-->
-
                     <div id="house_form_img_local">
                         <?php
                             for ($i = 0; $i < $imagearray_lenght; $i++) {
@@ -120,7 +110,7 @@ function draw_form($place = null, $edit_menu = false, $all_locations) {
 
             <fieldset>
                 <legend>Description</legend>
-                <textarea name="description" rows="10" cols="100" required><?=$description?></textarea>
+                <textarea name="description" rows="10" cols="100" required><?=htmlspecialchars($description)?></textarea>
 
 
             </fieldset>
@@ -135,7 +125,7 @@ function draw_form($place = null, $edit_menu = false, $all_locations) {
                             <?php foreach ($all_locations as $eachLocation) {
                                     $selected = $eachLocation['locationID'] == $location ? "selected" : "";
                                     $locationString = $eachLocation['country'] . ' - ' . $eachLocation['city'];?>
-                                <option value=<?=$eachLocation['locationID'] ?> <?= $selected ?>><?=$locationString?></option>
+                                <option value=<?=$eachLocation['locationID'] ?> <?= $selected ?>><?=htmlspecialchars($locationString)?></option>
                             <?php } ?>
                         </select>
                     </label>
@@ -147,9 +137,9 @@ function draw_form($place = null, $edit_menu = false, $all_locations) {
             <fieldset>
                 <legend>House Caracteristics</legend>
                 <article class="column edit-house-caracteristics">
-                    <label>Number of Rooms:<input type="text" name="numRooms" value="<?=$numRooms?>"></label>
-                    <label>Number of Bathrooms:<input type="text" name="numBathrooms" value="<?=$numBathrooms?>"></label>
-                    <label>Capacity:<input type="text" name="capacity" value="<?=$capacity?>"></label>
+                    <label>Number of Rooms:<input type="number" name="numRooms" value="<?=htmlspecialchars($numRooms)?>"></label>
+                    <label>Number of Bathrooms:<input type="number" name="numBathrooms" value="<?=htmlspecialchars($numBathrooms)?>"></label>
+                    <label>Capacity:<input type="number" name="capacity" value="<?=htmlspecialchars($capacity)?>"></label>
                 </article>
             </fieldset>
 
@@ -158,12 +148,7 @@ function draw_form($place = null, $edit_menu = false, $all_locations) {
             <div id="edit_place_submit">
                 <input class="button" type="submit" value="Confirm">
             </div>
-
-
         </form>
-
-
     </section>
-
 </div>
 <?php } ?>

@@ -22,7 +22,7 @@ function draw_my_houses_header($houseOwnerInfo, $numReservs) { ?>
                     <a class="circ-img-link" href="../pages/profile_page.php?userID=<?=$houseOwnerInfo['userID']?>">
                         <img class="circular-img" src="../assets/images/users/small/<?=$houseOwnerInfo['image']?>">
                     </a>
-                    <p><?=$houseOwnerInfo['name']?></p>
+                    <p><?=htmlspecialchars($houseOwnerInfo['name'])?></p>
                 </div>
                 <p>Number of Reservations: <?=$numReservs?></p>
             </div>
