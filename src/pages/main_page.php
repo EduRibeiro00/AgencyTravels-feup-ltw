@@ -30,7 +30,7 @@
 
 	if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
 		$user_info = getUserInformation($_SESSION['userID']);
-		$jsFiles = ['../js/main.js', '../js/slideshow.js'];
+		$jsFiles = ['../js/main.js'];
 	}
 	else {
 		$user_info = NULL;

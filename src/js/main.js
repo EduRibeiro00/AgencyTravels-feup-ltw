@@ -72,6 +72,7 @@ window.addEventListener('load', function() {
 				perPage	: 2,
 				perMove : 2,
 				focus: 'center',
+				pagination: false,
 			} ).mount();
 		}
 
@@ -83,6 +84,7 @@ window.addEventListener('load', function() {
 				perPage	: 3,
 				perMove : 3,
 				focus: 'center',
+				pagination: false,
 			} ).mount();
 		}
 });
