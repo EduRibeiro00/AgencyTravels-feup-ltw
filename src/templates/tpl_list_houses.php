@@ -15,15 +15,26 @@ function getPlaces(){
 	$prov = explode(" - ", $location);
 	$foundLoc = ($prov[0] != null && $prov[1] != null);
 
-	$checkin = $_GET['checkin'];
-	$checkout = $_GET['checkout'];
+	if(isset($_GET['checkin'])) {
+		$checkin = $_GET['checkin'];
+	}
+	else {
+		$checkin = null;
+	}
+
+	if(isset($_GET['checkout'])) {
+		$checkout = $_GET['checkout'];
+	}
+	else {
+		$checkout = null;
+	}
 
 	if(($checkin != null && !validateDateValue($checkin)) || ($checkout != null && !validateDateValue($checkout))) {
 		return false;
 	}
 
-	$minPrice = $_GET['minPrice'] ? $_GET['minPrice'] : 0;		// check
-	$maxPrice = $_GET['maxPrice'] ? $_GET['maxPrice'] : 1000;	// check
+	$minPrice = isset($_GET['minPrice']) ? $_GET['minPrice'] : 0;		// check
+	$maxPrice = isset($_GET['maxPrice']) ? $_GET['maxPrice'] : 1000;	// check
 	
 	if(!validatePosIntValue($minPrice) || !validatePosIntValue($maxPrice)) {
 		return false;
@@ -39,16 +50,16 @@ function getPlaces(){
 		$checkout = $ph[2] . "-" . $ph[1] . "-" . $ph[0];
 	}
 
-	$adults = $_GET['nAdults'] ? $_GET['nAdults'] : 1;			// check
-	$children = $_GET['nChildren'] ? $_GET['nChildren'] : 0;	// check
-	$rating = $_GET['rating'] ? $_GET['rating'][0] : 0;			// check
+	$adults = isset($_GET['nAdults']) ? $_GET['nAdults'] : 1;			// check
+	$children = isset($_GET['nChildren']) ? $_GET['nChildren'] : 0;	// check
+	$rating = isset($_GET['rating']) ? $_GET['rating'][0] : 0;			// check
 
 	if(!validatePosIntValue($adults) || !validatePosIntValue($children) || !validatePosIntValue($rating)) {
 		return false;
 	}
 
-	$nRooms = $_GET['nRooms'] ? $_GET['nRooms'] : 0;				// check
-	$nBathrooms = $_GET['nBathrooms'] ? $_GET['nBathrooms'] : 0;	// check
+	$nRooms = isset($_GET['nRooms']) ? $_GET['nRooms'] : 0;				// check
+	$nBathrooms = isset($_GET['nBathrooms']) ? $_GET['nBathrooms'] : 0;	// check
 
 	if(!validatePosIntValue($nRooms) || !validatePosIntValue($nBathrooms)) {
 		return false;
