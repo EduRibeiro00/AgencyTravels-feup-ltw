@@ -10,4 +10,10 @@
     function generate_random_token() {
         return bin2hex(openssl_random_pseudo_bytes(32));
     }
+
+    function data_token_string() {
+        return "data-token=" . $_SESSION['csrf'];
+    }
+
+    // <input type="hidden" name="csrf" value="<?=$_SESSION['csrf'])
 ?>
