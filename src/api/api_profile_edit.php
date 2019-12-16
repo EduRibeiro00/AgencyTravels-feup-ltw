@@ -63,12 +63,12 @@ if ((!isset($_SESSION['userID']) || !validateIntValue($_SESSION['userID'])) || $
         echo json_encode(array('message' => $message));
         return;
     }
-    if (!validateTextValue($bio)) {
+    if (is_numeric($bio)) {
         $message = 'bio not valid';
         echo json_encode(array('message' => $message));
         return;
     }
-    if (!validateDate($birthDate)) {
+    if (!validateDateValue($birthDate)) {
         $message = 'birthDate not valid';
         echo json_encode(array('message' => $message));
         return;

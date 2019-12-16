@@ -223,6 +223,10 @@ if (profileForm != null) {
 					errorMessage.textContent = 'Number of Bathrooms is not valid';
 					errorMessage.style.display = "block";
 					break;
+				case 'Number of rooms is not valid':
+					errorMessage.textContent = 'Number of rooms is not valid';
+					errorMessage.style.display = "block";
+					break;
 				case 'Capacity is not valid':
 					errorMessage.textContent = "Capacity is not valid";
 					errorMessage.style.display = "block";

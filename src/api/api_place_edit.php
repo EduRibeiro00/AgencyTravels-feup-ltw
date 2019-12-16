@@ -113,11 +113,11 @@ if ((!isset($_SESSION['userID']) || !validateIntValue($_SESSION['userID'])) || $
                     $message = 'Title not valid';
                     $inputs_are_valid = false;
                 }
-                if (is_numeric($desc) || !validateTextValue($desc)) {
+                if (is_numeric($desc)) {
                     $message = 'Description not valid';
                     $inputs_are_valid = false;
                 }
-                if (is_numeric($address) || !validateLocationValue($address)) {
+                if (is_numeric($address)) {
                     $message = 'Address not valid';
                     $inputs_are_valid = false;
                 }
