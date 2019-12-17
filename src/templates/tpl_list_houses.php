@@ -19,19 +19,8 @@ function getPlaces(){
 		$foundLoc = ($prov[0] != null && $prov[1] != null);
 	}
 
-	if(isset($_GET['checkin'])) {
-		$checkin = $_GET['checkin'];
-	}
-	else {
-		$checkin = null;
-	}
-
-	if(isset($_GET['checkout'])) {
-		$checkout = $_GET['checkout'];
-	}
-	else {
-		$checkout = null;
-	}
+	$checkin = isset($_GET['checkin']) ? $_GET['checkin'] : null;
+	$checkout = isset($_GET['checkout']) ? $_GET['checkout'] : null;
 
 	if(($checkin != null && !validateDateValue($checkin)) || ($checkout != null && !validateDateValue($checkout))) {
 		return false;
@@ -46,13 +35,6 @@ function getPlaces(){
 
 	// TODO: mudar para ou e se tiver apenas 1 -> somar um dia / subtrair um dia à outra
 	$foundDates = ($checkin != null && $checkout != null);
-	if($foundDates){
-		$ph  = explode("/", $checkin);
-		$checkin = $ph[2] . "-" . $ph[1] . "-" . $ph[0];
-
-		$ph  = explode("/", $checkout);
-		$checkout = $ph[2] . "-" . $ph[1] . "-" . $ph[0];
-	}
 
 	$adults = isset($_GET['nAdults']) ? $_GET['nAdults'] : 1;			// check
 	$children = isset($_GET['nChildren']) ? $_GET['nChildren'] : 0;	// check

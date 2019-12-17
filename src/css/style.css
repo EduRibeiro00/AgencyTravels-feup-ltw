@@ -714,12 +714,10 @@ section#map img {
 	grid-area: facilities;
 }
 
-#filters button,
-#filters input[type="submit"] {
+#filters #filter_buttons {
 	grid-area: submit;
 	font-size: 1em;
-	max-width: 8em;
-	margin: 1em auto;
+	justify-content: space-evenly;
 }
 
 /*
