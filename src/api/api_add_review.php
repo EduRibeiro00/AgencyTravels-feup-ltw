@@ -5,6 +5,12 @@
     include_once('../includes/input_validation.php');
     include_once('../includes/reservation_utils.php');
 
+    if ($_SESSION['csrf'] !== $_POST['csrf']) {
+		$message = 'token error';
+		echo json_encode(array('message' => $message));
+		return; 
+	}
+
     $reservationID = $_POST['reservationID'];
     $stars = $_POST['stars'];
     $comment = $_POST['comment'];

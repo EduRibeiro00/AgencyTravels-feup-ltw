@@ -31,6 +31,9 @@ if(reviewForm != null) {
         let reply = JSON.parse(this.responseText);
         let message = reply.message;
         switch(message) {
+            case 'token error':
+                break;
+
             case 'yes':
                 let newReviews = reply.reviews;
                 for(let i = 0; i < newReviews.length; i++) {
@@ -104,7 +107,9 @@ if(reviewForm != null) {
             lastReviewID = -1;
         }
 
-        request.send(encodeForAjax({reservationID: reservationID, stars: stars, comment: comment, placeID: placeID, lastReviewID: lastReviewID}));
+        let csrf = event.target.querySelector('input[name="csrf"]').value;
+
+        request.send(encodeForAjax({csrf: csrf, reservationID: reservationID, stars: stars, comment: comment, placeID: placeID, lastReviewID: lastReviewID}));
     });
 }
 

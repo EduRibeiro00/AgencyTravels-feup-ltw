@@ -165,6 +165,8 @@ function draw_add_review($reservationID, $placeID) { ?>
         <h4>Thank you for staying in this place! We hope you enjoyed your stay.</h4>
         <p>Leave a review...</p>
         <form id="review-form" class="row">
+            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+
             <input type="hidden" name="reservationID" value=<?=$reservationID?>>
             <input type="hidden" name="placeID" value=<?=$placeID?>>
             <label for="review-stars">Stars:

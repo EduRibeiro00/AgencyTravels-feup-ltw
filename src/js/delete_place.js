@@ -57,6 +57,9 @@ confirmForm.addEventListener('submit', function(event) {
         request.addEventListener('load', function () {
             let message = JSON.parse(this.responseText).message;
             switch(message) {
+                case 'token error':
+                    break;
+
                 case 'yes':
                     // remove house card for that reservation
                     houseCard.remove();
@@ -91,7 +94,9 @@ confirmForm.addEventListener('submit', function(event) {
 
         });
 
-        request.send(encodeForAjax({placeID: placeID}));
+        let csrf = event.target.querySelector('input[name="csrf"]').value;
+
+        request.send(encodeForAjax({csrf: csrf, placeID: placeID}));
 });
 
 

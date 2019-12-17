@@ -5,6 +5,12 @@
     include_once('../includes/input_validation.php');
     include_once('../database/db_places.php');
 
+    if ($_SESSION['csrf'] !== $_POST['csrf']) {
+		$message = 'token error';
+		echo json_encode(array('message' => $message));
+		return; 
+	}
+
     $placeID = $_POST['placeID'];
 
     if(validatePosIntValue($placeID)) {
