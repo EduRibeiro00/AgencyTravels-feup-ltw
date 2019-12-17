@@ -2,7 +2,6 @@
 
 include_once('../templates/tpl_common.php');
 include_once('../templates/tpl_comment.php');
-include_once('../templates/tpl_similar_offer.php');
 include_once('../includes/reservation_utils.php');
 include_once('../includes/google_maps.php');
 include_once('../templates/tpl_cards.php');
@@ -38,7 +37,6 @@ function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePri
 		</section>
 		<?php 
 			draw_my_place_sidebar($housePrice, $place['rating'], $houseOwnerInfo, $place['placeID'], count($houseComments)); 
-			draw_similar_offer_slide_show();  
 		?>
 	  </main>
 <?php } 
@@ -117,15 +115,11 @@ function draw_my_place_icon_desc($house_name, $house_numRooms, $house_capacity, 
 
 
 function draw_place_location($house_address_full, $house_gpsCoords) { ?>
-    <article id="Google_Maps_Widget_Container">
-        <header>Location</header>
-        <section id="Google_Maps_Widget">
-            <?php initGoogleMaps(false,true); ?>
-        </section>
-        <footer>
-            <p>Address:<?= $house_address_full ?></p>
-            <p id="PlaceGPSCoords">GPS_Coords:<?= $house_gpsCoords ?></p>
-        </footer>
+    <article id="location">
+		<h3>Location</h3>
+        <?php initGoogleMaps(false,true); ?>
+        <p>Address: <?= $house_address_full ?></p>
+        <p id="PlaceGPSCoords">GPS_Coords:<?= $house_gpsCoords ?></p>
     </article>
 <?php }
 
@@ -147,10 +141,9 @@ function draw_add_review($reservationID, $placeID) { ?>
             <?php if(isset($_SESSION['userID']) && $_SESSION['userID'] != "") { ?>
                     <section class="add-reply-section">
                         <p>Add a reply:</p>
-                        <form class="reply-form row">
-                            <label for="reply-desc">Comment:
-                                <textarea rows="5" cols="50" name="reply-desc"></textarea>
-                            </label>
+                        <form class="reply-form column">
+                            <label for="reply-desc">Comment:</label>
+                            <textarea rows="5" cols="50" name="reply-desc"></textarea>
                             <input class="button" type="submit" value="Submit">
                         </form>
                     </section>

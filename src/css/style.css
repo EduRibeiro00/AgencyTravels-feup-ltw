@@ -16,11 +16,9 @@
 	box-shadow: 0px 3px 31px -10px rgba(0,0,0,0.4);
 }
 
-#form_place_GPS{
+#form_place_GPS, #PlaceGPSCoords{
     display: none;
 }
-
-
 
 
 /* TODO: uniformizar botoes */
@@ -909,9 +907,8 @@ footer a {
 	color: black;
     display: grid;
     grid-template-columns: auto min-content;
-    grid-template-rows:auto auto;
-    grid-template-areas:"Column Aside"
-                        "Similar Similar";                        
+    grid-template-rows:auto;
+    grid-template-areas:"Column Aside";
 }
 
 #place_page section.column{
@@ -1086,8 +1083,16 @@ ul.row {
 }
 
 .reply-form > *, #review-form > * {
-    margin: 0 0.5em;
     font-size: 1em;
+}
+
+.reply-form textarea, #review-form textarea{
+	width: 100%
+}
+
+.reply-form > input, #review-form > input {
+    width: 10em;
+	align-self: center;
 }
 
 .add-reply-section {
@@ -1106,30 +1111,6 @@ ul.row {
 	margin: 0 auto;
 	width: min-content;
 	display: block;
-}
-
-#Similar_Offers_Container{
-	border-top: 3px solid var(--main_color);
-    grid-area:Similar;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: nowrap;
-    flex-direction: row;
-}
-#Similar_Offers_Container img{
-    width: 100%;
-    height: auto;
-}
-    
-#Similar_Offers_Left{
-    flex-basis: 20%;
-}
-#Similar_Offers_Center{
-    flex-basis: 40%;
-}
-#Similar_Offers_Right{
-    flex-basis: 20%;
 }
 
 section#add-review-placeholder {
@@ -1329,6 +1310,10 @@ article.place-reserv-card {
 .places_list article{
 	margin: 1em auto;
 
+}
+
+#place_page #location div#map{
+	width: 100% !important;
 }
 
 

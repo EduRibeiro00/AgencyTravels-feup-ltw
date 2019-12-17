@@ -1299,6 +1299,7 @@
 		// }
 	  },
 
+
 	  setStartDate: function(date, preventOnSelect) {
 		var dateISO = moment(date, moment.ISO_8601),
 		  dateOptFormat = moment(date, this._opts.format);
@@ -1422,6 +1423,12 @@
 		if (this.isShowing) {
 			updateDates(this.el, this._opts);
 		}
+	  },
+
+	  setNumberOfMonths: function(nMonths){
+		  this._opts.numberOfColumns = nMonths;
+		  this._opts.numberOfMonths = nMonths;
+		  renderCalendar(this.el, this._opts);
 	  },
 
 	  setMaxDate: function(date){

@@ -11,7 +11,7 @@ function encodeForAjax(data) {
 
 // -------------
 
-let inlineCal = new Lightpick({
+let inlineCalOptions = {
 	field			: document.getElementById('av_checkin'),
 	format			: 'YYYY-MM-DD',
 	lang			: 'en-US',
@@ -28,7 +28,9 @@ let inlineCal = new Lightpick({
 	inline			: true,
 	priceTooltip	: true,
 	onSelect		: priceDay
-});
+}
+
+let inlineCal;
 
 let checkin = document.getElementById('fr_checkin')
 let checkout = document.getElementById('fr_checkout')
@@ -162,9 +164,36 @@ window.onload = function () {
 			reservationCal.setPositionProp('', fr.offsetTop + checkinFR.offsetHeight + checkinFR.offsetTop);
 
 	})
-	
-	updateDisableDates()	
+
+	if(window.innerWidth > 1310)
+		inlineCal = new Lightpick(inlineCalOptions);
+	else if(window.innerWidth > 1000){
+		inlineCalOptions.numberOfMonths	= 2
+		inlineCalOptions.numberOfColumns = 2
+		inlineCal = new Lightpick(inlineCalOptions);
+	}
+	else{
+		inlineCalOptions.numberOfMonths	= 1
+		inlineCalOptions.numberOfColumns = 1
+		inlineCal = new Lightpick(inlineCalOptions);
+	}
+
+	updateDisableDates()
+	window.addEventListener('resize', function(){
+		if(window.innerWidth > 1310){
+			inlineCal.setNumberOfMonths(3)
+		}
+		else if(window.innerWidth > 1000){
+			inlineCal.setNumberOfMonths(2)
+
+		}
+		else{
+			inlineCal.setNumberOfMonths(1)
+		}
+	})
 }
+
+
 
 let frForm = document.querySelector('#fr_card form')
 let confirmForm = document.getElementById('cf-confirmation')
