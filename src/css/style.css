@@ -2,10 +2,7 @@
 @import "./carousel.css";
 @import "./house_card.css";
 
-
-
 #map{
-
     height:400px !important;
     width: 400px !important;
 }
@@ -16,9 +13,6 @@
 #form_place_GPS{
     display: none;
 }
-
-
-
 
 /* TODO: uniformizar botoes */
 *,
