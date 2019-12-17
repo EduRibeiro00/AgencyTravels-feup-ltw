@@ -196,6 +196,7 @@ profileForm.addEventListener('submit', function (event) {
 				break;
 			case 'Description not valid':
 				errorMessage.textContent = 'Description not valid';
+				errorMessage.style.display = "block";
 				break;
 			case 'Address not valid':
 				errorMessage.textContent = 'Address not valid';
