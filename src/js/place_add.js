@@ -223,7 +223,9 @@ profileForm.addEventListener('submit', function (event) {
 				showDialog('Duplicates But inserted');
 				window.setTimeout(function () { history.back(); }, 3000)
 				break;
-
+			case 'token error':
+				break;
+		
 			default:
 				errorMessage.textContent = "Error adding.";
 				errorMessage.style.display = "block";
@@ -238,6 +240,8 @@ profileForm.addEventListener('submit', function (event) {
 
 	let formData = new FormData(profileForm);
 
+	let dataToken=document.querySelector('input[name="csrf"]').value;
+
 
 	button_Submit.style.visibility = "hidden";
 	formData.append('File0', files_array[0]);
@@ -246,6 +250,7 @@ profileForm.addEventListener('submit', function (event) {
 	formData.append('File3', files_array[3]);
 	formData.append('File4', files_array[4]);
 	formData.append('File5', files_array[5]);
+	formData.append('csrf',dataToken);
 
 
 	request.send(formData);

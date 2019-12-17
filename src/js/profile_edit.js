@@ -111,6 +111,9 @@ profileForm.addEventListener('submit', function (event) {
 				errorMessage.textContent = "gender not valid";
 				errorMessage.style.display = "block";
 				break;
+			case 'token error':
+				break;
+				
 
 			default:
 				errorMessage.textContent = "error updating";
@@ -120,7 +123,10 @@ profileForm.addEventListener('submit', function (event) {
 	});
 
 	let formData = new FormData(profileForm);
+	let dataToken = document.querySelector('input[name="csrf"]').value;
+	
 	formData.append('hasFile', document.querySelector('#img-upload input[type="file"]').getAttribute('data-hasFile'));
+	formData.append('csrf', dataToken);
 
 	request.send(formData);
 });

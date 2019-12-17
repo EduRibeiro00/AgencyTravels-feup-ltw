@@ -18,6 +18,12 @@ function find_photo_in_database_array($photo_hash, $images_place_from_database)
     return false;
 }
 
+if ($_SESSION['csrf'] !== $_POST['csrf']) {
+    $message='token error';
+    echo json_encode(array('message' => $message));
+    return;
+}
+
 if (!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false)) {
     $message = 'user not logged in';
 } else {
@@ -32,6 +38,7 @@ if (!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && 
     $numBathrooms = $_POST['numBathrooms'];
     $locationID = $_POST['location'];
     $GPSCoords = $_POST['gpsCoords'];
+
     //IMAGES UPLOADED
     //
     $capacity = $_POST['capacity'];

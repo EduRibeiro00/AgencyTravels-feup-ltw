@@ -84,7 +84,7 @@ function draw_my_place_sidebar($housePrice,$house_rating, $houseOwner, $placeID,
 			<form>
 				<input id="fr_checkin" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" type="text" autocomplete="off" placeholder="Check In..." required>
 				<input id="fr_checkout" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" type="text" autocomplete="off" placeholder="Check Out..." required>
-
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
 				<button class="button" type="submit">Reserve</button>
 			</form>
 			<?php draw_user_card($houseOwner, 'email');?>

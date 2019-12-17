@@ -3,6 +3,11 @@ include_once('../includes/session_include.php');
 include_once('../includes/reservation_utils.php');
 include_once('../includes/input_validation.php');
 
+if ($_SESSION['csrf'] !== $_POST['csrf']) {
+    $message='token error';
+    echo json_encode(array('message' => $message));
+    return;
+}
 
 if(!isset($_POST['placeID']) || !isset($_POST['checkin']) || !isset($_POST['checkout'])){
 	echo json_encode(array('message' => "Invalid submission"));

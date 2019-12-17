@@ -63,6 +63,8 @@ function draw_profile_form($all_locations, $title, $user_info = null) {
                 <input type="hidden" name="userID" value=<?=htmlspecialchars($id)?>>
             <?php } ?>
 
+            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+
             <section id="img-upload" class="row">
                 <div>
                     <label for="prof-image">Profile image:
