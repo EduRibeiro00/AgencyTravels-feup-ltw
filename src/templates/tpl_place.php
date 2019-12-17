@@ -5,9 +5,8 @@ include_once('../templates/tpl_comment.php');
 include_once('../templates/tpl_similar_offer.php');
 include_once('../includes/reservation_utils.php');
 include_once('../includes/google_maps.php');
+include_once('../includes/input_validation.php');
 include_once('../templates/tpl_cards.php');
-
-
 
 function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePrice) { 
 	draw_confirmation_form();
@@ -26,7 +25,7 @@ function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePri
 		  	//House Rating is the avg rating of the house
 			draw_all_comments($place['rating'], $houseComments);
 
-            if(isset($_SESSION['userID']) && $_SESSION['userID'] != "") {
+            if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) {
                 $reservationID = canUserReviewPlace($_SESSION['userID'], $place['placeID']);
                 if($reservationID !== false) {
                     draw_add_review($reservationID, $place['placeID']);
@@ -60,7 +59,7 @@ function draw_place_details($house_numRooms, $house_capacity, $house_numBathroom
 function draw_place_description($house_description) { ?>
     <article id="house_description">
 		<h3>Description</h3>
-        <p> <?= $house_description ?></p>
+        <p><?=htmlspecialchars($house_description)?></p>
     </article>
 <?php }
 
@@ -83,9 +82,9 @@ function draw_my_place_sidebar($housePrice,$house_rating, $houseOwner, $placeID,
 			</section>
 
 			<form>
-				<input id="fr_checkin" type="text" autocomplete="off" placeholder="Check In..." required>
-				<input id="fr_checkout" type="text" autocomplete="off" placeholder="Check Out..." required>
-
+				<input id="fr_checkin" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" type="text" autocomplete="off" placeholder="Check In..." required>
+				<input id="fr_checkout" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" type="text" autocomplete="off" placeholder="Check Out..." required>
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
 				<button class="button" type="submit">Reserve</button>
 			</form>
 			<?php draw_user_card($houseOwner, 'email');?>
@@ -96,35 +95,37 @@ function draw_my_place_sidebar($housePrice,$house_rating, $houseOwner, $placeID,
 
 function draw_my_place_icon_desc($house_name, $house_numRooms, $house_capacity, $house_numBathrooms, $house_description) { ?>
     <article id="House_Info">
-        <header><?= $house_name ?></header>
+        <header><?=htmlspecialchars($house_name)?></header>
         <ul id="Pictographic_Info">
             <li>
                 <i class="fas fa-bed"></i>
-                Number of Rooms <?= $house_numRooms ?>
+                Number of Rooms <?=$house_numRooms?>
             </li>
             <li>
                 <i class="fas fa-user"></i>
-                Capacity <?= $house_capacity ?>
+                Capacity <?=$house_capacity?>
             </li>
             <li>
                 <i class="fas fa-toilet"></i>
-                Bathrooms <?= $house_numBathrooms ?>
+                Bathrooms <?=$house_numBathrooms?>
             </li>
         </ul>
-        <p id="House_Description"> <?= $house_description ?></p>
+        <p id="House_Description"> <?=htmlspecialchars($house_description)?></p>
     </article>
 <?php }
 
 
 function draw_place_location($house_address_full, $house_gpsCoords) { ?>
     <article id="Google_Maps_Widget_Container">
-        <header>Location</header>
+        <header>
+            <h3>Location</h3>    
+        </header>
         <section id="Google_Maps_Widget">
-            <?php initGoogleMaps(false,true); ?>
+            <?php initGoogleMaps(); ?>
         </section>
         <footer>
-            <p>Address:<?= $house_address_full ?></p>
-            <p id="PlaceGPSCoords">GPS_Coords:<?= $house_gpsCoords ?></p>
+            <p id="placeAddressP">Address: <?=htmlspecialchars($house_address_full)?></p>
+            <p id="PlaceGPSCoords">GPS Coords: <?=$house_gpsCoords?></p>
         </footer>
     </article>
 <?php }
@@ -134,7 +135,7 @@ function draw_add_review($reservationID, $placeID) { ?>
     <section id="add-review-placeholder">
         <article class="review" data-reviewID="">
 			<header>
-				<?php draw_user_card($comment, 'rating'); ?>
+				<?php draw_user_card('placeholder', 'rating'); ?>
 			</header>
             <p></p>
             <footer>
@@ -144,10 +145,12 @@ function draw_add_review($reservationID, $placeID) { ?>
             <section class="comment-replies">
             </section>
 
-            <?php if(isset($_SESSION['userID']) && $_SESSION['userID'] != "") { ?>
+            <?php if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) { ?>
                     <section class="add-reply-section">
                         <p>Add a reply:</p>
                         <form class="reply-form row">
+                            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+
                             <label for="reply-desc">Comment:
                                 <textarea rows="5" cols="50" name="reply-desc"></textarea>
                             </label>
@@ -163,6 +166,8 @@ function draw_add_review($reservationID, $placeID) { ?>
         <h4>Thank you for staying in this place! We hope you enjoyed your stay.</h4>
         <p>Leave a review...</p>
         <form id="review-form" class="row">
+            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+
             <input type="hidden" name="reservationID" value=<?=$reservationID?>>
             <input type="hidden" name="placeID" value=<?=$placeID?>>
             <label for="review-stars">Stars:

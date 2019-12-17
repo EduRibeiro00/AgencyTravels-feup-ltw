@@ -9,7 +9,7 @@ function draw_my_reservs_body($user_info, $myReservations) {
     ?>
     <main id="my-container">
     <?php draw_my_reservs_header($user_info);
-          list_houses($myReservations, "My_Reservs", $user_info['userID']); ?>
+          list_houses($myReservations, "My_Reservs", $user_info['userID'],null); ?>
     </main>
 <?php } 
 
@@ -22,7 +22,7 @@ function draw_my_reservs_header($user_info) { ?>
                     <a class="circ-img-link" href="../pages/profile_page.php?userID=<?=$user_info['userID']?>">
                         <img class="circular-img" src="../assets/images/users/small/<?=$user_info['image']?>">
                     </a>
-                    <p><?=$user_info['name']?></p>
+                    <p><?=htmlspecialchars($user_info['name'])?></p>
                 </div>
             </div>
         </section>

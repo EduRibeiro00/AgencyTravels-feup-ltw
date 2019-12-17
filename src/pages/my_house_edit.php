@@ -1,8 +1,9 @@
 <?php
 include_once('../includes/session_include.php');
 include_once('../database/db_user.php');
+include_once('../includes/input_validation.php');
 
-if (isset($_SESSION['userID']) && $_SESSION['userID'] != '' && isset($_GET['placeID'])) {
+if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false && isset($_GET['placeID']) && validatePosIntValue($_GET['placeID'])) {
     $user_info = getUserInformation($_SESSION['userID']);
     $jsFiles = ['../js/main.js', '../js/place_edit.js','../js/googleMapsHouseForm.js'];
 } else {
@@ -37,5 +38,5 @@ draw_head($jsFiles);
 draw_navbar($user_info, false); 
 $all_locations = getAllLocations();
 
-draw_form($place, true,$all_locations);
+draw_form($place, true, $all_locations);
 draw_footer();

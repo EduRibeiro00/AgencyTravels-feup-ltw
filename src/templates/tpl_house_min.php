@@ -3,7 +3,7 @@ include_once('../templates/tpl_slideshow.php');
 
 function draw_place_listing($title, $places, $link) { ?>
     <section class="place-listing">
-        <h3><?=$title?></h3>
+        <h3><?=htmlspecialchars($title)?></h3>
             
         <div class="places_list">
             <?php 

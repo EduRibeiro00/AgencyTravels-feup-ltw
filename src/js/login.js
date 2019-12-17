@@ -14,7 +14,7 @@ let popup = document.getElementById('login-popup');
 let login = document.getElementById('loginlink');
 let loginForm = document.getElementById('login-form');
 let loginMessage = document.getElementById('login-message');
-let loginCross = document.getElementById('login-form-cross');
+let loginCross = document.getElementById('login-form-cross-login');
 
 login.addEventListener('click', function(){
 	popup.style.display = "block";
@@ -28,6 +28,7 @@ window.addEventListener('click', function(event){
         loginMessage.style.display = "none";
     }
 });
+
 
 loginCross.addEventListener('click', function(event) {
     loginForm.reset();
@@ -51,8 +52,11 @@ loginForm.addEventListener('submit', function(event) {
         let message = JSON.parse(this.responseText).message;
 
 		switch(message) {
+            case 'token error':
+                break;
+
             case 'values not defined':
-                loginMessage.textContent = "Please write a username and a password.";
+                loginMessage.textContent = "Please write a valid username and password.";
                 loginMessage.style.display = "block";
                 break;
 
@@ -80,7 +84,9 @@ loginForm.addEventListener('submit', function(event) {
     let username = document.querySelector('input[name="username"]').value;
     let password = document.querySelector('input[name="password"]').value;
 
-    request.send(encodeForAjax({username: username, password: password}));
+    let csrf = event.target.querySelector('input[name="csrf"]').value;
+
+    request.send(encodeForAjax({csrf: csrf, username: username, password: password}));
 });
 
 // -------------------

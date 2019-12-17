@@ -57,6 +57,9 @@ confirmForm.addEventListener('submit', function(event) {
     request.addEventListener('load', function () {
         let message = JSON.parse(this.responseText).message;
         switch(message) {
+            case 'token error':
+                break;
+
             case 'yes':
                 // remove card for that reservation
                 reservationCard.remove();
@@ -78,7 +81,11 @@ confirmForm.addEventListener('submit', function(event) {
                 break;
 
             case 'no':
-                // console.log("Error on canceling the reservation");
+                showDialog("Error on canceling the reservation (invalid input or you may not have permission");
+                break;
+
+            case "user not logged in":
+                showDialog("User is not logged in");
                 break;
 
             default:
@@ -86,7 +93,9 @@ confirmForm.addEventListener('submit', function(event) {
         }
     });
 
-        request.send(encodeForAjax({reservationID: reservationID}));
+    let csrf = event.target.querySelector('input[name="csrf"]').value;
+
+    request.send(encodeForAjax({csrf: csrf, reservationID: reservationID}));
 });
 
 

@@ -2,6 +2,7 @@
 include_once('../templates/tpl_common.php');
 include_once('../templates/tpl_cards.php');
 include_once('../database/db_user.php');
+include_once('../includes/input_validation.php');
 
 function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
     <article class="review" data-reviewID="<?=$comment['reviewID']?>">
@@ -11,7 +12,7 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
 		<header>
 			<?php draw_user_card($comment, 'rating'); ?>
 		</header>
-		<p><?=$comment["comment"]?></p>
+		<p><?=htmlspecialchars($comment["comment"])?></p>
 		<footer>
 			<p>Published: <?=$comment["date"]?></p>
 		</footer>
@@ -25,10 +26,10 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
                                     <img class="reply-author-img circular-img" src="../assets/images/users/small/<?=$reply['image']?>">
                                 </a>
                                 <a href="../pages/profile_page.php?userID=<?=$reply['userID']?>">
-                                    <p><?=$reply["username"]?></p>
+                                    <p><?=htmlspecialchars($reply["username"])?></p>
                                 </a>
                             </header>
-                            <p><?=$reply["comment"]?></p>
+                            <p><?=htmlspecialchars($reply["comment"])?></p>
                             <footer>
                                 <p>Published: <?=$reply["date"]?></p>
                             </footer>
@@ -36,12 +37,14 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
                     <?php } ?>
                 </section>
 
-                <?php if(isset($_SESSION['userID']) && $_SESSION['userID'] != "") { ?>
+                <?php if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) { ?>
                     <section class="add-reply-section">
                         <p>Add a reply:</p>
                         <form class="reply-form row">
+                            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+
                             <label for="reply-desc">Comment:
-                                <textarea rows="5" cols="50" name="reply-desc"></textarea>
+                                <textarea rows="5" cols="50" name="reply-desc" required></textarea>
                             </label>
                             <input class="button" type="submit" value="Submit">
                         </form>

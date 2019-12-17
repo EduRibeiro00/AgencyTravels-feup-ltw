@@ -3,19 +3,43 @@ include_once('../templates/tpl_cards.php');
 include_once('../includes/reservation_utils.php');
 include_once('../database/db_places.php');
 include_once('../includes/google_maps.php');
+include_once('../includes/input_validation.php');
 
 
 function getPlaces(){
 	$location = $_GET['location'];
+	if($location != null && !validateLocationValue($location)) {
+		return false;
+	}
+
 	$prov = explode(" - ", $location);
 	$foundLoc = ($prov[0] != null && $prov[1] != null);
 
-	$checkin = $_GET['checkin'];
-	$checkout = $_GET['checkout'];
+	if(isset($_GET['checkin'])) {
+		$checkin = $_GET['checkin'];
+	}
+	else {
+		$checkin = null;
+	}
 
-	$minPrice = $_GET['minPrice'] ? $_GET['minPrice'] : 0;		// check
-	$maxPrice = $_GET['maxPrice'] ? $_GET['maxPrice'] : 1000;	// check
+	if(isset($_GET['checkout'])) {
+		$checkout = $_GET['checkout'];
+	}
+	else {
+		$checkout = null;
+	}
+
+	if(($checkin != null && !validateDateValue($checkin)) || ($checkout != null && !validateDateValue($checkout))) {
+		return false;
+	}
+
+	$minPrice = isset($_GET['minPrice']) ? $_GET['minPrice'] : 0;		// check
+	$maxPrice = isset($_GET['maxPrice']) ? $_GET['maxPrice'] : 1000;	// check
 	
+	if(!validatePosIntValue($minPrice) || !validatePosIntValue($maxPrice)) {
+		return false;
+	}
+
 	// TODO: mudar para ou e se tiver apenas 1 -> somar um dia / subtrair um dia à outra
 	$foundDates = ($checkin != null && $checkout != null);
 	if($foundDates){
@@ -26,13 +50,21 @@ function getPlaces(){
 		$checkout = $ph[2] . "-" . $ph[1] . "-" . $ph[0];
 	}
 
-	$adults = $_GET['nAdults'] ? $_GET['nAdults'] : 1;			// check
-	$children = $_GET['nChildren'] ? $_GET['nChildren'] : 0;	// check
-	$rating = $_GET['rating'] ? $_GET['rating'][0] : 0;			// check
+	$adults = isset($_GET['nAdults']) ? $_GET['nAdults'] : 1;			// check
+	$children = isset($_GET['nChildren']) ? $_GET['nChildren'] : 0;	// check
+	$rating = isset($_GET['rating']) ? $_GET['rating'][0] : 0;			// check
 
+	if(!validatePosIntValue($adults) || !validatePosIntValue($children) || !validatePosIntValue($rating)) {
+		return false;
+	}
 
-	$nRooms = $_GET['nRooms'] ? $_GET['nRooms'] : 0;			// check
-	$nBathrooms = $_GET['nBathrooms'] ? $_GET['nBathrooms'] : 0;// check
+	$nRooms = isset($_GET['nRooms']) ? $_GET['nRooms'] : 0;				// check
+	$nBathrooms = isset($_GET['nBathrooms']) ? $_GET['nBathrooms'] : 0;	// check
+
+	if(!validatePosIntValue($nRooms) || !validatePosIntValue($nBathrooms)) {
+		return false;
+	}
+
 	$nPeople = $adults + $children;
 	if($foundLoc)
 		$places = getFilteredPlacesLoc($nPeople, $rating, $nRooms, $nBathrooms, $prov[1], $prov[0]);
@@ -55,28 +87,32 @@ function getPlaces(){
 }
 				
 
-function list_houses($places, $drawingOption, $userID, $drawMap = false) { ?>
+function list_houses($places, $drawingOption, $userID, $location, $drawMap = false) { ?>
 	<main id="list_places" class="row">
-		<div id="location_place_holder" style="display:none;" data-location="<?=$_GET['location']?>"></div>
+		<?php if(isset($location)){ ?>
+			<div id="location_place_holder" data-location="<?=htmlspecialchars($location)?>"></div>
+		<?php } ?>
+
 		<section id="house_results">
 			<?php 
 			if($drawingOption == 'My_Houses')
 				draw_availability_form();
 			if(empty($places)) { ?>
 				<em>No houses available</em>
-			<?php } else
+			<?php } else if($places === false) { ?>
+				<em>The inputs inserted are invalid. Please try again.</em>
+			<?php } else {
 				foreach ($places as $place){
 					draw_horizontal_card($place, $drawingOption, $userID);
 				}
+			}
 			?>
 		</section>
 
 		<!-- TODO: implementar maps com google maps API em JS -->
 		<?php if(!empty($places) && $drawMap) { 
 			initGoogleMaps();
-		?>
-		<?php } ?>
-
+		 } ?>
 	</main>
 <?php } 
 
@@ -84,6 +120,9 @@ function list_houses($places, $drawingOption, $userID, $drawMap = false) { ?>
 function draw_availability_form() { ?>
 	<div id="avail-popup" class="pop-up">
 		<form class="animate column">
+			
+			<input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+
 			<i class="close-popup fas fa-times"></i>
 			<h3>Choose Availabilities</h3>
 
@@ -94,7 +133,7 @@ function draw_availability_form() { ?>
 				<input id="av_begin" type="text" autocomplete="off" placeholder="From..." name="av_begin" required>
 				<input id="av_end" type="text" autocomplete="off" placeholder="To..." name="av_end" required>
 			</div>
-			<p id="av-error"></p>
+			<p id="av-error" class="error-message"></p>
 
 			<button id="av-conf-button" class="button" type="submit">Add Availabilities</button>
 		</form>

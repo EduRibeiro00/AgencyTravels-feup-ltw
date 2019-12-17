@@ -57,6 +57,9 @@ confirmForm.addEventListener('submit', function(event) {
         request.addEventListener('load', function () {
             let message = JSON.parse(this.responseText).message;
             switch(message) {
+                case 'token error':
+                    break;
+
                 case 'yes':
                     // remove house card for that reservation
                     houseCard.remove();
@@ -78,8 +81,12 @@ confirmForm.addEventListener('submit', function(event) {
                     break;
 
                 case 'no':
-                    // console.log("Error on canceling the reservation");
+                    showDialog("An error ocurred (some inputs may be invalid). Please try again.");
                     break;    
+
+                case "not owner":
+                    showDialog("The logged in user is not the owner of the house");
+                    break;
 
                 default:
                     break;
@@ -87,7 +94,9 @@ confirmForm.addEventListener('submit', function(event) {
 
         });
 
-        request.send(encodeForAjax({placeID: placeID}));
+        let csrf = event.target.querySelector('input[name="csrf"]').value;
+
+        request.send(encodeForAjax({csrf: csrf, placeID: placeID}));
 });
 
 

@@ -1,10 +1,11 @@
 <?php
-	include_once('../includes/session_include.php');
-	include_once('../templates/tpl_common.php');
-	include_once('../templates/tpl_main_page.php');
-	include_once('../templates/tpl_slideshow.php');
-	include_once('../database/db_places.php');
-	include_once('../database/db_user.php');
+  include_once('../includes/session_include.php');
+  include_once('../includes/input_validation.php');
+  include_once('../templates/tpl_common.php');
+  include_once('../templates/tpl_main_page.php');
+  include_once('../templates/tpl_slideshow.php');
+  include_once('../database/db_places.php');
+  include_once('../database/db_user.php');
 
 	// slideshow
 	do {
@@ -24,9 +25,14 @@
 		$randplaces = getRandomPlacesFromCity($randcity['locationID'], 3);
 	} while (empty($randplaces));
 
-	foreach($randplaces as $k => $place) {
-		$randplaces[$k]['avg_price'] = getAveragePrice($place['placeID']);
-	}
+  if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) {
+    $user_info = getUserInformation($_SESSION['userID']);
+    $jsFiles = ['../js/main.js'];
+  }
+  else {
+    $user_info = NULL;
+    $jsFiles = ['../js/main.js', '../js/login.js'];
+  }
 
 	if(isset($_SESSION['userID']) && $_SESSION['userID'] != '') {
 		$user_info = getUserInformation($_SESSION['userID']);

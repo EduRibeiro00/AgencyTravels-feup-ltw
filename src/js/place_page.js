@@ -6,9 +6,7 @@ function encodeForAjax(data) {
 	}).join('&')
 }
 
-// -------------
-
-
+let dataToken = document.querySelector('input[name="csrf"]').value;
 // -------------
 
 let inlineCal = new Lightpick({
@@ -82,6 +80,9 @@ function getPriceAsync() {
 			case -1:
 				priceEl.innerHTML = "Reservation Overlap"
 				break;
+			case 'token error':
+				break;
+		
             default:
 				priceEl.innerHTML=message+'€'
 				break;
@@ -92,7 +93,7 @@ function getPriceAsync() {
 	let checkin = document.getElementById('fr_checkin').value
 	let checkout = document.getElementById('fr_checkout').value
 
-    request.send(encodeForAjax({placeID:placeID, checkin: checkin, checkout:checkout}));
+    request.send(encodeForAjax({placeID:placeID, checkin: checkin, checkout:checkout,csrf:dataToken}));
 }
 
 function priceDay(date){
@@ -105,12 +106,15 @@ function priceDay(date){
 	
 	req.addEventListener('load', function() {
 		let message = JSON.parse(this.responseText).price
+		if(message=='token error'){
+			return;
+		}
 		inlineCal.showPrice(message + "€")
-
 	});
+
 	let url = new URL(window.location.href)
 	let placeID = url.searchParams.get("place_id")
-	req.send(encodeForAjax({placeID: placeID, date: date.format('YYYY-MM-DD')}))
+	req.send(encodeForAjax({placeID: placeID, date: date.format('YYYY-MM-DD'),csrf:dataToken}))
 }
 
 function updateDisableDates(){
@@ -122,6 +126,9 @@ function updateDisableDates(){
 	request.addEventListener('load', function() {
 		// TODO: ver erros
 		let message = JSON.parse(this.responseText).message
+		if(message=='token error'){
+			return;
+		}
 		inlineCal.setMinDate(message.startDate)
 		inlineCal.setMaxDate(message.endDate)
 
@@ -143,7 +150,7 @@ function updateDisableDates(){
 	});
 	let url = new URL(window.location.href)
 	let placeID = url.searchParams.get("place_id")
-	request.send(encodeForAjax({placeID: placeID}))
+	request.send(encodeForAjax({placeID: placeID,csrf:dataToken}))
 }
 
 //Sticky sideBar_Fast reservation
@@ -237,13 +244,28 @@ frForm.addEventListener('submit', function(event) {
 				rowBt.parentNode.insertBefore(confirmMessage('', response.price, diffDays), rowBt)
 				confirmBt.style.display = "inline-block"
 				break;
+			case 'invalidPlaceID':
+				rowBt.parentNode.insertBefore(confirmMessage('', response.price, diffDays), rowBt)
+				confirmBt.style.display = "Error in PlaceID";
+				break;
+			case 'invalid CheckInDates':
+				rowBt.parentNode.insertBefore(confirmMessage('', response.price, diffDays), rowBt)
+				confirmBt.style.display = "Error in checkindate";
+				break;
+			case 'invalid CheckOutDate':
+				rowBt.parentNode.insertBefore(confirmMessage('', response.price, diffDays), rowBt)
+				confirmBt.style.display = "Error in checkoutdate";
+				break;
+			case 'token error':
+				break;
+
 			default:
 				
 				break;
 		}
 	});
 
-    request.send(encodeForAjax({placeID: placeID, checkin: frCheckin, checkout: frCheckout}))
+    request.send(encodeForAjax({placeID: placeID, checkin: frCheckin, checkout: frCheckout,csrf:dataToken}))
 });
 
 confirmForm.addEventListener('submit', function(event) {
@@ -258,6 +280,9 @@ confirmForm.addEventListener('submit', function(event) {
 		let message = JSON.parse(this.responseText).message
 
 		switch(message) {
+			case 'token error':
+				break;
+
 			case 'user not logged in':
 				showDialog("ERROR: User is not logged in")
 				break;
@@ -267,10 +292,17 @@ confirmForm.addEventListener('submit', function(event) {
 			case 'invalid dates':
 				showDialog("ERROR: Invalid Dates")
 				break;
-			case 'reservation successfull':				
+
+			case 'invalid inputs':
+				showDialog("Some of the inputs were invalid. Please try again.")
+				break;
+
+			case 'reservation successful':				
 				showDialog("Reservation Successful")
 				reservationCal.reset()
 				updateDisableDates()
+				break;
+			case 'token error':
 				break;
 			default:
 				showDialog("ERROR: " + message)
@@ -278,7 +310,9 @@ confirmForm.addEventListener('submit', function(event) {
 		}
 	});
 
-    request.send(encodeForAjax({placeID: placeID, checkin: frCheckin, checkout: frCheckout}));
+	let csrf = event.target.querySelector('input[name="csrf"]').value;
+
+    request.send(encodeForAjax({csrf: csrf, placeID: placeID, checkin: frCheckin, checkout: frCheckout}));
 })
 
 window.addEventListener('click', function(event){

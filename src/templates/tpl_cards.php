@@ -10,7 +10,7 @@ function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 	<div class="row">
 		<?php draw_hcard_slideshow($place['images'], $place['placeID']); ?>
 		<a class="column info" href="../pages/place_info.php?place_id=<?=$place['placeID']?>">
-			<h4><?=$place['title']?></h4>
+			<h4><?=htmlspecialchars($place['title'])?></h4>
 			<?php draw_place_details($place['numRooms'], $place['capacity'], $place['numBathrooms']); ?>
 			<footer class="row">
 				<?php if(isset($place['price']) && $place['price'] != null) { ?>
@@ -82,17 +82,48 @@ function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 <?php }
 
 
-function draw_user_card($user, $drawingOption = null) { ?>
-	<section class="user_card">
-		<a class="user_img" href="../pages/profile_page.php?userID=<?=$user['userID']?>">
-			<img class="circular-img" src="../assets/images/users/small/<?=$user['image']?>">
+function draw_user_card($user, $drawingOption = null) {
+
+	if($user == 'placeholder') {
+		$idLink = "#";
+		$image = "";
+		$username = "";
+	}
+	else {
+		$idLink = "../pages/profile_page.php?userID=" . $user['userID'];
+		$image = "../assets/images/users/small/" . $user['image'];
+		$username = $user['username'];
+	}
+
+?>	<section class="user_card">
+		<a class="user_img" href="<?=$idLink?>">
+			<img class="circular-img" src="<?=$image?>">
 		</a>
-		<a class="user_username" href="../pages/profile_page.php?userID=<?=$user['userID']?>">
-			<?=$user['username']?>
+		<a class="user_username" href="<?=$idLink?>">
+			<?=htmlspecialchars($username)?>
 		</a>
-		<?php if($drawingOption == 'email') {?>
-			<a class="user_contact" href="mailto: <?=$user['email']?>">Speak with the Owner</a>
-		<?php } else if($drawingOption == 'rating') draw_star_rating($user['stars']) ?>
+		<?php if($drawingOption == 'email') { 
+			if($user == 'placeholder') {
+				$email = "";
+			}
+			else {
+				$email = $user['email'];
+			}
+			
+			?>
+			<a class="user_contact" href="mailto: <?=htmlspecialchars($email)?>">Speak with the Owner</a>
+		<?php }
+			else if($drawingOption == 'rating'){
+				if($user == 'placeholder') {
+					$stars = 0;
+				}
+				else {
+					$stars = $user['stars'];
+				}
+
+				draw_star_rating($stars);
+			}  
+			?>
 
 	</section>
 
@@ -103,13 +134,13 @@ function draw_user_card($user, $drawingOption = null) { ?>
             <section class="client-info row">
                 <a class="circ-img-link" href="../pages/profile_page.php?userID=<?=$place_reservation['userID']?>">
                     <img class="circular-img" src="../assets/images/users/small/<?=$place_reservation['image']?>">
-                    <p><?=$place_reservation['username']?></p>
+                    <p><?=htmlspecialchars($place_reservation['username'])?></p>
                 </a>
             </section>
             <section class="reserv-place-info">
                 <p>Reservation for:</p>
-                <p><?=$place_reservation['title']?></p>
-                <p><?=$place_reservation['address']?></p>
+                <p><?=htmlspecialchars($place_reservation['title'])?></p>
+                <p><?=htmlspecialchars($place_reservation['address'])?></p>
             </section>
             <section class="reserv-price">
                 <p>Total price: <?=number_format($place_reservation['price'], 2);?> €</p>

@@ -30,7 +30,7 @@ function draw_head($jsArray, $class = null) { ?>
     <footer>
 			<a class="circ-img-link" href="main_page.php">
 				<div class="circular-cropper">
-						<img id="logo" src="../assets/images/others/logo.jpg">
+						<img id="logo" src="../assets/images/others/logo.png">
 				</div>
 			</a>
         <span id="cpline"> &copy; Agency Travels, LTW 2019. All rights reserved. </span>
@@ -58,12 +58,12 @@ function draw_navbar($user_info, $hints, $class = null) { ?>
     <nav id="navbar" <?=$class == null? '' : "class=$class" ?>>
 			<a class="circ-img-link" href="main_page.php">
 				<div class="circular-cropper">
-					<img id="logo" src="../assets/images/others/logo.jpg">
+					<img id="logo" src="../assets/images/others/logo.png">
 				</div>
 			</a>
 		</div>
       <form id="search_form" action="../pages/list_places.php" method="get">
-				<i class="fas fa-search"></i><input id="nav-search-place" type="text" name="location" autocomplete="off" placeholder="Search for places in...">
+	  			<i class="fas fa-search"></i><input id="nav-search-place" type="text" name="location" pattern="[a-zA-Z -]*" autocomplete="off" placeholder="Search for places in...">
 				<section id="search-hints"></section>
 				<?php 
 					if($hints) {
@@ -80,7 +80,7 @@ function draw_navbar($user_info, $hints, $class = null) { ?>
 			<a id="link-image" class="circ-img-link" href="profile_page.php?userID=<?=$user_info['userID']?>">
 				<img class="circular-img" id="profilepic" src="../assets/images/users/small/<?=$user_info['image']?>">	
 			</a>
-			<a id="link-name" href="profile_page.php?userID=<?=$user_info['userID']?>"><?=$name?></a>
+			<a id="link-name" href="profile_page.php?userID=<?=$user_info['userID']?>"><?=htmlspecialchars($name)?></a>
 			<a id="logoutlink" href="../actions/action_logout.php">Logout</a>
 
 		<?php } else { ?>
@@ -123,6 +123,8 @@ function draw_dialog(){ ?>
 <?php function draw_confirmation_form() { ?>
 	<div id="cf-popup" class="pop-up">
 		<form id="cf-confirmation" class="animate">
+			<input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+
 			<i class="close-popup fas fa-times"></i>
 			<div class="row">
 				<button id="cf-confirm-button" class="button" type="submit">Confirm</button>

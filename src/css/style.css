@@ -2,23 +2,17 @@
 @import "./carousel.css";
 @import "./house_card.css";
 
-
-
 #map{
-
     height:400px !important;
     width: 400px !important;
 }
 
 .mapEffect{
-    box-shadow: 10px 10px 5px green;
+    box-shadow: 0.4em 0.4em 0.4em 0.4em var(--footer_color);
 }
 #form_place_GPS{
     display: none;
 }
-
-
-
 
 /* TODO: uniformizar botoes */
 *,
@@ -76,9 +70,8 @@ input, textarea, select {
 }
 
 .circular-cropper img#logo {
-    height: 175%;
-    margin-top: -1.3em;
-    margin-left: 0.2em;
+    height: 125%;
+    margin-top: -0.4em;
 }
 
 .circular-cropper img#github {
@@ -87,9 +80,9 @@ input, textarea, select {
 }
 
 .circular-cropper img#logo-login {
-    height: 180%;
-    margin-top: -2.8em;
-    margin-left: 0.4em;
+    height: 130%;
+    margin-top: -1em;
+    margin-left: 0.2em;
 }
 
 #navbar .circular-cropper, footer .circular-cropper {
@@ -273,25 +266,22 @@ div.flex-column {
 
  div#greetings {
 	width: 100%;
-	background-color: rgba(1.0, 1.0, 1.0, 0.3);
+    background-color: rgba(1.0, 1.0, 1.0, 0.3);
  }
 
- div#greetings header h2 {
+ div#greetings header h1 {
 	font-family: 'Parisienne', cursive;
-	font-size: 2.4em;
+    font-size: 4em;
+    color: white;
 }
 
-div#greetings header h2 em {
-	text-transform: uppercase;
-	color: #d43e3e;
-}
 
-div#greetings header h1 {
-	font-family: 'Roboto', sans-serif;
+div#greetings header h2 {
 	font-weight: 400;
 	letter-spacing: 0.1em;
-	font-size: 2.5em;
-	padding-bottom: 0.7em;
+	font-size: 1.5em;
+    padding-bottom: 0.7em;
+    color: white;
 }
 
 /**
@@ -585,6 +575,9 @@ main#list_places {
 
 section#house_results {
 	margin: 2em;
+}
+#location_place_holder{
+    display: none;
 }
 
 /* TODO: ver melhor como posicionar o mapa */
@@ -1291,10 +1284,12 @@ article.place-reserv-card {
 #my_house_edit_container .edit-house-location,#my_house_edit_container .edit-house-caracteristics{
     justify-content: space-evenly;
 }
-
+/*FIX THE ISSUE ON ADD BUTTON ON THE FORM DISAPPEARING*/
+#place_edit_form{
+    margin-bottom: 10em;
+}
 #edit_place_submit{
     text-align: center;
-    margin-bottom: 2em;
 }
 
 #my_house_edit_container img{
@@ -1317,7 +1312,6 @@ article.place-reserv-card {
 .img_add_preview_container{
     position: relative;
 }
-
 .delete_preview_photo{
     position: absolute;
 }

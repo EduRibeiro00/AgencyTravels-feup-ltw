@@ -31,6 +31,9 @@ if(reviewForm != null) {
         let reply = JSON.parse(this.responseText);
         let message = reply.message;
         switch(message) {
+            case 'token error':
+                break;
+
             case 'yes':
                 let newReviews = reply.reviews;
                 for(let i = 0; i < newReviews.length; i++) {
@@ -46,13 +49,13 @@ if(reviewForm != null) {
 
                     let usernameLink = newReviewContainer.querySelector('.user_card .user_username');
                     usernameLink.setAttribute('href', '../pages/profile_page.php?userID=' + newReview.userID);
-                    usernameLink.innerHTML = newReview.username;
+                    usernameLink.innerHTML = escapeHtml(newReview.username);
 
                     let starsDiv = newReviewContainer.querySelector('div.front-stars');
                     starsDiv.style.width = newReview.stars * 20.0 + '%';
 
                     let commentP = newReviewContainer.querySelector('header + p');
-                    commentP.innerHTML = newReview.comment;
+                    commentP.innerHTML = escapeHtml(newReview.comment);
 
                     let dateP = newReviewContainer.querySelector('footer p');
                     dateP.innerHTML = "Published: " + newReview.date;
@@ -74,7 +77,15 @@ if(reviewForm != null) {
                 break;
 
             case 'no':
-                // console.log("Error on adding the new review");
+                showDialog("An error ocurred (some inputs may be invalid). Please try again later.");
+                break;
+
+            case 'cant review':
+                showDialog("The logged in user is not allowed to review this place.");
+                break;
+                
+            case 'not logged in':
+                showDialog("You are not logged in");
                 break;
 
             default:
@@ -96,7 +107,9 @@ if(reviewForm != null) {
             lastReviewID = -1;
         }
 
-        request.send(encodeForAjax({reservationID: reservationID, stars: stars, comment: comment, placeID: placeID, lastReviewID: lastReviewID}));
+        let csrf = event.target.querySelector('input[name="csrf"]').value;
+
+        request.send(encodeForAjax({csrf: csrf, reservationID: reservationID, stars: stars, comment: comment, placeID: placeID, lastReviewID: lastReviewID}));
     });
 }
 
@@ -123,6 +136,9 @@ function replyFormFunction(event) {
         let reply = JSON.parse(this.responseText);
         let message = reply.message;
         switch(message) {
+            case 'token error':
+                break;
+
             case 'yes':
 
                 let newReplies = reply.replies;
@@ -138,10 +154,10 @@ function replyFormFunction(event) {
                                                         '<img class="reply-author-img circular-img" src="../assets/images/users/small/' + newReply.image + '">' + 
                                                     '</a>' + 
                                                     '<a href="../pages/profile_page.php?userID=' + newReply.userID + '">' +
-                                                        '<p>' + newReply.username + '</p>' +
+                                                        '<p>' + escapeHtml(newReply.username) + '</p>' +
                                                     '</a>' +
                                                   '</header>' +
-                                                  '<p>' + newReply.comment + '</p>' + 
+                                                  '<p>' + escapeHtml(newReply.comment) + '</p>' + 
                                                   '<footer>' +
                                                     '<p>' + 'Published: ' + newReply.date + '</p>' +
                                                   '</footer>';
@@ -151,8 +167,12 @@ function replyFormFunction(event) {
 
                 break;
 
-            case 'no':
-                // console.log("Error on adding the new review");
+            case 'error':
+                showDialog("An error occurred because some inputs are invalid. Please try again.")
+                break;
+
+            case 'not logged in':
+                showDialog("Login in order to reply to a comment");
                 break;
 
             default:
@@ -172,7 +192,26 @@ function replyFormFunction(event) {
             lastReplyID = -1;
         }
 
-        request.send(encodeForAjax({comment: comment, reviewID: reviewID, lastReplyID: lastReplyID}));
+        let csrf = event.target.querySelector('input[name="csrf"]').value;
+
+        request.send(encodeForAjax({csrf: csrf, comment: comment, reviewID: reviewID, lastReplyID: lastReplyID}));
 
         event.target.querySelector('textarea[name="reply-desc"]').value = "";
+}
+
+// -------------------
+
+let entityMap = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': '&quot;',
+    "'": '&#39;',
+    "/": '&#x2F;'
+  };
+
+function escapeHtml(string) {
+    return String(string).replace(/[&<>"'\/]/g, function (s) {
+      return entityMap[s];
+    });
 }

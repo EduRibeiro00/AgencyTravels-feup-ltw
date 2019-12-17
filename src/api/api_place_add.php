@@ -4,14 +4,21 @@ include_once('../database/db_places.php');
 include_once('../database/db_location.php');
 include_once('../includes/img_upload.php');
 include_once('../includes/place_forms.php');
+include_once('../includes/input_validation.php');
 
 const true_message = 'true';
 
-if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
+if ($_SESSION['csrf'] !== $_POST['csrf']) {
+    $message='token error';
+    echo json_encode(array('message' => $message));
+    return;
+}
+
+if (!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false)) {
     $message = 'user not logged in';
 } else {
     $message = true_message;
-    $Duplicates=false;
+    $Duplicates = false;
     $ownerID = $_POST['userID'];
     $title = $_POST['title'];
     $desc = $_POST['description'];
@@ -20,7 +27,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $numBathrooms = $_POST['numBathrooms'];
     $capacity = $_POST['capacity'];
     $locationID = $_POST['location'];
-    $GPSCoords=$_POST['gpsCoords'];
+    $GPSCoords = $_POST['gpsCoords'];
 
     //Retrevie the 6 possible file to add
     $array_fileNames = buildArrayWithFilesToAdd();
@@ -38,7 +45,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
 
         if ($images['tmp_name'][$i] != "") {
 
-            if (check_File_Integrity($images['name'][$i], $array_fileNames) == true) {
+            if (check_File_Integrity($images['name'][$i], $array_fileNames, $Duplicates) == true) {
 
                 if (!checkIfImageIsValid($images['tmp_name'][$i])) {
                     $message = 'invalid image';
@@ -53,7 +60,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
 
     //TEST THE NUMBER O FILES UPLOADED IS NOT EMPTY AND IF NOT MORE THAN 6 (5+1- STARTS AT 0)
     if ($num_images_uploaded_valid < 1 || $num_images_uploaded_valid > 6) {
-        $message = 'You cannot create an house with that number of pictures';
+        $message = 'Number of photos invalid';
     } else {
 
         //IF THE ERROR MESSAGE WAS NOT TRIGGERED, CONTINUE
@@ -62,39 +69,56 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
             //Validate Inputs
             $inputs_are_valid = true;
 
-            //TODO: TO RETURN A PERSONALIZED MESSAGE
-            if (is_numeric($title)) {
-                $inputs_are_valid = false;
-            }
-            if (is_numeric($desc)) {
-                $inputs_are_valid = false;
-            }
-            if (is_numeric($address)) {
-
-                $inputs_are_valid = false;
-            }
-            if (!is_numeric($numRooms)) {
-                $inputs_are_valid = false;
-            }
-            if (!is_numeric($numBathrooms)) {
-
+            if (!is_numeric($ownerID) || !validatePosIntValue($ownerID)) {
+                $message = 'ownerID not valid';
                 $inputs_are_valid = false;
             }
 
-            if (!is_numeric($capacity))
+            if ($ownerID != $_SESSION['userID']) {
+                $message = 'ownerID dont match';
                 $inputs_are_valid = false;
-            if (!is_numeric($locationID))
-                $inputs_are_valid = false;
-            /*PARSE THE GPS COORDS WE WILL NEED TO EXPLODE THE STRING. THEY ARE INSERTED AS A STRING TO THE DATABASE
+            }
 
-            if (!is_numeric($GPSCoords))
+            if (is_numeric($title) || !validateTextValue($title)) {
+                $message = 'Title not valid';
                 $inputs_are_valid = false;
-            */
-            if ($inputs_are_valid) {
+            }
+            if (is_numeric($desc) || !validateTextValue($desc)) {
+                $message = 'Description not valid';
+                $inputs_are_valid = false;
+            }
+            if (is_numeric($address) || !validateLocationValue($address)) {
+                $message = 'Address not valid';
+                $inputs_are_valid = false;
+            }
+            if (!is_numeric($numRooms) || !validatePosIntValue($numRooms)) {
+                $message = 'Number of rooms is not valid';
+                $inputs_are_valid = false;
+            }
+            if (!is_numeric($numBathrooms) || !validatePosIntValue($numBathrooms)) {
+                $message = 'Number of Bathrooms is not valid';
+                $inputs_are_valid = false;
+            }
+            if (!is_numeric($capacity) || !validatePosIntValue($capacity)) {
+                $message = 'Capacity is not valid';
+                $inputs_are_valid = false;
+            }
+            if (!is_numeric($locationID) || !validatePosIntValue($locationID)) {
+                $message = false;
+                $inputs_are_valid = false;
+            }
+            /*PARSE THE GPS COORDS WE WILL NEED TO EXPLODE THE STRING. THEY ARE INSERTED AS A STRING TO THE DATABASE*/
 
-                if (newPlace($title, $desc, $address,$GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID) == true) {
-                    //GET THE NEW PLACE ID
-                    $placeID = getPlaceID($title, $address, $ownerID)['placeID'];
+            if (validateGPSCoords($GPSCoords) == false) {
+                $message = 'GPS Coords of that Address invalid';
+                $inputs_are_valid = false;
+            }
+            //IF INSERTED NEW LOCATION OR NOT THE ID OF THAT LOCATION CANNOT BE NULL
+
+            if($inputs_are_valid) {
+                $placeID = newPlace($title, $desc, $address, $GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity, $ownerID);
+                
+                if ($placeID != false) {
 
                     for ($i = 0; $i < $num_images_uploaded_valid; $i++) {
                         if (uploadPlaceImage($placeID, $images_uploaded_valid[$i]) != true) {
@@ -103,16 +127,15 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                         }
                     }
                 } else {
-                    $message = 'Error while inserting a new place';
+                    $message = 'Fail create new place';
                 }
-            } else {
-                $message = 'Parameters not validated';
             }
         }
     }
 
-    if($Duplicates==true){
-        $message='Duplicate Images';
+    if ($Duplicates == true) {
+        $message = 'Duplicate Images';
     }
 }
+
 echo json_encode(array('message' => $message));

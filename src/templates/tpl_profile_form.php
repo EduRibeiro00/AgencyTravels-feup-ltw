@@ -55,31 +55,33 @@ function draw_profile_form($all_locations, $title, $user_info = null) {
 
     <section id="profile-form">
         <header>
-            <h3><?=$title?></h3>
+            <h3><?=htmlspecialchars($title)?></h3>
         </header>
 
         <form>
             <?php if($id != null) { ?>
-                <input type="hidden" name="userID" value=<?=$id?>>
+                <input type="hidden" name="userID" value=<?=htmlspecialchars($id)?>>
             <?php } ?>
+
+            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
 
             <section id="img-upload" class="row">
                 <div>
                     <label for="prof-image">Profile image:
-                        <img id="img-to-upload" class="circular-img" src="<?=$imagePreview?>">
+                        <img id="img-to-upload" class="circular-img" src="<?=htmlspecialchars($imagePreview)?>">
                     </label>
 				</div>
 				<!-- TODO ver este label -->
                 <label class="button" for="imageFile">Select foto</label>
-                <input type="file" id="imageFile" accept="image/*" name="imageFile" data-hasFile=<?=$hasFile?>>
+                <input type="file" id="imageFile" accept="image/*" name="imageFile" data-hasFile=<?=htmlspecialchars($hasFile)?>>
                 <button class="button" type="button" id="remove-button">Remove</button>
             </section>
 
             <label for="username">Username: 
-                <input type="text" id="username" name="username" required value="<?=$username?>">
+                <input type="text" id="username" name="username" required value="<?=htmlspecialchars($username)?>">
             </label>
             <label for="name">Name: 
-                <input type="text" id="name" name="name" required value="<?=$name?>">
+                <input type="text" id="name" name="name" required value="<?=htmlspecialchars($name)?>">
             </label>
             <label for="password">Password: 
                 <input type="password" id="password" name="password" required >
@@ -97,27 +99,27 @@ function draw_profile_form($all_locations, $title, $user_info = null) {
             <?php } ?>
             
             <label for="email">Email: 
-                <input type="email" id="email" name="email" required value="<?=$email?>">
+                <input type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required value="<?=$email?>">
             </label>
             <label for="bio">Bio: 
-                <textarea id="bio" rows="10" cols="50" name="bio"><?=$bio?></textarea>
+                <textarea id="bio" rows="10" cols="50" name="bio"><?=htmlspecialchars($bio)?></textarea>
             </label>
             <label for="birthDate">Birth Date: 
-                <input type="date" id="birthDate" name="birthDate" min="1910-01-01" required value="<?=$birthDate?>"> 
+                <input type="date" id="birthDate" name="birthDate" min="1910-01-01" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" required value="<?=$birthDate?>"> 
             </label>
 
             <div id="form-gender">
                 <h4>Gender:</h4>
-                    <input type="radio" name="gender" value="M" <?=$isMale?> required> M
-                    <input type="radio" name="gender" value="F" <?=$isFemale?> required> F
-                    <input type="radio" name="gender" value="O" <?=$isOther?> required> O
+                    <input type="radio" name="gender" value="M" <?=htmlspecialchars($isMale)?> required> M
+                    <input type="radio" name="gender" value="F" <?=htmlspecialchars($isFemale)?> required> F
+                    <input type="radio" name="gender" value="O" <?=htmlspecialchars($isOther)?> required> O
             </div>
             <label for="location">Location: 
                 <select id="location" name="location" required>
                     <?php foreach($all_locations as $eachLocation) { 
                         $selected = $eachLocation['locationID'] == $location ? "selected" : ""; 
                         $locationString = $eachLocation['country'] . ' - ' . $eachLocation['city']; ?>
-                        <option value=<?=$eachLocation['locationID']?> <?=$selected?>><?=$locationString?></option>
+                        <option value=<?=htmlspecialchars($eachLocation['locationID'])?> <?=htmlspecialchars($selected)?>><?=htmlspecialchars($locationString)?></option>
                     <?php } ?>
                 </select>
             </label>

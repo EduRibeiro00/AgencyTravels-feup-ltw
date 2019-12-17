@@ -3,11 +3,13 @@ include_once('../includes/session_include.php');
 include_once('../database/db_places.php');
 include_once('../includes/img_upload.php');
 include_once('../includes/place_forms.php');
+include_once('../includes/input_validation.php');
 
 const true_message = 'true';
 
-function find_photo_in_database_array($photo_hash, $images_place_from_database, $images_place_from_database_len)
+function find_photo_in_database_array($photo_hash, $images_place_from_database)
 {
+    $images_place_from_database_len = count($images_place_from_database);
     for ($i = 0; $i < $images_place_from_database_len; $i++) {
         if (strcmp($photo_hash, $images_place_from_database[$i]['image']) == 0) {
             return true;
@@ -16,12 +18,18 @@ function find_photo_in_database_array($photo_hash, $images_place_from_database, 
     return false;
 }
 
-if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
+if ($_SESSION['csrf'] !== $_POST['csrf']) {
+    $message='token error';
+    echo json_encode(array('message' => $message));
+    return;
+}
+
+if (!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false)) {
     $message = 'user not logged in';
 } else {
 
     $message = true_message;
-    $Duplicates=false;
+    $Duplicates = false;
     $placeID = $_POST['placeID'];
     $title = $_POST['title'];
     $desc = $_POST['description'];
@@ -30,6 +38,7 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     $numBathrooms = $_POST['numBathrooms'];
     $locationID = $_POST['location'];
     $GPSCoords = $_POST['gpsCoords'];
+
     //IMAGES UPLOADED
     //
     $capacity = $_POST['capacity'];
@@ -58,16 +67,22 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     } else {
 
         $images_place_from_database = $place_info_from_database['images'];
-        //CHECK IF THAT IMAGE BELONGS TO THE HOUSE
+        //CHECK IF THOSE IMAGES TO REMOVE BELONG TO THE HOUSE
         for ($i = 0; $i < $num_photos_to_remove; $i++) {
-            if (find_photo_in_database_array($photosToRemove[$i], $images_place_from_database, count($images_place_from_database)) === false) {
+            if (find_photo_in_database_array($photosToRemove[$i], $images_place_from_database) === false) {
                 $message = 'image not from that place';
                 break;
             }
         }
     }
 
-    $images = $_FILES['imagePlaceFile'];
+    if (isset($_FILES['imagePlaceFile'])) {
+        $images = $_FILES['imagePlaceFile'];
+        $NewImagesExist = true;
+    } else {
+        $NewImagesExist = false;
+    }
+
     //CREATE AN ARRAY TO STORE ALL THE VALID IMAGES UPLOADED
     $images_uploaded_valid = array();
     $num_images_uploaded_valid = 0;
@@ -75,20 +90,23 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
     //TESTS IF THERE IS ANY ERROR SO FAR
     if (strcmp($message, true_message) === 0) {
 
-        //CHECK IF ALL PHOTOS UPLOADED ARE VALID
-        $total = count($images['tmp_name']);
+        if ($NewImagesExist == true) {
 
-        for ($i = 0; $i < $total; $i++) {
+            //CHECK IF ALL PHOTOS UPLOADED ARE VALID
+            $total = count($images['tmp_name']);
 
-            if ($images['tmp_name'][$i] != "") {
+            for ($i = 0; $i < $total; $i++) {
 
-                if (check_File_Integrity($images['name'][$i], $array_fileNames,$Duplicates) == true) {
-                    if (!checkIfImageIsValid($images['tmp_name'][$i])) {
-                        $message = 'invalid image';
-                        break;
+                if ($images['tmp_name'][$i] != "") {
+
+                    if (check_File_Integrity($images['name'][$i], $array_fileNames, $Duplicates) == true) {
+                        if (!checkIfImageIsValid($images['tmp_name'][$i])) {
+                            $message = 'invalid image';
+                            break;
+                        }
+                        $images_uploaded_valid[$num_images_uploaded_valid] = $images['tmp_name'][$i];
+                        $num_images_uploaded_valid++;
                     }
-                    $images_uploaded_valid[$num_images_uploaded_valid] = $images['tmp_name'][$i];
-                    $num_images_uploaded_valid++;
                 }
             }
         }
@@ -103,37 +121,47 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                 //Validate Inputs
                 $inputs_are_valid = true;
 
-                //TODO: TO RETURN A PERSONALIZED MESSAGE
-                if (is_numeric($title)) {
+                if (!is_numeric($ownerID) || !validatePosIntValue($ownerID)) {
+                    $message = 'ownerID not valid';
+                    $inputs_are_valid = false;
+                }
+                if (is_numeric($title) || !validateTextValue($title)) {
+                    $message = 'Title not valid';
                     $inputs_are_valid = false;
                 }
                 if (is_numeric($desc)) {
+                    $message = 'Description not valid';
                     $inputs_are_valid = false;
                 }
                 if (is_numeric($address)) {
-
+                    $message = 'Address not valid';
                     $inputs_are_valid = false;
                 }
-                if (!is_numeric($numRooms)) {
+                if (!is_numeric($numRooms) || !validatePosIntValue($numRooms)) {
+                    $message = 'Number of rooms is not valid';
                     $inputs_are_valid = false;
                 }
-                if (!is_numeric($numBathrooms)) {
-
+                if (!is_numeric($numBathrooms) || !validatePosIntValue($numBathrooms)) {
+                    $message = 'Number of Bathrooms is not valid';
                     $inputs_are_valid = false;
                 }
-                if (!is_numeric($capacity))
+                if (!is_numeric($capacity) || !validatePosIntValue($capacity)) {
+                    $message = 'Capacity is not valid';
                     $inputs_are_valid = false;
+                }
+                if (!is_numeric($locationID) || !validatePosIntValue($locationID)) {
+                    $message = false;
+                    $inputs_are_valid = false;
+                }
+                /*PARSE THE GPS COORDS WE WILL NEED TO EXPLODE THE STRING. THEY ARE INSERTED AS A STRING TO THE DATABASE*/
 
-                if (!is_numeric($locationID))
+                if (validateGPSCoords($GPSCoords) == false) {
+                    $message = 'GPS Coords of that Address invalid';
                     $inputs_are_valid = false;
-                /*PARSE THE GPS COORDS WE WILL NEED TO EXPLODE THE STRING. THEY ARE INSERTED AS A STRING TO THE DATABASE
-
-                if (!is_numeric($GPSCoords))
-                    $inputs_are_valid = false;
-                */
+                }
 
                 if ($inputs_are_valid) {
-                    if (updatePlaceInfo($placeID, $title, $desc, $address,$GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity) != true) {
+                    if (updatePlaceInfo($placeID, $title, $desc, $address, $GPSCoords, $locationID, $numRooms, $numBathrooms, $capacity) != true) {
                         $message = 'Error Updating home';
                     } else {
                         if (strcmp($message, true_message) == 0) {
@@ -152,15 +180,13 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] == '') {
                             }
                         }
                     }
-                } else {
-                    $message = 'Parameters not validated';
                 }
             }
         }
     }
 
-    if($Duplicates==true){
-        $message='Duplicate Images';
+    if ($Duplicates == true) {
+        $message = 'Duplicate Images';
     }
 }
 echo json_encode(array('message' => $message));

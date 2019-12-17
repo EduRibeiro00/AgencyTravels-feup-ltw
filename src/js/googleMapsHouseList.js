@@ -61,10 +61,6 @@ let country = getCountryFromRaw(location_raw_str);
 let arrayWithHouseCards = document.querySelectorAll('article.row');
 let array_aux = new Array();
 
-
-//const iconImageURL=
-
-
 function setHTTPRequestToRetrievePlaceCoords() {
 
     let request = new XMLHttpRequest();
@@ -76,6 +72,10 @@ function setHTTPRequestToRetrievePlaceCoords() {
         gpsCoordsArray = [];
 
         let message = JSON.parse(this.responseText).message;
+        if(message == "no") {
+            showDialog('Error with the location map');
+            return;
+        }
 
         for (let i = 0; i < message.length; i++) {
             //EACH POSTION OF THIS ARRAY ARE PAIRS LAT LNG
@@ -92,9 +92,8 @@ function setHTTPRequestToRetrievePlaceCoords() {
         }
 
         addMarker(gpsCoordsArray);
-        //TODO:PARSE THE COORDS ARRAY
-
     });
+
     //NO NEED TO SEND ENCONDED FOR THE AJAX EMPTY REQUEST
     request.send(encodeForAjax({ city: city, country: country }));
 
@@ -111,9 +110,11 @@ function installHoverEventListeners() {
             //Find the position in the index
             let pos = array_aux.indexOf(event.currentTarget);
             //SET THE FOCUS TO THE LAST HOUSE IN THE LIST
-            let latLng = new google.maps.LatLng(markersArray[pos].getPosition().lat(), markersArray[pos].getPosition().lng());
-            map.setCenter(latLng);
-            map.setZoom(16);
+            if(markersArray[pos] !== undefined && markersArray[pos] != null) {
+                let latLng = new google.maps.LatLng(markersArray[pos].getPosition().lat(), markersArray[pos].getPosition().lng());
+                map.setCenter(latLng);
+                map.setZoom(16);
+            }
         });
         //RESET THE ZOOM WHEN MOUSE IF OFF THE CARD
         arrayWithHouseCards[i].addEventListener('mouseout', function () {
@@ -160,8 +161,10 @@ function addMarker(array_with_geocoordinates) {
         installMarkerHandler(marker);
     }
     //SET THE FOCUS TO THE LAST HOUSE IN THE LIST
-    let latLng = new google.maps.LatLng(markersArray[markersArray.length - 1].getPosition().lat(), markersArray[markersArray.length - 1].getPosition().lng());
-    map.setCenter(latLng);
+    if(markersArray[markersArray.length - 1] !== undefined && markersArray[markersArray.length - 1] != null) {
+        let latLng = new google.maps.LatLng(markersArray[markersArray.length - 1].getPosition().lat(), markersArray[markersArray.length - 1].getPosition().lng());
+        map.setCenter(latLng);
+    }
 }
 
 
@@ -182,14 +185,14 @@ function installMarkerHandler(marker) {
         arrayWithHouseCards[index_marker].scrollIntoView();
         //Fator corretor. Havia um problema com o navbar. HardCoded.
         let CurrentScroll = window.scrollY;
-        navbar
         let offset = document.getElementById('navbar').offsetHeight;
 
         scroll(0, CurrentScroll - offset - 10);
     });
 
 }
-//CLEAN ALL THE PREVIOUS SHADDOW EFFECTS
+
+//CLEAN ALL THE PREVIOUS SHADOW EFFECTS
 function cleanAllOtherShadowEffects() {
 
     const classNameOriginal = 'row card';

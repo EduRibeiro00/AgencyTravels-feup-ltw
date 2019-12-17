@@ -9,7 +9,6 @@ let location_raw_str = locationDomElement.innerText;
 
 function initGoogleMapsServices() {
     let parseStr=parseRawString(location_raw_str);
-    console.log(parseStr);
     let country=getCountryFromRaw(parseStr);
     let city=getCityFromRaw(parseStr);
     let addressStr=city+','+country;
@@ -24,18 +23,17 @@ function initGoogleMapsServices() {
         return false;
     }
     codeAddress(addressStr);
-
-    //codeAddress(parseStr)
     return true;
     
 }
+
 function encodeForAjax(data) {
     return Object.keys(data).map(function (k) {
         return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
     }).join('&')
 }
 
-//const iconImageURL=
+
 function parseRawString(rawStr){
     let strRet;
     let indexSeparator= rawStr.indexOf(':');
@@ -43,6 +41,7 @@ function parseRawString(rawStr){
     strRet=rawStr.substr(indexSeparator);
     return strRet;
 }
+
 function getCountryFromRaw(string_raw) {
     string_raw=string_raw.trim();
     let indexSeparator = string_raw.indexOf(',');
@@ -73,11 +72,7 @@ let map;
 let geocoder;
 
 
-
-
 //FOR EDIT AND ADD MENU THERE ISNT THIS PLACE HOLDER
-
-
 
 
 function get_lat(stringWithCoords) {
@@ -128,7 +123,6 @@ function codeAddress(address) {
         let lng;
 
         //MUST BE ONLY ONE MARKER ACTIVE IN THIS PAGES. Remove on update address. ALSO used in the add menu, when we update each time the place    
-
         if (status == 'OK') {
             //ADD A MARKER WHEN I GEOCODE
             map.setCenter(results[0].geometry.location);

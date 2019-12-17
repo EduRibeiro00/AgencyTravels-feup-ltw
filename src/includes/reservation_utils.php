@@ -23,7 +23,9 @@ function getPriceInDate($placeID, $checkin, $checkout){
 
 	$acc = 0;
 	$nDays = timeToDay(strtotime($checkout) - strtotime($checkin));
-	foreach($availabilties as $av){
+	for($i = 0; $i < count($availabilties); $i++){
+		$av = $availabilties[$i];
+
 		$endTime = strtotime($av['endDate']);
 		$checkinTime = strtotime($checkin);
 		$checkoutTime = strtotime($checkout);		
@@ -44,26 +46,22 @@ function getPriceInDate($placeID, $checkin, $checkout){
 	return -3;
 }
 
-function validateDate($date, $format = 'Y-m-d') {
-    $d = DateTime::createFromFormat($format, $date);
-    return $d && $d->format($format) === $date;
-}
-
 function getAvailabilites($placeID){
-	// return $placeID;
-	$availabilties = getFromDayForwardAvailabilities($placeID, date("Y-m-d"));
-	// return $availabilties;
+	$availabilities = getFromDayForwardAvailabilities($placeID, date("Y-m-d"));
 
-	usort($availabilties, 'compareDates'); 
+	usort($availabilities, 'compareDates'); 
 	$x = -1;
-	foreach ($availabilties as $key => $availability) {
+	for($i = 0; $i < count($availabilities); $i++) {
+		$availability = $availabilities[$i];
+
 		if($availability['startDate'] == $resultAv[$x]['endDate'])
 			$resultAv[$x]['endDate'] = $availability['endDate'];
 		else
 			$resultAv[++$x] = ['startDate'=>$availability['startDate'],'endDate'=>$availability['endDate']];
 	}
 
-	foreach ($resultAv as $key => &$availability) {
+	for($i = 0; $i < count($resultAv); $i++) {
+		$availability = $resultAv[$i];
 		$availability['startDate'] = date('Y-m-d',strtotime("{$availability['startDate']} +1 day"));
 		$availability['endDate'] = date('Y-m-d',strtotime("{$availability['endDate']} -1 day"));
 		if(strtotime($availability['startDate']) > strtotime($availability['endDate']))

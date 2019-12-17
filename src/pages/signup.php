@@ -1,6 +1,6 @@
 <?php
     include_once('../includes/session_include.php');
-    
+
     if(isset($_SESSION['userID'])) {
         die(header('Location: ../pages/profile_page.php?userID=' . $_SESSION['userID']));
     }
