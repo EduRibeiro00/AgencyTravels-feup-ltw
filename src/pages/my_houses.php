@@ -4,13 +4,13 @@
     include_once('../includes/input_validation.php');
 
     if(!(isset($_GET['userID']) && validatePosIntValue($_GET['userID']))) {
-        die(header('Location: ../pages/initial_page.php'));
+        die(header('Location: ../pages/index.php'));
     }
     
     $houseOwnerID =  $_GET['userID'];
     $houseOwnerInfo = getUserInformation($houseOwnerID);
     if($houseOwnerInfo === false) {
-        die(header('Location: ../pages/initial_page.php'));
+        die(header('Location: ../pages/index.php'));
     }
     
     if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) {

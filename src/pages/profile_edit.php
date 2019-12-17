@@ -8,7 +8,7 @@
         $jsFiles = ['../js/main.js', '../js/profile_form.js', '../js/profile_edit.js'];
     }
     else {
-        die(header('Location: ../pages/initial_page.php'));
+        die(header('Location: ../pages/index.php'));
     }
     
     include_once('../templates/tpl_common.php');

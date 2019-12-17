@@ -4,13 +4,13 @@
     include_once('../includes/input_validation.php');
 
     if(!(isset($_GET['userID']) && validatePosIntValue($_GET['userID']))) {
-        die(header('Location: ../pages/initial_page.php'));
+        die(header('Location: ../pages/index.php'));
     }
     
     $userID = $_GET['userID'];
     $profile_user_info = getUserInformation($userID);
     if($profile_user_info === false) {
-        die(header('Location: ../pages/initial_page.php','../js/googleMapsProfile.js'));
+        die(header('Location: ../pages/index.php'));
     }
     
     if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) {
@@ -19,7 +19,7 @@
     }
     else {
         $user_info = NULL;
-        $jsFiles = ['../js/main.js', '../js/login.js'];
+        $jsFiles = ['../js/main.js', '../js/login.js', '../js/googleMapsProfile.js'];
     }
     
     include_once('../templates/tpl_common.php');

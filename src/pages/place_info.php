@@ -5,14 +5,14 @@
     include_once('../includes/input_validation.php');
 
 	if(!(isset($_GET['place_id']) && validatePosIntValue($_GET['place_id']))) {
-        die(header('Location: ../pages/initial_page.php'));
+        die(header('Location: ../pages/index.php'));
     }
     
     $placeID = $_GET['place_id'];
     $place = getPlace($placeID);
     
     if($place === false) {
-        die(header('Location: ../pages/initial_page.php'));
+        die(header('Location: ../pages/index.php'));
     }
     
     if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) {

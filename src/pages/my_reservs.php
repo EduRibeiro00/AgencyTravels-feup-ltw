@@ -9,7 +9,7 @@
         $jsFiles = ['../js/main.js', '../js/cancel_reserv.js'];
     }
     else{
-        die(header('Location: ../pages/initial_page.php'));    
+        die(header('Location: ../pages/index.php'));    
     }
     
     include_once('../templates/tpl_common.php');

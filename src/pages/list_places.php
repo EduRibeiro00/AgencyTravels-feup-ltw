@@ -16,7 +16,7 @@
 
 	$location=$_GET['location'];
 	if(!isset($location)||is_numeric($location)||!validateLocationValue($location)){
-		die(header('Location: ../pages/initial_page.php'));
+		die(header('Location: ../pages/index.php'));
 	}
 	
 

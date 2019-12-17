@@ -7,7 +7,7 @@ if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && get
     $user_info = getUserInformation($_SESSION['userID']);
     $jsFiles = ['../js/main.js', '../js/place_edit.js','../js/googleMapsHouseForm.js'];
 } else {
-    die(header('Location: ../pages/initial_page.php'));
+    die(header('Location: ../pages/index.php'));
 }
 
 
@@ -28,7 +28,7 @@ foreach ($array_places as $place) {
 
 if ($counter_matchs == -1) {
     // TODO: AFTER LOGIN IMPLEMENTED CONTINUE
-    die(header("Location: ../pages/initial_page.php"));
+    die(header("Location: ../pages/index.php"));
 }
 
 include_once('../templates/tpl_common.php');
