@@ -1128,6 +1128,10 @@ section#add-review-placeholder {
 	margin: 0 auto;
 }
 
+.reserv-dates {
+    min-width: 5em;
+}
+
 /**
  * ------------ Place Reservations ------------
  */
