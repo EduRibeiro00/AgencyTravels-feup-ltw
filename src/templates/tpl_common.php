@@ -56,7 +56,8 @@ function draw_head($jsArray, $class = null) { ?>
 include_once('../templates/tpl_search_form.php');
 include_once('../templates/tpl_login_form.php');
 
-function draw_navbar($user_info, $hints, $class = null) { ?>
+function draw_navbar($user_info, $hints, $class = null) { 
+	$location = isset($_GET['location']) && validateLocationValue($_GET['location']) ? $_GET['location'] : '' ;?>
     <nav id="navbar" <?=$class == null? '' : "class=$class" ?>>
 			<a class="circ-img-link" href="main_page.php">
 				<div class="circular-cropper">
