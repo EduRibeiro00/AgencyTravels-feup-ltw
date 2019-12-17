@@ -15,7 +15,7 @@
                 </div>
 
                 <div id="mail-icon" class="circular-cropper">
-                    <a href="mailto:<?=$user_info['email']?>">
+                    <a href="mailto:<?=htmlspecialchars($user_info['email'])?>">
                         <img src="../assets/images/others/mail_icon.jpg">
                     </a>
                 </div>

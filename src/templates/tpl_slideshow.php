@@ -46,7 +46,7 @@ function draw_places_slideshow($places) { ?>
 						<article class="splide__slide__container">
 							<a href="place_info.php?place_id=<?=$places[$i]['placeID']?>">
 								<div class="place_info">
-								<h4><?=$places[$i]['title']?></h4>
+								<h4><?=htmlspecialchars($places[$i]['title'])?></h4>
 								<p><?=number_format($places[$i]['avg_price'], 2);?>€/night</p>
 								</div>
 								<img src="../assets/images/places/medium/<?=$places[$i]['images'][0]['image']?>">

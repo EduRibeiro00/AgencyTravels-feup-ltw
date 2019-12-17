@@ -25,6 +25,10 @@
 		$randplaces = getRandomPlacesFromCity($randcity['locationID'], 3);
 	} while (empty($randplaces));
 
+  foreach($randplaces as $k => $place) {  
+      $randplaces[$k]['avg_price'] = getAveragePrice($place['placeID']);
+  }
+
   if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) {
     $user_info = getUserInformation($_SESSION['userID']);
     $jsFiles = ['../js/main.js'];
