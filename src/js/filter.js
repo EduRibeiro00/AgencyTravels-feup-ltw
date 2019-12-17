@@ -84,6 +84,21 @@ for(let x = 0; x < radios.length; x++){
 	});
 }
 
+///// Reset
+let resetFilters = document.getElementById('reset-button')
+resetFilters.addEventListener('click',  function(ev){
+	ev.preventDefault()
+	checkin.value = ''
+	checkout.value = ''
+	minPrice.value = 0
+	maxPrice.value = 1000
+	document.getElementById('adults').value = 1
+	document.getElementById('children').value = 0
+	for(let x = 0; x < radios.length; x++)
+		radios[x].checked = ''
+	document.getElementById('rooms').value = 0
+	document.getElementById('bathrooms').value = 0
+})
 
 // function parseSearchData(data){
 // 	let adults = data.get('nAdults') ? data.get('nAdults') : 1

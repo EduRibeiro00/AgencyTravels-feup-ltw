@@ -70,7 +70,7 @@ function draw_search_form() {
 		</fieldset>
 		<div id="filter_buttons" class="row">
 		<button id="submit-button" class="button">Search</button>
-		<button type="reset" class="button">Reset</button>
+		<button id="reset-button" type="reset" class="button">Reset</button>
 		</div>
 	</div>
 <?php } ?>
