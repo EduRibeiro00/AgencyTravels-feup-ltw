@@ -104,7 +104,7 @@ function priceDay(date){
 		let message = JSON.parse(this.responseText).price
 		inlineCal.showPrice(message + "€")
 	});
-	
+
 	let url = new URL(window.location.href)
 	let placeID = url.searchParams.get("place_id")
 	req.send(encodeForAjax({placeID: placeID, date: date.format('YYYY-MM-DD')}))
@@ -268,6 +268,9 @@ confirmForm.addEventListener('submit', function(event) {
 		let message = JSON.parse(this.responseText).message
 
 		switch(message) {
+			case 'token error':
+				break;
+
 			case 'user not logged in':
 				showDialog("ERROR: User is not logged in")
 				break;
@@ -293,7 +296,9 @@ confirmForm.addEventListener('submit', function(event) {
 		}
 	});
 
-    request.send(encodeForAjax({placeID: placeID, checkin: frCheckin, checkout: frCheckout}));
+	let csrf = event.target.querySelector('input[name="csrf"]').value;
+
+    request.send(encodeForAjax({csrf: csrf, placeID: placeID, checkin: frCheckin, checkout: frCheckout}));
 })
 
 window.addEventListener('click', function(event){

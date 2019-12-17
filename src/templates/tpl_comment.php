@@ -41,6 +41,8 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
                     <section class="add-reply-section">
                         <p>Add a reply:</p>
                         <form class="reply-form row">
+                            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+
                             <label for="reply-desc">Comment:
                                 <textarea rows="5" cols="50" name="reply-desc" required></textarea>
                             </label>

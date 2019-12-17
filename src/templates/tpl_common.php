@@ -118,6 +118,8 @@ function draw_dialog(){ ?>
 <?php function draw_confirmation_form() { ?>
 	<div id="cf-popup" class="pop-up">
 		<form id="cf-confirmation" class="animate">
+			<input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+
 			<i class="close-popup fas fa-times"></i>
 			<div class="row">
 				<button id="cf-confirm-button" class="button" type="submit">Confirm</button>

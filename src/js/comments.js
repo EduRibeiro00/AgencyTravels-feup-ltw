@@ -131,6 +131,9 @@ function replyFormFunction(event) {
         let reply = JSON.parse(this.responseText);
         let message = reply.message;
         switch(message) {
+            case 'token error':
+                break;
+
             case 'yes':
 
                 let newReplies = reply.replies;
@@ -184,7 +187,9 @@ function replyFormFunction(event) {
             lastReplyID = -1;
         }
 
-        request.send(encodeForAjax({comment: comment, reviewID: reviewID, lastReplyID: lastReplyID}));
+        let csrf = event.target.querySelector('input[name="csrf"]').value;
+
+        request.send(encodeForAjax({csrf: csrf, comment: comment, reviewID: reviewID, lastReplyID: lastReplyID}));
 
         event.target.querySelector('textarea[name="reply-desc"]').value = "";
 }

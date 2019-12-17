@@ -81,17 +81,34 @@ function draw_horizontal_card($place, $drawingOption, $userID) { ?>
 <?php }
 
 
-function draw_user_card($user, $drawingOption = null) { ?>
-	<section class="user_card">
-		<a class="user_img" href="../pages/profile_page.php?userID=<?=$user['userID']?>">
-			<img class="circular-img" src="../assets/images/users/small/<?=$user['image']?>">
+function draw_user_card($user, $drawingOption = null) {
+
+	if($user == 'placeholder') {
+		$idLink = "#";
+		$image = "";
+		$username = "";
+		$email = "";
+		$stars = 0;
+	}
+	else {
+		$idLink = "../pages/profile_page.php?userID=" . $user['userID'];
+		$image = "../assets/images/users/small/" . $user['image'];
+		$username = $user['username'];
+		$email = $user['email'];
+		$stars = $user['stars'];
+	}
+
+
+?>	<section class="user_card">
+		<a class="user_img" href="<?=$idLink?>">
+			<img class="circular-img" src="<?=$image?>">
 		</a>
-		<a class="user_username" href="../pages/profile_page.php?userID=<?=$user['userID']?>">
-			<?=htmlspecialchars($user['username'])?>
+		<a class="user_username" href="<?=$idLink?>">
+			<?=htmlspecialchars($username)?>
 		</a>
 		<?php if($drawingOption == 'email') { ?>
-			<a class="user_contact" href="mailto: <?=htmlspecialchars($user['email'])?>">Speak with the Owner</a>
-		<?php } else if($drawingOption == 'rating') draw_star_rating($user['stars']) ?>
+			<a class="user_contact" href="mailto: <?=htmlspecialchars($email)?>">Speak with the Owner</a>
+		<?php } else if($drawingOption == 'rating') draw_star_rating($stars) ?>
 
 	</section>
 

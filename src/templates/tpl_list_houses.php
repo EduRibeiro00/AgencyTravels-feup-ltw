@@ -120,6 +120,9 @@ function list_houses($places, $drawingOption, $userID, $location, $drawMap = fal
 function draw_availability_form() { ?>
 	<div id="avail-popup" class="pop-up">
 		<form class="animate column">
+			
+			<input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+
 			<i class="close-popup fas fa-times"></i>
 			<h3>Choose Availabilities</h3>
 

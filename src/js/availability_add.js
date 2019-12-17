@@ -106,11 +106,14 @@ availForm.addEventListener('submit', function(event) {
 				break;
 			
 			case 'availability successfull':
-	      		pError.style.display = "none";				
+	      pError.style.display = "none";				
 				showDialog("Availability Added With Success")
 				availPopup.style.display = 'none'
 				break;
 			
+			case 'token error':
+				break;
+
 			default:
 			  pError.style.display = "block";
 				pError.textContent = "ERROR: " + message.message
@@ -118,7 +121,9 @@ availForm.addEventListener('submit', function(event) {
 		}
 	});
 
-	request.send(encodeForAjax({placeID: availPlaceID, avBegin: av_begin.value, avEnd: av_end.value, price: priceInput.value}));
+	let csrf = availForm.querySelector('input[name="csrf"]').value;
+
+	request.send(encodeForAjax({csrf: csrf, placeID: availPlaceID, avBegin: av_begin.value, avEnd: av_end.value, price: priceInput.value}));
 })
 
 

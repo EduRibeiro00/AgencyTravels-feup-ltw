@@ -134,7 +134,7 @@ function draw_add_review($reservationID, $placeID) { ?>
     <section id="add-review-placeholder">
         <article class="review" data-reviewID="">
 			<header>
-				<?php draw_user_card($comment, 'rating'); ?>
+				<?php draw_user_card('placeholder', 'rating'); ?>
 			</header>
             <p></p>
             <footer>
@@ -148,6 +148,8 @@ function draw_add_review($reservationID, $placeID) { ?>
                     <section class="add-reply-section">
                         <p>Add a reply:</p>
                         <form class="reply-form row">
+                            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+
                             <label for="reply-desc">Comment:
                                 <textarea rows="5" cols="50" name="reply-desc"></textarea>
                             </label>
