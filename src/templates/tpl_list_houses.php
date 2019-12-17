@@ -113,18 +113,16 @@ function list_houses($places, $drawingOption, $userID, $location, $drawMap = fal
 			?>
 		</section>
 
-		<!-- TODO: implementar maps com google maps API em JS -->
 		<?php if(!empty($places) && $drawMap) { ?>
 			<section id="house_results_map">
 				<?php initGoogleMaps(); ?>
 			</section>
 
-
 		 <?php } ?>
 	</main>
 <?php } 
 
-// TODO: mudar de sítio
+
 function draw_availability_form() { ?>
 	<div id="avail-popup" class="pop-up">
 		<form class="animate column">
