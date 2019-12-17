@@ -87,7 +87,7 @@ if (!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && 
                 $message = 'Description not valid';
                 $inputs_are_valid = false;
             }
-            if (is_numeric($address) || !validateLocationValue($address)) {
+            if (!validateAddressValue($address)) {
                 $message = 'Address not valid';
                 $inputs_are_valid = false;
             }
