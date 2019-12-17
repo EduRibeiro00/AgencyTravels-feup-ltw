@@ -164,6 +164,7 @@ function updateAvailabilityDisable(availPlaceID){
 
 	});
 
+
 	request.send(encodeForAjax({placeID: availPlaceID}))
 }
 
