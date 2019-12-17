@@ -61,7 +61,7 @@ include_once('../includes/input_validation.php');
 		$reserva['startDate'] = date('Y-m-d',strtotime("{$reserva['startDate']} +1 day"));
 		$reserva['endDate'] = date('Y-m-d',strtotime("{$reserva['endDate']} -1 day"));
 		if(strtotime($reserva['startDate']) > strtotime($reserva['endDate']))
-			unset($resultRes[$key]);
+			unset($resultRes[$i]);
 	}
 
 	for($i = 0; $i < count($resultAv) - 1; $i++){
