@@ -89,11 +89,10 @@ window.addEventListener('load', function () {
 		}
 });
 
+
 window.onresize = function(event) {
 	let body = document.body;
 	let bodyHeight = body.offsetHeight;
-
-	console.log(bodyHeight);
 
 	if (bodyHeight < screen.height) {
 		let footer = document.querySelector('body > footer');

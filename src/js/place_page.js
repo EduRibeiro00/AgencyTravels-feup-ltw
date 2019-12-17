@@ -302,8 +302,7 @@ confirmForm.addEventListener('submit', function(event) {
 				reservationCal.reset()
 				updateDisableDates()
 				break;
-			case 'token error':
-				break;
+
 			default:
 				showDialog("ERROR: " + message)
 				break;
