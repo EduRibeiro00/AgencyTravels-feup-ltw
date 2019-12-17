@@ -523,6 +523,9 @@ main#profile-page .place-listing {
     align-self: center;
 }
 
+i.fa-envelope {
+    background-color: white;
+}
 
 /**
  * ------------ Profile form ------------
