@@ -51,8 +51,8 @@ function draw_form($place = null, $edit_menu = false, $all_locations) {
 
             <?php if ($userID != null) { ?>
                 <input type="hidden" name="userID" value=<?=$userID?>>
-            <?php } ?>
-
+                <?php } ?>
+                <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
             <fieldset>
                 <legend>Description</legend>
                 <label>Title: <input type="text" name="title" size="40" value="<?=htmlspecialchars($title)?>" required> </label>

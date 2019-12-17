@@ -8,6 +8,11 @@ include_once('../includes/input_validation.php');
 
 const true_message = 'true';
 
+if ($_SESSION['csrf'] !== $_POST['csrf']) {
+    $message='token error';
+    echo json_encode(array('message' => $message));
+    return;
+}
 
 if (!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false)) {
     $message = 'user not logged in';

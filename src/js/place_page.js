@@ -6,6 +6,7 @@ function encodeForAjax(data) {
 	}).join('&')
 }
 
+let dataToken = document.querySelector('input[name="csrf"]').value;
 // -------------
 
 let inlineCal = new Lightpick({
@@ -79,6 +80,9 @@ function getPriceAsync() {
 			case -1:
 				priceEl.innerHTML = "Reservation Overlap"
 				break;
+			case 'token error':
+				break;
+		
             default:
 				priceEl.innerHTML=message+'€'
 				break;
@@ -89,7 +93,7 @@ function getPriceAsync() {
 	let checkin = document.getElementById('fr_checkin').value
 	let checkout = document.getElementById('fr_checkout').value
 
-    request.send(encodeForAjax({placeID:placeID, checkin: checkin, checkout:checkout}));
+    request.send(encodeForAjax({placeID:placeID, checkin: checkin, checkout:checkout,csrf:dataToken}));
 }
 
 function priceDay(date){
@@ -246,6 +250,8 @@ frForm.addEventListener('submit', function(event) {
 				rowBt.parentNode.insertBefore(confirmMessage('', response.price, diffDays), rowBt)
 				confirmBt.style.display = "Error in checkoutdate";
 				break;
+			case 'token error':
+				break;
 
 			default:
 				
@@ -253,7 +259,7 @@ frForm.addEventListener('submit', function(event) {
 		}
 	});
 
-    request.send(encodeForAjax({placeID: placeID, checkin: frCheckin, checkout: frCheckout}))
+    request.send(encodeForAjax({placeID: placeID, checkin: frCheckin, checkout: frCheckout,csrf:dataToken}))
 });
 
 confirmForm.addEventListener('submit', function(event) {
@@ -287,13 +293,15 @@ confirmForm.addEventListener('submit', function(event) {
 				reservationCal.reset()
 				updateDisableDates()
 				break;
+			case 'token error':
+				break;
 			default:
 				showDialog("ERROR: " + message)
 				break;
 		}
 	});
 
-    request.send(encodeForAjax({placeID: placeID, checkin: frCheckin, checkout: frCheckout}));
+    request.send(encodeForAjax({placeID: placeID, checkin: frCheckin, checkout: frCheckout,csrf:dataToken}));
 })
 
 window.addEventListener('click', function(event){

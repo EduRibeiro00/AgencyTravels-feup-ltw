@@ -60,7 +60,10 @@ locInput.addEventListener("keyup", function () {
 	request.addEventListener('load', function () {
 		let answer = JSON.parse(this.responseText)
 		let hints = answer.hints;
-
+		
+		if(answer=='token error'){
+			return;
+		}
 		if(hints == "no")
 			return;
 
