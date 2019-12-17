@@ -26,7 +26,15 @@
     include_once('../templates/tpl_profile_page.php');
     include_once('../database/db_places.php');
 
-    $city_image = getRandomImagesFromCity($profile_user_info['locationID'], 1);
+    $city_images = getRandomImagesFromCity($profile_user_info['locationID'], 1);
+    if(!empty($city_images)) {
+        $city_image = "../assets/images/places/big/" . $city_images[0]['image'];
+    }
+    else {
+        $city_image = "../assets/images/others/standard-background.jpeg";
+    }
+
+
     $user_places = getUserPlaces($userID);
     $user_place_comments = getReviewsForUserPlaces($userID, 5);
 

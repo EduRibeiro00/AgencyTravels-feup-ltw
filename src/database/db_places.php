@@ -319,7 +319,6 @@ function newPlace($title, $desc, $address,$GPSCoords, $locationID, $numRooms, $n
     }
 
     catch (PDOException $e) {
-		// return $e->getMessage();
 		return false;
 	}
 	

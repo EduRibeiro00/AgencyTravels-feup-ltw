@@ -7,7 +7,7 @@
     function draw_profile_info($user_info, $user_places, $city_image, $user_place_comments) { ?>
         <main id="profile-page">
           <section id="banner-image">
-                <img src="../assets/images/places/big/<?=$city_image[0]['image']?>">
+                <img src=<?=$city_image?>>
           </section>
 
           <section class="profile-info row">
