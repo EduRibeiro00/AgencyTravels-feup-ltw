@@ -103,9 +103,9 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
                     </section>
                     </article>
                 </fieldset>
-                <aside id="place_form_map">
-            <?php initGoogleMaps(); ?>
-        </aside>
+                <section id="place_form_map">
+                    <?php initGoogleMaps(); ?>
+                </section>
                 <fieldset>
                     <legend>Description</legend>
                     <textarea name="description" placeholder="Insert a description for your place" rows="10" cols="100" required><?= htmlspecialchars($description) ?></textarea>

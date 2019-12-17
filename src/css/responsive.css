@@ -22,8 +22,23 @@
 
 	section#map {
         display: none;
-    }
-
+	}
+	#place_form_map #map{
+		display: none;
+	}
+	#place_edit_form textarea{
+		width: 100%;
+	}
+	#place_edit_form input[name="address"]{
+		width: 100%;
+	}
+	#img-upload{
+		flex-direction: column;
+	}
+	.img_add_preview_container img{
+		height: var(--small-image-height);
+		width: var(--small-image-width);
+	}
 }
 
 /* Navbar */
@@ -133,6 +148,24 @@
 		width: 10em;
 		margin: 0 auto;
 	}
+
+	#place_form_map #map{
+		display: none;
+	}
+	#place_edit_form textarea{
+		width: 100%;
+	}
+	#place_edit_form input[name="address"]{
+		width: 100%;
+	}
+	#img-upload{
+		flex-direction: column;
+	}
+	.img_add_preview_container img{
+		height: var(--small-image-height);
+		width: var(--small-image-width);
+	}
+
 }
 
 /* 640 */
@@ -159,6 +192,27 @@
 	#follow {
 		display: none;
 	}
+	#place_form_map #map{
+		display: none;
+	}
+	#place_edit_form textarea{
+		width: 100%;
+	}
+	#place_edit_form input[name="address"]{
+		width: 100%;
+	}
+	#img-upload{
+		flex-direction: column;
+	}
+	.img_add_preview_container img{
+		height: var(--small-image-height);
+		width: var(--small-image-width);
+	}
+	.edit_place_img_medium{
+		height: var(--small-image-height);
+		width: var(--small-image-width);
+	}
+
 }
 
 @media (max-width: 38em){
@@ -208,6 +262,29 @@
 	.pop-up form{
 		width: 100%;
 	}
+
+	#place_form_map #map{
+		display: none;
+	}
+	#place_edit_form textarea{
+		width: 100%;
+	}
+	#place_edit_form input[name="address"]{
+		width: 100%;
+	}
+	#img-upload{
+		flex-direction: column;
+	}
+	.img_add_preview_container img{
+		height: var(--small-image-height);
+		width: var(--small-image-width);
+	}
+	.edit_place_img_medium{
+		height: var(--small-image-height);
+		width: var(--small-image-width);
+	}
+
+
 	
 }
 
@@ -308,4 +385,26 @@
 							 "checkout"
 							 "button"; 
 	}
+	#place_form_map #map{
+		display: none;
+	}
+	#place_edit_form textarea{
+		width: 100%;
+	}
+	#place_edit_form input[name="address"]{
+		width: 100%;
+	}
+	#img-upload{
+		flex-direction: column;
+	}
+	.img_add_preview_container img{
+		height: var(--small-image-height);
+		width: var(--small-image-width);
+	}
+	.edit_place_img_medium{
+		height: var(--small-image-height);
+		width: var(--small-image-width);
+	}
+
+
 }
