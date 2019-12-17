@@ -28,6 +28,10 @@ function validateUsernameValue($value) {
 function validateTextValue($value) {
     return preg_match('/^[A-Za-z0-9?+*_!#$%,\/;.&\s-]*$/', $value);
 }
+// checks if a value is a valid Address, with numbers ex:Rua 25 de Abril
+function validateAddressValue($value) {
+    return preg_match('/^[A-Za-z0-9?_, \/;.-]*$/', $value);
+}
 
 
 // checks if a value is a valid location input
