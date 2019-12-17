@@ -197,26 +197,31 @@ profileForm.addEventListener('submit', function (event) {
 				button_Submit.style.visibility = "visible";
 				errorMessage.style.display = "block";
 				break;
+
 			case 'Description not valid':
 				errorMessage.textContent = 'Description not valid';
 				button_Submit.style.visibility = "visible";
 				errorMessage.style.display = "block";
 				break;
+
 			case 'Address not valid':
 				errorMessage.textContent = 'Address not valid';
 				button_Submit.style.visibility = "visible";
 				errorMessage.style.display = "block";
 				break;
+
 			case 'Number of Bathrooms is not valid':
 				errorMessage.textContent = 'Number of Bathrooms is not valid';
 				button_Submit.style.visibility = "visible";
 				errorMessage.style.display = "block";
 				break;
+
 			case 'Number of rooms is not valid':
 				errorMessage.textContent = 'Number of rooms is not valid';
 				button_Submit.style.visibility = "visible";
 				errorMessage.style.display = "block";
 				break;
+
 			case 'Capacity is not valid':
 				errorMessage.textContent = "Capacity is not valid";
 				button_Submit.style.visibility = "visible";
@@ -230,9 +235,10 @@ profileForm.addEventListener('submit', function (event) {
 				break;
 
 			case 'Duplicate Images':
-				showDialog('Duplicates But inserted');
+				showDialog('Duplicate Images, But Place inserted');
 				window.setTimeout(function () { history.back(); }, 3000)
 				break;
+
 			case 'token error':
 				button_Submit.style.visibility = "visible";
 				break;
@@ -251,7 +257,7 @@ profileForm.addEventListener('submit', function (event) {
 
 	let formData = new FormData(profileForm);
 
-	let dataToken=document.querySelector('input[name="csrf"]').value;
+	let dataToken = document.querySelector('input[name="csrf"]').value;
 
 
 	button_Submit.style.visibility = "hidden";
