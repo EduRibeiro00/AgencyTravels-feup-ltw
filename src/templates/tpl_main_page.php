@@ -8,8 +8,8 @@ function draw_mainpage_body($topdests, $trendingdests, $randcity, $randplaces) {
         draw_top_destinations($topdests);
         draw_trending($trendingdests);
 
-        $title = $randcity['city'] . ': some places';
-        $link = 'list_places.php?location=' . $randcity['country'] . '+-+' . $randcity['city'];
+        $title = htmlspecialchars($randcity['city']) . ': some places';
+        $link = 'list_places.php?location=' . htmlspecialchars($randcity['country']) . '+-+' . htmlspecialchars($randcity['city']);
         draw_place_listing($title, $randplaces, $link);
       ?>
 	</main>
@@ -24,7 +24,7 @@ function draw_mainpage_body($topdests, $trendingdests, $randcity, $randplaces) {
                   <li>
                     <a href="list_places.php?location=<?=$topdest['country']?>+-+<?=$topdest['city']?>">
                         <img class="circular-img" src="../assets/images/places/small/<?=$topdest['image']?>">
-                      <span><?=$topdest['city']?>, <?=$topdest['country']?></span>
+                      <span><?=htmlspecialchars($topdest['city'])?>, <?=htmlspecialchars($topdest['country'])?></span>
                     </a>
                   </li>
                 <?php } ?>
@@ -37,14 +37,14 @@ function draw_mainpage_body($topdests, $trendingdests, $randcity, $randplaces) {
     <section id="trending">
           <h3>Trending</h3>
             <ol>
-                <?php foreach($trendingdests as $trendingdest) ?>
+                <?php foreach($trendingdests as $trendingdest) {?>
                   <li>
-                    <a href=list_places.php?location=<?=$trendingdest['country']?>+-+<?=$trendingdest['city']?>>
+                    <a href=list_places.php?location=<?=htmlspecialchars($trendingdest['country'])?>+-+<?=htmlspecialchars($trendingdest['city'])?>>
                       <img class="circular-img" src="../assets/images/places/small/<?=$trendingdest['image']?>">
-                    <span><?=$trendingdest['city']?></span> <?=$trendingdest['numReservations']?> Reservations
+                    <span><?=htmlspecialchars($trendingdest['city'])?></span> ↑ <?=$trendingdest['numReservations']?> 
                     </a>
                   </li>
-                <?php ?>
+				<?php }?>
             </ol>
         </section>
 <?php } ?>

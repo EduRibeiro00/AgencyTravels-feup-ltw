@@ -8,20 +8,19 @@
  */
 
  #slideshow {
-    position: relative;
-    margin: 1em 15%;
+	margin: 1em auto;
 }
 
-#slideshow h3 {
-    color: var(--light_text_color);
+#slideshow a {
     z-index: 10;
-    font-size: 1em;
     position: absolute;
-    bottom: 15%;
-    left: 22%;
+    bottom: 10%;
+    left: 10%;
     background-color: var(--transp_main_color);
-    padding: 1em 2em;
-    border-radius: 2em;
+}
+
+#slideshow a:before {
+    content: "Places in ";
 }
 
 #slideshow a:after {

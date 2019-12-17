@@ -11,6 +11,16 @@ function encodeForAjax(data) {
 let navbar = document.getElementById("navbar")
 let topDialog = document.getElementById("top-dialog")
 topDialog.style.top = navbar.offsetHeight + "px"
+let links = document.querySelector('nav ul')
+let ham = document.getElementById("hamburger")
+ham.addEventListener('click', function() {
+	if(ham.checked == true){
+		links.classList.add('responsive')
+		links.style.top = navbar.offsetHeight + "px"
+	}
+	else
+		links.classList.remove('responsive')
+})
 
 // -------------------
 
@@ -50,8 +60,16 @@ window.addEventListener('load', function () {
 			height: '40em',
 			width: '70%',
 			autoplay: true,
-			interval: 3000
-			// perPage: 1,
+			interval: 3000,
+			height: '50%',
+			breakpoints: {
+				960: {
+					width: '90%',
+				},
+				1240: {
+					width: '80%',
+				},			
+			},
 		} ).mount();
 	}
 
@@ -68,11 +86,18 @@ window.addEventListener('load', function () {
 	if(userPlaces.length > 0)
 		for (let i = 0; i < userPlaces.length; i++) {
 			new Splide(userPlaces[i], {
-				width	: '100%',
+				// width	: '100%',
 				perPage	: 2,
 				perMove : 2,
 				focus: 'center',
 				pagination: false,
+				breakpoints: {
+					1240: {
+						perMove: 1,
+						perPage: 1,
+					},
+					
+				},
 			} ).mount();
 		}
 
@@ -80,11 +105,25 @@ window.addEventListener('load', function () {
 	if(minplaces.length > 0)
 		for (let i = 0; i < minplaces.length; i++) {
 			new Splide(minplaces[i], {
-				width	: '100%',
+				// width	: '100%',
+				// gap		: '2em',
+				// padding	: '5em',
 				perPage	: 3,
 				perMove : 3,
 				focus: 'center',
 				pagination: false,
+				breakpoints: {
+					960: {
+						perMove: 1,
+						perPage: 1,
+						// height: '50%'
+					},
+					1240: {
+						perPage: 2,
+						perMove : 2,
+					},
+					
+				},
 			} ).mount();
 		}
 });

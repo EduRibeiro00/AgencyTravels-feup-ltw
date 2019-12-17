@@ -2,7 +2,6 @@
 
 include_once('../templates/tpl_common.php');
 include_once('../templates/tpl_comment.php');
-include_once('../templates/tpl_similar_offer.php');
 include_once('../includes/reservation_utils.php');
 include_once('../includes/google_maps.php');
 include_once('../includes/input_validation.php');
@@ -37,7 +36,6 @@ function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePri
 		</section>
 		<?php 
 			draw_my_place_sidebar($housePrice, $place['rating'], $houseOwnerInfo, $place['placeID'], count($houseComments)); 
-			draw_similar_offer_slide_show();  
 		?>
 	  </main>
 <?php } 
@@ -45,13 +43,13 @@ function draw_place_info_body($place, $houseComments, $houseOwnerInfo, $housePri
 function draw_place_details($house_numRooms, $house_capacity, $house_numBathrooms) { ?>
 	<ul class="row">
 		<li class="button-appearance">
-			<i class="fas fa-bed"></i> Rooms <?=$house_numRooms?>
+			<i class="fas fa-bed"></i> <?=$house_numRooms?>
 		</li>
 		<li class="button-appearance">
-			<i class="fas fa-user"></i> Capacity <?=$house_capacity?>
+			<i class="fas fa-user"></i> <?=$house_capacity?>
 		</li>
 		<li class="button-appearance">
-			<i class="fas fa-toilet"></i> Bathrooms <?=$house_numBathrooms?>
+			<i class="fas fa-toilet"></i> <?=$house_numBathrooms?>
 		</li>
 	</ul>
 <?php }
@@ -116,17 +114,11 @@ function draw_my_place_icon_desc($house_name, $house_numRooms, $house_capacity, 
 
 
 function draw_place_location($house_address_full, $house_gpsCoords) { ?>
-    <article id="Google_Maps_Widget_Container">
-        <header>
-            <h3>Location</h3>    
-        </header>
-        <section id="Google_Maps_Widget">
+    <article id="location">
+		<h3>Location</h3>
             <?php initGoogleMaps(); ?>
-        </section>
-        <footer>
-            <p id="placeAddressP">Address: <?=htmlspecialchars($house_address_full)?></p>
-            <p id="PlaceGPSCoords">GPS Coords: <?=$house_gpsCoords?></p>
-        </footer>
+        <p>Address: <?= $house_address_full ?></p>
+        <p id="PlaceGPSCoords">GPS_Coords:<?= $house_gpsCoords ?></p>
     </article>
 <?php }
 
@@ -148,12 +140,10 @@ function draw_add_review($reservationID, $placeID) { ?>
             <?php if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) { ?>
                     <section class="add-reply-section">
                         <p>Add a reply:</p>
-                        <form class="reply-form row">
+                        <form class="reply-form column">
+                            <label for="reply-desc">Comment:</label>
+                            <textarea rows="5" cols="50" name="reply-desc"></textarea>
                             <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-
-                            <label for="reply-desc">Comment:
-                                <textarea rows="5" cols="50" name="reply-desc"></textarea>
-                            </label>
                             <input class="button" type="submit" value="Submit">
                         </form>
                     </section>

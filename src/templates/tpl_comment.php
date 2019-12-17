@@ -40,14 +40,12 @@ function draw_comment($comment, $linkToPlace, $commentReplies = false){ ?>
                 <?php if(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false) { ?>
                     <section class="add-reply-section">
                         <p>Add a reply:</p>
-                        <form class="reply-form row">
+                        <form class="reply-form column">
                             <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-
-                            <label for="reply-desc">Comment:
-                                <textarea rows="5" cols="50" name="reply-desc" required></textarea>
-                            </label>
-                            <input class="button" type="submit" value="Submit">
-                        </form>
+							<label for="reply-desc">Comment:</label>
+							<textarea rows="5" cols="50" name="reply-desc"></textarea>
+							<input class="button" type="submit" value="Submit">
+						</form>
                     </section>
                 <?php } ?>
           <?php } ?>

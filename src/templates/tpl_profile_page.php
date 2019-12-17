@@ -1,7 +1,8 @@
 <?php
     include_once('../templates/tpl_house_min.php'); 
     include_once('../templates/tpl_comment.php');
-    include_once('../includes/google_maps.php');
+	include_once('../includes/google_maps.php');
+	include_once('../includes/reservation_utils.php');
 
     function draw_profile_info($user_info, $user_places, $city_image, $user_place_comments) { ?>
         <main id="profile-page">
@@ -9,16 +10,14 @@
                 <img src="../assets/images/places/big/<?=$city_image[0]['image']?>">
           </section>
 
-          <section class="profile-info">
+          <section class="profile-info row">
                 <div id="profile-image">
                     <img class="circular-img" src="../assets/images/users/medium/<?=$user_info['image']?>">
                 </div>
 
-                <div id="mail-icon" class="circular-cropper">
-                    <a href="mailto:<?=htmlspecialchars($user_info['email'])?>">
-                        <img src="../assets/images/others/mail_icon.jpg">
-                    </a>
-                </div>
+				<a id="mail-icon" href="mailto:<?=htmlspecialchars($user_info['email'])?>">
+					<i class="far fa-envelope"></i>
+				</a>
                 
                 <?php if(isset($_SESSION['userID']) && $_SESSION['userID'] == $user_info['userID']) { ?>
                     <div class="edit-profile"> 
@@ -28,11 +27,8 @@
 
                 <section class="profile-info-fields">
                     <p id="username"><strong>Username: </strong><?=htmlspecialchars($user_info['username'])?></p>
-                    <p id="name"><strong>Name: </strong><?=htmlspecialchars($user_info['name'])?></p>
-                    <p id="email"><strong>Email: </strong><?=htmlspecialchars($user_info['email'])?></p>
-                    <p id="birthdate"><strong>Birth date: </strong><?=htmlspecialchars($user_info['birthDate'])?></p>
-                    <p id="gender"><strong>Gender: </strong><?=htmlspecialchars($user_info['gender'])?></p>
-                    <p id="location"><strong>Location: </strong><?=htmlspecialchars($user_info['city'])?>, <?=htmlspecialchars($user_info['country'])?></p>
+                    <p id="name"><strong>Name: </strong><?=htmlspecialchars($user_info['name'])?>, <i class="fas <?=genderToIcon(htmlspecialchars($user_info['gender']))?>"></i></p>
+                    <p id="birthdate"><strong>Age: </strong><?=round(timeToDay(strtotime(date('Y-m-d')) - strtotime($user_info['birthDate']))/365.4, 0, PHP_ROUND_HALF_DOWN)?> yo</p>
                 </section>
           </section>
 
@@ -43,11 +39,15 @@
                 <?php } 
                 else { ?>
                     <p><?=htmlspecialchars($user_info['description'])?></p>
-                <?php }?>
+				<?php }?>
+			</section> 
+			<section class="loc">
+				<h3>Location:</h3>
+				<p id="location"><?=htmlspecialchars($user_info['city'])?>, <?=htmlspecialchars($user_info['country'])?></p>
 
-                <?php initGoogleMaps(); ?>
+				<?php initGoogleMaps(); ?>
+			</section>
                 
-            </section>  
 
             <?php
                 $title = $user_info['username'] . "'s places";
@@ -68,4 +68,19 @@
                     } ?>
             </section>
         </main>
-<?php } ?>
+<?php } 
+
+function genderToIcon($gender){
+	switch ($gender) {
+		case 'M':
+			return "fa-mars";
+		case 'F':
+			return "fa-venus";
+		case 'O':
+			return "fa-transgender";
+		default:
+			return "fa-transgender-alt";
+	}
+}
+
+?>
