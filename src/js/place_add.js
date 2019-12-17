@@ -43,7 +43,7 @@ function generateImgDivContainer(imgSrc) {
 	remove_cross.setAttribute('identifier_local', imgId);
 	image_to_append.className = "edit_place_img_medium";
 	div_container.className = "img_add_preview_container"
-	remove_cross.className = "fas fa-times delete_image_preview"
+	remove_cross.className = "fas fa-times delete_image_local"
 	img_array[imgId] = div_container;
 	image_to_append.src = imgSrc;
 	imgId++;
@@ -74,7 +74,7 @@ function addImagesToPlace(event) {
 			let child_element = generateImgDivContainer(event.target.result);
 			image_block_preview.appendChild(child_element);
 
-			let remove_button = child_element.getElementsByClassName("delete_image_preview");
+			let remove_button = child_element.getElementsByClassName("delete_image_local");
 
 			remove_button[0].addEventListener('click', function (event) {
 

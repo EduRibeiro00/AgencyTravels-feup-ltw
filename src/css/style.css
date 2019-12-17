@@ -1272,15 +1272,9 @@ article.place-reserv-card {
 .img_add_preview_container{
     position: relative;
 }
-.delete_preview_photo{
-    position: absolute;
-}
 
 #image_delete_place_add{
     margin-left: 0;
-}
-.delete_image_preview{
-    color: red;
 }
 #house_form_img_preview{
     display: flex;
@@ -1295,8 +1289,9 @@ article.place-reserv-card {
     position: relative;
 }
 .delete_image_local{
-    top: 0.3em;  
-    right: 1.5em;
+    position: absolute;
+    top: 0.2em;  
+    right: 1.3em;
     color: red;
 }
 
@@ -1309,5 +1304,11 @@ article.place-reserv-card {
 	width: 100% !important;
 }
 
+#place_form_map #map{
+    height:25em !important;
+    width: 25em !important;
+}
 
-/*GOOGLE MAP*/
+#place_form_map{
+    float: right;
+}

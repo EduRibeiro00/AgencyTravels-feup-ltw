@@ -1,26 +1,5 @@
 
 'use strict'
-function initGoogleMapsServices() {
-
-    let raw_paragraph_string = GPSCoordsDom.innerHTML;
-    let string_parsed = parseRawParagraphWithCoordinates(raw_paragraph_string);
-    starting_lat = Number(get_lat(string_parsed));
-    starting_lng = Number(get_long(string_parsed));
-
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: starting_lat, lng: starting_lng },
-        zoom: starting_zoom
-    });
-
-    addMarker(string_parsed);
-
-    if (map == null || geocoder == null) {
-        return false;
-    }
-    //IF ITS EDIT MENU. THEN WE SHOULD FOCUS THE MAP ON THIS PLACE. NOTICE ADD MARKER ALSO FOCUES THE MAP ON THE PLACE
-    return true;
-}
-
 //EVENT LISTENER TO CLICK THE MAP AND SET A MARKER: https://www.youtube.com/watch?v=Zxf1mnP5zcw min 26.31.
 
 //DEFAULT IS PORTO CENTER.
@@ -30,6 +9,40 @@ let starting_zoom = 12;
 let map;
 let geocoder;
 let markersArray = new Array();
+
+
+function initGoogleMapsServices() {
+
+    let raw_paragraph_string = GPSCoordsDom.innerHTML;
+    let string_parsed = parseRawParagraphWithCoordinates(raw_paragraph_string);
+    starting_lat = Number(get_lat(string_parsed));
+    starting_lng = Number(get_long(string_parsed));
+
+    let mapOptions = {
+        center: new google.maps.LatLng(starting_lat, starting_lng),
+        zoom: starting_zoom,
+    };
+
+    map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+
+    addMarker(string_parsed);
+
+    if (map == null) {
+        return false;
+    }
+    google.maps.event.addDomListener(window, "resize", function () {
+        let center = map.getCenter();
+        google.maps.event.trigger(map, "resize");
+        console.log('Aqui');
+        map.setCenter(center);
+    });
+
+    //IF ITS EDIT MENU. THEN WE SHOULD FOCUS THE MAP ON THIS PLACE. NOTICE ADD MARKER ALSO FOCUES THE MAP ON THE PLACE
+    return true;
+
+}
+
 
 
 //THEN RETREVIE THE INFORMATION FROM THE LOCATION DROPDOWN

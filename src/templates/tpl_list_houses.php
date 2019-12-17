@@ -13,7 +13,11 @@ function getPlaces(){
 	}
 
 	$prov = explode(" - ", $location);
-	$foundLoc = ($prov[0] != null && $prov[1] != null);
+	if(count($prov)<2){
+		$foundLoc=false;
+	}else{
+		$foundLoc = ($prov[0] != null && $prov[1] != null);
+	}
 
 	if(isset($_GET['checkin'])) {
 		$checkin = $_GET['checkin'];
