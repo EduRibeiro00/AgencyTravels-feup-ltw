@@ -49,83 +49,6 @@ window.addEventListener('load', function () {
 		footer.style.left = "0";
 		footer.style.right = "0";
 	}
-
-
-	// ------------ Slide shows
-	let slideshow = document.getElementById('slideshow')
-	if(slideshow != null){
-		new Splide( '#slideshow', {
-			type   : 'loop',
-			cover: true,
-			height: '40em',
-			width: '70%',
-			autoplay: true,
-			interval: 3000,
-			height: '50%',
-			breakpoints: {
-				960: {
-					width: '90%',
-				},
-				1240: {
-					width: '80%',
-				},			
-			},
-		} ).mount();
-	}
-
-	let hcards = document.getElementsByClassName('hcard_slideshow');
-	if(hcards.length > 0)
-		for (let i = 0; i < hcards.length; i++) {
-			new Splide(hcards[i], {
-				type	: 'loop',
-				width	: '16em',
-			} ).mount();
-		}
-
-	let userPlaces = document.querySelectorAll('#profile-page .minplaces_slideshow');
-	if(userPlaces.length > 0)
-		for (let i = 0; i < userPlaces.length; i++) {
-			new Splide(userPlaces[i], {
-				// width	: '100%',
-				perPage	: 2,
-				perMove : 2,
-				focus: 'center',
-				pagination: false,
-				breakpoints: {
-					1240: {
-						perMove: 1,
-						perPage: 1,
-					},
-					
-				},
-			} ).mount();
-		}
-
-	let minplaces = document.querySelectorAll('#main-page .minplaces_slideshow');
-	if(minplaces.length > 0)
-		for (let i = 0; i < minplaces.length; i++) {
-			new Splide(minplaces[i], {
-				// width	: '100%',
-				// gap		: '2em',
-				// padding	: '5em',
-				perPage	: 3,
-				perMove : 3,
-				focus: 'center',
-				pagination: false,
-				breakpoints: {
-					960: {
-						perMove: 1,
-						perPage: 1,
-						// height: '50%'
-					},
-					1240: {
-						perPage: 2,
-						perMove : 2,
-					},
-					
-				},
-			} ).mount();
-		}
 });
 
 
@@ -207,3 +130,84 @@ for (let x = 0; x < crosses.length; x++) {
 	});
 }
 
+
+// ------------ Slide shows
+let slideshow = document.getElementById('slideshow')
+if(slideshow != null){
+	document.querySelector('#slideshow img').addEventListener('load', function(){
+		new Splide( '#slideshow', {
+			type   : 'loop',
+			cover: true,
+			height: '40em',
+			width: '70%',
+			autoplay: true,
+			interval: 3000,
+			height: '50%',
+			breakpoints: {
+				960: {
+					width: '90%',
+				},
+				1240: {
+					width: '80%',
+				},			
+			},
+		} ).mount();
+	})
+}
+
+let hcards = document.getElementsByClassName('hcard_slideshow');
+if(hcards.length > 0)
+	for (let i = 0; i < hcards.length; i++) {
+		hcards[i].querySelector('img').addEventListener('load', function(){
+			new Splide(hcards[i], {
+				type	: 'loop',
+				width	: '16em',
+			} ).mount();
+		})
+	}
+
+let userPlaces = document.querySelectorAll('#profile-page .minplaces_slideshow');
+if(userPlaces.length > 0)
+	for (let i = 0; i < userPlaces.length; i++) {
+		userPlaces[i].querySelector('img').addEventListener('load', function(){
+			new Splide(userPlaces[i], {
+				// width	: '100%',
+				perPage	: 2,
+				perMove : 2,
+				focus: 'center',
+				pagination: false,
+				breakpoints: {
+					1240: {
+						perMove: 1,
+						perPage: 1,
+					},
+					
+				},
+			} ).mount();
+		})
+	}
+
+let minplaces = document.querySelectorAll('#main-page .minplaces_slideshow');
+if(minplaces.length > 0)
+	for (let i = 0; i < minplaces.length; i++) {
+		minplaces[i].querySelector('img').addEventListener('load', function(){
+			new Splide(minplaces[i], {
+				perPage	: 3,
+				perMove : 3,
+				focus: 'center',
+				pagination: false,
+				breakpoints: {
+					960: {
+						perMove: 1,
+						perPage: 1,
+						// height: '50%'
+					},
+					1240: {
+						perPage: 2,
+						perMove : 2,
+					},
+					
+				},
+			} ).mount();
+		})
+	}
