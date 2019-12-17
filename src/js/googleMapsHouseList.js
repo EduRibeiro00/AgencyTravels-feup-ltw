@@ -112,13 +112,17 @@ function installHoverEventListeners() {
             //SET THE FOCUS TO THE LAST HOUSE IN THE LIST
             if(markersArray[pos] !== undefined && markersArray[pos] != null) {
                 let latLng = new google.maps.LatLng(markersArray[pos].getPosition().lat(), markersArray[pos].getPosition().lng());
-                map.setCenter(latLng);
-                map.setZoom(16);
+                if(map!=null){
+                    map.setCenter(latLng);
+                    map.setZoom(16);
+                }
             }
         });
         //RESET THE ZOOM WHEN MOUSE IF OFF THE CARD
         arrayWithHouseCards[i].addEventListener('mouseout', function () {
-            map.setZoom(12);
+            if(map!=null){
+                map.setZoom(12);
+            }
         });
     }
 
