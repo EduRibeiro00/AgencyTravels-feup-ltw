@@ -596,10 +596,6 @@ main#profile-page .place-listing {
  * ------------ Search Results ------------
  */
 
-main#list_places {
-    margin-bottom: 0;
-}   
-
 section#house_results {
 	margin: 2em;
 }

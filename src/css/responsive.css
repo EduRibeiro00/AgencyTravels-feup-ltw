@@ -2,9 +2,6 @@
 
 /* 1240 */
 @media (max-width: 75em) {
-	main{
-		background: red;
-	}
 	main#main-page {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
@@ -31,9 +28,6 @@
 
 /* Navbar */
 @media (max-width: 60em) {
-	main{
-		background: yellowgreen;
-	}
 
 	nav ul {
 		display: none !important;
@@ -145,9 +139,7 @@
 @media (max-width: 46em){
 
 	main{
-		background: green;
 		font-size: 0.8em;
-
 	}
 
 	#my-header{
@@ -170,10 +162,6 @@
 }
 
 @media (max-width: 38em){
-
-	main{
-		background: violet;
-	}
 
 	.card {
 		flex-direction: column;
@@ -224,9 +212,6 @@
 }
 
 @media (max-width: 25em){
-	main{
-		background: blue;
-	}
 
 	#topdests ol img, #trending ol img{
 		display: none;
