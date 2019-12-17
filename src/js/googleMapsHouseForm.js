@@ -66,10 +66,28 @@ function removeOtherMarkers() {
 let addressField = document.getElementById('form_place_address');
 let LocationInfo = document.getElementById('location');
 let GPSCoordsDom = document.getElementById('form_place_GPS');
+let locationSelector = document.querySelector('#place_edit_form #location');
 
+
+addressField.addEventListener('change', handlerChangeAddress);
 addressField.addEventListener('blur', handlerChangeAddress);
+locationSelector.addEventListener('change',handlerChangeLocation);
 
+function handlerChangeLocation(){
+    let address= addressField.value
+    let country = getCountryFromRaw(LocationInfo.options[LocationInfo.selectedIndex].text);
+    let city = getCityFromRaw(LocationInfo.options[LocationInfo.selectedIndex].text);
+    
+    let coordinates;
 
+    let stringParsedForGoogleMaps = address + ',' + city + ',' + country;
+    //CALLBACK??? IT WORKS :) 
+    codeAddress(stringParsedForGoogleMaps, function (coords) {
+        coordinates = coords;
+        GPSCoordsDom.value = coordinates;
+
+    });
+}
 function handlerChangeAddress(event) {
     let country = getCountryFromRaw(LocationInfo.options[LocationInfo.selectedIndex].text);
     let city = getCityFromRaw(LocationInfo.options[LocationInfo.selectedIndex].text);

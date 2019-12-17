@@ -1325,17 +1325,33 @@ article.place-reserv-card {
 
 
 /*GOOGLE MAP*/
-
+/*
 #map{
     height:400px !important;
     width: 400px !important;
 }
-
+*/
 .mapEffect{
     box-shadow: 0.4em 0.4em 0.4em 0.4em var(--footer_color);
 }
 #form_place_GPS{
     display: none;
+}
+
+#Google_Maps_Widget #map{
+    height:40em !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+#place_form_map #map{
+    float: right;
+    margin-top: 4em;
+    margin-right: 2em;
+    height:30em !important;
+    width: 30em !important;
 }
         
           
