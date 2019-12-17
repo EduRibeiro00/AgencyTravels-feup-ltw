@@ -454,7 +454,7 @@ main#main-page .place-listing {
 main#profile-page {
     display: grid;
     grid-template-columns: 30% 70%;
-    grid-template-rows: minmax(0, 30%) auto auto minmax(0, 1fr) 1fr;
+    grid-template-rows: 30% auto auto 1fr 1fr;
     grid-template-areas: "banner banner"
                          "profileinfo profileinfo"
                          "bio userplaces"
