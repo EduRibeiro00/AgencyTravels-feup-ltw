@@ -1347,13 +1347,30 @@ article.place-reserv-card {
     margin-right: auto;
 }
 #place_form_map #map{
-    float: right;
-    margin-top: 4em;
-    margin-right: 2em;
-    height:30em !important;
-    width: 30em !important;
+    height:25em !important;
+    width: 25em !important;
+    
 }
-        
+
+#list_places #map{
+    height:35em !important;
+    width: 35em !important;
+    position: relative;
+    bottom: 1em;
+    left: 5em;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+#place_form_map{
+    float: right;
+}
+
+.bio #map{
+    height:30em !important;
+    width: 80% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
           
 
 /**

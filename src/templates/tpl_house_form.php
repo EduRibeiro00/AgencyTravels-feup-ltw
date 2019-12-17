@@ -40,9 +40,6 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
 ?>
     <div id="my_house_edit_container">
 
-        <aside id="place_form_map">
-            <?php initGoogleMaps(); ?>
-        </aside>
         <!-- TODO: O MANEL MANDOU POR UM TODO PARA VER OS BUTOES -->
         <section id="place_edit_form">
             <form>
@@ -58,7 +55,6 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
                     <legend>Description</legend>
                     <label>Title: <input type="text" name="title" size="40" value="<?= htmlspecialchars($title) ?>" required> </label>
                 </fieldset>
-
                 <fieldset>
 
                     <legend>Pictures</legend>
@@ -103,23 +99,17 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
                     <input class="button" type="file" id="imageFile_add_place2" accept="image/*" name="imagePlaceFile[]" multiple data-hasFile=<?= $hasFile ?>> -->
                         <label class="button" id="add_images">Select foto</label>
                     </section>
-
                     <section id="img-delete_place_add" class="row">
-
                     </section>
-
-
                     </article>
-
                 </fieldset>
-
+                <aside id="place_form_map">
+            <?php initGoogleMaps(); ?>
+        </aside>
                 <fieldset>
                     <legend>Description</legend>
                     <textarea name="description" rows="10" cols="100" required><?= htmlspecialchars($description) ?></textarea>
-
-
                 </fieldset>
-
                 <fieldset>
                     <legend>Location</legend>
                     <article class="column edit-house-location">
