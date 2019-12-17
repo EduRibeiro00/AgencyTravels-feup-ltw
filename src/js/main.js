@@ -39,16 +39,6 @@ function showDialog(message) {
 
 //// Footer
 window.addEventListener('load', function () {
-	let body = document.body;
-	let bodyHeight = body.scrollHeight;
-
-	if (bodyHeight < screen.height) {
-		let footer = document.querySelector('body > footer');
-		footer.style.position = "fixed";
-		footer.style.bottom = "0";
-		footer.style.left = "0";
-		footer.style.right = "0";
-	}
 
 
 	// ------------ Slide shows
@@ -127,21 +117,6 @@ window.addEventListener('load', function () {
 			} ).mount();
 		}
 });
-
-
-window.onresize = function(event) {
-	let body = document.body;
-	let bodyHeight = body.offsetHeight;
-
-	if (bodyHeight < screen.height) {
-		let footer = document.querySelector('body > footer');
-		footer.style.position = "fixed";
-		footer.style.bottom = "0";
-		footer.style.left = "0";
-		footer.style.right = "0";
-	}
-};
-
 
 // -------------------
 

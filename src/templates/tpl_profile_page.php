@@ -28,7 +28,7 @@
                 <section class="profile-info-fields">
                     <p id="username"><strong>Username: </strong><?=htmlspecialchars($user_info['username'])?></p>
                     <p id="name"><strong>Name: </strong><?=htmlspecialchars($user_info['name'])?>, <i class="fas <?=genderToIcon(htmlspecialchars($user_info['gender']))?>"></i></p>
-                    <p id="birthdate"><strong>Age: </strong><?=floor(timeToDay(strtotime(date('Y-m-d')) - strtotime($user_info['birthDate']))/365.4)?> yo</p>
+                    <p id="birthdate"><strong>Age: </strong><?=date_diff(date_create($user_info['birthDate']), date_create('today'))->y;?> yo</p>
                 </section>
           </section>
 

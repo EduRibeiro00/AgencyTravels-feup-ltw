@@ -63,18 +63,6 @@ confirmForm.addEventListener('submit', function(event) {
             case 'yes':
                 // remove card for that reservation
                 reservationCard.remove();
-                
-                // adjust footer
-                let body = document.body;
-                let bodyHeight = body.scrollHeight;
-            
-                if(bodyHeight < screen.height) {
-                    let footer = document.querySelector('body > footer');
-                    footer.style.position = "fixed";
-                    footer.style.bottom = "0";
-                    footer.style.left = "0";
-                    footer.style.right = "0";
-                }
 
                 showDialog('Reservation successfully canceled');
                 

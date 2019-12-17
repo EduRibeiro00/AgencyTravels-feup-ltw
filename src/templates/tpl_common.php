@@ -28,6 +28,7 @@ function draw_head($jsArray, $class = null) { ?>
 <?php } ?>
 
 <?php function draw_footer() { ?>
+	</div>  <!-- fecha a div body-wrapper -->
     <footer class="row">
 			<a class="circ-img-link" href="main_page.php">
 				<div class="circular-cropper">
@@ -63,8 +64,8 @@ function draw_navbar($user_info, $hints, $class = null) { ?>
 				</div>
 			</a>
 		</div>
+		<input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
 			<form id="search_form" action="../pages/list_places.php" method="get">
-				  <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
 	  			<i class="fas fa-search"></i><input id="nav-search-place" type="text" name="location" pattern="[a-zA-Z -]*" autocomplete="off" placeholder="Search for places in...">
 				<section id="search-hints"></section>
 				<?php 
@@ -98,6 +99,8 @@ function draw_navbar($user_info, $hints, $class = null) { ?>
 		<?php 
 		draw_dialog();
 		if($user_info == NULL) draw_login_form(); ?>
+
+		<div id="body-wrapper"> 	<!-- abre a div body-wrapper -->
 <?php } ?>
 
 <?php function draw_star_rating($rating) { ?>
