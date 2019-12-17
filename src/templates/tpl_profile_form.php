@@ -53,7 +53,7 @@ function draw_profile_form($all_locations, $title, $user_info = null) {
 
 ?>
 
-    <section id="profile-form">
+    <main id="profile-form">
         <header>
             <h3><?=$title?></h3>
         </header>
@@ -125,6 +125,6 @@ function draw_profile_form($all_locations, $title, $user_info = null) {
             <p id="profile-form-error" class="error-message"></p>
 			<button class="button">Confirm</button>
         </form>
-    </section>
+					</main>
 
 <?php } ?>
