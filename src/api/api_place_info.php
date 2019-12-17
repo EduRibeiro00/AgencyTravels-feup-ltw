@@ -40,8 +40,9 @@ include_once('../includes/input_validation.php');
 
 
 	// Merge availabilities
-	$x = -1;
-	for($i = 0; $i < count($availabilities); $i++) {
+	$x = 0;
+	$resultAv[0] = ['startDate'=> $availabilities[0]['startDate'],'endDate'=>$availabilities[0]['endDate']];
+	for($i = 1; $i < count($availabilities); $i++) {
 		$availability = $availabilities[$i];
 
 		if($availability['startDate'] == $resultAv[$x]['endDate'])
@@ -51,8 +52,9 @@ include_once('../includes/input_validation.php');
 	}
 
 	// Merge reservations
-	$x = -1;
-	for($i = 0; $i < count($reservations); $i++) {
+	$x = 0;
+	$resultRes[0] = ['startDate'=>$reservations[0]['startDate'],'endDate'=>$reservations[0]['endDate']];
+	for($i = 1; $i < count($reservations); $i++) {
 		$reserva = $reservations[$i];
 
 		if($reserva['startDate'] == $resultRes[$x]['endDate'])
