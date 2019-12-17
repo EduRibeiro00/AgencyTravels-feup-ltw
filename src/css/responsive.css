@@ -39,6 +39,9 @@
 		height: var(--small-image-height);
 		width: var(--small-image-width);
 	}
+	#house_results_map{
+		display: none;
+	}
 }
 
 /* Navbar */
@@ -165,6 +168,9 @@
 		height: var(--small-image-height);
 		width: var(--small-image-width);
 	}
+	#house_results_map{
+		display: none;
+	}
 
 }
 
@@ -211,6 +217,9 @@
 	.edit_place_img_medium{
 		height: var(--small-image-height);
 		width: var(--small-image-width);
+	}
+	#house_results_map{
+		display: none;
 	}
 
 }
@@ -282,6 +291,9 @@
 	.edit_place_img_medium{
 		height: var(--small-image-height);
 		width: var(--small-image-width);
+	}
+	#house_results_map{
+		display: none;
 	}
 
 
@@ -404,6 +416,9 @@
 	.edit_place_img_medium{
 		height: var(--small-image-height);
 		width: var(--small-image-width);
+	}
+	#house_results_map{
+		display: none;
 	}
 
 
