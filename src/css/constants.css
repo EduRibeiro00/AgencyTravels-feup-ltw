@@ -30,8 +30,8 @@
 	--calendar_selected_trans1: rgba(38, 139, 210, 0.5);
 	--calendar_selected_trans2: rgba(38, 139, 210, 0.102);
 
-	--small-image-height:2em;
-    --small-image-width:2em;
-    --medium-image-height:6em;
-    --medium-image-width:10em;
+	--small-image-height:4em;
+    --small-image-width:4em;
+    --medium-image-height:8em;
+    --medium-image-width:12em;
 }

@@ -2,18 +2,6 @@
 @import "./carousel.css";
 @import "./house_card.css";
 
-#map{
-    height:400px !important;
-    width: 400px !important;
-}
-
-.mapEffect{
-    box-shadow: 0.4em 0.4em 0.4em 0.4em var(--footer_color);
-}
-#form_place_GPS{
-    display: none;
-}
-
 /* TODO: uniformizar botoes */
 *,
 *:before,
@@ -1312,15 +1300,9 @@ article.place-reserv-card {
 .img_add_preview_container{
     position: relative;
 }
-.delete_preview_photo{
-    position: absolute;
-}
 
 #image_delete_place_add{
     margin-left: 0;
-}
-.delete_image_preview{
-    color: red;
 }
 #house_form_img_preview{
     display: flex;
@@ -1335,15 +1317,28 @@ article.place-reserv-card {
     position: relative;
 }
 .delete_image_local{
-    top: 0.3em;  
-    right: 1.5em;
+    position: absolute;
+    top: 0.2em;  
+    right: 1.3em;
     color: red;
 }
 
 
 /*GOOGLE MAP*/
 
-  
+#map{
+    height:400px !important;
+    width: 400px !important;
+}
+
+.mapEffect{
+    box-shadow: 0.4em 0.4em 0.4em 0.4em var(--footer_color);
+}
+#form_place_GPS{
+    display: none;
+}
+        
+          
 
 /**
  * ------------ Responsive ------------
