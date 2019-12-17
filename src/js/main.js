@@ -86,11 +86,18 @@ window.addEventListener('load', function() {
 	if(userPlaces.length > 0)
 		for (let i = 0; i < userPlaces.length; i++) {
 			new Splide(userPlaces[i], {
-				width	: '100%',
+				// width	: '100%',
 				perPage	: 2,
 				perMove : 2,
 				focus: 'center',
 				pagination: false,
+				breakpoints: {
+					1240: {
+						perMove: 1,
+						perPage: 1,
+					},
+					
+				},
 			} ).mount();
 		}
 

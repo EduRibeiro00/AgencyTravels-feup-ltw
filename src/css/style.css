@@ -105,13 +105,21 @@ input, textarea, select {
     height: 7.2em;
 }
 
-.circular-cropper#mail-icon {
-    width: 2.5em;
-    height: 2.5em;
+#mail-icon {
     position: absolute;
     top: 1.5em;
-    left: 20em;
+    left: 15.5em;
 }
+
+#mail-icon i {
+    border:	var(--border_color) 4px solid;
+	border-radius: 50%;
+	font-size: 1.5em;
+	padding: 0.25em;
+	color: var(--border_color);
+}
+
+
 
 /* ----------- */
 
@@ -454,35 +462,33 @@ main#main-page .place-listing {
 
 main#profile-page {
     display: grid;
-    grid-template-columns: 30% auto;
-    grid-template-rows: 30em auto auto 1fr;
+    grid-template-columns: 30% 70%;
+    grid-template-rows: minmax(0, 15%) auto auto minmax(0, 1fr) 1fr;
     grid-template-areas: "banner banner"
                          "profileinfo profileinfo"
                          "bio userplaces"
-                         "bio placecomments";
+						 "location placecomments"
+						 "blank placecomments";
 }
 
+
+
 #banner-image {
-    grid-area: banner;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    background-color: var(--darker_bg_color);
+	grid-area: banner;
+	background: var(--background_color);
 }
 
 #banner-image img {
-    display: block;
-    width: 80%;
-    object-fit: cover;
+	height: auto;
+	width: 80%;
+	object-fit: cover;
+	margin: 0 10%;
+	max-height: 25em;
 }
 
 .edit-profile {
     position: absolute;
     left: 5em;
-}
-
-.profile-info-fields p {
-    font-size: 1.1em;
 }
 
 .profile-info-fields {
@@ -494,11 +500,24 @@ main#profile-page {
     position: relative;
 }
 
-.bio {
+.bio, .loc, .place-comments{
     background-color: var(--darker_bg_color);
-    margin-left: 1em;
-    padding: 0 1em;
-    grid-area: bio;
+    margin: 1em;
+	padding: 0 1em;
+}
+
+.bio{
+	grid-area: bio;
+}
+
+.loc{
+	grid-area: location;
+}
+
+.loc div#map{
+	width: 100% !important;
+	height: 20em !important;
+	margin-bottom: 1em;	
 }
 
 main#profile-page .place-listing {
@@ -506,11 +525,8 @@ main#profile-page .place-listing {
 }
 
 .place-comments {
-    padding: 0 1em;
     grid-area: placecomments;
-    margin: 1em;
     margin-bottom: 0;
-    background-color: var(--darker_bg_color);
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -1310,27 +1326,10 @@ article.place-reserv-card {
     color: red;
 }
 
+.places_list article{
+	margin: 1em auto;
+
+}
+
 
 /*GOOGLE MAP*/
-
-  
-
-/**
- * ------------ Responsive ------------
- */
-
-@media (max-width: 70em) {
-
-    main#main-page .places_list {
-        flex-direction: column;
-        justify-content: space-evenly;
-    }
-
-    main#main-page article {
-        margin: 1em auto;
-    }
-
-    section#map {
-        display: none;
-    }
-}
