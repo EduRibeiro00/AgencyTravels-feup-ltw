@@ -3,6 +3,12 @@
     include_once('../database/db_user.php');
     include_once('../includes/input_validation.php');
 
+    if ($_SESSION['csrf'] !== $_POST['csrf']) {
+		$message = 'token error';
+		echo json_encode(array('message' => $message));
+		return; 
+	}
+
     if(!isset($_POST['username']) || !validateUsernameValue($_POST['username']) ||
        !isset($_POST['password'])) {
             $message = 'values not defined';

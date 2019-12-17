@@ -3,6 +3,8 @@
 	<div id="login-popup" class="pop-up">
 		<form id="login-form" class="column animate">
 			
+			<input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+
 			<div class="circular-cropper">
 				<img id="logo-login" src="../assets/images/others/logo.jpg">
 			</div>

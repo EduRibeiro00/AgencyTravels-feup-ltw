@@ -52,6 +52,9 @@ loginForm.addEventListener('submit', function(event) {
         let message = JSON.parse(this.responseText).message;
 
 		switch(message) {
+            case 'token error':
+                break;
+
             case 'values not defined':
                 loginMessage.textContent = "Please write a valid username and password.";
                 loginMessage.style.display = "block";
@@ -81,7 +84,9 @@ loginForm.addEventListener('submit', function(event) {
     let username = document.querySelector('input[name="username"]').value;
     let password = document.querySelector('input[name="password"]').value;
 
-    request.send(encodeForAjax({username: username, password: password}));
+    let csrf = event.target.querySelector('input[name="csrf"]').value;
+
+    request.send(encodeForAjax({csrf: csrf, username: username, password: password}));
 });
 
 // -------------------
