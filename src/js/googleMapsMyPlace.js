@@ -34,7 +34,6 @@ function initGoogleMapsServices() {
     google.maps.event.addDomListener(window, "resize", function () {
         let center = map.getCenter();
         google.maps.event.trigger(map, "resize");
-        console.log('Aqui');
         map.setCenter(center);
     });
 

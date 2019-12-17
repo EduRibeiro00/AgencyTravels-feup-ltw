@@ -185,7 +185,7 @@ function getPrice($placeID, $date) {
     $stmt = $db->prepare('SELECT pricePerNight as price
                           FROM Availability
                           WHERE placeID = ?
-						  AND date(?) <= date(endDate) AND date(?) >= date(startDate)');
+						  AND date(?) < date(endDate) AND date(?) >= date(startDate)');
 	$stmt->execute(array($placeID, $date, $date));
 	return $stmt->fetch();
 }

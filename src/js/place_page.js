@@ -126,7 +126,6 @@ function updateDisableDates(){
 	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 
 	request.addEventListener('load', function() {
-		// TODO: ver erros
 		let message = JSON.parse(this.responseText).message
 		if(message=='token error'){
 			return;

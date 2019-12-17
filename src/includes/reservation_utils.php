@@ -16,15 +16,15 @@ function getPriceInDate($placeID, $checkin, $checkout){
 	if(!empty(getOverlapReservations($placeID, $checkin, $checkout)))
 		return -1;
 	
-	$availabilties = getCompatibleAvailability($placeID, $checkin, $checkout);
+	$availabilities = getCompatibleAvailability($placeID, $checkin, $checkout);
 	
-	usort($availabilties, 'compareDates'); 
+	usort($availabilities, 'compareDates'); 
 
 
 	$acc = 0;
 	$nDays = timeToDay(strtotime($checkout) - strtotime($checkin));
-	for($i = 0; $i < count($availabilties); $i++){
-		$av = $availabilties[$i];
+	for($i = 0; $i < count($availabilities); $i++){
+		$av = $availabilities[$i];
 
 		$endTime = strtotime($av['endDate']);
 		$checkinTime = strtotime($checkin);
