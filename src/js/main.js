@@ -53,7 +53,6 @@ locInput.addEventListener("keyup", function () {
 	resultDropdown.innerHTML = ""
 	if (locInput.value == "") return
 
-
 	request.open("POST", "../api/api_search.php", true)
 	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 
@@ -73,8 +72,8 @@ locInput.addEventListener("keyup", function () {
 			resultDropdown.appendChild(newHint);
 		}
 	})
-
-	request.send(encodeForAjax({ val: locInput.value }))
+	let dataToken=document.querySelector('input[name="csrf"]').value;
+	request.send(encodeForAjax({val:locInput.value, csrf: dataToken}));
 })
 
 resultDropdown.addEventListener('mouseup', function (event) {

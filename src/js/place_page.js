@@ -106,12 +106,15 @@ function priceDay(date){
 	
 	req.addEventListener('load', function() {
 		let message = JSON.parse(this.responseText).price
+		if(message=='token error'){
+			return;
+		}
 		inlineCal.showPrice(message + "€")
 	});
 	
 	let url = new URL(window.location.href)
 	let placeID = url.searchParams.get("place_id")
-	req.send(encodeForAjax({placeID: placeID, date: date.format('YYYY-MM-DD')}))
+	req.send(encodeForAjax({placeID: placeID, date: date.format('YYYY-MM-DD'),csrf:dataToken}))
 }
 
 function updateDisableDates(){
@@ -123,6 +126,9 @@ function updateDisableDates(){
 	request.addEventListener('load', function() {
 		// TODO: ver erros
 		let message = JSON.parse(this.responseText).message
+		if(message=='token error'){
+			return;
+		}
 		inlineCal.setMinDate(message.startDate)
 		inlineCal.setMaxDate(message.endDate)
 
@@ -144,7 +150,7 @@ function updateDisableDates(){
 	});
 	let url = new URL(window.location.href)
 	let placeID = url.searchParams.get("place_id")
-	request.send(encodeForAjax({placeID: placeID}))
+	request.send(encodeForAjax({placeID: placeID,csrf:dataToken}))
 }
 
 //Sticky sideBar_Fast reservation

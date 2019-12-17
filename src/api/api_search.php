@@ -2,9 +2,8 @@
 	include_once('../includes/session_include.php');
 	include_once('../database/db_places.php');
 	include_once('../includes/input_validation.php');
-	
 	if ($_SESSION['csrf'] !== $_POST['csrf']) {
-		$message='token error';
+		$message=$_POST;
 		echo json_encode(array('message' => $message));
 		return;
 	}
