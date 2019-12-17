@@ -87,17 +87,12 @@ function draw_user_card($user, $drawingOption = null) {
 		$idLink = "#";
 		$image = "";
 		$username = "";
-		$email = "";
-		$stars = 0;
 	}
 	else {
 		$idLink = "../pages/profile_page.php?userID=" . $user['userID'];
 		$image = "../assets/images/users/small/" . $user['image'];
 		$username = $user['username'];
-		$email = $user['email'];
-		$stars = $user['stars'];
 	}
-
 
 ?>	<section class="user_card">
 		<a class="user_img" href="<?=$idLink?>">
@@ -106,9 +101,28 @@ function draw_user_card($user, $drawingOption = null) {
 		<a class="user_username" href="<?=$idLink?>">
 			<?=htmlspecialchars($username)?>
 		</a>
-		<?php if($drawingOption == 'email') { ?>
+		<?php if($drawingOption == 'email') { 
+			if($user == 'placeholder') {
+				$email = "";
+			}
+			else {
+				$email = $user['email'];
+			}
+			
+			?>
 			<a class="user_contact" href="mailto: <?=htmlspecialchars($email)?>">Speak with the Owner</a>
-		<?php } else if($drawingOption == 'rating') draw_star_rating($stars) ?>
+		<?php }
+			else if($drawingOption == 'rating'){
+				if($user == 'placeholder') {
+					$stars = 0;
+				}
+				else {
+					$stars = $user['stars'];
+				}
+
+				draw_star_rating($stars);
+			}  
+			?>
 
 	</section>
 
