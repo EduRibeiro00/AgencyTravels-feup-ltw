@@ -454,14 +454,13 @@ main#main-page .place-listing {
 main#profile-page {
     display: grid;
     grid-template-columns: 30% 70%;
-    grid-template-rows: minmax(0, 15%) auto auto minmax(0, 1fr) 1fr;
+    grid-template-rows: minmax(0, 30%) auto auto minmax(0, 1fr) 1fr;
     grid-template-areas: "banner banner"
                          "profileinfo profileinfo"
                          "bio userplaces"
 						 "location placecomments"
 						 "blank placecomments";
 }
-
 
 
 #banner-image {
@@ -474,12 +473,13 @@ main#profile-page {
 	width: 80%;
 	object-fit: cover;
 	margin: 0 10%;
-	max-height: 25em;
+	max-height: 100%;
 }
 
 .edit-profile {
     position: absolute;
     left: 5em;
+    bottom: 2em;
 }
 
 .profile-info-fields {
