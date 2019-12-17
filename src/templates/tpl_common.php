@@ -25,7 +25,7 @@ function draw_head($jsArray, $class = null) { ?>
     <footer>
 			<a class="circ-img-link" href="main_page.php">
 				<div class="circular-cropper">
-						<img id="logo" src="../assets/images/others/logo.jpg">
+						<img id="logo" src="../assets/images/others/logo.png">
 				</div>
 			</a>
         <span id="cpline"> &copy; Agency Travels, LTW 2019. All rights reserved. </span>
@@ -53,7 +53,7 @@ function draw_navbar($user_info, $hints, $class = null) { ?>
     <nav id="navbar" <?=$class == null? '' : "class=$class" ?>>
 			<a class="circ-img-link" href="main_page.php">
 				<div class="circular-cropper">
-					<img id="logo" src="../assets/images/others/logo.jpg">
+					<img id="logo" src="../assets/images/others/logo.png">
 				</div>
 			</a>
 		</div>
