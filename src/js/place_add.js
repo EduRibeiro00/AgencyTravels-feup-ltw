@@ -180,43 +180,52 @@ profileForm.addEventListener('submit', function (event) {
 				break;
 
 			case 'invalid image':
-				console.warn('There is a problem with your image');
+				showDialog('There is a problem with your image');
+				button_Submit.style.visibility = "visible";
 				errorMessage.textContent = "There is a problem with your image";
 				errorMessage.style.display = "block";
 				break;
 
 			case 'Number of photos invalid':
 				errorMessage.textContent = "Number of photos invalid";
+				button_Submit.style.visibility = "visible";
 				errorMessage.style.display = "block";
 				break;
 
 			case 'Title not valid':
 				errorMessage.textContent = "Title not Valid";
+				button_Submit.style.visibility = "visible";
 				errorMessage.style.display = "block";
 				break;
 			case 'Description not valid':
 				errorMessage.textContent = 'Description not valid';
+				button_Submit.style.visibility = "visible";
 				errorMessage.style.display = "block";
 				break;
 			case 'Address not valid':
 				errorMessage.textContent = 'Address not valid';
+				button_Submit.style.visibility = "visible";
 				errorMessage.style.display = "block";
 				break;
 			case 'Number of Bathrooms is not valid':
 				errorMessage.textContent = 'Number of Bathrooms is not valid';
+				button_Submit.style.visibility = "visible";
 				errorMessage.style.display = "block";
 				break;
 			case 'Number of rooms is not valid':
 				errorMessage.textContent = 'Number of rooms is not valid';
+				button_Submit.style.visibility = "visible";
 				errorMessage.style.display = "block";
 				break;
 			case 'Capacity is not valid':
 				errorMessage.textContent = "Capacity is not valid";
+				button_Submit.style.visibility = "visible";
 				errorMessage.style.display = "block";
 				break;
 
 			case 'GPS Coords of that Address invalid':
 				errorMessage.textContent = 'GPS Coords of that Address invalid';
+				button_Submit.style.visibility = "visible";
 				errorMessage.style.display = "block";
 				break;
 
@@ -225,6 +234,7 @@ profileForm.addEventListener('submit', function (event) {
 				window.setTimeout(function () { history.back(); }, 3000)
 				break;
 			case 'token error':
+				button_Submit.style.visibility = "visible";
 				break;
 		
 			default:
