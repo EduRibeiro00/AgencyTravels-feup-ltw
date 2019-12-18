@@ -1310,6 +1310,7 @@ article.place-reserv-card {
 }
 
 #place_page #location div#map{
+    height: 30em !important;
 	width: 100% !important;
 }
 
