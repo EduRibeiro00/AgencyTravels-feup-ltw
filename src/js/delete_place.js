@@ -52,27 +52,29 @@ for(let i = 0; i < removeButtons.length; i++) {
 confirmForm.addEventListener('submit', function(event) {
         event.preventDefault();
         let request = new XMLHttpRequest();
-        request.open("POST", "../api/api_delete_place.php", true);
-        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        let csrf = event.target.querySelector('input[name="csrf"]').value;
+
+        request.open("DELETE", "../rest/rest_place.php?" + encodeForAjax({csrf: csrf, placeID: placeID}), true);
+
         request.addEventListener('load', function () {
-            let message = JSON.parse(this.responseText).message;
+            let message = this.status;
             switch(message) {
-                case 'token error':
+                case 403:
                     break;
 
-                case 'yes':
+                case 204:
                     // remove house card for that reservation
                     houseCard.remove();
 
                     showDialog("Place successfully removed");
-
                     break;
 
-                case 'no':
+                case 400:
                     showDialog("An error ocurred (some inputs may be invalid). Please try again.");
-                    break;    
+                    break;
 
-                case "not owner":
+                case 401:
                     showDialog("The logged in user is not the owner of the house");
                     break;
 
@@ -82,9 +84,7 @@ confirmForm.addEventListener('submit', function(event) {
 
         });
 
-        let csrf = event.target.querySelector('input[name="csrf"]').value;
-
-        request.send(encodeForAjax({csrf: csrf, placeID: placeID}));
+        request.send();
 });
 
 
