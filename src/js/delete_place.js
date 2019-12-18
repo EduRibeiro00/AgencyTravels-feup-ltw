@@ -52,9 +52,7 @@ for(let i = 0; i < removeButtons.length; i++) {
 confirmForm.addEventListener('submit', function(event) {
         event.preventDefault();
         let request = new XMLHttpRequest();
-
-        let csrf = event.target.querySelector('input[name="csrf"]').value;
-
+        
         request.open("POST", "../api/api_delete_place.php", true);
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         request.addEventListener('load', function () {
