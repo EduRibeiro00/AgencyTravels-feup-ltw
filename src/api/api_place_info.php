@@ -96,7 +96,7 @@ include_once('../includes/input_validation.php');
 	// - final date da ultima availability:
 	// 		-> $resultAv[count($resultAv) - 1]['endDate']
 	// - ocupados/invalidos: 
-	// 		-> $resultRes
+	// 		-> $newRes
 	$finalRes = array('startDate' => $resultAv[0]['startDate'], 'endDate' => $resultAv[count($resultAv) - 1]['endDate'], 'invalidDates' => $newRes);
 	echo json_encode(array('message' => $finalRes));
 	}

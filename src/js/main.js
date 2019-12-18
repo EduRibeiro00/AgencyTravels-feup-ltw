@@ -139,7 +139,6 @@ if(userPlaces.length > 0)
 	for (let i = 0; i < userPlaces.length; i++) {
 		userPlaces[i].querySelector('img').addEventListener('load', function(){
 			new Splide(userPlaces[i], {
-				// width	: '100%',
 				perPage	: 2,
 				perMove : 2,
 				focus: 'center',
@@ -168,7 +167,6 @@ if(minplaces.length > 0)
 					960: {
 						perMove: 1,
 						perPage: 1,
-						// height: '50%'
 					},
 					1240: {
 						perPage: 2,

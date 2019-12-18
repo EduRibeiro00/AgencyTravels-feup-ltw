@@ -1,9 +1,6 @@
 
 'use strict'
 
-//EVENT LISTENER TO CLICK THE MAP AND SET A MARKER: https://www.youtube.com/watch?v=Zxf1mnP5zcw min 26.31.
-
-
 function initGoogleMapsServices() {
 
     let result = setHTTPRequestToRetrievePlaceCoords();

@@ -2,31 +2,7 @@
 include_once('../database/db_connection.php');
 include_once('../database/db_images.php');
 
-// -------------------
-// not being used rn vv
-
-
-function getRandomPlacesFromCountry($country, $number) {
-    $db = Database::instance()->db();
-    $stmt = $db->prepare('SELECT * 
-                          FROM Place NATURAL JOIN Location
-                          WHERE country = ?
-                          ORDER BY random()
-                          LIMIT ?');
-    $stmt->execute(array($country, $number));
-    return $stmt->fetchAll();
-}
-
-
-function getRandomCountry() {
-    $db = Database::instance()->db();
-    $stmt = $db->prepare('SELECT country 
-                          FROM Location
-                          ORDER BY random()
-                          LIMIT 1');
-    $stmt->execute();
-    return $stmt->fetch();
-}
+// ----------------
 
 function getLocations($location) {
 	$val = "%" . $location ."%";
@@ -37,19 +13,6 @@ function getLocations($location) {
 	$stmt->execute(array($val, $val));
 	return $stmt->fetchAll();
 }
-
-function getRandomPlacesRandomCountry($number) {
-    $country = getRandomCountry();
-    return getRandomPlacesFromCountry($country['country'], $number);
-}
-
-function getRandomPlacesRandomCity($number) {
-    $city = getRandomCity();
-    return getRandomPlacesFromCity($city['locationID'], $number);
-}
-
-// ----------------
-// currently used vv
 
 function getAllLocations() {
     $db = Database::instance()->db();
@@ -121,7 +84,6 @@ function getFilteredPlacesLoc($nPeople, $rating, $nRooms, $nBathrooms, $city, $c
 							  GROUP BY placeID
 						  ) AS CV ON Place.placeID = CV.placeID -- This subquery gives the number of Votes
 						  NATURAL JOIN Location
-						--   WHERE country LIKE ? AND city LIKE ?
 						  WHERE capacity >= ?
 						  AND rating >= ?
 						  AND numRooms >= ?
@@ -143,7 +105,6 @@ function getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms, $location) {
     $stmt = $db->prepare('SELECT Place.placeID, title, rating, capacity, numRooms, numBathrooms, gpsCoords, IFNULL(nVotes, 0) as nVotes
                           FROM Place LEFT JOIN (select placeID, count(*) as nVotes from review NATURAL JOIN Reservation GROUP BY placeID) AS CV ON Place.placeID = CV.placeID -- This subquery gives the number of Votes
 						  NATURAL JOIN Location
-						--   WHERE country LIKE ? AND city LIKE ?
 						  WHERE capacity >= ?
 						  AND rating >= ?
 						  AND numRooms >= ?

@@ -18,10 +18,8 @@ function initGoogleMapsServices() {
     }
     return true;
 }
-//EVENT LISTENER TO CLICK THE MAP AND SET A MARKER: https://www.youtube.com/watch?v=Zxf1mnP5zcw min 26.31.
 
 //DEFAULT IS PORTO CENTER.
-//const iconImageURL=
 let starting_lat = 41.1579438;
 let starting_lng = -8.6291053;
 let starting_zoom = 12;
@@ -81,7 +79,6 @@ function handlerChangeLocation(){
     let coordinates;
 
     let stringParsedForGoogleMaps = address + ',' + city + ',' + country;
-    //CALLBACK??? IT WORKS :) 
     codeAddress(stringParsedForGoogleMaps, function (coords) {
         coordinates = coords;
         GPSCoordsDom.value = coordinates;
@@ -96,7 +93,6 @@ function handlerChangeAddress(event) {
     let coordinates;
 
     let stringParsedForGoogleMaps = event.target.value + ',' + city + ',' + country;
-    //CALLBACK??? IT WORKS :) 
     codeAddress(stringParsedForGoogleMaps, function (coords) {
         coordinates = coords;
         GPSCoordsDom.value = coordinates;

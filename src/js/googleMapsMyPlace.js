@@ -1,6 +1,5 @@
 
 'use strict'
-//EVENT LISTENER TO CLICK THE MAP AND SET A MARKER: https://www.youtube.com/watch?v=Zxf1mnP5zcw min 26.31.
 
 //DEFAULT IS PORTO CENTER.
 let starting_lat = 41.1579438;
