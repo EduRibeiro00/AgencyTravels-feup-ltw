@@ -158,7 +158,6 @@ function newAddImgInput() {
 let button_Submit = document.getElementById('edit_place_submit');
 
 profileForm.addEventListener('submit', function (event) {
-
 	event.preventDefault();
 
 	let request = new XMLHttpRequest();
@@ -252,13 +251,123 @@ profileForm.addEventListener('submit', function (event) {
 
 	});
 
+
+	// aqui se encontra o codigo pertencente a REST API das casas,
+	// que faz um POST request. Mais informacoes no ficheiro rest_place.php. 
+
+	// request.open("POST", "../rest/rest_place.php", true);
+	// request.setRequestHeader('Accept', 'application/json');
+
+	// request.addEventListener('load', function () {
+	// 	let status = request.status;
+	// 	let message;
+
+	// 	switch(status) {
+	// 		case 201:
+	// 			message = JSON.parse(this.responseText).message;
+
+	// 			if(message == 'true') {
+	// 				showDialog('Place added with sucess');
+	// 				window.setTimeout(function () { history.back(); }, 3000);
+	// 			}
+	// 			else if(message == 'Duplicate Images') {
+	// 				showDialog('Duplicate Images, But Place inserted');
+	// 				window.setTimeout(function () { history.back(); }, 3000);
+	// 			}
+	// 			break;
+
+	// 		case 401:
+	// 			showDialog('YOU ARE NOT LOGGED IN');
+	// 			window.setTimeout(function () { history.back(); }, 3000);
+	// 			break;
+
+	// 		case 403:
+	// 			button_Submit.style.visibility = "visible";
+	// 			break;
+
+	// 		case 400:
+	// 			message = JSON.parse(this.responseText).message;
+
+	// 			switch (message) {
+	
+	// 				case 'invalid image':
+	// 					showDialog('There is a problem with your image');
+	// 					button_Submit.style.visibility = "visible";
+	// 					errorMessage.textContent = "There is a problem with your image";
+	// 					errorMessage.style.display = "block";
+	// 					break;
+				
+	// 				case 'Number of photos invalid':
+	// 					errorMessage.textContent = "Number of photos invalid";
+	// 					button_Submit.style.visibility = "visible";
+	// 					errorMessage.style.display = "block";
+	// 					break;
+				
+	// 				case 'Title not valid':
+	// 					errorMessage.textContent = "Title not Valid";
+	// 					button_Submit.style.visibility = "visible";
+	// 					errorMessage.style.display = "block";
+	// 					break;
+				
+	// 				case 'Description not valid':
+	// 					errorMessage.textContent = 'Description not valid';
+	// 					button_Submit.style.visibility = "visible";
+	// 					errorMessage.style.display = "block";
+	// 					break;
+				
+	// 				case 'Address not valid':
+	// 					errorMessage.textContent = 'Address not valid';
+	// 					button_Submit.style.visibility = "visible";
+	// 					errorMessage.style.display = "block";
+	// 					break;
+				
+	// 				case 'Number of Bathrooms is not valid':
+	// 					errorMessage.textContent = 'Number of Bathrooms is not valid';
+	// 					button_Submit.style.visibility = "visible";
+	// 					errorMessage.style.display = "block";
+	// 					break;
+				
+	// 				case 'Number of rooms is not valid':
+	// 					errorMessage.textContent = 'Number of rooms is not valid';
+	// 					button_Submit.style.visibility = "visible";
+	// 					errorMessage.style.display = "block";
+	// 					break;
+				
+	// 				case 'Capacity is not valid':
+	// 					errorMessage.textContent = "Capacity is not valid";
+	// 					button_Submit.style.visibility = "visible";
+	// 					errorMessage.style.display = "block";
+	// 					break;
+				
+	// 				case 'GPS Coords of that Address invalid':
+	// 					errorMessage.textContent = 'GPS Coords of that Address invalid';
+	// 					button_Submit.style.visibility = "visible";
+	// 					errorMessage.style.display = "block";
+	// 					break;
+			
+	// 				default:
+	// 					break;
+	// 			}
+				
+	// 		default:
+	// 			button_Submit.style.visibility = "visible";
+	// 			break;
+	// 	}
+
+	// });
+
+
+
+
+
+
+
 	if (imagesInput.length == 0)
 		newAddImgInput()
 
 	let formData = new FormData(profileForm);
 
 	let dataToken = document.querySelector('input[name="csrf"]').value;
-
 
 	button_Submit.style.visibility = "hidden";
 	formData.append('File0', files_array[0]);
@@ -268,7 +377,6 @@ profileForm.addEventListener('submit', function (event) {
 	formData.append('File4', files_array[4]);
 	formData.append('File5', files_array[5]);
 	formData.append('csrf',dataToken);
-
 
 	request.send(formData);
 });
