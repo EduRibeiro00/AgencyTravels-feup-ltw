@@ -13,6 +13,7 @@
 
 	if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && getUserInformation($_SESSION['userID']) !== false)) {
 		$message = 'user not logged in';
+		echo json_encode(array('message' => $message));
 		return;
 	}
 

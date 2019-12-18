@@ -39,7 +39,7 @@ include_once('../includes/input_validation.php');
 
 	// Merge availabilities
 	$x = 0;
-	$resultAv[0] = ['startDate'=> $availabilities[0]['startDate'],'endDate'=>$availabilities[0]['endDate']];
+	$resultAv[0] = ['startDate'=> (date("Y-m-d") >  $availabilities[0]['startDate']) ? date("Y-m-d"): $availabilities[0]['startDate'],'endDate'=>$availabilities[0]['endDate']];
 	for($i = 1; $i < count($availabilities); $i++) {
 		$availability = $availabilities[$i];
 
@@ -49,22 +49,21 @@ include_once('../includes/input_validation.php');
 			$resultAv[++$x] = ['startDate'=> $availability['startDate'],'endDate'=>$availability['endDate']];
 	}
 
-
-	for($i = 0; $i < count($resultAv) - 1; $i++){
-		$endDate = date('Y-m-d',strtotime("{$resultAv[$i + 1]['startDate']} -1 day"));
-		$startDate = date('Y-m-d',strtotime("{$resultAv[$i]['endDate']} +1 day"));
-		if(strtotime($startDate) <= strtotime($endDate))
-			$resultRes[] = array('startDate' => $startDate, 'endDate' => $endDate);
-	}
-
 	$reservations = getFromDayForwardReservations($placeID, date("Y-m-d"));
 
 	if($reservations == null){
-		$finalRes = array('startDate' => (date("Y-m-d") >  $resultAv[0]['startDate']) ? date("Y-m-d"): $resultAv[0]['startDate'], 'endDate' => $resultAv[count($resultAv) - 1]['endDate'], 'invalidDates' => $resultRes);
+		$finalRes = array('startDate' => $resultAv[0]['startDate'], 'endDate' => $resultAv[count($resultAv) - 1]['endDate'], 'invalidDates' => []);
 		echo json_encode(array('message' => $finalRes));
 		return;
 	}
 	
+	for($i = 0; $i < count($resultAv) - 1; $i++){
+		$endDate = date('Y-m-d',strtotime("{$resultAv[$i + 1]['startDate']} -1 day"));
+		$startDate = date('Y-m-d',strtotime("{$resultAv[$i]['endDate']} +1 day"));
+		if(strtotime($startDate) <= strtotime($endDate))
+			$reservations[] = array('startDate' => $startDate, 'endDate' => $endDate);
+	}
+
 	usort($reservations, 'compareDates');
 
 	// Merge reservations
@@ -79,14 +78,16 @@ include_once('../includes/input_validation.php');
 			$resultRes[++$x] = ['startDate'=>$reserva['startDate'],'endDate'=>$reserva['endDate']];
 	}
 
+	
 	// Update begin and end dates
+	$newRes;
 	for ($i = 0; $i < count($resultRes); $i++) {
-		$reserva = $resultRes[$i];
-
-		$reserva['startDate'] = date('Y-m-d',strtotime("{$reserva['startDate']} +1 day"));
-		$reserva['endDate'] = date('Y-m-d',strtotime("{$reserva['endDate']} -1 day"));
-		if(strtotime($reserva['startDate']) > strtotime($reserva['endDate']))
-			unset($resultRes[$i]);
+		if(strtotime($resultRes[$i]['startDate']) != strtotime(date('Y-m-d')))
+			$resultRes[$i]['startDate'] = date('Y-m-d',strtotime("{$resultRes[$i]['startDate']} +1 day"));
+		$resultRes[$i]['endDate'] = date('Y-m-d',strtotime("{$resultRes[$i]['endDate']} -1 day"));
+		if(!(strtotime($resultRes[$i]['startDate']) > strtotime($resultRes[$i]['endDate']))){
+			$newRes[] = $resultRes[$i];
+		}
 	}
 
 	// Cenas importantes:
@@ -96,7 +97,7 @@ include_once('../includes/input_validation.php');
 	// 		-> $resultAv[count($resultAv) - 1]['endDate']
 	// - ocupados/invalidos: 
 	// 		-> $resultRes
-	$finalRes = array('startDate' => (date("Y-m-d") >  $resultAv[0]['startDate']) ? date("Y-m-d"): $resultAv[0]['startDate'], 'endDate' => $resultAv[count($resultAv) - 1]['endDate'], 'invalidDates' => $resultRes);
+	$finalRes = array('startDate' => $resultAv[0]['startDate'], 'endDate' => $resultAv[count($resultAv) - 1]['endDate'], 'invalidDates' => $newRes);
 	echo json_encode(array('message' => $finalRes));
 	}
 

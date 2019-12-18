@@ -48,27 +48,36 @@ function getPriceInDate($placeID, $checkin, $checkout){
 
 function getAvailabilites($placeID){
 	$availabilities = getFromDayForwardAvailabilities($placeID, date("Y-m-d"));
+	if($availabilities == null){
+		echo json_encode(array('message' => []));
+		return;
+	}
 
 	usort($availabilities, 'compareDates'); 
-	$x = -1;
-	for($i = 0; $i < count($availabilities); $i++) {
+
+	// Merge availabilities
+	$x = 0;
+	$resultAv[0] = ['startDate'=>  $availabilities[0]['startDate'],'endDate'=>$availabilities[0]['endDate']];
+	for($i = 1; $i < count($availabilities); $i++) {
 		$availability = $availabilities[$i];
 
 		if($availability['startDate'] == $resultAv[$x]['endDate'])
 			$resultAv[$x]['endDate'] = $availability['endDate'];
 		else
-			$resultAv[++$x] = ['startDate'=>$availability['startDate'],'endDate'=>$availability['endDate']];
+			$resultAv[++$x] = ['startDate'=> $availability['startDate'],'endDate'=>$availability['endDate']];
 	}
 
-	for($i = 0; $i < count($resultAv); $i++) {
-		$availability = $resultAv[$i];
-		$availability['startDate'] = date('Y-m-d',strtotime("{$availability['startDate']} +1 day"));
-		$availability['endDate'] = date('Y-m-d',strtotime("{$availability['endDate']} -1 day"));
-		if(strtotime($availability['startDate']) > strtotime($availability['endDate']))
-			unset($resultAv[$key]);
+	// Update begin and end dates
+	$newAv;
+	for ($i = 0; $i < count($resultAv); $i++) {
+		$resultAv[$i]['startDate'] = date('Y-m-d',strtotime("{$resultAv[$i]['startDate']} +1 day"));
+		$resultAv[$i]['endDate'] = date('Y-m-d',strtotime("{$resultAv[$i]['endDate']} -1 day"));
+		if(!(strtotime($resultAv[$i]['startDate']) > strtotime($resultAv[$i]['endDate']))){
+			$newAv[] = $resultAv[$i];
+		}
 	}
 
-	return $resultAv;
+	return $newAv;
 }
 
 // user can cancel reservation up to 3 days before

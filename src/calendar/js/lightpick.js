@@ -1442,6 +1442,11 @@
 	  },
 
 	  showPrice: function(price){
+		if(price == null){
+			this.el.querySelector('.lightpick__tooltip').style.visibility = 'hidden';
+			return;
+		}
+
 		self = this;
 		if(!self._opts.priceTooltip)
 			return
@@ -1451,7 +1456,7 @@
 		let pickerBouding = self.el.getBoundingClientRect(), _left, _top;
 		   
 		tooltip.style.visibility = 'visible';
-		tooltip.textContent = price;
+		tooltip.textContent = price + "€";
   
 		if(self._opts.inline){
 			let dayBounding = self.el.querySelector('.is-start-date').getBoundingClientRect();

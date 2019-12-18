@@ -111,7 +111,9 @@ function priceDay(date){
 		if(message=='token error'){
 			return;
 		}
-		inlineCal.showPrice(message + "€")
+
+		inlineCal.showPrice(message)
+
 	});
 
 	let url = new URL(window.location.href)
