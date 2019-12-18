@@ -55,26 +55,27 @@ confirmForm.addEventListener('submit', function(event) {
 
         let csrf = event.target.querySelector('input[name="csrf"]').value;
 
-        request.open("DELETE", "../rest/rest_place.php?" + encodeForAjax({csrf: csrf, placeID: placeID}), true);
-
+        request.open("POST", "../api/api_delete_place.php", true);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         request.addEventListener('load', function () {
-            let message = this.status;
+            let message = JSON.parse(this.responseText).message;
             switch(message) {
-                case 403:
+                case 'token error':
                     break;
 
-                case 204:
+                case 'yes':
                     // remove house card for that reservation
                     houseCard.remove();
 
                     showDialog("Place successfully removed");
+
                     break;
 
-                case 400:
+                case 'no':
                     showDialog("An error ocurred (some inputs may be invalid). Please try again.");
-                    break;
+                    break;    
 
-                case 401:
+                case "not owner":
                     showDialog("The logged in user is not the owner of the house");
                     break;
 
@@ -84,7 +85,45 @@ confirmForm.addEventListener('submit', function(event) {
 
         });
 
-        request.send();
+        let csrf = event.target.querySelector('input[name="csrf"]').value;
+
+        request.send(encodeForAjax({csrf: csrf, placeID: placeID}));
+
+
+        // aqui se encontra o codigo pertencente a REST API das casas,
+	    // que faz um DELETE request. Mais informacoes no ficheiro rest_place.php. 
+
+        // request.open("DELETE", "../rest/rest_place.php?" + encodeForAjax({csrf: csrf, placeID: placeID}), true);
+
+        // request.addEventListener('load', function () {
+        //     let message = this.status;
+
+        //     switch(message) {
+        //         case 403:
+        //             break;
+
+        //         case 204:
+        //             // remove house card for that reservation
+        //             houseCard.remove();
+
+        //             showDialog("Place successfully removed");
+        //             break;
+
+        //         case 400:
+        //             showDialog("An error ocurred (some inputs may be invalid). Please try again.");
+        //             break;
+
+        //         case 401:
+        //             showDialog("The logged in user is not the owner of the house");
+        //             break;
+
+        //         default:
+        //             break;
+        //     }
+
+        // });
+
+        // request.send();
 });
 
 
