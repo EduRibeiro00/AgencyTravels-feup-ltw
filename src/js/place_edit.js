@@ -177,8 +177,6 @@ function updateIdentifierLocal(array) {
 labelEditInput.addEventListener('click', newAddImgInput)
 
 function newAddImgInput() {
-	// TODO falta data-hasFile=<?= $hasFile ?>
-	// <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile[]" multiple >
 	labelEditInput.htmlFor = "imageFile_add_place" + (imagesEditInput.length + 1)
 	let input = document.createElement('input');
 	input.id = labelEditInput.htmlFor

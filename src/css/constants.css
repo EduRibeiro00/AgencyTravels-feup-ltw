@@ -2,14 +2,12 @@
     --background_color: #f9f9f9;
     --darker_bg_color: #f5f0f0;
 	--main_color: #e47c78;
-	/* TODO: rename */
     --footer_color: #a59b9b;
 	--transp_main_color: rgba(228, 124, 120, 0.7); /* rgba format so it doesn't make the text transparent, only the background */
 	--yellow_color: #f1ee2d;
     --error_msg_color: #be1e1e;
 
 	--light_text_color: #f3f3f6;
-	/* TODO: rename */
 	--border_color: #868686;
 	--border_color_transp: #8686863b;
 
@@ -17,11 +15,9 @@
 
 	--default_text_font: "Trebuchet MS", Helvetica, sans-serif;
     
-	/* TODO: passar para javascript para n ser hardcoded */
 	--footer_height: 4em;
 	--footer_padding: 1em;
 	--footer_border: 20px;
-	/* TODO: ver como se passa par js */
 	--nav_padding: 0.4em;
 	--nav_height: 3.5em;
 

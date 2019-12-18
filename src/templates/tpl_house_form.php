@@ -40,7 +40,6 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
 ?>
     <div id="my_house_edit_container">
 
-        <!-- TODO: O MANEL MANDOU POR UM TODO PARA VER OS BUTOES -->
         <section id="place_edit_form">
             <form>
                 <?php if ($place != null) { ?>
@@ -66,13 +65,13 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
                         <!--then we render the local Images-->
                         <div id="house_form_img_local">
                             <?php
-                                                                                    for ($i = 0; $i < $imagearray_lenght; $i++) {
-                                                                                        //Clean up the string with the path
-                                                                                        unset($str_aux);
+						for ($i = 0; $i < $imagearray_lenght; $i++) {
+							//Clean up the string with the path
+							unset($str_aux);
 
-                                                                                        //LOAD THE MEDIUM SIZE IMAGE
-                                                                                        if ($i === 0) {
-                                                                                            $str_aux = $imagePreview_medium . $imagearray[0]['image'];
+							//LOAD THE MEDIUM SIZE IMAGE
+							if ($i === 0) {
+								$str_aux = $imagePreview_medium . $imagearray[0]['image'];
                             ?>
                                     <div class="img_edit_local_container">
                                         <i class="fas fa-times delete_image_local" data-hash="<?= $imagearray[$i]['image'] ?>"></i>
@@ -80,23 +79,18 @@ function draw_form($place = null, $edit_menu = false, $all_locations)
                                     </div>
 
                                 <?php
-                                                                                            } else {
-                                                                                                $str_aux = $imagePreview_small . $imagearray[$i]['image'];
+							} else {
+								$str_aux = $imagePreview_small . $imagearray[$i]['image'];
                                 ?>
                                     <div class="img_edit_local_container">
                                         <i class="fas fa-times delete_image_local" data-hash="<?= $imagearray[$i]['image'] ?>"></i>
                                         <img class="edit_place_img_small" src="<?= $str_aux ?>">
                                     </div>
                             <?php }
-                                                                                        }
+                            }
                             ?>
                         </div>
 
-                        <!-- <label class="button" id="add_images" for="imageFile_add_place">Select foto</label>
-                    <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile[]" multiple data-hasFile=<?= $hasFile ?>> -->
-                        <!-- TODO: ver depois name deste input -->
-                        <!-- <label class="button" for="imageFile_add_place2">Select + foto</label>
-                    <input class="button" type="file" id="imageFile_add_place2" accept="image/*" name="imagePlaceFile[]" multiple data-hasFile=<?= $hasFile ?>> -->
                         <label class="button" id="add_images">Select foto</label>
                     </section>
                     <section id="img-delete_place_add" class="row">

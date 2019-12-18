@@ -83,7 +83,6 @@
     appearance: none;
 }
 .lightpick__month-title > .lightpick__select:disabled {
-	/* TODO: ver */
     color: #333;
 }
 

@@ -27,7 +27,6 @@ let availabilityCal = new Lightpick({
 	fixed			: true,
 	hoveringTooltip	: false,
 	disabledDatesInRange: false,
-	onSelectEnd		: null // TODO
 
 });
 
@@ -170,7 +169,6 @@ function updateAvailabilityDisable(availPlaceID){
 
 // ----------------
 
-// TODO: generalizar
 window.addEventListener('click', function(event){
 	if (event.target == availPopup)
 		availPopup.style.display = "none";

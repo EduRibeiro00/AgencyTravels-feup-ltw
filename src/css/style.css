@@ -261,7 +261,6 @@ nav ul.row{
 
 
 
-/* TODO: se calhar forçar a profile pic a ser quadrada */ 
 
 /**
  * ------------ Initial page ------------
@@ -357,9 +356,6 @@ main a {
 
 ol li {
 	padding: 1em;
-	/* TODO: flex tira os numeros antes que seriam da list-style-type. não sei até que ponto faz sentido tirá-los para voltar a pô-los hardcoded */
-	/* Por agora pus a solução do li-count. n é a minha preferida mas serve para já */
-	/* display: flex; */
 	counter-increment: li-count;
 }
 
@@ -556,7 +552,6 @@ i.fa-envelope {
     flex-direction: column;
 }
 
-/* TODO: ver depois isto direito */
 #img-upload > .button,
 #profile-form label, #profile-form #form-gender {
     font-size: 1.2em;
@@ -611,7 +606,6 @@ section#house_results {
     display: none;
 }
 
-/* TODO: ver melhor como posicionar o mapa */
 section#map {
     margin: 1em;
     position: fixed;
@@ -695,7 +689,6 @@ section#map img {
 	color: var(--border_color);
 }
 
-/* TODO: por na mesma coluna check in check out que os de baixo */
 #filters #dates_field{
 	display: block;
 	grid-area: dates;
@@ -814,7 +807,6 @@ footer a {
 	background-color: var(--darker_bg_color);
 	color: var(--main_color);
 	position: relative;
-	/* TODO: fazer sem % */
 	margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
 	border: 1px solid var(--border_color);
 	padding: 1em;
@@ -835,7 +827,6 @@ footer a {
 }
 
 #cf-confirmation{
-	/* TODO: fazer sem % */
 	margin: 20% auto; /* 5% from the top, 15% from the bottom and centered */
 }
 #cf-confirmation .row{
@@ -899,9 +890,7 @@ footer a {
  *--------- Place Info ---------
  */
 
-/* TODO: por inputs bonitos */
 #place_page{
-	/* TODO: ver */
 	color: black;
     display: grid;
     grid-template-columns: auto min-content;

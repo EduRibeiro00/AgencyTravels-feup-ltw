@@ -71,7 +71,6 @@ function draw_profile_form($all_locations, $title, $user_info = null) {
                         <img id="img-to-upload" class="circular-img" src="<?=htmlspecialchars($imagePreview)?>">
                     </label>
 				</div>
-				<!-- TODO ver este label -->
                 <label class="button" for="imageFile">Select foto</label>
                 <input type="file" id="imageFile" accept="image/*" name="imageFile" data-hasFile=<?=htmlspecialchars($hasFile)?>>
                 <button class="button" type="button" id="remove-button">Remove</button>

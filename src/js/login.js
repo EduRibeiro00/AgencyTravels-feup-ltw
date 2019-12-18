@@ -9,7 +9,6 @@ function encodeForAjax(data) {
 // -------------
 
 //// Login
-// TODO: depois mudar para class e ver como fechar qd carregar fora. alem do close up procurar pai com esta classe
 let popup = document.getElementById('login-popup');
 let login = document.getElementById('loginlink');
 let loginForm = document.getElementById('login-form');

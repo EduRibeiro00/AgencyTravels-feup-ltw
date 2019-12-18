@@ -27,7 +27,6 @@ foreach ($array_places as $place) {
 }
 
 if ($counter_matchs == -1) {
-    // TODO: AFTER LOGIN IMPLEMENTED CONTINUE
     die(header("Location: ../pages/index.php"));
 }
 

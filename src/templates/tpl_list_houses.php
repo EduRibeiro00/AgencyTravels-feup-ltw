@@ -33,7 +33,6 @@ function getPlaces(){
 		return false;
 	}
 
-	// TODO: mudar para ou e se tiver apenas 1 -> somar um dia / subtrair um dia à outra
 	$foundDates = ($checkin != null && $checkout != null);
 
 	$adults = isset($_GET['nAdults']) ? $_GET['nAdults'] : 1;			// check

@@ -108,7 +108,6 @@ function getRandomPlacesFromCity($locationID, $number) {
     return $all_places;
 }
 
-// TODO: add checkin and checkout ver imagens tbm
 function getFilteredPlacesLoc($nPeople, $rating, $nRooms, $nBathrooms, $city, $country) {
 	$db = Database::instance()->db();
 
@@ -138,7 +137,6 @@ function getFilteredPlacesLoc($nPeople, $rating, $nRooms, $nBathrooms, $city, $c
     return $all_places;
 }
 
-// TODO: ver se assim ou mesmo com ifs lá dentro da outra
 function getFilteredPlaces($nPeople, $rating, $nRooms, $nBathrooms, $location) {
 	$db = Database::instance()->db();
 	$sqlLocation = "%" . $location ."%";
@@ -226,7 +224,6 @@ function getCompatibleAvailability($placeID, $checkin, $checkout){
 
 function getOverlapReservations($placeID, $checkin, $checkout) {
 	$db = Database::instance()->db();
-	// TODO: atenção aos sinais
 	$stmt = $db->prepare('SELECT 1
 						  FROM Reservation Natural Join Place
 						  WHERE placeID = ? and date(?) < date(endDate) AND date(?) > date(startDate)');
@@ -236,7 +233,6 @@ function getOverlapReservations($placeID, $checkin, $checkout) {
 
 function getOverlapAvailability($placeID, $startDate, $endDate) {
 	$db = Database::instance()->db();
-	// TODO: atenção aos sinais
 	$stmt = $db->prepare('SELECT 1
 						  FROM Reservation Natural Join Place
 						  WHERE placeID = ? and date(?) < date(endDate) AND date(?) > date(startDate)');

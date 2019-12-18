@@ -70,7 +70,6 @@ function draw_availability(){ ?>
 
 function draw_my_place_sidebar($housePrice,$house_rating, $houseOwner, $placeID, $numVotes) { ?>
     <aside>
-		<!-- TODO: ver se article or div -->
 		<article id="fr_card">
 			<section>
 				<p><strong id="fr-price"><?=$housePrice?>€</strong> per night</p>

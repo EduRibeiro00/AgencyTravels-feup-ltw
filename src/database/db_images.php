@@ -69,7 +69,6 @@ function getRandomImagesFromCity($locationID, $number) {
 }
 
 function insertImageForPlace($placeID, $image) {  
-    //TODO: TRY CATCH ?
     $db = Database::instance()->db();
     $stmt = $db->prepare(
         'INSERT INTO Image (placeID, image)

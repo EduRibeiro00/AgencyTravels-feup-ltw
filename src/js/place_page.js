@@ -73,7 +73,6 @@ function getPriceAsync() {
 		switch(message) {        
 			case 'Invalid submission':
 			case -3:
-				// TODO: por algo mais bonito
 				priceEl.innerHTML = "Submission missing parameters"
 				break;
 			case -2:

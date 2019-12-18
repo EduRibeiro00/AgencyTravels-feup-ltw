@@ -58,7 +58,6 @@ function check_File_Integrity($imageName, &$array_fileNames,&$Duplicates)
     return false;
 }
 
-//TODO: FUNCTION TO TEST THE INPUTS
 
 
 

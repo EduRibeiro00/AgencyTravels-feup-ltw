@@ -152,7 +152,6 @@ function uploadPlaceImage($placeID, $image) {
 
 
 function deletePlaceSelectedPhotos($placeID, $images){
-  //TODO: Delete from the local FILES
   for($i=0;$i<count($images);$i++){
     
     if(removeImageFromPlace($placeID,$images[$i])==true){

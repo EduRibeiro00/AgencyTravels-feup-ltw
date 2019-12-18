@@ -81,7 +81,6 @@ if(!(isset($_SESSION['userID']) && validatePosIntValue($_SESSION['userID']) && g
     if (!checkIfImageIsValid($image)) {
         $message = 'invalid image';
     } else {
-        //TODO:IMPLEMENT PASSWORD HASHING METHOD
         if (!password_verify($password, checkPasswordThroughID($id)['password'])) {
             $message = 'password not valid';
         } else {

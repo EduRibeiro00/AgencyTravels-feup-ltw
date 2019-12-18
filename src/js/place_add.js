@@ -52,7 +52,6 @@ function generateImgDivContainer(imgSrc) {
 	return div_container;
 }
 
-// TODO: ver nome
 function addImagesToPlace(event) {
 	//UPDATE THE FIRST LOCAL PHOTO TO SMALL
 	let localImages = document.getElementById('house_form_img_local img');
@@ -132,8 +131,6 @@ function updateIdentifierLocal(array) {
 labelInput.addEventListener('click', newAddImgInput)
 
 function newAddImgInput() {
-	// TODO falta data-hasFile=<?= $hasFile ?>
-	// <input class="button" type="file" id="imageFile_add_place" accept="image/*" name="imagePlaceFile[]" multiple >
 	labelInput.htmlFor = "imageFile_add_place" + (imagesInput.length + 1)
 	let input = document.createElement('input');
 	input.id = labelInput.htmlFor
